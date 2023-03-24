@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+.navigation {
+    display: flex;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    gap: 5px;
+    font-family: 'Oswald', sans-serif;
+}
+
+div.navigation div:not(.About) {
+    background-color: rgb(19, 17, 17);
+}
+
+div.navigation div:hover:not(.About) {
+    background-color: rgb(80, 80, 80);
+}
+
+.About {
+    margin-left: auto;
+    background-color: rgb(99, 174, 150);
+}
+
+.About:hover {
+    background-color: rgb(53, 164, 129);
+}
+  
+footer {
+    flex-shrink: 0;
+    min-height: 200px;
+    background-color: rgb(66, 62, 62);
+    text-align: center;
+    color: black
+}
+
+p {
+    color: rgb(206, 203, 203);
+}
+
+.author {
+    float: left;
+}
+
+.human {
+    float: right;
+}
+
+.flex-container {
+    display: flex;
+    height: 100vh;
+    border: solid 10px black;
+    justify-content: center;
+}
+
+
+
+

@@ -1,0 +1,1031 @@
+<!-- БАЗОВАЯ СТРУКТУРА HTML ДОКУМЕНТА. https://www.youtube.com/watch?v=01QJmn0vDxs&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=2 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Используем последнюю версию браузера  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Чтобы на мобильных устройствах, сайт нормально отоброжался  -->
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">  <!-- Иконка  -->
+    <!-- SEO - для продвижения сайта -->
+	<meta name="description" content="Тестовая страница">
+	<meta name="keywords" content="html, webdev, Yauhen">
+	<meta name="author" content="Некрасов Евгений">
+    <!-- Чтобы подключить CSS стили -->
+	<link rel="stylesheet" href="styles.css">
+    <!-- Чтобы подключить стили из Google -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>АБОБА</title>
+</head>
+<body>
+  
+
+<!-- ТЕКСТ. https://www.youtube.com/watch?v=xWxGrrcWbrk&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=5 -->
+
+
+<h1>Hello world!</h1>
+<!--[if IE] Если сайт открыли в IE, то этот текст тега виден> 
+  <p>This text you can see only in Internet Explorer</p>
+<![endif]-->
+
+<!--[if lt IE 10 Если сайт открыли в версии IE меньше, чем 10, то текст виден]>
+  <p>You will see this text only in IE9 and more later version</p>
+<![endif]-->
+
+<!-- Скрипты нужно указывать в конце скрипта, чтобы браузер парсил их в самом конце. -->
+<!-- Можно указать путь до скрипта. -->
+<script src="main.js"></script>
+
+<!-- Либо писать скрипт прямо в скрипте HTML. НО ЛУЧШЕ ТАК НЕ ДЕЛАТЬ. -->
+<script>
+  console.log('Hello world!');
+</script>
+
+ <!-- Заголовки. Чем больше цифра у h, тем меньше приоритета у страницы при поиске. -->
+  <h1>Different Headings</h1>
+  <h2>Different Headings</h2>
+  <h3>Different Headings</h3>
+  <h4>Different Headings</h4>
+  <h5>Different Headings</h5>
+  <h6>Different Headings</h6>
+  <hr>
+
+  <!-- Параграф, для написания текстов. <hr> добавляет линию, чтобы разделить тексты. -->
+  <p>Simple paragraph with text.</p>
+  <hr>
+
+  <!-- <address> логически привязать текст к автору. -->
+  <p>Here is my HTML basics course, which was created on 2019.</p>
+  <address>Yauhen Kavalchuk, YouTube lecturer</address>
+  <hr>
+
+  <!-- Цитата оборачивается в тег <q>. Записываем цитату и определяем её авторство в тегах <address>. -->
+  <q>Hello, welcome to "webDev" channel</q>
+  <address>Yauhen Kavalchuk, YouTube lecturer</address>
+  <hr>
+
+  <!-- <blockquote> используется когда цитата очень большая. Можно использовать атрибут site, чтобы обозначить с какого сайта взята цитата. -->
+  <blockquote cite="http://htmlbook.ru/html/blockquote">
+    <p>   <!-- Используем тег <p> для сохранения семантики. Он хранит текст, а <blockquote> указывает, что это цитата. -->
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
+      It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+    </p>
+  </blockquote>
+  <hr>
+
+  <!-- Информация о времени и датах. -->
+  <time>1989-01-26</time>
+  <!-- <br> добавляет пустое пространство между текстами. -->
+  <br>
+  <!-- Можно указать дату в атрибуте datetime, но будет виден только текст в тегах time. -->
+  <time datetime="1989-01-26">My Birthday</time>
+  <hr>
+
+  <!-- Жирный текст -->
+  <b>Bold text</b><br>
+  <!-- Курсивный текст -->
+  <i>Italic text</i><br>
+  <!-- Машино-писный текст -->
+  <tt>Typing text</tt><br>
+  <!-- Перечёркнутый текст -->
+  <s>Deleted text</s>
+  <hr>
+  <!-- Жирный и курсивный текст, которые имеют симантическую окраску (увеличвают приоритет страницы в поиске). -->
+  <strong>Bold accent text</strong><br>
+  <em>Italic accent text</em><br>
+
+  <hr>
+
+  <!-- <code> отображает куски программного кода, но его форматирование (табы) не сохраняется. Имеет симантическое значение. -->
+  <code>
+    const args = {
+      name: "Yauhen",
+      age: 30
+    };
+    const getDate = () => new Date;
+  </code>
+  <hr>
+
+  <!-- <pre> обозначает, что этот блок текста является кодом и сохраняет его форматирование. Имеет симантическое значение. -->
+  <pre>
+    <code>
+      const args = {
+        name: "Yauhen",
+        age: 30
+      };
+      const getDate = () => new Date;
+    </code>
+  </pre>
+  <hr>
+
+  <h2>To know HTML <small>semantic</small> is important</h2>
+  <hr>
+
+  <!-- Маленький текст. Можно выделять менее важный текст в предложении. Имеет симантическое значение. -->
+  <small>Small</small>
+  <!-- Большой текст. Можно выделять более важный текст в предложении. Имеет симантическое значение. -->
+  <big>Big</big>
+  <h2>To know HTML <big>semantic</big> is important</h2>
+  <hr>
+
+  <!-- Зачеркнутый текст (неактуальный или устаревший). Имеет симантическое значение. -->
+  <del>Deleted</del>
+  <h2>To know HTML <del>semantic</del> is important</h2>
+  <hr>
+
+  <!-- Подчеркивающийся текст (например важный). Имеет симантическое значение. -->
+  <ins>Inserted</ins>
+  <h2>To know HTML <ins>semantic</ins> is important</h2>
+  <hr>
+
+  <!-- Обозначение верхнего индекса (например, в формулах) -->
+  <sub>Subscripted</sub>
+  <h2>To know HTML <sub>semantic</sub> is important</h2>
+  <h2>H<sub>2</sub>O</h2>
+  <hr>
+
+  <!-- Обозначение нижнего индекса (например, в формулах) -->
+  <sup>Superscripted</sup>
+  <h2>To know HTML <sup>semantic</sup> is important</h2>
+  <h2>X<sup>2</sup> = 9</h2>
+  
+  
+  <!-- СПИСКИ. https://www.youtube.com/watch?v=xXCOXsBzm48&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=6 -->
+
+  <!-- Чтобы быстро создать список можно использовать следующую конструкцию. -->
+  <!-- ul>li*6>a{item$} -->
+  <!-- где ul - сам тег списка, разделение тегов происходит с помощью символа >. 
+  Потом создаём тег li и говорим, чтобы их было 6 и в них была ссылка тега a с текстом item.
+  $ в конце означает, что item в конце будет идти с порядковым номером. -->
+  <ul>
+    <li><a href="">item1</a></li>
+    <li><a href="">item2</a></li>
+    <li><a href="">item3</a></li>
+    <li><a href="">item4</a></li>
+    <li><a href="">item5</a></li>
+    <li><a href="">item6</a></li>
+  </ul>
+
+  <!-- Маркерованный список (с помощью точек определяются элементы списка) создается с помощью обёртки <ul>. Используется, если просто нужно перечислить элементы. -->
+  <ul>
+    <!-- Каждый элемент списка оборачивается в тег <li> -->
+    <li>Front-end Developer</li>
+    <li>Bask-end Developer</li>
+    <li>Full-stack Developer</li>
+  </ul>
+  <hr>
+
+  <!-- Нумерованный список (с помощью чисел определяются элементы списка) создается с помощью обёртки <ol>. 
+    Атрибут start задаёт число, с которого будет начинаться список. Используется, если порядок элементов имеет значение. -->
+  <ol start="10">
+    <!-- Каждый элемент списка оборачивается в тег <li> -->
+    <li>Front-end Developer</li>
+    <li>Back-end Developer</li>
+    <li>Full-stack Developer</li>
+  </ol>
+  <hr>
+
+  <!-- Нумерованный список, идущий в обратном порядке -->
+  <ol reversed>
+    <li>Front-end Developer</li>
+    <li>Back-end Developer</li>
+    <li>Full-stack Developer</li>
+  </ol>
+  <hr>
+
+  <!-- Вложенный маркерованный список. Вписываем в тег <li> тег <ul> и пишем в нём вложенный список. -->
+  <ul>
+    <li>
+      Front-end Developer
+      <ul>
+        <li>Mobile</li>    <!-- Во вложенном маркерованном списке маркеры становятся незакрашенными -->
+        <li>UI</li>
+        <li>Node.js</li>
+      </ul>
+    </li>
+    <li>Back-end Developer</li>
+    <li>Full-stack Developer</li>
+  </ul>
+  <hr>
+
+  <!-- Вложенный нумерованный список. -->
+  <ol>
+    <li>
+      Front-end Developer
+      <ol>
+        <li>Mobile</li>   <!-- Во вложенном нумерованном списке нумерация начинается заново (с 1) -->
+        <li>UI</li>
+        <li>Node.js</li>
+      </ol>
+    </li>
+    <li>Back-end Developer</li>
+    <li>Full-stack Developer</li>
+  </ol>
+  <hr>
+
+  <!-- В маркерованный список вкладываем нумерованный список... -->
+  <ul>
+    <li>
+      Front-end Developer
+      <ol>
+        <li>Mobile</li>
+        <li>UI</li>
+        <li>Node.js</li>
+      </ol>
+    </li>
+    <li>Back-end Developer</li>  <!-- ...и дальше можно продолжить писать маркерованный список. -->
+    <li>Full-stack Developer</li>
+  </ul>
+  <hr>
+
+  <!-- Список определений -->
+  <dl>   <!-- Весь список оборачивается в тег <dl> (Список определений) -->
+    <dt>Front-end Developer</dt>  <!-- <dt> содержит термин (оглавление), которому надо дать определение. Всегда указывается первым. -->
+    <!-- <dd> содержит определение термина (поясняющий текст) -->
+    <dd>It is a person who works with the visible part of website.</dd>
+
+    <dt>Back-end Developer</dt>
+    <dd>It is a person who works with the hidden part of a website, including databases and environments.</dd>
+  </dl>
+   
+
+  <!-- КАРТИНКИ. https://www.youtube.com/watch?v=nZ8XPmXn2Jk&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=7 -->
+
+
+  <!-- Тег <img> отображает на сайте картинку, которую передали в атрибут src. НЕ ИМЕЕТ СИМАНТИЧЕСКОЙ ОКРАСКИ. 
+    В атрибут alt нужно передавать текст, который будет отображаться, если картинка не прогрузиться.
+    В атрибут width передаём соотношение пикселей (создаём широту картинки)
+    В атрибут height передаём соотношение пикселей (создаём высоту картинки)
+    Но для Responsive дизайн (отображение на разных устройствах) лучше не использовать атрибуты width и height -->
+  <img src = "logo.png" alt="Мое лого" width="50x50" height="50x50">
+  <hr>
+  <!-- Картинка, которая будет отображаться нормально на разных устроствах -->
+  <picture>
+    <!-- В тегах source указываем в media, то на какое устройство (со сколькими пикселями) рассчитывается изображение, а в srcset даём уже само изображение -->
+    <source media="(min-width: 1024px)" srcset="https://picsum.photos/600/600">
+    <source media="(min-width: 768px)" srcset="https://picsum.photos/300/300">
+    <source media="(min-width: 360px)" srcset="https://picsum.photos/100/100">
+      <!-- В атрибуте src указываем путь к картинке, если экран меньше минимального (меньше 360px), и если это так, то показывается картинка, указанная в атрибуте src -->
+    <img src="logo.png", alt="Рандомная картинка">
+  </picture>
+  <hr>
+  <!-- Картинка, которая имеет симантическую окраску -->
+  <figure>
+    <!-- Можно добавить несколько картинок, но они будут иметь одинаковое описание. -->
+    <img src = "logo.png" alt="Мое лого">
+    <img src = "https://picsum.photos/600/600" alt="Мое лого">
+    <!-- В тег <figcaption> вписываем описание картинки, это придаёт симантическую окраску -->
+    <figcaption>
+      Описание картинки.
+      <!-- Можно вписать тег <p>, если описание слишком длинное. -->
+      <p>Длинное описание картинки.</p>
+    </figcaption>
+  </figure>
+  
+
+  <!-- ТАБЛИЦЫ. https://www.youtube.com/watch?v=Fm0gSGQFmec&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=8 -->
+
+
+  <!-- Обычная таблица на HTML5. 
+  <table> является контейнером для других элементов. 
+  <tr> представляет одну колонку в таблице.
+  <td> хранит табличные данные. -->
+  <table>
+    <tr>
+      <td>Front-end</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Четыре элемента в одной колонке (т.к один <tr>) -->
+  <table>
+    <tr>
+      <td>Front-end</td>
+      <td>Back-end</td>
+      <td>Full-stack</td>
+      <td>QA</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- 4 колонки (4 <tr>) с 4 разными ячейками  -->
+  <table>
+    <tr>
+      <td>Front-end</td>
+    </tr>
+    <tr>
+      <td>Back-end</td>
+    </tr>
+    <tr>
+      <td>Full-stack</td>
+    </tr>
+    <tr>
+      <td>QA</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Таблица с 2 колонками и 4 ячейками -->
+  <table>
+    <tr>
+      <td>Front-end</td>
+      <td>1 Person</td>
+    </tr>
+    <tr>
+      <td>Back-end</td>
+      <td>7 Persons</td>
+    </tr>
+    <tr>
+      <td>Full-stack</td>
+      <td>2 Persons</td>
+    </tr>
+    <tr>
+      <td>QA</td>
+      <td>5 Persons</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Таблица с заголовком -->
+  <table>
+    <!-- В тег <caption> вписывается текст, который будет находиться в заголовке. Указывается перед основной структурой таблицы. -->
+    <caption>Team members list</caption>
+    <tr>
+      <td>Front-end</td>
+      <td>1 Person</td>
+    </tr>
+    <tr>
+      <td>Back-end</td>
+      <td>7 Persons</td>
+    </tr>
+    <tr>
+      <td>Full-stack</td>
+      <td>2 Persons</td>
+    </tr>
+    <tr>
+      <td>QA</td>
+      <td>5 Persons</td>
+    </tr>
+  </table>
+  <hr>
+
+  <!-- Таблица с семантическими разделами. Скрин-ридер прочитает эту таблицу, как надо. -->
+  <table>
+
+    <caption>Team members list</caption>
+
+    <!-- <thead> создаёт ячейку заголовка или шапка таблицы. Используется один раз внутри одной таблицы. -->
+    <thead>
+      <tr>
+        <td>Speciality</td>
+        <td>Quantity</td>
+      </tr>
+    </thead>
+
+    <!-- <tbody> создаёт основную часть таблицы, где указываются все данные. -->
+    <tbody>
+      <tr>
+        <td>Front-end</td>
+        <td>1 Person</td>
+      </tr>
+      <tr>
+        <td>Back-end</td>
+        <td>7 Persons</td>
+      </tr>
+      <tr>
+        <td>Full-stack</td>
+        <td>2 Persons</td>
+      </tr>
+      <tr>
+        <td>QA</td>
+        <td>5 Persons</td>
+      </tr>
+    </tbody>
+
+    <!-- <tfoot> создаёт низ таблицы/футер, где указываются итоги, результаты и тд. Используется один раз внутри одной таблицы. -->
+    <tfoot>
+      <tr>
+        <!-- Пустой тег <td> создан, чтобы таблица не поплыла, т.к у нас в каждой колонке по 2 ячейки, значит и в футере должно быть 2 ячейки. -->
+        <td></td>
+        <td>15</td>
+      </tr>
+    </tfoot>
+
+  </table>
+  <hr>
+
+  <table>
+
+    <caption>Team members list</caption>
+
+    <thead>
+      <tr>
+        <!-- Тег <th> выделяет жирным шрифтом заголовок. Акцент на важность заголовка сделан с точки зрения семантики. -->
+        <th>Speciality</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Front-end</td>
+        <td>1 Person</td>
+      </tr>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <!-- Атрибут colspan объединяет ячейки по горизонтали, а атрибут rowspan по вертикали. 
+        Число, которое им даётся определяет число ячеек, которые должны быть объединены. -->
+        <td colspan="2">15</td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <!-- ССЫЛКИ И КНОПКИ. https://www.youtube.com/watch?v=FA0jjOjTChA&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=9 -->
+
+
+  <!-- в атрибуте href указываем адрес страницы, а в тегах <a> текст ссылки. -->
+  <a href="https://youtube.com">Youtube</a>
+  <hr>
+
+  <!-- Чтобы по нажатию ссылки скачивался файл нужно указать атрибут download, а в атрибуте href указать путь к файлу. -->
+  <a href="logo.png" download>Download</a>
+  <hr>
+
+  <!-- Указываем атрибут target со значением _blank, чтобы ссылка открывалась в новой вкладке.
+  Если указать там путь к файлу, то откроется новая страница с которой и скачается файл. -->
+  <a href="https://youtube.com" target="_blank">Youtube</a>
+  <hr>
+
+  <!-- Указывая в строке атрибута href фразу tel, пользователю по нажатию ссылки предложат позвонить по данному номеру. -->
+  <a href="tel:+123-32-23">+123-32-23</a><br>
+  <!-- Указывая в строке атрибута href фразу mailto, пользователю по нажатию ссылки предложат написать на данную почту. -->
+  <a href="mailto:test@test.com">My e-mail</a><br>
+  <!-- Указывая в строке атрибута href фразу skype, пользователю по нажатию ссылки предложат позвонить по скайпу по этому номеру. -->
+  <a href="skype:test">Skype Call</a><br>
+  <hr>
+
+  <!-- Ссылка якорь. При нажатии на неё осуществляется скролл до определённой секции на странице. id этой секции указывается в атрибуте href. id всегда записывать с #  -->
+  <a href="#bottom">Go to Bottom</a>
+  <!-- id секции указывается с помощью атрибута id. -->
+  <p id="bottom">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+
+  <!-- Чтобы определить кнопку, логика которой написана на JS, в атрибуте type указываем button. -->
+  <button type="button">Button</button>
+  <!-- В атрибуте type указывается submit или reset, если кнопка идёт в составе вместе с Form. -->
+  <!-- Например, submit может отправить форму, а reset очистить введённые данные. -->
+  <button type="submit">Button</button>
+  <button type="reset">Button</button>
+  <hr>
+
+  <!-- Если указать атрибут autofocus, то при загрузке страницы фокус будет стоять на этой кнопке, т.е при нажатии пробела сразу сработает эта кнопка. -->
+  <button type="button" autofocus>Button</button>
+  <hr>
+
+  <!-- Если указать атрибут disabled, то на кнопку нельзя будет нажать. -->
+  <button type="button" disabled>Button</button>
+  <hr>
+
+
+  <!-- ПОЛЕЗНЫЕ ТЕГИ. https://www.youtube.com/watch?v=I8VAlRiGpq4&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=10 -->
+
+
+  <!-- Тег <abbr> создаёт аббревиатуру. 
+  В атрибуте title записывается как расшифровывается аббревиатура, а в тегах <abbr> текст, который будет написан на сайте. 
+  При наведении на этот текст появляется текст атрибута title  -->
+  <abbr title="HyperText Markup Language">HTML</abbr> was created in 1993.
+  <hr>
+
+  <!-- Список вариантов -->
+  <!-- Тег <input> создаёт поле для ввода данных. -->
+  <input list="list">
+  <!-- Данный список оборачивается в тег <datalist>. В атрибуте id указываем тоже значение, что и в теге <input> в атрибуте list -->
+  <datalist id="list">
+    <!-- С помощью тега <option> указываем варианты выбора для пользователя. -->
+    <option value="Front-end">
+    <option value="Back-end">
+    <option value="Full-stack">
+  </datalist>
+  <hr>
+
+  <!-- Meter, т.е прогресс бар (полоса прогресса). Чтобы её создать используется тег <meter>. Применяется для визуализации значений в известном диапозоне. -->
+  <!-- В атрибут value записывается уровень заполненности полосы прогресса. -->
+  <meter value="0" max="100" low="10" high="60">Course Progress</meter>
+  <!-- В атрибут max записывается максимальная длина полосы прогресса. -->
+  <meter value="20" max="100" low="40" high="60">Course Progress</meter>
+  <!-- Атрибут low определяет значение, при котором значение (value) считается низким (это влияет на цвет индикитора полосы прогресса). -->
+  <!-- Атрибут high определяет значение, при котором значение (value) считается высоким (это влияет на цвет индикитора полосы прогресса). -->
+  <meter value="80" max="100" low="10" high="60">Course Progress</meter>
+  <!-- В атрибут min записывается минимальная длина полосы прогресса. -->
+  <!-- Если value выше значения атрибута optimum, то полоса индикатора будет зелёной. -->
+  <meter value="90" max="100" min="0" high = "80" low = "20" optimum="10">Course Progress</meter>
+  <hr>
+
+  <!-- Прогресс бар. В атрибут value записывается уровень заполненности полосы прогресса. Предназначен для отображения прогресса в выполняемой операции. -->
+  <!-- В атрибут max записывается максимальная длина полосы прогресса. -->
+  <progress value="30" max="100"></progress>
+  <hr>
+
+  <!-- Данный контейнер показывает своё содержимое только если браузер пользователя не поддерживает работу со скриптами JS. -->
+  <noscript>Please switch on scripts in your browser!</noscript>
+
+  <!-- Тег <mark> выделяет текст жёлтым цветом. -->
+  <mark>Marked</mark>
+  <h2>To know HTML <mark>semantic</mark> is important</h2>
+  <hr>
+
+  <!-- Тег <canvas> создаёт область, в которой можно рисовать при помощи JS. 
+  В атрибуте id указываем идентифактор нашего холста. И с помощью атрибутов width и height задём ему ширину и высоту  -->
+  <canvas id="example" width="200" height="200"></canvas>
+  <!-- В теге <script> пишем процесс рисования круга с помощью JS. -->
+  <script>
+    const drawingCanvas = document.getElementById('example');
+    if(drawingCanvas && drawingCanvas.getContext) {
+      const context = drawingCanvas.getContext('2d');
+      context.fillStyle = "#000";
+      context.beginPath();
+      context.arc(100,100,100,0,Math.PI*2,true);
+      context.closePath();
+      context.stroke();
+      context.fill();
+    }
+  </script>
+
+
+  <!-- ГЛОБАЛЬНАЯ СТРУКТУРА САЙТА. https://www.youtube.com/watch?v=ylCstIgYd54&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=11 -->
+
+
+  <!-- Header - это то, что отображается первым при загрузке страницы (находиться в самом верху) -->
+  <header>
+    HEADER
+      <!-- Тег <nav> задаёт навигацию по сайту. Если на странице есть несколько блоков ссылок, то в <nav> помещают приоритетные ссылки. 
+        Можно использовать несколько <nav> в одном документе. -->
+      <nav>NAVIGATION</nav>
+  
+    </header>
+  
+    <!-- <main> - это тег, предназначенный для основого содержимого контента. Не должен включать в себя теги: <header>, <footer>, <nav>, <aside> -->
+    <main>
+    MAIN
+      <!-- <section> задаёт раздел документа, который может применяться для глав текста, различных описаний, блока новостей, контактной информации и тд. -->
+      <section>
+      SECTION
+        <!-- <article> задаёт содержание сайта в роде новости, статьи, блога и тд. Семантически выделенный блок информации или независимый блок с куском информации. -->
+        <article>ARTICLE 1</article>
+        <article>ARTICLE 2</article>
+        <article>ARTICLE 3</article>
+  
+      </section>
+  
+      <section>
+        SECTION
+        <article>ARTICLE 4</article>
+      </section>
+  
+    </main>
+  
+    <!-- <aside> определяет блок сбоку от основного контента. Для ссылок, банеров и тд. -->
+    <aside>ASIDE</aside>
+  
+    <!-- <footer> задаёт подвал сайта. Для контактной информации, имени автора, Copyright и тд. -->
+    <footer>FOOTER</footer>
+
+
+  <!-- ФОРМА. https://www.youtube.com/watch?v=N-2-kF1q6j4&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=12 -->
+
+    
+  <!-- Вид записи обычной формы. -->
+  <!-- Весь код написанный внутри тега <form> обрабатываются как одно целое. 
+  Все данные, которые получаются внутри тега <form> могут быть обработаны в одном месте и отправлены одним запросом. -->
+  <!-- В атрибуте action записываем путь к файлу, который отвечает за механизм отправки данных на сервер, при нажатии кнопки Send.
+  Атрибут name нужен для того, чтобы сервер понимал с какой формы были отправлены данные.
+  Атрибут autocomplete нужен для того, чтобы когда пользователь снова заходит на сайт, то ему предлагались данные, которые он уже вводил в форму в прошлый раз.
+  Атрибут novalidate указывается, чтобы данные введённые пользователем не проверялись на корректность. -->
+  <form action="submit.py" name="simple form" autocomplete="on" novalidate>
+
+    <input type="text" />
+
+    <!-- <select> создаёт таблицу из которой можно выбрать определённые данные. -->
+    <select>
+      <option value="Front-end">Front-end</option>
+      <option value="Back-end">Back-end</option>
+    </select><br>
+
+    <!-- <textarea> создаёт область, в которой можно писать текст. С помощью rows и cols можно задать высоту и ширину. -->
+    <textarea rows="10" cols="30" name="text"></textarea><br>
+
+    <input type="submit">
+
+  </form>
+  <hr>
+
+  <form action="submit.py" name="simple form2">
+
+    <!-- <fieldset> нужен для того, чтобы оборачивать кусок кода в рамку. -->
+    <fieldset>
+
+    <!-- <legend> даёт название форме, обёрнутой в <fieldset>. -->
+    <legend>Simple form legend</legend>
+
+    <input type="text" /><br>
+
+    <select>
+      <option value="Front-end">Front-end</option>
+      <option value="Back-end">Back-end</option>
+    </select><br>
+
+    <textarea rows="10" cols="45" name="text"></textarea><br>
+
+    <input type="submit"><br>
+
+    </fieldset>
+
+    <!-- <fieldset> нужен для того, чтобы 2 формы можно было различать. 2 <fieldset> значит 2 рамки с областью для записи. -->
+    <fieldset>
+      <legend>Personal Message</legend>
+      <textarea rows="10" cols="45" name="text"></textarea><br>
+    </fieldset>
+
+  </form>
+  <hr>
+
+  <!-- 1 способ добавления label.
+  В атрибуте for указываем имя лейбла. А внутри тегов <label> указываем текст лейбла. -->
+  <label for="username">Username</label>
+  <!-- <input> нужен для ввода текста пользователем. Атрибут id связывает его с label. -->
+  <input id="username"><br>
+
+  <!-- 2 способ добавления label. 
+  Внутри тегов <label> указываем input для ввода текста. -->
+  <label>
+    Password
+    <input type="password">
+  </label>
+  <hr>
+
+  <!-- Форма, модифицированная с помощью лейблов. -->
+  <form action="submit.py" name="simple form3">
+
+    <fieldset>
+      <legend>Personal data</legend>
+      <!-- Создаём label с именем name.. -->
+      <label for="name">Your name</label>
+      <!-- И связываем label с input с помощью указания id=name. -->
+      <input type="text" id="name" /><br>
+      <!-- Создаём label с именем speciality. -->
+      <label for="speciality">Choose your speciality</label>
+      <!-- И связываем label с select с помощью указания id=speciality. -->
+      <select id="speciality">
+        <option value="Front-end">Front-end</option>
+        <option value="Back-end">Back-end</option>
+      </select><br>
+    </fieldset>
+
+    <fieldset>
+      <legend>Personal Message</legend>
+      <!-- Создаём label с именем message. -->
+      <label for="message">Enter your message</label>
+      <!-- И связываем label с textarea с помощью указания id=message. -->
+      <textarea id="message" rows="10" cols="45" name="text"></textarea><br>
+    </fieldset>
+
+    <input type="submit"><br>
+
+  </form>
+  <hr>
+
+  <!-- Textarea - специальная рамка для большого объёма текста.
+  Атрибут rows определяет строки в textarea, а cols колонки, тем самым регулируя размер textarea. -->
+  <textarea rows="10" cols="45"></textarea><br>
+  <!-- Атрибут name нужен для установки имени для textarea. В будущем, это имя можно будет использовать как идентифактор для других элементов. -->
+  <textarea rows="5" cols="20" name="test"></textarea><br>
+  <!-- Атрибут autofocus нужен, чтобы установить фокус на textarea. -->
+  <textarea rows="5" cols="20" autofocus></textarea><br>
+  <!-- Атрибут disabled нужен, чтобы в textarea нельзя было ничего записать. -->
+  <textarea rows="5" cols="20" disabled></textarea><br>
+  <!-- Атрибут readonly тоже отключает у пользователя возможность записывать данные в textarea, как и disabled, но оставляет возможность читать текст. -->
+  <textarea rows="5" cols="20" readonly>This text you can't change</textarea><br>
+  <!-- Атрибут placeholder создаёт текст в textarea, который пропадает, когда пользователь начинает вводить данные. -->
+  <textarea rows="5" cols="20" placeholder="your message..."></textarea><br>
+  <!-- Атрибут maxlength задаёт ограничение символов, которое можно ввести в textarea. -->
+  <textarea rows="5" cols="20" maxlength="5"></textarea><br>
+
+  <!-- Атрибут required делает так, что если пользователь не заполнил данное textarea, то не получиться отправить форму. -->
+  <form>
+    <textarea rows="5" cols="20" required></textarea><br>
+    <input type="submit" value="Send">
+  </form>
+  <hr>
+
+  <!-- Select - это поле с выпадающим списков.
+  Элементы списка задаются с помощью тега <option> -->
+  <select>
+    <option value="Front-end">Front-end</option>
+    <option value="Back-end">Back-end</option>
+  </select>
+  <hr>
+
+  <select>
+    <!-- Select с несколькими списками элементов. 
+    label задаёт название списка, а option определяет сами элементы списка.
+    disabled выключает у пользователя возможность выбирать элементы из данной outgroup. -->
+    <optgroup label="Speciality" disabled>
+      <option value="Front-end">Front-end</option>
+      <option value="Back-end">Back-end</option>
+    </optgroup>
+
+    <optgroup label="Direction">
+      <option value="Mobile">Mobile development</option>
+      <option value="Node">Node.js development</option>
+    </optgroup>
+  </select>
+  <hr>
+
+  <!-- Select имеет все атрибуты, которые есть у textarea. -->
+  <!-- Атрибут multiple меняет вид select, чтобы было видно все элементы списка. -->
+  <select multiple>
+    <option value="Front-end">Front-end</option>
+    <option value="Back-end">Back-end</option>
+  </select>
+  <hr>
+
+  <!-- Атрибуты option -->
+  <select>
+    <!-- value задаёт значение option. -->
+    <option value="Front-end">Front-end</option>
+    <!-- label задаёт текст option, вместо того, чтобы писать его в тегах <option>. -->
+    <option value="Back-end" label="Back-end">
+    <!-- Selected задаёт выбор дефолтного элемента для списка (на котором изначально будет галочка). -->
+    <option value="sel" selected>Selected</option>
+    <!-- disabled не даёт выбрать данную option. -->
+    <option value="dis" disabled>Disabled</option>
+  </select>
+  <hr>
+
+
+  <!-- ТИПЫ ПОЛЕЙ ВВОДА. https://www.youtube.com/watch?v=JSmINYpl5B4&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=13 и 
+    https://www.youtube.com/watch?v=2EtSbGtlrLo&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=14 -->
+
+  
+  <!-- Чтобы пользователь мог вводить данные используется тег <input>. -->
+  <!-- Значение text атрибута type позволяет вводить в поле ввода текст. -->
+  <input type="text">
+  <hr>
+
+  <!-- Значение number атрибута type позволяет вводить в поле ввода только числа. -->
+  <input type="number">
+  <!-- Атрибуты min и max устанавливают минимальное и максимальное значения, которые можно ввести в данное поле ввода. -->
+  <input type="number" min="1" max="10">
+  <!-- Атрибут step задаёт число, которое будет прибавляться/убавляться к числу пользователя с помощью стрелочек в поле ввода. -->
+  <input type="number" step="5">
+  <hr>
+
+  <!-- Значение password атрибута type заменяет все введённые данные в это поле ввода на точки (ради безопасности). -->
+  <input type="password">
+  <hr>
+
+  <!-- Значение range атрибута type заменяет обычное поле ввода на линию с ползунком, с помощью которого можно выбрать значение. 
+    С помощью JS можно сделать так, чтобы при движении ползунка отображались значения. -->
+  <input type="range">
+  <hr>
+
+  <!-- Значение date атрибута type делает так, что в поле ввода можно ввести только дату. Поддерживает атрибуты min и max. -->
+  <input type="date">
+  <hr>
+
+  <!-- Значение color атрибута type заменяет обычное поле ввода на поле выбора цвета. -->
+  <input type="color">
+  <hr>
+
+  <!-- Значение submit атрибута type используется в связке с тегом <form> и отправляет значения на сервер. 
+    Значение reset атрибута type используется в связке с тегом <form> и очищает область, в которой писал пользователь. 
+    С помощью атрибута value определяется текст, который будет на кнопке. -->
+  <form action="submit.py" name="simple form" autocomplete="on" novalidate>
+    <textarea rows="10" cols="30" name="text"></textarea><br>
+    <input type="submit" value="Выслать на сервер"><br>
+    <input type="reset" value="Очистить"><br>
+  </form>
+  <hr>
+
+  <!-- Значение list атрибута list заменяет обычное поле ввода на поле выбора опций, но т.к перед <datalist> есть тег <input>, то можно ввести и своё значение. -->
+  <input type="text" list="list">
+  <datalist id="list">
+    <option value="Front-end">
+    <option value="Back-end">
+    <option value="Full-stack">
+  </datalist>
+  <hr>
+
+  <!-- Значение email атрибута type предназначено введения email пользователем. 
+    Если email написан неправильно, то браузер сообщит об этом. -->
+  <input type="email">
+  <hr>
+
+  <!-- Значение url атрибута type предназначено введения ссылки пользователем. 
+    Если ссылка написана неправильно, то браузер сообщит об этом. -->
+  <input type="url">
+  <hr>
+
+  <!-- Значение image атрибута type заменяет обычное поле ввода на картинку, путь к которой лежит в атрибуте src. -->
+  <input type="image" src="https://picsum.photos/300/300" alt="Just image">
+  <hr>
+    
+  <!-- Некоторые формы input не отображаются в определённых браузерах. 
+    То какие формы input и в каких браузерах не отображаются можно проверить на сайте https://caniuse.com/.  -->
+
+  <!-- Такие формы input, как: range, color, date неодинаково отображаются на разных браузерах/устройствах. 
+    Поэтому многие пишут их с помощью JS и стилилизуют с помощью CSS, вместо того, чтобы создать их с помощью HTML.  -->
+  
+    
+  <!-- Значение tel атрибута type создаёт пользователю определённую клавиатуру с цифрами для введения номера телефона, когда он нажимает на данное поле ввода. -->
+  <input type="tel">
+  <hr>
+
+  <!-- Значение search атрибута type симантически даёт роботам и скриптридерам понять, что сюда пользователь вводит данные для поиска. -->
+  <input type="search">
+  <hr>
+
+  <!-- Значение datetime-local атрибута type нужно для ввода пользователем ТОЛЬКО даты и времени. -->
+  <input type="datetime-local">
+  <hr>
+
+  <!-- Значение month атрибута type нужно для ввода пользователем ТОЛЬКО месяца. -->
+  <input type="month">
+  <hr>
+
+  <!-- Значение time атрибута type нужно для ввода пользователем ТОЛЬКО времени. -->
+  <input type="time">
+  <hr>
+
+  <!-- Значение week атрибута type нужно для ввода пользователем ТОЛЬКО недели. -->
+  <input type="week">
+  <hr>
+
+  <!-- Значение hidden атрибута type нужен для передачи в форме промежуточных или дополнительных данных, которые пользователь не должен изменять. 
+    Атрибут value и содержит скрытое дополнительное значение. -->
+  <input type="hidden" value="webDev">
+  <hr>
+
+  <!-- Значение file атрибута type нужен для хранения и передачи пользовательских файлов.
+  Атрибут accept ограничивает пользователя и позволяет передавать только те файлы, которые переданы ему (например, .png, .jpg, .txt)
+  Атрибут multiple позволяет пользователю передавать несколько файлов в данное поле ввода, а не один, как обычно. -->
+  <input type="file" accept=".png"><br>
+  <input type="file" multiple><br>
+  <hr>
+
+  <!-- Значение checkbox атрибута type меняет обычное поле ввода, на квадратики, на которые можно нажимать и тогда поставиться галочка.
+  Если галочка стоит на одном квадратике, то можно поставить и на другие. -->
+  <input type="checkbox" value="option1"><br>
+  <!-- Атрибут checked ставит галочку на данный checkbox при заходе/обновления пользователем на страницы. -->
+  <input type="checkbox" value="option2" checked><br>
+  <input type="checkbox" value="option3"><br>
+  <!-- Если поместить в <label> тег <input> со значением checkbox у атрибута type, то у данного checkbox будет текст (около квадратика), который написан в тегах <label>. -->
+  <label>
+    <input type="checkbox" value="option1">
+    Front-end dev
+  </label>
+  <hr>
+
+  <!-- Значение radio атрибута type меняет обычное поле ввода, на кружочки, на которые можно нажимать и тогда поставиться точка в этот кружочек.
+  Если стоит стоит на одном кружочке, то на другие поставить не выйдет, тогда точка пропадёт с прошлого кружочка - 
+  но это происходит только если в атрибуте name у всех radio стоит одно значение. -->
+  <input type="radio" name="value" value="option1"><br>
+  <input type="radio" name="value" value="option2"><br>
+  <!-- Атрибут checked ставит точечку на данный radio при заходе/обновления пользователем на страницы. -->
+  <input type="radio" name="value" value="option3" checked><br>
+
+  <!-- Если поместить в <label> тег <input> со значением radio у атрибута type, то у данного radio будет текст (около кружочка), который написан в тегах <label>. -->
+  <label>
+    <input type="radio" name="value" value="option1">
+    Front-end dev
+  </label>
+  
+
+  <!-- ВИДЕО И АУДИО ФАЙЛЫ. https://www.youtube.com/watch?v=t4y7atN_RJY&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=15 -->
+
+  
+    <!-- Чтобы добавить аудио на страницу используется тег <audio>
+    В атрибуте src передаём путь к файлу.
+    Текст, находящийся в тегах <audio> высвечивается, если браузер не поддерживает данный тип аудио. -->
+  <audio src="example.mp3">
+    Your browser does not support the audio tag.
+  </audio>
+  <hr>
+
+  <!-- Чтобы добавить видео на страницу используется тег <video> 
+    В атрибутах width и height указываем ширину и высоту видео. -->
+  <video width="320" height="240">
+    <!-- В тегах <source> можно указать путь к аудио/видео файлам (если их несколько), указывая его в атрибуте src.
+    В атрибуте type нужно указать (video или audio)/тип файла. -->
+    <source src="example.ogg" type="video/ogg">
+    <source src="example.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <hr>
+
+  <!-- Атрибут controls добавляет видео/аудио файлу плеер. -->
+  <audio controls>
+    <source src="example.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+  <hr>
+
+  <!-- Атрибут loop при заканчивании видео/аудио файла начинает его с начала. -->
+  <video controls loop width="320" height="240">
+    <source src="example.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <hr>
+
+  <!-- Атрибут autoplay сразу при загрузке страницы запускает видео/аудио файл, на котором стоит данный атрибут. -->
+  <video controls autoplay width="320" height="240">
+    <source src="example.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <hr>
+
+  <!-- Атрибут muted убирает звук у аудио/видео при страницы, но звук можно вернуть нажатием на соответствующую кнопку. -->
+  <video controls muted width="320" height="240">
+    <source src="example.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <hr>
+
+  <!-- Атрибут poster принимает путь к файлу-картинке, который будет использоваться как превью для видео. -->
+  <video controls poster="preview.png" width="320" height="240">
+    <source src="example.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <hr>
+
+  <!-- Значение auto у атрибута preload делает так, чтобы видео/аудио грузилось автоматически и целиком при загрузке страницы. -->
+  <audio controls preload="auto" src="example.mp3"></audio>
+
+  <!-- Значение metadata у атрибута preload делает так, чтобы видео/аудио не грузилось при загрузке страницы, 
+    а загружалась лишь служебная информация (первый кадр, продолжительность, размеры и тд). -->
+  <video controls width="320" height="240" preload="metadata"></video>
+
+  <!-- Значение none у атрибута preload делает так, чтобы видео/аудио вообще не грузилось на странице. -->
+  <audio controls preload="none" src="example.mp3"></audio>    
+      
+
+  <!-- ОБЩИЕ АТРИБУТЫ. https://www.youtube.com/watch?v=EfiZ4RUOm_o&list=PLNkWIWHIRwMFtHHg0amAgocYP-kZypbY7&index=16 -->
+
+
+  <!-- Атрибут id это специальный идентификатор, чтобы связать элемент с функциональностью. У каждого тега, имеющий id, он должен быть уникальный. -->
+  <h1 id="heading">Simple text</h1>
+  <hr>
+
+  <!-- Атрибут class связывает элемент с определёнными стилями, написанными на CSS.
+  В данном элементе, в атрибуте class указано два класса text и idea, каждый по своему стилилизует текст. -->
+  <p class="text idea">Simple text</p>
+  <!-- В данном элементе указан только один класс - text, который стилилизует текст. -->
+  <p class="text">Simple text 2</p>
+  <hr>
+
+  <!-- В атрибут title записывается текст, который будет выводиться когда пользователь наведёт курсор на текст написанный в тегах. -->
+  <h2 title="HyperText Markup Language">HTML</h2>
+  <hr>
+
+  <!-- Атрибут contentediable позволяет пользователю редактировать текст, написанный в тегах просто кликнув по данному тексту. -->
+  <h2 contenteditable="true">This content you can change</h2>
+  <hr>
+
+  <!-- Атрибут spellcheck включает проверку правописания (подчёркивает красным слова, которые написаны неправильно).
+  Данный атрибут можно применить в атрибутах, в которых пользователь имеет возможность писать. -->
+  <textarea spellcheck="true" rows="10" cols="45" name="text">
+    This text cantain a cople misstakes
+  </textarea>
+  <hr>
+
+  <!-- Атрибут hidden скрывает содержимое элемента. Но с ним можно также манипулировать с помощью JS. -->
+  <h2 hidden>Hidden content</h2>
+  <hr>
+
+  <!-- Перемещаться по странице можно с помощью кнопки Tab.
+  Атрибут tabindex задаёт приоритетный порядок того как передвигаться по странице с помощью Tab (для людей с ограниченными возможностями).
+  В нижнем примере, при первоми нажатии кнопки Tab, фокус будет на name, при втором нажатии на button, а при третьем на password. -->
+  <input type="text" placeholder="name" tabindex="1"><br>
+  <input type="text" placeholder="password" tabindex="3"><br>
+  <input type="button" value="Submit" tabindex="2"><br>
+  <hr>
+
+  <!-- При значение ltr атрибута dir - текст отображается как обычно — слева направо. -->
+  <h2 dir="ltr">Hello world!</h2>
+  <!-- При значение rtl атрибута dir - текст инвертируется и отображается справа налево. -->
+  <h2 dir="">Hello world!</h2>
+
+  <!-- <q> - тег для цитаты. -->
+  <!-- Атрибут lang нужен для того, чтобы в разных языках отображать текст так, как он должен отображаться на данном языке.
+  Значение fr атрибута lang отображает текст с помощью французского правописания. -->
+  <h2 lang="fr"><q>Hello world!</q></h2>
+  <!--  Значение en атрибута lang отображает текст с помощью английского правописания. -->
+  <h2 lang="en"><q>Hello world!</q></h2>
+    
+
+</body>
+</html>

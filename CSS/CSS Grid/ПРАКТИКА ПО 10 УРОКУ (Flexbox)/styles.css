@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+
+.element {
+    flex-basis: 100px;
+}
+
+.element-1 {
+    text-align: center;
+    background-image: linear-gradient(white, black); 
+}
+
+.element-2 {
+    background-image: linear-gradient(green, blue); 
+}
+
+.element-3 {
+    background-image: linear-gradient(red, blue); 
+}
+
+.element-4 {
+    background-image: linear-gradient(green, red); 
+}
+
+.element-5 {
+    height: 500px;
+    flex: 1;
+    background-image: linear-gradient(green, black); 
+}
+
+.element-6 {
+    text-align: center;
+    background-image: linear-gradient(black, blue); 
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: 10px solid blue;
+}
+
+.content {
+    display: flex;
+    height: 100vh;
+}
+
+.element-3 {
+    order: 1
+}
+

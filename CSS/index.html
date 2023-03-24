@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CSS/CSS3 Basics</title>
+    <!-- Стили можно подключить в самом html документе с помощью тегов style -->
+    <style>
+      h1 {
+        color: red;
+      }
+    </style>
+    <!-- СТИЛИ ОБЯЗАТЕЛЬНО НУЖНО ПОДКЛЮЧАТЬ В ТЕГЕ <head>. -->
+    <!-- CSS стили подключает при помощи атрибута href, указывая путь к файлу со стилями. -->
+    <!-- rel="stylesheet" означает, что ссылка внутри <link> ведёт на внешний файл с CSS-стилями.  -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <h1>Hello world!</h1>
+    <h2>Hello world!</h2>
+    <!-- Также стили можно подключить с помощью атрибута style. -->
+    <h3 style="color: blue">Hello world!</h3>
+    <h4>Hello world!</h4>
+    <!-- JS ПОМЕЩЯЕТСЯ ВНИЗУ СТРАНИЦЫ, ПЕРЕД ЗАКРЫВАЮЩИМ ТЕГОМ </body>. -->
+    <script src="/js/global.js"></script>
+    <script src="js/local.js"></script>
+
+    <!-- Атрибуты async и defer нужны для быстрой загрузки JS и оптимизации. -->
+
+    <!-- Каждый async скрипт выполняется при первой возможности после завершения загрузки и перед событием загрузки окна.
+       Это означает, что возможно (и вероятно), что async скрипты выполняются не в том порядке, в котором они встречаются на странице. -->
+    <script async src="siteScript.js" onload="myInit()"></script>
+    <!-- С defer сценарии гарантированно выполняются в том порядке, в котором они встречаются на странице. -->
+    <script defer src="siteScript.js" onload="myInit()"></script>
+
+    <h4>Lorem ipsum dolor sit amet <div>consectetur</div><div class="mar">consectetur</div></h4>
+    <hr />
+  </body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="public/styles.css"/>
+        <!-- Импортируем скрипт, чтобы точно все TailwindCSS классы работали. -->
+        <script src="https://cdn.tailwindcss.com/"></script>
+        <title>TailwindCSS</title>
+    </head>
+    <body class="bg-white dark:bg-slate-900 font-main">
+        <!-- Если нам нужно сделать так, чтобы сайт не растягивался на больших экранах, то нужно использовать класс max-w-screen-xl, который
+        ограничивает размеры страницы и поэтому страница не сможет стать больше 1280px.
+        А класс mx-auto помогает центрировать лейаут. -->
+        <div class="max-w-screen-xl mx-auto">
+            <!-- header -->
+            <!-- Превращаем наш header во flex-container, выравниваем элементы по центру и 
+            прибиваем их в разные края страницы 
+            (т.к если только 2 элемента во flex-container, то justify-between работает так, что 1 элемент расположен в левой стороне, а 2 в правой).
+            Добавляем фиксированную высоту 14, чтобы header не изменялся при изменении разрешения экрана. -->
+            <header class="px-2 border-b flex items-center justify-between h-14">
+                <!-- В классе tailwind.config.js, мы создали суффикс logo-main для цвета, поэтому добавляем наш новый класс сюда. -->
+                <a class="dark:text-purple-500 uppercase font-bold text-logo-main" href="">webDev</a>
+                <!-- nav тоже делаем flex-container.
+                Добавляем элемент hidden, который скрывает навигацию на телефоне, но
+                добавляем модификатор md, чтобы навигация отображалась на компьютере. -->
+                <nav class="hidden md:flex items-center">
+                    <!-- Делаем элементы inline-flex`овыми, чтобы они подстроились под размер контента внутри себя. -->
+                    <ul class="inline-flex items-center">
+                        <!-- С помощью состояния hover делаем так, чтобы при наведении на элемент, он становился фиолетовый. -->
+                        <!-- Чтобы элемент красиво подчёркивался при наведении задаём ему позицию снизу (border-b-2) 
+                            и по дефолту делаем её прозрачной (border-transparent), но при наведении делаем её фиолетовой (hover:border-violet-800). -->
+                        <!-- href="#" переместит положение прокрутки наверх. Чаще всего, это дефолтный заполнитель для элементов ссылок. -->
+                        <!-- Директива @apply не принимает тёмный режим, поэтому мы не можем указать тёмный режим для класса header-link, поэтому
+                        надо делать это здесь, в html-разметке. -->
+                        <li><a class="header-link dark:text-slate-200 dark:hover:text-purple-500 dark:hover:border-purple-500" href="#">Home</a></li>
+                        <li><a class="header-link dark:text-slate-200 dark:hover:text-purple-500 dark:hover:border-purple-500" href="#">About</a></li>
+                        <li><a class="header-link dark:text-slate-200 dark:hover:text-purple-500 dark:hover:border-purple-500" href="#">Contacts</a></li>
+                    </ul>
+                    <ul class="inline-flex items-center">
+                        <li><button class="header-btn dark:border-indigo-500 dark:text-indigo-500 dark:hover:bg-indigo-500 dark:hover:text-white">Login</button></li>
+                        <li><button class="header-btn dark:border-indigo-500 dark:text-indigo-500 dark:hover:bg-indigo-500 dark:hover:text-white">Register</button></li>
+                    </ul>
+                </nav>
+                <!-- Кнопка иконки меню. 
+                На телефоне кнопка меню будет строчно-блочной, а на компьютерах её не видно из-за класса hidden. -->
+                <button class="inline-block md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>                  
+                </button>
+            </header>
+
+            <!-- Создадим бредкрамбы - это навигационная цепочка, показывающая место данной страницы в иерархии всего сайта (путь до страницы вообщем). -->
+            <!-- breadcrumbs -->
+            <div class="px-2 flex items-center">
+                <!-- Напомню, CSS padding - это внутренний отступ объекта. От границы до содержимого. 
+                    CSS Margin –это внешний отступ от границ объекта до окружающих элементов. -->
+                <!-- Добавляем отступ сверху и снизу у div блока.
+                С помощью класса overflow-y-auto мы разрешаем вертикальную прокрутку, если текста будет слишком много
+                и запрещаем перенос элементов на новую строку, с помощью whitespace-nowrap, чтобы бредкрамбы были всегда в одну линию. -->
+                <div class="py-4 overflow-y-auto whitespace-nowrap flex items-center">
+                    <a class="dark:text-slate-400 text-gray-600 hover:text-gray-900 transition-all duration-300" href="#"> 
+                        <!-- Добавляем иконку домика из Heroicons и задаём ей ширину и высоту.
+                        Я задаю ширину и высоту с помощью классов h и w (Пример: class="h-5 w-5"). -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                            <path  stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>          
+                    </a>
+                    <!-- Задаём тег <span> чтобы текст не был сливающимся и пишем в нем "&gt;" - это равно символу ">".
+                    Его нужно указывать именно так, т.к ">" используется в html разметке. 
+                    Такие элементы называются html-entity.
+                    Выше перечисленный текст уже неактуален, т.к символ ">"  мы заменили иконкой. -->
+                    <!-- Если задать цвет элементу span, в котором находиться иконка, то ничего не произойдёт и она останеться прежнего цвета. -->
+                    <span class="mx-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                    <a class="dark:text-slate-400 text-gray-600 hover:text-gray-900 transition-all duration-300" href="#">News</a>
+                    <span class="mx-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                    <a class="dark:text-slate-400 text-gray-600 hover:text-gray-900 transition-all duration-300" href="#">Tech</a>
+                </div>
+            </div>
+
+            <!-- banners -->
+            
+            <!-- Класс space-x задаём расстояние между колонками. -->
+            <!-- Делаем lg:flex, чтобы на разрешении lg, макет был двухколоночным, а по дефолту, на мобильных - одноколоночный.
+            Также делаем lg:space-x-2, чтобы не было расстояния между элементами. -->
+            <section class="px-2 lg:flex lg:space-x-2">
+                <!-- Т.к мы будет позиционировать другой элемент с помощью position: absolute, который работает так, что 
+                если у элемента есть родитель, у которого position отличается от static, то элемент позициионируется относительно краёв его родителя.
+                Именно поэтому элементу-родителю задаём postion: relative. -->
+                <!-- С помощью overflow-hidden обрежем всё, что будет выходить за его пределы. -->
+                <!-- На телефонах, баннер будет шириной во весь экран, а на мониторах с разрешением lg(1024px) будет занимать 2/3 экрана. -->
+                <a class="w-full lg:w-2/3 bg-purple-300 h-96 mb-4 relative rounded inline-block overflow-hidden" href="#">
+                    <!-- Добавляем картинку на баннер. -->
+                    <!-- В атрибут alt нужно передавать текст, который будет отображаться, если картинка не прогрузиться, а в src путь до картинки. -->
+                    <!-- Класс object-cover заставляет ширину и высоту изображения соответствовать высоте и ширине элемента. -->
+                    <img class="absolute left-0 top-0 w-full h-full z-0 object-cover" src="public/images/img-1.jpg" alt="news">
+                    <!-- Добавляем "затемнение" на всю картинку, чтобы текст читался лучше. -->
+                    <div class="absolute left-0 top-0 w-full h-full z-10 bg-gradient-to-b from-black/10 to-black/70"></div>
+                    <!-- Задаём элементу position: absolute (как и прошлому изображению), а дальше bottom-0 left-0, 
+                    что переносит наш элемент в нижний левый угол относительно родителя. -->
+                    <!-- На всякий случай, добавим z-20 (z-index: 20), чтобы элемент перекрывал другие элементы. -->
+                    <div class="p-4 absolute bottom-0 left-0 z-20">
+                        <!-- leading-tight немного увеличивает величину пространства между строками, например в тексте. -->
+                        <h2 class="text-4xl font-semibold text-gray-100 leading-tight">
+                            Lorem ipsum dolor sit amet consectetur.
+                        </h2>
+                        <span class="bg-gradient-to-bl from-blue-600 to-indigo-600 text-white inline-flex items-center justify-center px-4 py-1 mb-2">React</span>
+                        <div class="flex mt-3">
+                            <!-- С помощью rounded-full полностью округлим углы у картинки. -->
+                            <img class="h-10 w-10 mr-2 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/90.jpg" alt="author">
+                                <div>
+                                    <p class="font-semibold text-gray-200 text-sm">John Doe</p>
+                                    <time class="text-gray-400 text-xs">14 March</time>
+                                </div>
+                            </img>
+                        </div>
+                    </div>
+                </a>
+                <a class="w-full lg:w-1/3 bg-indigo-300 h-96 mb-4 relative rounded inline-block overflow-hidden" href="#">
+                    <!-- Добавляем картинку и затемнение на баннер. -->
+                    <img class="absolute left-0 top-0 w-full h-full z-0 object-cover" src="public/images/img-2.jpg" alt="news">
+                    <div class="absolute left-0 top-0 w-full h-full z-10 bg-gradient-to-b from-black/10 to-black/70"></div>
+                    <!-- Задаём элементу position: absolute, а дальше bottom-0 left-0, что переносит наш элемент в нижний левый угол относительно родителя. -->
+                    <!-- На всякий случай, добавим z-20 (z-index: 20), чтобы элемент перекрывал другие элементы. -->
+                    <div class="p-4 absolute bottom-0 left-0 z-20">
+                        <!-- leading-tight немного увеличивает величину пространства между строками, например в тексте. -->
+                        <h2 class="text-4xl font-semibold text-gray-100 leading-tight">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        </h2>
+                        <span class="bg-gradient-to-bl from-blue-600 to-indigo-600 text-white inline-flex items-center justify-center px-4 py-1 mb-2">Angular</span>
+                        <div class="flex mt-3">
+                            <img class="h-10 w-10 mr-2 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/8.jpg" alt="author">
+                                <div>
+                                    <p class="font-semibold text-gray-200 text-sm">John Doe</p>
+                                    <time class="text-gray-400 text-xs">14 March</time>
+                                </div>
+                            </img>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
+            <main class="lg:flex">
+                <!-- Внутри main у нас будет 2 отделёных блока. 
+                Первый блок будет больше второго. -->
+                <div class="w-full lg:w-2/3 px-2">
+                    <!-- post cards (новости) -->
+                    <section>
+                        <!-- С помощью класса flex превращаем элемент ссылки во flex-container, чтобы элементы шли в одну линию. 
+                        Отступ (mb-10) нужен, т.к новостей будет несколько и чтобы они не сливались в одно целое. -->
+                        <!-- href="#" переместит положение прокрутки наверх. Чаще всего, это дефолт -->
+                        <!-- Чтобы картинка с текстом хорошо выглядели на телефонах, делаем для телефонов элемент блочным и во всю ширину экрана. -->
+                        <a class="block w-full lg:flex mb-10" href="#">
+                            <!-- Картинка рядом с текстом. 
+                            На телефонах она будет во всю ширину экрана, а на разрешении lg будет фиксированная ширина 48. -->
+                            <img class="w-full lg:w-48 h-48 opacity-80 object-cover lg:mr-4" src="public/images/img-3.jpg" alt="img">
+                            <div class="flex flex-col justify-between">
+                                <div>
+                                    <!-- Класс text-2xl увеличивает текст, dark:text-white делает текст белым при тёмной теме. -->
+                                    <h3 class="mb-2 text-gray-700 font-bold text-2xl dark:text-white">Laborum occaecat ullamco labore dolore velit ullamco veniam ea eu.</h3>
+                                    <p class="text-gray-700 dark:text-slate-400">Ea culpa eu qui magna. Ex velit duis consequat id esse nostrud amet aliqua sit elit elit ad excepteur mollit. Fugiat ut dolore deserunt commodo mollit et tempor anim et sit ea voluptate.</p>
+                                </div>
+                                <div class="flex mt-3">
+                                    <img class="h-10 w-10 mr-2 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/16.jpg" alt="author">
+                                        <div>
+                                            <p class="font-semibold text-gray-400 text-sm">Jastin Christopher</p>
+                                            <time class="text-gray-400 text-xs">27 June</time>
+                                        </div>
+                                    </img>
+                                </div>
+                            </img>
+                            </div>
+                        </a>
+                        <a class="block w-full lg:flex mb-10" href="#">
+                            <img class="w-full lg:w-48 h-48 opacity-80 object-cover lg:mr-4" src="public/images/img-4.jpg" alt="img">
+                            <div class="flex flex-col justify-between">
+                                <div>
+                                    <h3 class="mb-2 text-gray-700 font-bold text-2xl dark:text-white">Veniam labore eiusmod nisi eu eu consectetur anim ea aute Lorem.</h3>
+                                    <p class="text-gray-700 dark:text-slate-400">Magna ad veniam ea amet non consequat non et laboris cupidatat. Adipisicing quis ad ipsum sit do. Non ad consequat labore do occaecat qui nostrud occaecat exercitation laborum ad est sit proident.</p>
+                                </div>
+                                <div class="flex mt-3">
+                                    <img class="h-10 w-10 mr-2 rounded-full object-cover" src="https://randomuser.me/api/portraits/women/9.jpg" alt="author">
+                                        <div>
+                                            <p class="font-semibold text-gray-400 text-sm">Jane Mary</p>
+                                            <time class="text-gray-400 text-xs">17 September</time>
+                                        </div>
+                                    </img>
+                                </div>
+                            </img>
+                            </div>
+                        </a>
+                        <a class="block w-full lg:flex mb-10" href="#">
+                            <img class="w-full lg:w-48 h-48 opacity-80 object-cover lg:mr-4" src="public/images/img-5.jpg" alt="img">
+                            <div class="flex flex-col justify-between">
+                                <div>
+                                    <h3 class="mb-2 text-gray-700 font-bold text-2xl dark:text-white">Aliquip ullamco consequat sit eu tempor esse velit est mollit mollit minim consequat amet.</h3>
+                                    <p class="text-gray-700 dark:text-slate-400">Qui ullamco nisi nisi do sit magna pariatur. Incididunt occaecat ullamco nulla non sit. Est ipsum pariatur est cupidatat exercitation. Deserunt commodo ullamco eu quis duis. Nostrud pariatur non cupidatat dolore fugiat nostrud irure excepteur aliquip.</p>
+                                </div>
+                                <div class="flex mt-3">
+                                    <img class="h-10 w-10 mr-2 rounded-full object-cover" src="https://randomuser.me/api/portraits/men/98.jpg" alt="author">
+                                        <div>
+                                            <p class="font-semibold text-gray-400 text-sm">Johnny Cage</p>
+                                            <time class="text-gray-400 text-xs">9 August</time>
+                                        </div>
+                                    </img>
+                                </div>
+                            </img>
+                            </div>
+                        </a>
+                    </section>
+
+                    <!-- pagination -->
+                    <div class="mt-20 mb-10">
+                        <!-- Чтобы элементы внутри списка выглядели адекватно, применим flexbox конверт и выравним элементы горизонтально по центру. -->
+                        <ul class="flex justify-center">
+                            <!-- Класс rounded-l-lg сильно (т.к указано lg) округляет левые углы. -->
+                            <li><a class="pagination-item rounded-l-lg dark:text-slate-400" href="#">Previous</a></li>
+                            <li><a class="pagination-item dark:text-slate-400" href="#">1</a></li>
+                            <li><a class="pagination-item dark:text-slate-400" href="#">2</a></li>
+                            <!-- Стилилизуем 3-й элемент так, как будто пользователь сейчас находиться на 3 странице. -->
+                            <!-- Специфичность класса pagination-item ниже чем специфичность классов в html-разметке (т.к в main.css указана директива @layer),
+                            поэтому мы переопределяем некоторые стили pagination-item для 3 элемента, 
+                            но т.к у нас есть повторяющиеся стили, которые указаны в pagination-item и их переопределять не нужно, то указываем и сам класс. -->
+                            <li><a class="pagination-item text-blue-600 hover:bg-blue-100 transition-all duration-300 dark:text-slate-400" href="#">3</a></li>
+                            <li><a class="pagination-item dark:text-slate-400" href="#">4</a></li>
+                            <li><a class="pagination-item dark:text-slate-400" href="#">5</a></li>
+                            <li><a class="pagination-item rounded-r-lg dark:text-slate-400" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Убираем расстояние при разрешении lg. -->
+                <div class="w-full lg:w-1/3 px-2 md:flex md:space-x-6 lg:block lg:space-x-0">
+
+                    <!-- topics (популярные темы, справа страницы) -->
+
+                    <div class="w-full md:w-1/2 mb-5 lg:w-full">
+                        <!-- Добавляем заголовок. -->
+                        <h5 class="font-bold text-lg uppercase text-gray-700 mb-2 dark:text-white">
+                            Popular News
+                        </h5>
+                        <ul>
+                            <!-- Каждый элемент списка будет одной "популярной новостью". -->
+                            <li class="dark:border-transparent dark:hover:border-gray-200 px-1 py-4 border-y border-white hover:border-gray-200 transition-all duration-300">
+                                <a class="dark:text-slate-400 flex items-center text-gray-600" href="#">
+                                    <!-- Это квадратик, который идёт вначале текста, с градиентом логотипа фреймворка (в нашем случае - это Vue с зелёным логотипом). -->
+                                    <span class="inline-block w-4 h-4 mr-3 bg-gradient-to-tr from-green-500 to-green-700"></span>
+                                    <!-- Сам текст "популярной новости". -->
+                                    Vue
+                                    <!-- С помощью ml-auto прибьём к правому краю flex-container`а текст с числом статей. -->
+                                    <span class="dark:text-slate-400 text-gray-500 ml-auto">23 articles</span>
+                                </a>
+                            </li>
+                            <li class="dark:border-transparent dark:hover:border-gray-200 px-1 py-4 border-y border-white hover:border-gray-200 transition-all duration-300">
+                                <a class="dark:text-slate-400 flex items-center text-gray-600" href="#">
+                                    <span class="inline-block w-4 h-4 mr-3 bg-gradient-to-tr from-orange-500 to-orange-700"></span>
+                                    Svelte
+                                    <span class="dark:text-slate-400 text-gray-500 ml-auto">20 articles</span>
+                                </a>
+                            </li>
+                            <li class="dark:border-transparent dark:hover:border-gray-200 px-1 py-4 border-y border-white hover:border-gray-200 transition-all duration-300">
+                                <a class="dark:text-slate-400 flex items-center text-gray-600" href="#">
+                                    <span class="inline-block w-4 h-4 mr-3 bg-gradient-to-tr from-red-500 to-red-700"></span>
+                                    Angular
+                                    <span class="dark:text-slate-400 text-gray-500 ml-auto">15 articles</span>
+                                </a>
+                            </li>
+                            <li class="dark:border-transparent dark:hover:border-gray-200 px-1 py-4 border-y border-white hover:border-gray-200 transition-all duration-300">
+                                <a class="dark:text-slate-400 flex items-center text-gray-600" href="#">
+                                    <span class="inline-block w-4 h-4 mr-3 bg-gradient-to-tr from-blue-500 to-blue-700"></span>
+                                    React
+                                    <span class="dark:text-slate-400 text-gray-500 ml-auto">7 articles</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-full">
+                        <!-- Разделение точками с помощью пустых div-блоков и класса border-dotted. -->
+                        <!-- На разрешении md, скрываем разделитель, а на разрешении lg снова показываем с помощью block. -->
+                        <div class="border border-dotted md:hidden lg:block"></div>
+
+                        <!-- subscribe -->
+                        <!-- Сделаем отступ сверху и снизу. -->
+                        <div class="my-5 md:my-0 lg:my-5">
+                            <!-- text-lg увеличивает размер текста. -->
+                            <h5 class="font-bold text-lg uppercase text-gray-700 mb-2 dark:text-white">Subscribe</h5>
+                            <p class="text-gray-600 mb-4 dark:text-slate-400"> Subscribe to our newslatter. </p>
+                            <!-- Чтобы добавить фон для элемента используют свойство bg. -->
+                            <!-- Класс w-full говорит о том, что input будет занимать всю ширину экрана. -->
+                            <!-- Класс rounded нужен для того, чтобы округлять элемент (работает если есть, что округлять, в нашем случае - обводка). 
+                                В нашем случае, указан rounded-t, значит обводка будет только сверху. -->
+                            <input placeholder="your email address"
+                            type="email"
+                            class="text-gray-700 bg-gray-100 p-2 w-full border rounded-t hover:border-gray-600 transition-all duration-300"></input>
+                            <!-- rounded-b округляет углы снизу кнопки. -->
+                            <button class="py-2 px-4 border-2 rounded-b w-full bg-indigo-600 text-white hover:bg-indigo-800 transition-all duration-300">Subscribe</button>
+                        </div>
+
+                        <!-- Разделение точками с помощью пустых div-блоков и класса border-dotted. -->
+                        <div class="border border-dotted md:hidden lg:block"></div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- footer -->
+
+            <!-- Футеру задаём обводку сверху, внешний отступ сверху и внутренний отступ (py-10 и px-2). -->
+            <footer class="border-t mt-10 py-10 px-2">
+                <!-- С помощью ширины, делаем первый и второй элемент одинаковыми, а третий меньше. -->
+                <!-- Превращаем блок во flex-container только на разрешении md(768px). -->
+                <div class="md:flex">
+                    <!-- С помощью добавляние margin к низу, отделяем div элемент от другого. -->
+                    <div class="w-full mb-5 md:w-2/5">
+                        <!-- Заголовок делаем полужирным, серым и задаём ему отступ снизу. -->
+                        <h6 class="font-semibold text-gray-700 mb-3 dark:text-white">Company</h6>
+                        <ul>
+                            <!-- Элементы делаем блочно-строчными, серыми и задаём им расстояние между друг другом по вертикали.
+                            А также, при наведении они будут подчёркиваться. -->
+                            <!-- С помощью класса decoration, делаем подчёркивание серым и отступающим на 2 пикселя от элемента. -->
+                            <li><a class="footer-link dark:text-slate-400" href="#">Team</a></li>
+                            <li><a class="footer-link dark:text-slate-400" href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full mb-5 md:w-2/5">
+                        <!-- Заголовок делаем полужирным, серым и задаём ему отступ снизу. -->
+                        <h6 class="font-semibold text-gray-700 mb-3 dark:text-white">Content</h6>
+                        <ul>
+                            <!-- Элементы делаем блочно-строчными, серыми и задаём им расстояние между друг другом по вертикали.
+                            А также, при наведении они будут подчёркиваться. -->
+                            <li><a class="footer-link dark:text-slate-400" href="#">Block</a></li>
+                            <li><a class="footer-link dark:text-slate-400" href="#">Policy</a></li>
+                            <li><a class="footer-link dark:text-slate-400" href="#">Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/5">
+                        <h6 class="font-semibold text-gray-700 mb-3 dark:text-white">Contact Us</h6>
+                        <!-- Чтобы элементы шли горизонтально друг за другом, а не вертикально добавляем класс flex. -->
+                        <ul class="flex">
+                            <!-- Чтобы элементы не слипались, добавим между ними расстояние. -->
+                            <li class="mr-2">
+                                <a class="footer-link dark:text-slate-400" href="#">
+                                    <!-- Добавляем иконку чата из Heroicons и добавляем ширину и высоту в 28px, 
+                                        а также серый цвет обводки с помощью stroke. -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" width="28px" height="28px">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                                    </svg>                          
+                                </a>
+                            </li>
+                            <!-- Чтобы элементы не слипались, добавим между ними расстояние. -->
+                            <li class="mr-2">
+                                <!-- Добавляем иконку "Отправить письмо" из Heroicons и добавляем ширину и высоту в 28px, 
+                                    а также синий цвет обводки с помощью stroke. -->
+                                <a class="footer-link dark:text-slate-400" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" width="28px" height="28px">
+                                        <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                                    </svg>   
+                                </a>
+                            </li>
+                                <li>
+                                    <!-- Добавляем иконку телефона из Heroicons и добавляем ширину и высоту в 28px, 
+                                        а также зелёный цвет обводки с помощью stroke. -->
+                                    <a class="footer-link dark:text-slate-400" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" width="28px" height="28px">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0l-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z" />
+                                    </svg> 
+                                </a>    
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

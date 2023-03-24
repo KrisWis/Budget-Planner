@@ -1,0 +1,36 @@
+/* Импортируем шрифт из GoogleFonts. */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@500&display=swap");
+
+/* Обязательные директивы, формирующие окружение TailwindCSS. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Если произошла ситуация, что в коде много элементов с большим и одинаковым полотном классов, 
+то в файле main.css можно создать класс, который будет включать в себя директиву @apply и после неё нужно указать все те классы, которые нужно заменить одним. */
+.header-link {
+  /* Класс header-link будет включать в себя те же свойства, что и все перечисленные классы после @apply. 
+    Директива @apply можно сказать "вытягивает" все свойства перечисленных классов. */
+  @apply transition-all duration-300 text-gray-500 font-semibold inline-block py-3 px-2 border-b-2 border-transparent hover:text-violet-800 hover:border-violet-800;
+}
+
+/* Проделываем анологичную ситуацию с другими классами. */
+/* btn расшифровывается, как button. */
+.header-btn {
+  @apply transition-all duration-300 ml-2 py-1 px-3 border-2 rounded-full border-indigo-600 text-indigo-600 hover:text-white hover:bg-indigo-800
+    focus:outline-none focus:ring focus:ring-violet-300;
+}
+
+.footer-link {
+  @apply inline-block text-gray-500 py-2 hover:underline decoration-gray-700 underline-offset-2;
+}
+
+/* Для того, чтобы понизить специфичность стилей и их можно было переопределить в html-разметке используется директива @layer.
+Так как мы работаем с компонентами (или элементами интерфейса), то после директивы пишем components. */
+@layer components {
+  /* И так как, класс pagination-item указан в директиве @layer, то его специфичность стала ниже, чем специфичность классов в html-разметке,
+    и теперь стили класса pagination-item можно переопределить указав те же стили с другими значениями в html-разметке. */
+  .pagination-item {
+    @apply transition-all duration-300 inline-block py-1 px-3 border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700;
+  }
+}
