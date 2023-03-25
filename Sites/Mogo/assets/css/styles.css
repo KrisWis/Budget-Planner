@@ -192,7 +192,96 @@ h5 {
   z-index: 1;
   background-color: #f38181;
 }
+
 .slider__num {
   font-size: 24px;
   font-weight: 700;
+}
+
+/* About Us. Text */
+
+.AboutUs_container {
+  max-width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.AboutUs__inner {
+  display: flex;
+  flex-direction: column;
+  width: 1210px;
+  height: 549px;
+  align-items: center;
+  text-align: center;
+  gap: 120px;
+}
+
+.text__inner h3 {
+  font-weight: 400;
+  font-size: 24px;
+  font-family: "Kaushan Script";
+}
+
+.text__inner h5 {
+  font-family: Montserrat;
+  font-size: 30px;
+}
+
+.text__inner h5:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f38181;
+  margin: 30px auto;
+}
+
+.text__inner p {
+  width: 954px;
+  height: 39px;
+  color: #999999;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* About Us. Pictures */
+
+.image__inner {
+  display: flex;
+  justify-content: justify-beween;
+}
+
+.image img {
+  display: block;
+  transition: opacity 0.3s linear;
+}
+
+.about__item:hover .about__img {
+  transform: translate3d(-10px, -10px, 0);
+}
+
+.about__item:hover .about__img img {
+  opacity: 0.1;
+}
+
+.about__item:hover .about__text {
+  opacity: 1;
+}
+
+.about__img {
+  background: #fff;
+  transition: transform 0.2s linear;
+}
+
+.about__img img {
+  display: block;
+  transition: opacity 0.1s linear;
+  width: 380px;
+  height: 250px;
 }

@@ -1,61 +1,50 @@
-.grid-container {
-  display: grid;
-  /* Имя колонки можно указать в свойстве grid-template-columns в квадратных скобках. */
-  grid-template-columns: repeat(6, [col] 55px);
-  /* Имя строки можно указать в свойстве grid-template-rows в квадратных скобках. */
-  grid-template-rows: repeat(3, [row] 55px);
-  /* Свойство grid-gap указывает одинаковое расстояние между строками и колонками. */
-  grid-gap: 10px;
-  background-color: rgb(86, 86, 238);
+#without-ntroducing {
+  background-image: url("https://gas-kvas.com/uploads/posts/2023-02/1675495554_gas-kvas-com-p-luchshie-kartinki-dlya-fonovogo-risunka-ra-4.jpg");
+  background-size: 380px 250px;
+  background-repeat: no-repeat;
+  display: inline-block;
 }
 
-.grid-item {
-  min-height: 80px;
-  border: 3px solid black
+#bg {
+  background-color: #95e1d3;
+  width: 385px;
+  height: 130px;
 }
 
-.item-1 {
-  grid-column: col 1 / col 3;
+#amultiple {
+  background-color: #000000;
+  background-image: linear-gradient(
+    to top,
+    rgba(252, 227, 138, 0.9) 0%,
+    rgba(243, 129, 129, 0.9) 100%
+  );
+  opacity: 0.9;
+  width: 380px;
 }
 
-.item-2 {
-  grid-column: col 3 / col 5;
-  grid-row: row 1 / row 3;
+h1,
+h2,
+h3,
+h4,
+h5,
+h5 {
+  margin: 0;
 }
 
-.item-3 {
-  grid-column: col 5 / col 6;
-  grid-row: row 1 / row 3;
+#amultiple h2,
+#amultiple h5,
+#amultiple h5 a {
+  text-align: center;
+  color: #f9f8f8;
+  font-weight: normal;
+  text-shadow: 0 1px 0 #3e3737;
 }
 
-.item-4 {
-  grid-column: col 6;
+#amultiple h2 {
+  margin-bottom: 48px;
+  font-size: 28px;
 }
-
-.item-5 {
-  grid-column: col 1 / col 2;
-}
-
-.item-6 {
-  grid-column: col 2 / col 3;
-}
-
-.item-7 {
-  grid-column: col 6;
-}
-
-.item-8 {
-  grid-column: col 1 / col 2;
-}
-
-.item-9 {
-  grid-column: col 2 / col 4;
-}
-
-.item-10 {
-  grid-column: col 4 / col 6;
-}
-
-.item-11 {
-  grid-column: col 6;
+#amultiple h5 {
+  margin-top: 70px;
+  font-size: 17px;
 }
