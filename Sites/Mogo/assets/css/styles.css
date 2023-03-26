@@ -219,18 +219,18 @@ h5 {
   gap: 120px;
 }
 
-.text__inner h3 {
+.AboutUs_text__inner h3 {
   font-weight: 400;
   font-size: 24px;
   font-family: "Kaushan Script";
 }
 
-.text__inner h5 {
+.AboutUs_text__inner h5 {
   font-family: Montserrat;
   font-size: 30px;
 }
 
-.text__inner h5:after {
+.AboutUs_text__inner h5:after {
   content: "";
   display: block;
   width: 60px;
@@ -239,7 +239,7 @@ h5 {
   margin: 30px auto;
 }
 
-.text__inner p {
+.AboutUs_text__inner p {
   width: 954px;
   height: 39px;
   color: #999999;
@@ -252,7 +252,7 @@ h5 {
 
 /* About Us. Pictures */
 
-.image__inner {
+.AboutUs_image__inner {
   display: flex;
   justify-content: justify-beween;
 }
@@ -262,15 +262,15 @@ h5 {
   transition: opacity 0.3s linear;
 }
 
-.about__item:hover .about__img {
+.AboutUs__item:hover .AboutUs__img {
   transform: translate3d(-10px, -10px, 0);
 }
 
-.about__img {
+.AboutUs__img {
   transition: transform 0.2s linear;
 }
 
-.about__img img {
+.AboutUs__img img {
   display: block;
   transition: opacity 0.1s linear;
   width: 380px;
@@ -307,4 +307,94 @@ h5 {
 .statistics_item span {
   font-size: 14px;
   font-weight: 400;
+}
+
+/* We work with. Text */
+
+.WeWorkWith_container {
+  max-width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.WeWorkWith__inner {
+  display: flex;
+  flex-direction: column;
+  width: 1210px;
+  height: 549px;
+  align-items: center;
+  text-align: center;
+  gap: 60px;
+}
+
+.WeWorkWith_text__inner h3 {
+  font-weight: 400;
+  font-size: 24px;
+  font-family: "Kaushan Script";
+}
+
+.WeWorkWith_text__inner h5 {
+  font-family: Montserrat;
+  font-size: 30px;
+}
+
+.WeWorkWith_text__inner h5:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f38181;
+  margin: 30px auto;
+}
+
+/* Amazing Services */
+
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.service {
+  width: 400px;
+}
+
+.services_first_row {
+  display: flex;
+  gap: 70px;
+  border-bottom: 1px #e5e5e5 solid;
+  padding-bottom: 50px;
+}
+
+.services_second_row {
+  display: flex;
+  gap: 70px;
+}
+
+.service svg {
+  color: #95e1d3;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 40px;
+}
+
+.service h5 {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.service p {
+  color: #999999;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 }
