@@ -34,7 +34,7 @@ h5 {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 1000px;
   background: url("../images/background.png") center no-repeat;
   background-size: cover;
 }
@@ -200,37 +200,52 @@ h5 {
 
 /* About Us. Text */
 
-.AboutUs_container {
+.AboutUs_container,
+.WeWorkWith_container,
+.WhatWeDo_container,
+.ForAllDevices_container {
   max-width: 100%;
-  height: 100vh;
+  height: 750px;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
 }
 
-.AboutUs__inner {
+.AboutUs__inner,
+.WeWorkWith__inner,
+.ForAllDevices__inner,
+.WhatWeDo__inner {
   display: flex;
   flex-direction: column;
   width: 1210px;
-  height: 549px;
+  height: 550px;
   align-items: center;
   text-align: center;
   gap: 120px;
 }
 
-.AboutUs_text__inner h3 {
+.AboutUs_text__inner h3,
+.WeWorkWith_text__inner h3,
+.ForAllDevices_text__inner h3,
+.WhatWeDo_text__inner h3 {
   font-weight: 400;
   font-size: 24px;
   font-family: "Kaushan Script";
 }
 
-.AboutUs_text__inner h5 {
+.AboutUs_text__inner h5,
+.WeWorkWith_text__inner h5,
+.ForAllDevices_text__inner h5,
+.WhatWeDo_text__inner h5 {
   font-family: Montserrat;
   font-size: 30px;
 }
 
-.AboutUs_text__inner h5:after {
+.AboutUs_text__inner h5:after,
+.WeWorkWith_text__inner h5:after,
+.ForAllDevices_text__inner h5:after,
+.WhatWeDo_text__inner h5:after {
   content: "";
   display: block;
   width: 60px;
@@ -311,43 +326,8 @@ h5 {
 
 /* We work with. Text */
 
-.WeWorkWith_container {
-  max-width: 100%;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .WeWorkWith__inner {
-  display: flex;
-  flex-direction: column;
-  width: 1210px;
-  height: 549px;
-  align-items: center;
-  text-align: center;
   gap: 60px;
-}
-
-.WeWorkWith_text__inner h3 {
-  font-weight: 400;
-  font-size: 24px;
-  font-family: "Kaushan Script";
-}
-
-.WeWorkWith_text__inner h5 {
-  font-family: Montserrat;
-  font-size: 30px;
-}
-
-.WeWorkWith_text__inner h5:after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 3px;
-  background-color: #f38181;
-  margin: 30px auto;
 }
 
 /* Amazing Services */
@@ -397,4 +377,45 @@ h5 {
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+}
+
+/* For all devices. Text */
+
+.ForAllDevices_container {
+  background: url("../images/for_all_devices_background.png") center no-repeat;
+  background-size: cover;
+}
+
+.ForAllDevices__inner {
+  gap: 60px;
+}
+
+/* For all devices. Images */
+
+.ForAllDevices__inner {
+  position: relative;
+}
+
+.ForAllDevices_phone1 {
+  position: absolute;
+  width: 400px;
+  height: 490px;
+  right: 400px;
+}
+
+.ForAllDevices_phone2 {
+  position: absolute;
+  width: 900px;
+  height: 600px;
+}
+
+.ForAllDevices_text__inner h5:after {
+  margin-top: 10px;
+  margin-bottom: 1px;
+}
+
+/* What We Do. Text */
+
+.WhatWeDo_container {
+  background-color: #fff;
 }
