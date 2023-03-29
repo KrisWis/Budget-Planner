@@ -17,8 +17,10 @@ h2,
 h3,
 h4,
 h5,
-h5 {
+h5,
+svg {
   margin: 0;
+  padding: 0;
 }
 
 /* Container */
@@ -405,8 +407,8 @@ h5 {
 
 .ForAllDevices_phone2 {
   position: absolute;
-  width: 900px;
-  height: 600px;
+  right: 230px;
+  top: 300px;
 }
 
 .ForAllDevices_text__inner h5:after {
@@ -418,4 +420,108 @@ h5 {
 
 .WhatWeDo_container {
   background-color: #fff;
+}
+
+.WhatWeDo_start_text {
+  width: 954px;
+  height: 39px;
+  color: #999999;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+}
+
+.WhatWeDo_main__inner {
+  display: flex;
+  gap: 30px;
+}
+
+.WhatWeDo {
+  height: 900px;
+}
+
+.WhatWeDo_header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+.WhatWeDo_service p {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.WhatWeDo_services {
+  width: 600px;
+  height: 400px;
+}
+
+.WhatWeDo_text {
+  width: 600px;
+  height: 180px;
+  border: 1px solid #e5e5e5;
+  overflow: auto;
+}
+
+.WhatWeDo_text p {
+  color: #999999;
+  font-family: "Roboto - Light Italic";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  width: 525px;
+  height: 132px;
+}
+
+body::-webkit-scrollbar {
+  width: 20px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, white, black);
+  border-radius: 15px;
+}
+
+.WhatWeDo_text::-webkit-scrollbar {
+  width: 5px;
+}
+
+.WhatWeDo_text::-webkit-scrollbar-thumb {
+  background-color: #95e1d3;
+  border-radius: 30px;
+}
+
+.chevron {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.quote {
+  width: 1920px;
+  height: 290px;
+  background-color: #f8f8f8;
+}
+
+.quote blockquote p {
+  width: 767px;
+  height: 96px;
+  color: #999999;
+  font-family: "Roboto - Light Italic";
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  text-align: left;
 }
