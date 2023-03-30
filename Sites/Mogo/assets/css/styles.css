@@ -472,22 +472,14 @@ svg {
 
 .WhatWeDo_text p {
   color: #999999;
-  font-family: "Roboto - Light Italic";
+  font-family: "Roboto";
+  font-style: Light-italic;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
   width: 525px;
   height: 132px;
-}
-
-body::-webkit-scrollbar {
-  width: 20px;
-}
-
-body::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, white, black);
-  border-radius: 15px;
 }
 
 .WhatWeDo_text::-webkit-scrollbar {
@@ -499,7 +491,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 30px;
 }
 
-.chevron {
+.WhatWeDo_chevron {
   padding: 0;
   border: none;
   font: inherit;
@@ -509,19 +501,66 @@ body::-webkit-scrollbar-thumb {
   margin-left: auto;
 }
 
+/* Scroll */
+
+body::-webkit-scrollbar {
+  width: 20px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, white, black);
+  border-radius: 15px;
+}
+
+/* Quote */
 .quote {
-  width: 1920px;
+  width: 100%;
   height: 290px;
   background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quote blockquote p {
   width: 767px;
   height: 96px;
   color: #999999;
-  font-family: "Roboto - Light Italic";
+  font-family: "Roboto";
   font-size: 24px;
   font-weight: 400;
   line-height: 36px;
   text-align: left;
+  font-style: Light-italic;
+}
+
+.quote_icon {
+  width: 125px;
+  height: 125px;
+  border: 3px solid #95e1d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote_chevron {
+  margin: 50px;
+}
+
+.quote_author {
+  color: #333333;
+  font-family: "Kaushan Script";
+  font-size: 24px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.quote_author:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 3px;
+  margin-right: 10px;
+  background-color: #f38181;
 }
