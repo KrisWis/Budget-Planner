@@ -126,7 +126,6 @@ svg {
   margin: 0 15px;
   color: #fff;
   text-decoration: none;
-  text-transition: color 0.1s linear;
   position: relative;
 }
 
@@ -205,7 +204,8 @@ svg {
 .AboutUs_container,
 .WeWorkWith_container,
 .WhatWeDo_container,
-.ForAllDevices_container {
+.ForAllDevices_container,
+.WhoWeAre_container {
   max-width: 100%;
   height: 750px;
   align-items: center;
@@ -217,7 +217,8 @@ svg {
 .AboutUs__inner,
 .WeWorkWith__inner,
 .ForAllDevices__inner,
-.WhatWeDo__inner {
+.WhatWeDo__inner,
+.WhoWeAre__inner {
   display: flex;
   flex-direction: column;
   width: 1210px;
@@ -230,7 +231,8 @@ svg {
 .AboutUs_text__inner h3,
 .WeWorkWith_text__inner h3,
 .ForAllDevices_text__inner h3,
-.WhatWeDo_text__inner h3 {
+.WhatWeDo_text__inner h3,
+.WhoWeAre_text__inner h3 {
   font-weight: 400;
   font-size: 24px;
   font-family: "Kaushan Script";
@@ -239,15 +241,18 @@ svg {
 .AboutUs_text__inner h5,
 .WeWorkWith_text__inner h5,
 .ForAllDevices_text__inner h5,
-.WhatWeDo_text__inner h5 {
+.WhatWeDo_text__inner h5,
+.WhoWeAre_text__inner h5 {
   font-family: Montserrat;
   font-size: 30px;
+  text-transform: uppercase;
 }
 
 .AboutUs_text__inner h5:after,
 .WeWorkWith_text__inner h5:after,
 .ForAllDevices_text__inner h5:after,
-.WhatWeDo_text__inner h5:after {
+.WhatWeDo_text__inner h5:after,
+.WhoWeAre_text__inner h5:after {
   content: "";
   display: block;
   width: 60px;
@@ -256,11 +261,14 @@ svg {
   margin: 30px auto;
 }
 
-.AboutUs_text__inner p {
+.AboutUs_text__inner p,
+.WhoWeAre_text__inner p {
   width: 954px;
   height: 39px;
   color: #999999;
-  font-family: Roboto;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -271,27 +279,53 @@ svg {
 
 .AboutUs_image__inner {
   display: flex;
-  justify-content: justify-beween;
+  justify-content: space-between;
+  gap: 30px;
 }
 
-.image img {
-  display: block;
-  transition: opacity 0.3s linear;
+.AboutUs__item:hover {
+  position: relative;
+  background-color: #95e1d3;
 }
 
-.AboutUs__item:hover .AboutUs__img {
+.AboutUs__img:hover {
   transform: translate3d(-10px, -10px, 0);
 }
 
+.AboutUs__img:hover::before {
+  content: "";
+  display: block;
+  width: 380px;
+  height: 250px;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to bottom, #f38181, #fce38a);
+  opacity: 0.8;
+}
+
+.AboutUs__img:hover::after {
+  content: url("../images/users.png") "Super Team";
+  display: block;
+  position: absolute;
+  left: 120px;
+  top: 70px;
+  width: 140px;
+  height: 14px;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+
 .AboutUs__img {
-  transition: transform 0.2s linear;
+  transition: all 0.3s linear;
 }
 
 .AboutUs__img img {
   display: block;
-  transition: opacity 0.1s linear;
-  width: 380px;
-  height: 250px;
+  transition: all 0.3s linear;
 }
 
 /* Statistics */
@@ -374,7 +408,9 @@ svg {
 
 .service p {
   color: #999999;
-  font-family: Roboto;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -420,13 +456,17 @@ svg {
 
 .WhatWeDo_container {
   background-color: #fff;
+  height: 900px;
+  margin-bottom: 120px;
 }
 
 .WhatWeDo_start_text {
   width: 954px;
   height: 39px;
   color: #999999;
-  font-family: Roboto;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -436,10 +476,6 @@ svg {
 .WhatWeDo_main__inner {
   display: flex;
   gap: 30px;
-}
-
-.WhatWeDo {
-  height: 900px;
 }
 
 .WhatWeDo_header {
@@ -473,7 +509,8 @@ svg {
 .WhatWeDo_text p {
   color: #999999;
   font-family: "Roboto";
-  font-style: Light-italic;
+  font-style: italic;
+  font-weight: lighter;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -508,7 +545,7 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, white, black);
+  background: linear-gradient(90deg, #f38181, #fce38a);
   border-radius: 15px;
 }
 
@@ -527,11 +564,12 @@ body::-webkit-scrollbar-thumb {
   height: 96px;
   color: #999999;
   font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
   font-size: 24px;
   font-weight: 400;
   line-height: 36px;
   text-align: left;
-  font-style: Light-italic;
 }
 
 .quote_icon {
@@ -563,4 +601,120 @@ body::-webkit-scrollbar-thumb {
   height: 3px;
   margin-right: 10px;
   background-color: #f38181;
+}
+
+/* WhoWeAre. Pictures */
+
+.WhoWeAre_image__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.WhoWeAre__item:hover {
+  position: relative;
+  background-color: #95e1d3;
+  transition: all 0.2s linear;
+  width: 380px;
+  height: 470px;
+}
+
+.WhoWeAre__img:hover {
+  transform: translate3d(-10px, -10px, 0);
+}
+
+.WhoWeAre__img:hover::before {
+  content: "";
+  display: block;
+  width: 380px;
+  height: 470px;
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to bottom, #f38181, #fce38a);
+  opacity: 0.8;
+  transition: all 0.2s linear;
+}
+
+.WhoWeAre__img:hover .WhoWeAre_socials {
+  opacity: 1;
+  transition: all 0.2s linear;
+}
+
+.WhoWeAre__img {
+  position: relative;
+  transition: all 0.2s linear;
+}
+
+.WhoWeAre__img img {
+  display: block;
+}
+
+.WhoWeAre_socials {
+  display: flex;
+  background-color: #fce38a;
+  position: absolute;
+  left: 75px;
+  top: 200px;
+  width: 224px;
+  height: 56px;
+  opacity: 0;
+}
+
+.WhoWeAre_social {
+  width: 56px;
+  height: 56px;
+  position: relative;
+}
+
+.WhoWeAre_social svg {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 9px;
+  top: 9px;
+  fill: #f38181;
+}
+
+.WhoWeAre_social:hover {
+  background-color: #f38181;
+  transition: all 0.2s linear;
+}
+
+.WhoWeAre_social:hover svg {
+  fill: #fff;
+  transition: all 0.2s linear;
+}
+
+/* Who We Are. Text */
+
+.WhoWeAre__item h5 {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 30px;
+}
+
+.WhoWeAre__item p {
+  color: #999999;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 15px;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* Logos */
+
+.logos {
+  width: 100%;
+  height: 250px;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 400px;
 }
