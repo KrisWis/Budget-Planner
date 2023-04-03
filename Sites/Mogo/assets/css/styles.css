@@ -17,7 +17,7 @@ h2,
 h3,
 h4,
 h5,
-h5,
+h6,
 svg {
   margin: 0;
   padding: 0;
@@ -1101,7 +1101,7 @@ body::-webkit-scrollbar-thumb {
 .OurStories_item_statistics {
   width: 20px;
   height: 20px;
-  fill: #95e1d3;
+  stroke: #95e1d3;
 }
 
 .div_views {
@@ -1120,4 +1120,43 @@ body::-webkit-scrollbar-thumb {
   top: 380px;
   left: 80px;
   gap: 5px;
+}
+
+/* Open Map */
+
+.OpenMap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+  background: url("../images/Other/OpenMap_background.png") center no-repeat;
+  background-size: cover;
+  margin-top: 250px;
+  gap: 5px;
+}
+
+.map_pin {
+  width: 30px;
+  height: 30px;
+  stroke: #f38181;
+}
+
+.OpenMap h6 {
+  color: #f38181;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.OpenMap h6:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f38181;
+  margin: 30px auto;
 }
