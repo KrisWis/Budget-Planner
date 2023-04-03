@@ -153,6 +153,11 @@ svg {
   opacity: 1;
 }
 
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* Slider */
 .slider {
   position: absolute;
@@ -220,7 +225,8 @@ svg {
 .ForAllDevices__inner,
 .WhatWeDo__inner,
 .WhoWeAre__inner,
-.OurWork__inner {
+.OurWork__inner,
+.HappyClients__inner {
   display: flex;
   flex-direction: column;
   width: 1210px;
@@ -230,34 +236,37 @@ svg {
   gap: 120px;
 }
 
-.AboutUs_text__inner h3,
-.WeWorkWith_text__inner h3,
-.ForAllDevices_text__inner h3,
-.WhatWeDo_text__inner h3,
-.WhoWeAre_text__inner h3,
-.OurWork_text__inner h3 {
+.AboutUs_header__inner h3,
+.WeWorkWith_header__inner h3,
+.ForAllDevices_header__inner h3,
+.WhatWeDo_header__inner h3,
+.WhoWeAre_header__inner h3,
+.OurWork_header__inner h3,
+.HappyClients_header__inner h3 {
   font-weight: 400;
   font-size: 24px;
   font-family: "Kaushan Script";
 }
 
-.AboutUs_text__inner h5,
-.WeWorkWith_text__inner h5,
-.ForAllDevices_text__inner h5,
-.WhatWeDo_text__inner h5,
-.WhoWeAre_text__inner h5,
-.OurWork_text__inner h5 {
+.AboutUs_header__inner h5,
+.WeWorkWith_header__inner h5,
+.ForAllDevices_header__inner h5,
+.WhatWeDo_header__inner h5,
+.WhoWeAre_header__inner h5,
+.OurWork_header__inner h5,
+.HappyClients_header__inner h5 {
   font-family: Montserrat;
   font-size: 30px;
   text-transform: uppercase;
 }
 
-.AboutUs_text__inner h5:after,
-.WeWorkWith_text__inner h5:after,
-.ForAllDevices_text__inner h5:after,
-.WhatWeDo_text__inner h5:after,
-.WhoWeAre_text__inner h5:after,
-.OurWork_text__inner h5:after {
+.AboutUs_header__inner h5:after,
+.WeWorkWith_header__inner h5:after,
+.ForAllDevices_header__inner h5:after,
+.WhatWeDo_header__inner h5:after,
+.WhoWeAre_header__inner h5:after,
+.OurWork_header__inner h5:after,
+.HappyClients_header__inner h5:after {
   content: "";
   display: block;
   width: 60px;
@@ -266,9 +275,9 @@ svg {
   margin: 30px auto;
 }
 
-.AboutUs_text__inner p,
-.WhoWeAre_text__inner p,
-.OurWork_text__inner p {
+.AboutUs_header__inner p,
+.WhoWeAre_header__inner p,
+.OurWork_header__inner p {
   width: 954px;
   height: 39px;
   color: #999999;
@@ -331,6 +340,8 @@ svg {
 .AboutUs__img img {
   display: block;
   transition: all 0.3s linear;
+  width: 380px;
+  height: 250px;
 }
 
 /* Statistics */
@@ -400,6 +411,8 @@ svg {
   float: left;
   margin-right: 20px;
   margin-bottom: 40px;
+  width: 32px;
+  height: 31px;
 }
 
 .service h5 {
@@ -452,7 +465,7 @@ svg {
   top: 300px;
 }
 
-.ForAllDevices_text__inner h5:after {
+.ForAllDevices_header__inner h5:after {
   margin-top: 10px;
   margin-bottom: 1px;
 }
@@ -489,6 +502,11 @@ svg {
   gap: 10px;
   border: 1px solid #e5e5e5;
   padding: 10px;
+}
+
+.WhatWeDo_header svg {
+  width: 35px;
+  height: 35px;
 }
 
 .WhatWeDo_service p {
@@ -541,6 +559,8 @@ svg {
   background-color: transparent;
   cursor: pointer;
   margin-left: auto;
+  width: 50px;
+  height: 30px;
 }
 
 /* Scroll */
@@ -587,8 +607,15 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
 }
 
+.quote_icon svg {
+  width: 75px;
+  height: 75px;
+}
+
 .quote_chevron {
   margin: 50px;
+  width: 50px;
+  height: 30px;
 }
 
 .quote_author {
@@ -652,6 +679,8 @@ body::-webkit-scrollbar-thumb {
 
 .WhoWeAre__img img {
   display: block;
+  width: 380px;
+  height: 470px;
 }
 
 .WhoWeAre_socials {
@@ -790,6 +819,12 @@ body::-webkit-scrollbar-thumb {
 .OurWork__img img {
   display: block;
   height: 400px;
+  width: 455px;
+}
+
+.OurWork__img_special img {
+  width: 480px;
+  height: 800px;
 }
 
 .OurWork__img_special:hover::before {
@@ -882,4 +917,70 @@ body::-webkit-scrollbar-thumb {
   height: 3px;
   margin-right: 10px;
   background-color: #f38181;
+}
+
+/* Happy Clients */
+
+.HappyClients_container {
+  background: url("../images/HappyClients_images/happyclients_background_image.png") center no-repeat;
+  width: 100%;
+  height: 1000px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.HappyClients_clients__inner {
+  display: grid;
+  grid-template-columns: repeat(2, [col] 1fr);
+  grid-template-rows: repeat(2, [row] 1fr);
+  position: relative;
+  gap: 80px 10px;
+}
+
+.HappyClients__img {
+  float: left;
+  margin-top: -30px;
+  height: 200px;
+}
+
+.HappyClients__item_info h3 {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.HappyClients__item_info h5 {
+  color: #333333;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 100;
+  font-size: 15px;
+  line-height: 24px;
+  text-align: left;
+  position: relative;
+}
+
+.HappyClients__item_info h5:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f38181;
+  position: absolute;
+  right: 295px;
+  margin: 10px;
+}
+
+.HappyClients__item_info p {
+  color: #999999;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 30px;
 }
