@@ -211,7 +211,8 @@ svg {
 .WhatWeDo_container,
 .ForAllDevices_container,
 .WhoWeAre_container,
-.OurWork_container {
+.OurWork_container,
+.OurStories_container {
   max-width: 100%;
   height: 750px;
   align-items: center;
@@ -226,11 +227,11 @@ svg {
 .WhatWeDo__inner,
 .WhoWeAre__inner,
 .OurWork__inner,
-.HappyClients__inner {
+.HappyClients__inner,
+.OurStories__inner {
   display: flex;
   flex-direction: column;
   width: 1210px;
-  height: 550px;
   align-items: center;
   text-align: center;
   gap: 120px;
@@ -242,7 +243,8 @@ svg {
 .WhatWeDo_header__inner h3,
 .WhoWeAre_header__inner h3,
 .OurWork_header__inner h3,
-.HappyClients_header__inner h3 {
+.HappyClients_header__inner h3,
+.OurStories_header__inner h3 {
   font-weight: 400;
   font-size: 24px;
   font-family: "Kaushan Script";
@@ -254,7 +256,8 @@ svg {
 .WhatWeDo_header__inner h5,
 .WhoWeAre_header__inner h5,
 .OurWork_header__inner h5,
-.HappyClients_header__inner h5 {
+.HappyClients_header__inner h5,
+.OurStories_header__inner h5 {
   font-family: Montserrat;
   font-size: 30px;
   text-transform: uppercase;
@@ -266,7 +269,8 @@ svg {
 .WhatWeDo_header__inner h5:after,
 .WhoWeAre_header__inner h5:after,
 .OurWork_header__inner h5:after,
-.HappyClients_header__inner h5:after {
+.HappyClients_header__inner h5:after,
+.OurStories_header__inner h5:after {
   content: "";
   display: block;
   width: 60px;
@@ -333,7 +337,8 @@ svg {
 }
 
 
-.AboutUs__img {
+.AboutUs__img,
+.OurStories__img {
   transition: all 0.3s linear;
 }
 
@@ -583,6 +588,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 120px;
 }
 
 .quote blockquote p {
@@ -983,4 +989,135 @@ body::-webkit-scrollbar-thumb {
   font-weight: 400;
   text-align: left;
   margin-top: 30px;
+}
+
+/* Our Stories */
+
+.OurStories_container {
+  height: 450px;
+}
+
+.OurStories_image__inner {
+  display: flex;
+  gap: 30px;
+}
+
+.OurStories__inner {
+  gap: 40px;
+}
+
+.OurStories__item {
+  position: relative;
+}
+
+.OurStories__img::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #95e1d3;
+  bottom: 20px;
+  width: 60px;
+  height: 70px;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.OurStories__item::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  width: 15px;
+  height: 20px;
+  color: #ffffff;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.OurStories__img_1:after {
+  content: "15";
+}
+
+.OurStories__item:nth-child(1)::after {
+  content: "jan";
+}
+
+.OurStories__img_2:after {
+  content: "14";
+}
+
+.OurStories__item:nth-child(2)::after {
+  content: "june";
+}
+
+.OurStories__img_3:after {
+  content: "12";
+}
+
+.OurStories__item:nth-child(3)::after {
+  content: "july";
+}
+
+.OurStories__item_info {
+  position: absolute;
+  top: 250px;
+  left: 10px;
+}
+
+.OurStories__item_info:after {
+  content: "";
+  display: block;
+  width: 380px;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 20px auto;
+}
+
+.OurStories__item_info h3 {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.OurStories__item_info p {
+  color: #999999;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+.OurStories_item_statistics {
+  width: 20px;
+  height: 20px;
+  fill: #95e1d3;
+}
+
+.div_views {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 380px;
+  left: 8px;
+  gap: 5px;
+}
+
+.div_comments {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 380px;
+  left: 80px;
+  gap: 5px;
 }
