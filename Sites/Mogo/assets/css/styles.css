@@ -153,9 +153,13 @@ svg {
   opacity: 1;
 }
 
-.icon svg {
+.icon {
   width: 20px;
   height: 20px;
+}
+
+.icon:hover {
+  stroke: #fce38a
 }
 
 /* Slider */
@@ -285,7 +289,7 @@ svg {
   width: 954px;
   height: 39px;
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -431,7 +435,7 @@ svg {
 
 .service p {
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -477,23 +481,28 @@ svg {
 
 /* What We Do. Text */
 
+.WhatWeDo_header__inner {
+  margin-top: 350px;
+}
+
 .WhatWeDo_container {
   background-color: #fff;
   height: 900px;
-  margin-bottom: 120px;
+  margin-bottom: 300px;
 }
 
 .WhatWeDo_start_text {
   width: 954px;
   height: 39px;
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
   text-align: center;
+  margin-top: 50px;
 }
 
 .WhatWeDo_main__inner {
@@ -536,7 +545,7 @@ svg {
 
 .WhatWeDo_text p {
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -595,7 +604,7 @@ body::-webkit-scrollbar-thumb {
   width: 767px;
   height: 96px;
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 24px;
@@ -739,7 +748,7 @@ body::-webkit-scrollbar-thumb {
 
 .WhoWeAre__item p {
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -756,7 +765,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 400px;
+  margin-top: 250px;
   margin-bottom: 100px;
 }
 
@@ -797,7 +806,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -844,7 +853,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -886,7 +895,7 @@ body::-webkit-scrollbar-thumb {
   width: 767px;
   height: 96px;
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 24px;
@@ -997,6 +1006,10 @@ body::-webkit-scrollbar-thumb {
   height: 450px;
 }
 
+.OurStories_header__inner h3 {
+  margin-top: 100px;
+}
+
 .OurStories_image__inner {
   display: flex;
   gap: 30px;
@@ -1035,7 +1048,7 @@ body::-webkit-scrollbar-thumb {
   width: 15px;
   height: 20px;
   color: #ffffff;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   text-align: center;
@@ -1133,7 +1146,7 @@ body::-webkit-scrollbar-thumb {
   height: 200px;
   background: url("../images/Other/OpenMap_background.png") center no-repeat;
   background-size: cover;
-  margin-top: 250px;
+  margin-top: 300px;
   gap: 5px;
 }
 
@@ -1163,10 +1176,22 @@ body::-webkit-scrollbar-thumb {
 
 /* Footer */
 
-footer {
-  display: flex;
+/* Footer contact information */
+
+.footer {
+  display: grid;
   width: 100%;
   height: 560px;
+  grid-template-columns: 450px 350px 300px;
+}
+
+.footer::after {
+  content: "";
+  display: flex;
+  margin: 70px 350px;
+  width: 1230px;
+  height: 1px;
+  background-color: #e5e5e5;
 }
 
 .footer_contact_info {
@@ -1184,7 +1209,8 @@ footer {
   font-family: Montserrat;
   font-size: 46px;
   font-weight: 700;
-  text-align: left;
+  position: relative;
+  right: 4px;
 }
 
 .footer_contact_info_information {
@@ -1237,7 +1263,7 @@ footer {
 
 .footer_contact_info_followUs p {
   color: #999999;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 18px;
@@ -1256,7 +1282,7 @@ footer {
 
 .footer_contact_info_subscribe_input::placeholder {
   color: #cccccc;
-  font-family: "Roboto";
+  font-family: "Roboto - Light Italic";
   font-style: italic;
   font-weight: lighter;
   font-size: 15px;
@@ -1278,3 +1304,120 @@ footer {
   padding: 0;
   margin: 0;
 }
+
+/* Footer Blogs */
+
+.footer_blogs {
+  display: flex;
+  flex-direction: column;
+  margin-left: 400px;
+}
+
+.footer_blogs_caption {
+  margin-top: 80px;
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.footer_blogs_images {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+} 
+
+.footer_blogs_image {
+  width: 119px;
+  height: 79px;
+}
+
+.footer_blogs_image_container {
+  display: flex;
+  gap: 20px;
+}
+
+.footer_blogs_articles {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer_blogs_image_caption {
+  width: 210px;
+  height: 27px;
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.footer_blogs_image_paragraph {
+  color: #999999;
+  font-family: "Roboto - Light Italic";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+
+/* Footer Instagram */
+
+.footer_instagram {
+  margin-left: 500px;
+}
+
+.footer_instagram_images {
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  grid-template-rows: repeat(3, 90px);
+  gap: 2px;
+}
+
+.footer_instagram_image {
+  width: 90px;
+  height: 90px;
+}
+
+.footer_instagram_caption {
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+
+.footer_instagram_paragraph {
+  width: 96px;
+  height: 13px;
+  color: #333333;
+  font-family: "Roboto - Light Italic";
+  font-size: 13px;
+  font-style: italic;
+  font-weight: lighter;
+  line-height: 24px;
+  text-align: left;
+}
+
+.footer_copyrights {
+  margin: 20px auto;
+  color: #333333;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.footer_author {
+  color: #f38181;
+}
+
