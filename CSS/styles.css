@@ -600,9 +600,9 @@ body {
 @font-face {
   font-family: "RobotoBoldItalic";
   src: url("/fonts/Roboto-BoldItalic.ttf") format("truetype"),
-       url("/fonts/Roboto-BoldItalic.woff") format("woff"),
-       url("/fonts/Roboto-BoldItalic.woff2") format("woff2"),
-       url("/fonts/Roboto-BoldItalic.otf") format("opentype");
+        url("/fonts/Roboto-BoldItalic.woff") format("woff"),
+        url("/fonts/Roboto-BoldItalic.woff2") format("woff2"),
+        url("/fonts/Roboto-BoldItalic.otf") format("opentype");
   font-weight: 900;
   font-style: italic;
 } 

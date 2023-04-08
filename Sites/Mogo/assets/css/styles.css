@@ -1,3 +1,38 @@
+/* Определение шрифтов */
+@font-face {
+  font-family: "Roboto-LightItalic";
+  src: url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.ttf") format("truetype"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff") format("woff"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff2") format("woff2"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.otf") format("opentype");
+} 
+
+@font-face {
+  font-family: Roboto;
+  src: url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff") format("woff"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff2") format("woff2"),
+        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat - Regular";
+  src: url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff") format("woff"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff2") format("woff2"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat - Bold";
+  src: url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff") format("woff"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff2") format("woff2"),
+        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.otf") format("opentype");
+}
+
+/* Вёрстка */
+
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 15px;
@@ -66,9 +101,11 @@ svg {
 }
 
 .intro__suptitle {
-  font-size: 72px;
   color: #fff;
-  font-family: "Kaushan Script", cursive;
+  font-family: "Kaushan Script";
+  font-size: 72px;
+  font-weight: 300;
+  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -291,9 +328,7 @@ svg {
   width: 954px;
   height: 39px;
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: Roboto;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -437,9 +472,7 @@ svg {
 
 .service p {
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: Roboto;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
@@ -496,15 +529,13 @@ svg {
 .WhatWeDo_start_text {
   width: 954px;
   height: 39px;
+  margin-top: 50px;
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: Roboto;
   font-size: 15px;
   font-weight: 400;
   line-height: 24px;
   text-align: center;
-  margin-top: 50px;
 }
 
 .WhatWeDo_main__inner {
@@ -530,7 +561,6 @@ svg {
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 500;
-  text-transform: uppercase;
 }
 
 .WhatWeDo_services {
@@ -543,19 +573,18 @@ svg {
   height: 180px;
   border: 1px solid #e5e5e5;
   overflow: auto;
+  scrollbar-width: 5px;
+  scrollbar-color: #95e1d3 #f5f5f5
 }
 
 .WhatWeDo_text p {
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 200;
   line-height: 24px;
   text-align: left;
-  width: 525px;
-  height: 132px;
+  padding: 5px 15px;
 }
 
 .WhatWeDo_text::-webkit-scrollbar {
@@ -585,14 +614,14 @@ body::-webkit-scrollbar {
   width: 20px;
 }
 
-* {
-  scrollbar-width: 20px;
-  scrollbar-color: #fce38a #f5f5f5;
-}
-
 body::-webkit-scrollbar-thumb {
   background: linear-gradient(90deg, #f38181, #fce38a);
   border-radius: 15px;
+}
+
+* {
+  scrollbar-width: 20px;
+  scrollbar-color: #fce38a #f5f5f5;
 }
 
 /* Quote */
@@ -611,9 +640,7 @@ body::-webkit-scrollbar-thumb {
   width: 767px;
   height: 96px;
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 24px;
   font-weight: 400;
   line-height: 36px;
@@ -755,9 +782,7 @@ body::-webkit-scrollbar-thumb {
 
 .WhoWeAre__item p {
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 15px;
   line-height: 24px;
   text-align: center;
@@ -813,9 +838,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 15px;
   line-height: 24px;
   text-align: center;
@@ -860,9 +883,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 15px;
   line-height: 24px;
   text-align: center;
@@ -902,9 +923,7 @@ body::-webkit-scrollbar-thumb {
   width: 767px;
   height: 96px;
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 24px;
   line-height: 36px;
   text-align: left;
@@ -978,8 +997,7 @@ body::-webkit-scrollbar-thumb {
 
 .HappyClients__item_info h5 {
   color: #333333;
-  font-family: "Roboto";
-  font-style: italic;
+  font-family: "Roboto-LightItalic";
   font-weight: 100;
   font-size: 15px;
   line-height: 24px;
@@ -1003,6 +1021,7 @@ body::-webkit-scrollbar-thumb {
   font-family: Roboto;
   font-size: 15px;
   font-weight: 400;
+  line-height: 24px;
   text-align: left;
   margin-top: 30px;
 }
@@ -1055,9 +1074,7 @@ body::-webkit-scrollbar-thumb {
   width: 15px;
   height: 20px;
   color: #ffffff;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   text-align: center;
 }
 
@@ -1235,16 +1252,17 @@ body::-webkit-scrollbar-thumb {
   margin-top: 50px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   text-align: left;
   font-family: "Montserrat - Regular";
+  margin-bottom: 0
 }
 
 .footer_contact_info_followers::after {
   content: "";
   display: block;
-  margin: 20px auto;
+  margin-top: 20px;
   width: 480px;
   height: 1px;
   background-color: #e5e5e5;
@@ -1259,21 +1277,20 @@ body::-webkit-scrollbar-thumb {
 .footer_contact_info_followUs {
   display: flex;
   gap: 20px;
+
 }
 
 .footer_contact_info_followUs svg {
   fill: #95e1d3;
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
   margin-top: 18px;
 }
 
 .footer_contact_info_followUs p {
   color: #999999;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
-  font-size: 18px;
+  font-family: "Roboto-LightItalic";
+  font-size: 15px;
   line-height: 24px;
   text-align: left;
 }
@@ -1285,6 +1302,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #ffffff;
   padding: 0;
   margin-left: 5px;
+  margin-top: 30px;
 }
 
 .footer_contact_info_subscribe_input:focus {
@@ -1293,9 +1311,7 @@ body::-webkit-scrollbar-thumb {
 
 .footer_contact_info_subscribe_input::placeholder {
   color: #cccccc;
-  font-family: "Roboto - Light Italic";
-  font-style: italic;
-  font-weight: lighter;
+  font-family: "Roboto-LightItalic";
   font-size: 15px;
   line-height: 24px;
   text-align: left;
@@ -1325,6 +1341,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_blogs_caption {
+  width: 60px;
+  height: 20px;
   margin-top: 80px;
   color: #333333;
   font-family: Montserrat;
@@ -1371,7 +1389,7 @@ body::-webkit-scrollbar-thumb {
 
 .footer_blogs_image_paragraph {
   color: #999999;
-  font-family: "Roboto - Light Italic";
+  font-family: "Roboto-LightItalic";
   font-size: 13px;
   font-weight: 400;
   line-height: 24px;
@@ -1397,6 +1415,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_instagram_caption {
+  width: 90px;
+  height: 20px;
   color: #333333;
   font-family: Montserrat;
   font-size: 14px;
@@ -1408,13 +1428,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_instagram_paragraph {
-  width: 96px;
-  height: 13px;
+  width: 120px;
   color: #333333;
-  font-family: "Roboto - Light Italic";
+  font-family: "Roboto-LightItalic";
   font-size: 13px;
-  font-style: italic;
-  font-weight: lighter;
   line-height: 24px;
   text-align: left;
 }
@@ -1424,7 +1441,7 @@ body::-webkit-scrollbar-thumb {
   color: #333333;
   font-family: Montserrat;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   text-align: center;
 }
 
