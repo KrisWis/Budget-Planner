@@ -842,32 +842,32 @@ body::-webkit-scrollbar-thumb {
   font-size: 15px;
   line-height: 24px;
   text-align: center;
+  background-size: cover;
 }
 
 .OurWork__img:hover::after {
   content: url("../images/Other/image.png") "\A creatively designed" ;
-  display: flex;
+  display: block;
   position: absolute;
-  left: 170px;
+  left: 145px;
   top: 120px;
-  width: 120px;
   color: #ffffff;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
-  white-space: pre;
-  justify-content: center;
+  white-space: pre-wrap;
 }
 
 .OurWork__img img {
   display: block;
+  width: 100%;
   height: 400px;
-  width: 455px;
 }
 
 .OurWork__img_special img {
+  display: block;
   width: 480px;
   height: 800px;
 }
@@ -887,23 +887,22 @@ body::-webkit-scrollbar-thumb {
   font-size: 15px;
   line-height: 24px;
   text-align: center;
+  background-size: cover;
 }
 
 .OurWork__img_special:hover::after {
   content: url("../images/Other/image.png") "\A creatively designed" ;
-  display: flex;
+  display: block;
   position: absolute;
-  left: 181px;
+  left: 160px;
   top: 300px;
-  width: 120px;
   color: #ffffff;
   font-family: Montserrat;
   font-size: 14px;
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
-  white-space: pre;
-  justify-content: center;
+  white-space: pre-wrap;
 }
 
 
