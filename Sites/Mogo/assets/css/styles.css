@@ -63,6 +63,8 @@ svg {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Intro */
@@ -183,19 +185,20 @@ svg {
   transition: opacity 0.1s linear;
 }
 
-.nav__link:hover,
-.nav__link.active {
+.nav__link:hover {
   color: #fce38a;
 }
 
-.nav__link:hover::after,
-.nav__link.active::after {
+.nav__link:hover::after {
   opacity: 1;
 }
 
 .icon {
   width: 20px;
   height: 20px;
+}
+.icon_block {
+  display: inline-block;
 }
 
 .icon:hover {
@@ -355,7 +358,7 @@ svg {
 .AboutUs__img:hover::before {
   content: "";
   display: block;
-  width: 380px;
+  width: 100%;
   height: 250px;
   position: absolute;
   background: linear-gradient(to bottom, #f38181, #fce38a);
@@ -403,11 +406,15 @@ svg {
 .statistics__inner {
   display: flex;
   justify-content: space-evenly;
-  width: 1201px;
+  width: 62vw;
 }
 
 .statistics_item {
-  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  padding-top: 50px;
   border-left: 2px solid #ace8dd;
   border-right: 2px solid #ace8dd;
   color: white;
@@ -418,8 +425,9 @@ svg {
 }
 
 .statistics_item span {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
+  text-transform: uppercase;
 }
 
 /* We work with. Text */
@@ -471,6 +479,7 @@ svg {
 }
 
 .service p {
+  width: 100%;
   color: #999999;
   font-family: Roboto;
   font-size: 15px;
@@ -564,12 +573,12 @@ svg {
 }
 
 .WhatWeDo_services {
-  width: 600px;
-  height: 400px;
+  width: 31vw;
+  height: 37vh;
 }
 
 .WhatWeDo_text {
-  width: 600px;
+  width: 100%;
   height: 180px;
   border: 1px solid #e5e5e5;
   overflow: auto;
@@ -637,8 +646,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .quote blockquote p {
-  width: 767px;
-  height: 96px;
+  width: 40vw;
+  height: 35%;
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 24px;
@@ -685,7 +694,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #f38181;
 }
 
-/* WhoWeAre. Pictures */
+/* Who We Are. Images */
 
 .WhoWeAre_image__inner {
   display: flex;
@@ -697,7 +706,7 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   background-color: #95e1d3;
   transition: all 0.2s linear;
-  width: 380px;
+  width: 100%;
   height: 470px;
 }
 
@@ -708,7 +717,7 @@ body::-webkit-scrollbar-thumb {
 .WhoWeAre__img:hover::before {
   content: "";
   display: block;
-  width: 380px;
+  width: 100%;
   height: 470px;
   position: absolute;
   background: linear-gradient(to bottom, #f38181, #fce38a);
@@ -736,10 +745,8 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   background-color: #fce38a;
   position: absolute;
-  left: 75px;
-  top: 200px;
-  width: 224px;
-  height: 56px;
+  left: 19%;
+  top: 42%;
   opacity: 0;
 }
 
@@ -792,7 +799,7 @@ body::-webkit-scrollbar-thumb {
 
 .logos {
   width: 100%;
-  height: 250px;
+  height: 25vh;
   background-color: #f8f8f8;
   display: flex;
   align-items: center;
@@ -800,6 +807,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 250px;
   margin-bottom: 100px;
 }
+
 
 /* Some of our work. Images. */
 
@@ -849,8 +857,8 @@ body::-webkit-scrollbar-thumb {
   content: url("../images/Other/image.png") "\A creatively designed" ;
   display: block;
   position: absolute;
-  left: 145px;
-  top: 120px;
+  left: 32%;
+  top: 30%;
   color: #ffffff;
   font-family: Montserrat;
   font-size: 14px;
@@ -868,7 +876,7 @@ body::-webkit-scrollbar-thumb {
 
 .OurWork__img_special img {
   display: block;
-  width: 480px;
+  width: 25vw;
   height: 800px;
 }
 
@@ -894,8 +902,8 @@ body::-webkit-scrollbar-thumb {
   content: url("../images/Other/image.png") "\A creatively designed" ;
   display: block;
   position: absolute;
-  left: 160px;
-  top: 300px;
+  left: 32%;
+  top: 75%;
   color: #ffffff;
   font-family: Montserrat;
   font-size: 14px;
@@ -919,8 +927,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .quote_2 blockquote p {
-  width: 767px;
-  height: 96px;
+  width: 40vw;
+  height: 35%;
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 24px;
@@ -1011,7 +1019,7 @@ body::-webkit-scrollbar-thumb {
   height: 3px;
   background-color: #f38181;
   position: absolute;
-  right: 295px;
+  right: 49%;
   margin: 10px;
 }
 
@@ -1020,7 +1028,6 @@ body::-webkit-scrollbar-thumb {
   font-family: Roboto;
   font-size: 15px;
   font-weight: 400;
-  line-height: 24px;
   text-align: left;
   margin-top: 30px;
 }
@@ -1046,6 +1053,10 @@ body::-webkit-scrollbar-thumb {
 
 .OurStories__item {
   position: relative;
+}
+
+.OurStories__item img {
+  width: 24vw;
 }
 
 .OurStories__img::after {
@@ -1103,14 +1114,14 @@ body::-webkit-scrollbar-thumb {
 
 .OurStories__item_info {
   position: absolute;
-  top: 250px;
+  top: 100%;
   left: 10px;
 }
 
 .OurStories__item_info::after {
   content: "";
   display: block;
-  width: 380px;
+  width: 20vw;
   height: 1px;
   background-color: #e5e5e5;
   margin: 20px auto;
@@ -1126,6 +1137,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurStories__item_info p {
+  width: 20vw;
+  height: 4vh;
   color: #999999;
   font-family: Roboto;
   font-size: 15px;
@@ -1144,7 +1157,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 380px;
+  top: 150%;
   left: 8px;
   gap: 5px;
 }
@@ -1153,7 +1166,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 380px;
+  top: 150%;
   left: 80px;
   gap: 5px;
 }
@@ -1205,14 +1218,14 @@ body::-webkit-scrollbar-thumb {
   display: grid;
   width: 100%;
   height: 560px;
-  grid-template-columns: 450px 350px 300px;
+  grid-template-columns: 23% 18% 15%;
 }
 
 .footer::after {
   content: "";
   display: flex;
-  margin: 70px 350px;
-  width: 1230px;
+  margin: 30vh 18vw;
+  width: 64vw;
   height: 1px;
   background-color: #e5e5e5;
 }
@@ -1221,9 +1234,9 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 350px;
-  width: 500px;
-  height: 350px;
+  margin-left: 15vw;
+  width: 25vw;
+  height: 32vh;
 }
 
 .footer_contact_info_caption {
@@ -1237,7 +1250,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_contact_info_information {
-  width: 462px;
+  width: 24vw;
   height: 87px;
   color: #999999;
   font-family: Roboto;
@@ -1262,7 +1275,7 @@ body::-webkit-scrollbar-thumb {
   content: "";
   display: block;
   margin-top: 20px;
-  width: 480px;
+  width: 25vw;
   height: 1px;
   background-color: #e5e5e5;
 }
@@ -1295,7 +1308,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_contact_info_subscribe_input {
-  width: 230px;
+  width: 12vw;
   height: 40px;
   border: 1px solid #e7e7e7;
   background-color: #ffffff;
@@ -1317,7 +1330,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_contact_info_subscribe_button {
-  width: 150px;
+  width: 8vw;
   height: 40px;
   background-color: #95e1d3;
   color: #ffffff;
@@ -1336,11 +1349,13 @@ body::-webkit-scrollbar-thumb {
 .footer_blogs {
   display: flex;
   flex-direction: column;
-  margin-left: 400px;
+  margin-left: 20vw;
+  width: 20vw;
+  height: 30vh;
 }
 
 .footer_blogs_caption {
-  width: 60px;
+  width: 3vw;
   height: 20px;
   margin-top: 80px;
   color: #333333;
@@ -1359,7 +1374,7 @@ body::-webkit-scrollbar-thumb {
 } 
 
 .footer_blogs_image {
-  width: 119px;
+  width: 6vw;
   height: 79px;
 }
 
@@ -1398,7 +1413,9 @@ body::-webkit-scrollbar-thumb {
 /* Footer Instagram */
 
 .footer_instagram {
-  margin-left: 500px;
+  width: 20vw;
+  height: 25vh;
+  margin-left: 25vw;
 }
 
 .footer_instagram_images {
@@ -1414,7 +1431,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_instagram_caption {
-  width: 90px;
+  width: 5vw;
   height: 20px;
   color: #333333;
   font-family: Montserrat;
@@ -1448,3 +1465,69 @@ body::-webkit-scrollbar-thumb {
   color: #f38181;
 }
 
+
+/* Адаптивная вёрстка */
+
+@media screen and (max-width: 1230px) {
+  
+  .AboutUs__img img {
+    width: 350px;
+  }
+
+  .statistics_item span {
+    font-size: 11px;
+  }
+  
+  .service {
+    width: 330px;
+  }
+
+  .WhatWeDo_main__inner img {
+    padding-left: 30px;
+  }
+
+  .quote blockquote p {
+    font-size: 18px;
+  }
+  
+  .WhoWeAre__img img {
+    width: 340px;
+  }
+  
+  .logos img {
+    width: 1100px;
+  }
+
+  .OurWork__img:hover::after,
+  .OurWork__img_special:hover::after {
+    left: 23%;
+  }
+
+  .quote_2 blockquote p {
+    font-size: 18px;
+  }
+  
+  .HappyClients__item_info p {
+    padding-right: 30px;
+  }
+
+  .OurStories__item_info p {
+    font-size: 10px;
+  }
+
+  .footer_contact_info {
+    margin-left: 10vw;
+  }
+
+  .footer_blogs {
+    margin-left: 15vw;
+  }
+
+  .footer_instagram {
+    margin-left: 30vw;
+  }
+
+  .footer::after {
+    margin: 35vh 18vw;
+  }
+}
