@@ -80,7 +80,6 @@ svg {
 
 .intro__inner {
   width: 100%;
-  max-width: 880px;
   margin: 0 auto;
   text-align: center;
 }
@@ -96,7 +95,7 @@ svg {
 .intro__title::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 7%;
   height: 3px;
   background-color: #fff;
   margin: 60px auto;
@@ -117,7 +116,7 @@ svg {
   display: inline-block;
   vertical-align: top;
   border: 3px #fff solid;
-  padding: 8px 30px;
+  padding: 2% 30px;
   color: #fff;
   text-transform: uppercase;
   font-size: 14px;
@@ -194,9 +193,10 @@ svg {
 }
 
 .icon {
-  width: 20px;
+  width: 40%;
   height: 20px;
 }
+
 .icon_block {
   display: inline-block;
 }
@@ -209,7 +209,7 @@ svg {
 
 .slider {
   position: absolute;
-  top: 900px;
+  top: 100%;
   width: 100%;
 }
 
@@ -236,7 +236,7 @@ svg {
 .slider__item.active::before {
   content: "";
   display: block;
-  width: 70px;
+  width: 26%;
   height: 3px;
   position: absolute;
   top: -3px;
@@ -259,7 +259,7 @@ svg {
 .WhoWeAre_container,
 .OurWork_container,
 .OurStories_container {
-  max-width: 100%;
+  width: 100%;
   height: 750px;
   align-items: center;
   justify-content: center;
@@ -277,7 +277,8 @@ svg {
 .OurStories__inner {
   display: flex;
   flex-direction: column;
-  width: 1210px;
+  width: 100%;
+  max-width: 1200px;
   align-items: center;
   text-align: center;
   gap: 120px;
@@ -319,7 +320,8 @@ svg {
 .OurStories_header__inner h5::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 10%;
+  min-width: 60px;
   height: 3px;
   background-color: #f38181;
   margin: 30px auto;
@@ -327,8 +329,9 @@ svg {
 
 .AboutUs_header__inner p,
 .WhoWeAre_header__inner p,
-.OurWork_header__inner p {
-  width: 954px;
+.OurWork_header__inner p,
+.WhatWeDo_header__inner p {
+  width: 100%;
   height: 39px;
   color: #999999;
   font-family: Roboto;
@@ -343,7 +346,9 @@ svg {
 .AboutUs_image__inner {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .AboutUs__item:hover {
@@ -371,7 +376,7 @@ svg {
   position: absolute;
   left: 120px;
   top: 70px;
-  width: 140px;
+  width: 35%;
   height: 14px;
   color: #ffffff;
   font-family: Montserrat;
@@ -389,8 +394,7 @@ svg {
 .AboutUs__img img {
   display: block;
   transition: all 0.3s linear;
-  width: 380px;
-  height: 250px;
+  width: 100%;
 }
 
 /* Statistics */
@@ -406,7 +410,7 @@ svg {
 .statistics__inner {
   display: flex;
   justify-content: space-evenly;
-  width: 62vw;
+  width: 62%;
 }
 
 .statistics_item {
@@ -421,7 +425,7 @@ svg {
   font-family: Montserrat;
   font-size: 72px;
   font-weight: 700;
-  width: 250px;
+  width: 26%;
 }
 
 .statistics_item span {
@@ -445,7 +449,7 @@ svg {
 }
 
 .service {
-  width: 400px;
+  width: 30%;
 }
 
 .services_first_row {
@@ -453,6 +457,7 @@ svg {
   gap: 70px;
   border-bottom: 1px #e5e5e5 solid;
   padding-bottom: 50px;
+  width: 100%;
 }
 
 .services_second_row {
@@ -465,8 +470,7 @@ svg {
   float: left;
   margin-right: 20px;
   margin-bottom: 40px;
-  width: 32px;
-  height: 31px;
+  width: 12%;
 }
 
 .service h5 {
@@ -490,6 +494,10 @@ svg {
 
 /* For all devices. Text */
 
+.ForAllDevices_header__inner {
+  padding-top: 100px;
+}
+
 .ForAllDevices_container {
   background: url("../images/ForAllDevices_images/ForAllDevices_background.png") center no-repeat;
   background-size: cover;
@@ -505,17 +513,27 @@ svg {
   position: relative;
 }
 
+.ForAllDevices_image__inner {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  justify-items: center;
+  align-items: center;
+}
+
 .ForAllDevices_phone1 {
   position: absolute;
-  width: 400px;
-  height: 490px;
-  right: 400px;
+  width: 35%;
+  height: 70%;
+  right: 33%;
 }
 
 .ForAllDevices_phone2 {
   position: absolute;
-  right: 230px;
-  top: 300px;
+  width: 25%;
+  height: 65%;
+  right: 20%;
+  top: 50%;
 }
 
 .ForAllDevices_header__inner h5::after {
@@ -526,6 +544,8 @@ svg {
 /* What We Do. Text */
 
 .WhatWeDo_header__inner {
+  width: 100%;
+  max-width: 1200px;
   margin-top: 350px;
 }
 
@@ -535,21 +555,16 @@ svg {
   margin-bottom: 300px;
 }
 
-.WhatWeDo_start_text {
-  width: 954px;
-  height: 39px;
-  margin-top: 50px;
-  color: #999999;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: center;
-}
-
 .WhatWeDo_main__inner {
   display: flex;
   gap: 30px;
+  width: 100%;
+  height: 400px;
+}
+
+.WhatWeDo_main__inner img {
+  width: 60%;
+  height: 100%;
 }
 
 .WhatWeDo_header {
@@ -561,8 +576,9 @@ svg {
 }
 
 .WhatWeDo_header svg {
-  width: 35px;
-  height: 35px;
+  width: 7%;
+  height: 7%;
+  min-width: 30px;
 }
 
 .WhatWeDo_service p {
@@ -573,8 +589,7 @@ svg {
 }
 
 .WhatWeDo_services {
-  width: 31vw;
-  height: 37vh;
+  width: 50%;
 }
 
 .WhatWeDo_text {
@@ -617,6 +632,11 @@ svg {
   height: 30px;
 }
 
+.WhatWeDo_chevron svg {
+  width: 100%;
+  height: 100%;
+}
+
 /* Scroll */
 
 body::-webkit-scrollbar {
@@ -637,28 +657,27 @@ body::-webkit-scrollbar-thumb {
 
 .quote {
   width: 100%;
-  height: 290px;
+  height: 100%;
   background-color: #f8f8f8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 120px;
 }
 
+.blockquote {
+  max-width: 1220px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .quote blockquote p {
-  width: 40vw;
-  height: 35%;
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 24px;
   font-weight: 400;
-  line-height: 36px;
-  text-align: left;
 }
 
 .quote_icon {
-  width: 125px;
-  height: 125px;
   border: 3px solid #95e1d3;
   display: flex;
   align-items: center;
@@ -682,6 +701,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 24px;
   font-weight: 400;
   text-align: left;
+  margin-top: 4%;
 }
 
 .quote_author::before {
@@ -698,16 +718,21 @@ body::-webkit-scrollbar-thumb {
 
 .WhoWeAre_image__inner {
   display: flex;
-  justify-content: space-between;
-  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 180px;
+  width: 100%;
+}
+
+.WhoWeAre__item {
+  width: 155%;
+  height: 155%;
 }
 
 .WhoWeAre__item:hover {
   position: relative;
   background-color: #95e1d3;
   transition: all 0.2s linear;
-  width: 100%;
-  height: 470px;
 }
 
 .WhoWeAre__img:hover {
@@ -718,7 +743,7 @@ body::-webkit-scrollbar-thumb {
   content: "";
   display: block;
   width: 100%;
-  height: 470px;
+  height: 100%;
   position: absolute;
   background: linear-gradient(to bottom, #f38181, #fce38a);
   opacity: 0.8;
@@ -731,17 +756,21 @@ body::-webkit-scrollbar-thumb {
 }
 
 .WhoWeAre__img {
+  width: 100%;
+  height: 100%;
   position: relative;
   transition: all 0.2s linear;
 }
 
 .WhoWeAre__img img {
   display: block;
-  width: 380px;
-  height: 470px;
+  width: 100%;
+  height: 100%;
 }
 
 .WhoWeAre_socials {
+  width: 60%;
+  height: 13%;
   display: flex;
   background-color: #fce38a;
   position: absolute;
@@ -750,34 +779,39 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
 }
 
-.WhoWeAre_social {
-  width: 56px;
-  height: 56px;
+.WhoWeAre_socials a {
+  width: 30%;
+  height: 100%;
   position: relative;
 }
 
 .WhoWeAre_social svg {
-  width: 35px;
-  height: 35px;
+  width: 75%;
+  height: 75%;
   position: absolute;
-  right: 9px;
-  top: 9px;
+  right: 10%;
+  top: 15%;
   fill: #f38181;
 }
 
-.WhoWeAre_social:hover {
+.WhoWeAre_socials a:hover {
   background-color: #f38181;
   transition: all 0.2s linear;
 }
 
-.WhoWeAre_social:hover svg {
+.WhoWeAre_socials a:hover svg {
   fill: #fff;
   transition: all 0.2s linear;
 }
 
 /* Who We Are. Text */
 
-.WhoWeAre__item h5 {
+.WhoWeAre_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.WhoWeAre_block h5 {
   color: #333333;
   font-family: Montserrat;
   font-size: 14px;
@@ -787,19 +821,17 @@ body::-webkit-scrollbar-thumb {
   margin-top: 30px;
 }
 
-.WhoWeAre__item p {
+.WhoWeAre_block p {
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 15px;
-  line-height: 24px;
-  text-align: center;
+  line-height: 24px
 }
 
 /* Logos */
 
 .logos {
   width: 100%;
-  height: 25vh;
   background-color: #f8f8f8;
   display: flex;
   align-items: center;
@@ -808,6 +840,9 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 100px;
 }
 
+.logos img {
+  width: 65%;
+}
 
 /* Some of our work. Images. */
 
@@ -839,7 +874,7 @@ body::-webkit-scrollbar-thumb {
   content: "Lorem ipsum dolor sit";
   display: flex;
   width: 100%;
-  height: 400px;
+  height: 100%;
   position: absolute;
   background-image: linear-gradient(to bottom, #f38181, #fce38a);
   opacity: 0.8;
@@ -876,7 +911,7 @@ body::-webkit-scrollbar-thumb {
 
 .OurWork__img_special img {
   display: block;
-  width: 25vw;
+  width: 100%;
   height: 800px;
 }
 
@@ -914,39 +949,21 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-/* Quote */
+/* Quote 2 */
 
 .quote_2 {
   width: 100%;
-  height: 450px;
+  padding: 50px;
   background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 350px
+  margin-top: 350px;
 }
 
 .quote_2 blockquote p {
-  width: 40vw;
-  height: 35%;
+  width: 135%;
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 24px;
-  line-height: 36px;
   text-align: left;
-}
-
-.quote_icon {
-  width: 125px;
-  height: 125px;
-  border: 3px solid #95e1d3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.quote_chevron {
-  margin: 50px;
 }
 
 .quote_author {
@@ -993,6 +1010,11 @@ body::-webkit-scrollbar-thumb {
   height: 200px;
 }
 
+.HappyClients__item_info {
+  display: flex;
+  flex-direction: column;
+}
+
 .HappyClients__item_info h3 {
   color: #333333;
   font-family: Montserrat;
@@ -1009,18 +1031,16 @@ body::-webkit-scrollbar-thumb {
   font-size: 15px;
   line-height: 24px;
   text-align: left;
-  position: relative;
 }
 
 .HappyClients__item_info h5::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 20%;
   height: 3px;
   background-color: #f38181;
-  position: absolute;
-  right: 49%;
-  margin: 10px;
+  position: relative;
+  margin-top: 5%;
 }
 
 .HappyClients__item_info p {
@@ -1056,7 +1076,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurStories__item img {
-  width: 24vw;
+  width: 100%;
 }
 
 .OurStories__img::after {
@@ -1065,8 +1085,8 @@ body::-webkit-scrollbar-thumb {
   position: absolute;
   background-color: #95e1d3;
   bottom: 20px;
-  width: 60px;
-  height: 70px;
+  width: 18%;
+  height: 30%;
   color: #ffffff;
   font-family: Montserrat;
   font-size: 30px;
@@ -1080,9 +1100,7 @@ body::-webkit-scrollbar-thumb {
   display: block;
   position: absolute;
   bottom: 30px;
-  left: 20px;
-  width: 15px;
-  height: 20px;
+  width: 20%;
   color: #ffffff;
   font-family: "Roboto-LightItalic";
   text-align: center;
@@ -1118,10 +1136,10 @@ body::-webkit-scrollbar-thumb {
   left: 10px;
 }
 
-.OurStories__item_info::after {
+.OurStories__item_info p::after {
   content: "";
   display: block;
-  width: 20vw;
+  width: 100%;
   height: 1px;
   background-color: #e5e5e5;
   margin: 20px auto;
@@ -1137,8 +1155,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurStories__item_info p {
-  width: 20vw;
-  height: 4vh;
+  width: 100%;
   color: #999999;
   font-family: Roboto;
   font-size: 15px;
@@ -1148,8 +1165,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurStories_item_statistics {
-  width: 20px;
-  height: 20px;
+  width: 6%;
+  min-width: 15px;
   fill: #95e1d3;
 }
 
@@ -1157,8 +1174,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 150%;
-  left: 8px;
+  top: 90%;
   gap: 5px;
 }
 
@@ -1166,8 +1182,8 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 150%;
-  left: 80px;
+  top: 90%;
+  left: 20%;
   gap: 5px;
 }
 
@@ -1224,8 +1240,8 @@ body::-webkit-scrollbar-thumb {
 .footer::after {
   content: "";
   display: flex;
-  margin: 30vh 18vw;
-  width: 64vw;
+  margin: 65% 65%;
+  width: 300%;
   height: 1px;
   background-color: #e5e5e5;
 }
@@ -1234,9 +1250,8 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 15vw;
-  width: 25vw;
-  height: 32vh;
+  margin-left: 65%;
+  width: 120%;
 }
 
 .footer_contact_info_caption {
@@ -1250,7 +1265,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_contact_info_information {
-  width: 24vw;
+  width: 100%;
   height: 87px;
   color: #999999;
   font-family: Roboto;
@@ -1275,7 +1290,7 @@ body::-webkit-scrollbar-thumb {
   content: "";
   display: block;
   margin-top: 20px;
-  width: 25vw;
+  width: 450%;
   height: 1px;
   background-color: #e5e5e5;
 }
@@ -1288,27 +1303,30 @@ body::-webkit-scrollbar-thumb {
 
 .footer_contact_info_followUs {
   display: flex;
-  gap: 20px;
-
 }
 
 .footer_contact_info_followUs svg {
   fill: #95e1d3;
-  width: 20px;
-  height: 20px;
-  margin-top: 18px;
+  width: 50%;
+  margin-top: 40%
 }
 
 .footer_contact_info_followUs p {
+  margin-top: 5%;
+  width: 100%;
   color: #999999;
   font-family: "Roboto-LightItalic";
   font-size: 15px;
-  line-height: 24px;
   text-align: left;
 }
 
+.footer_contact_info_subscribe {
+  display: flex;
+  width: 80%;
+}
+
 .footer_contact_info_subscribe_input {
-  width: 12vw;
+  width: 100%;
   height: 40px;
   border: 1px solid #e7e7e7;
   background-color: #ffffff;
@@ -1330,7 +1348,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_contact_info_subscribe_button {
-  width: 8vw;
+  width: 60%;
   height: 40px;
   background-color: #95e1d3;
   color: #ffffff;
@@ -1341,7 +1359,7 @@ body::-webkit-scrollbar-thumb {
   text-transform: uppercase;
   border: none;
   padding: 0;
-  margin: 0;
+  margin-top: 30px;
 }
 
 /* Footer Blogs */
@@ -1349,14 +1367,12 @@ body::-webkit-scrollbar-thumb {
 .footer_blogs {
   display: flex;
   flex-direction: column;
-  margin-left: 20vw;
-  width: 20vw;
-  height: 30vh;
+  margin-left: 115%;
+  width: 100%;
+  height: 100%;
 }
 
 .footer_blogs_caption {
-  width: 3vw;
-  height: 20px;
   margin-top: 80px;
   color: #333333;
   font-family: Montserrat;
@@ -1374,8 +1390,8 @@ body::-webkit-scrollbar-thumb {
 } 
 
 .footer_blogs_image {
-  width: 6vw;
-  height: 79px;
+  width: 100%;
+  height: 80%;
 }
 
 .footer_blogs_image_container {
@@ -1390,7 +1406,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_blogs_image_caption {
-  width: 210px;
+  width: 140%;
   height: 27px;
   color: #333333;
   font-family: Montserrat;
@@ -1413,26 +1429,25 @@ body::-webkit-scrollbar-thumb {
 /* Footer Instagram */
 
 .footer_instagram {
-  width: 20vw;
-  height: 25vh;
-  margin-left: 25vw;
+  width: 100%;
+  height: 100%;
+  margin-left: 180%;
 }
 
 .footer_instagram_images {
   display: grid;
-  grid-template-columns: repeat(3, 90px);
-  grid-template-rows: repeat(3, 90px);
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 2px;
 }
 
 .footer_instagram_image {
-  width: 90px;
-  height: 90px;
+  width: 100%;
+  height: 100%;
 }
 
 .footer_instagram_caption {
-  width: 5vw;
-  height: 20px;
   color: #333333;
   font-family: Montserrat;
   font-size: 14px;
@@ -1444,7 +1459,6 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_instagram_paragraph {
-  width: 120px;
   color: #333333;
   font-family: "Roboto-LightItalic";
   font-size: 13px;
@@ -1468,7 +1482,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Адаптивная вёрстка */
 
-@media screen and (max-width: 1230px) {
+/* @media screen and (max-width: 1230px) {
   
   .AboutUs__img img {
     width: 350px;
@@ -1531,3 +1545,9 @@ body::-webkit-scrollbar-thumb {
     margin: 35vh 18vw;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .nav {
+    display: none;
+  }
+} */
