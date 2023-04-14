@@ -35,7 +35,7 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  font-size: 15px;
+  font-size: 0.8vmax;
   line-height: 1.6;
   color: #333;
   margin: 0;
@@ -85,7 +85,7 @@ svg {
 }
 
 .intro__title {
-  font-size: 150px;
+  font-size: 8vmax;
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
@@ -104,7 +104,7 @@ svg {
 .intro__suptitle {
   color: #fff;
   font-family: "Kaushan Script";
-  font-size: 72px;
+  font-size: 4vmax;
   font-weight: 300;
   text-align: center;
   margin-bottom: 20px;
@@ -119,7 +119,7 @@ svg {
   padding: 2% 30px;
   color: #fff;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.8vmax;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.1s linear;
@@ -148,7 +148,7 @@ svg {
 }
 
 .header__logo {
-  font-size: 30px;
+  font-size: 1.5vmax;
   font-weight: 700;
   color: #fff;
 }
@@ -157,7 +157,7 @@ svg {
 
 .nav {
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.9vmax;
 }
 
 .nav__link,
@@ -222,7 +222,7 @@ svg {
   width: 23%;
   padding: 20px 0;
   border-top: 3px solid #fff;
-  font-size: 18px;
+  font-size: 1vmax;
   color: #fff;
   text-transform: uppercase;
   opacity: 0.7;
@@ -246,7 +246,7 @@ svg {
 }
 
 .slider__num {
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-weight: 700;
 }
 
@@ -293,7 +293,7 @@ svg {
 .HappyClients_header__inner h3,
 .OurStories_header__inner h3 {
   font-weight: 400;
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-family: "Kaushan Script";
 }
 
@@ -306,7 +306,7 @@ svg {
 .HappyClients_header__inner h5,
 .OurStories_header__inner h5 {
   font-family: Montserrat;
-  font-size: 30px;
+  font-size: 1.5vmax;
   text-transform: uppercase;
 }
 
@@ -335,7 +335,7 @@ svg {
   height: 39px;
   color: #999999;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 1vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: center;
@@ -356,37 +356,49 @@ svg {
   background-color: #95e1d3;
 }
 
-.AboutUs__img:hover {
+.AboutUs__img_block:hover {
   transform: translate3d(-10px, -10px, 0);
 }
 
-.AboutUs__img:hover::before {
+.AboutUs__img_block:hover::before {
   content: "";
   display: block;
   width: 100%;
-  height: 250px;
+  height: 100%;
   position: absolute;
   background: linear-gradient(to bottom, #f38181, #fce38a);
   opacity: 0.8;
 }
 
-.AboutUs__img:hover::after {
-  content: url("../images/Other/users.png") "Super Team";
+.AboutUs__img_block:hover .AboutUs__img::after {
+  content: "Super Team";
   display: block;
   position: absolute;
-  left: 120px;
-  top: 70px;
+  left: 33%;
+  top: 55%;
   width: 35%;
-  height: 14px;
+  height: 10%;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 18px;
+  font-size: 0.9vmax;
   font-weight: 700;
   text-transform: uppercase;
 }
 
+.AboutUs__img_block:hover::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 20%;
+  left: 36%;
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/Other/users.png");
+  background-repeat: no-repeat;
+  background-size: 29%;
+}
 
-.AboutUs__img,
+.AboutUs__img_block,
 .OurStories__img {
   transition: all 0.3s linear;
 }
@@ -403,7 +415,7 @@ svg {
   display: flex;
   background-color: #95e1d3;
   width: 100%;
-  height: 270px;
+  height: 25vh;
   justify-content: center;
 }
 
@@ -423,13 +435,14 @@ svg {
   border-right: 2px solid #ace8dd;
   color: white;
   font-family: Montserrat;
-  font-size: 72px;
+  font-size: 3.75vmax;
   font-weight: 700;
   width: 26%;
+  height: 100%;
 }
 
 .statistics_item span {
-  font-size: 16px;
+  font-size: 0.8vmax;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -476,7 +489,7 @@ svg {
 .service h5 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 400;
   text-align: left;
   text-transform: uppercase;
@@ -486,7 +499,7 @@ svg {
   width: 100%;
   color: #999999;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 1vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -584,7 +597,7 @@ svg {
 .WhatWeDo_service p {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 500;
 }
 
@@ -604,7 +617,7 @@ svg {
 .WhatWeDo_text p {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 1vmax;
   font-weight: 200;
   line-height: 24px;
   text-align: left;
@@ -673,7 +686,7 @@ body::-webkit-scrollbar-thumb {
 .quote blockquote p {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-weight: 400;
 }
 
@@ -698,7 +711,7 @@ body::-webkit-scrollbar-thumb {
 .quote_author {
   color: #333333;
   font-family: "Kaushan Script";
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-weight: 400;
   text-align: left;
   margin-top: 4%;
@@ -814,7 +827,7 @@ body::-webkit-scrollbar-thumb {
 .WhoWeAre_block h5 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;
@@ -824,7 +837,7 @@ body::-webkit-scrollbar-thumb {
 .WhoWeAre_block p {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 1vmax;
   line-height: 24px
 }
 
@@ -882,7 +895,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   color: #ffffff;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 0.7vmax;
   line-height: 24px;
   text-align: center;
   background-size: cover;
@@ -896,7 +909,7 @@ body::-webkit-scrollbar-thumb {
   top: 30%;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 0.7vmax;
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
@@ -927,7 +940,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   color: #ffffff;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 0.7vmax;
   line-height: 24px;
   text-align: center;
   background-size: cover;
@@ -941,7 +954,7 @@ body::-webkit-scrollbar-thumb {
   top: 75%;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 0.7vmax;
   font-weight: 400;
   text-align: center;
   text-transform: uppercase;
@@ -962,14 +975,14 @@ body::-webkit-scrollbar-thumb {
   width: 135%;
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 24px;
+  font-size: 1.25vmax;
   text-align: left;
 }
 
 .quote_author {
   color: #333333;
   font-family: "Kaushan Script";
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-weight: 400;
   text-align: left;
 }
@@ -1018,7 +1031,7 @@ body::-webkit-scrollbar-thumb {
 .HappyClients__item_info h3 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 0.8vmax;
   font-weight: 700;
   text-align: left;
   text-transform: uppercase;
@@ -1028,7 +1041,7 @@ body::-webkit-scrollbar-thumb {
   color: #333333;
   font-family: "Roboto-LightItalic";
   font-weight: 100;
-  font-size: 15px;
+  font-size: 0.8vmax;
   line-height: 24px;
   text-align: left;
 }
@@ -1046,7 +1059,7 @@ body::-webkit-scrollbar-thumb {
 .HappyClients__item_info p {
   color: #999999;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 0.8vmax;
   font-weight: 400;
   text-align: left;
   margin-top: 30px;
@@ -1089,7 +1102,7 @@ body::-webkit-scrollbar-thumb {
   height: 30%;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 30px;
+  font-size: 1.5vmax;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
@@ -1148,7 +1161,7 @@ body::-webkit-scrollbar-thumb {
 .OurStories__item_info h3 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1158,7 +1171,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   color: #999999;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 1vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1211,7 +1224,7 @@ body::-webkit-scrollbar-thumb {
 .OpenMap h6 {
   color: #f38181;
   font-family: Montserrat;
-  font-size: 24px;
+  font-size: 1.25vmax;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
@@ -1258,7 +1271,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 80px;
   color: #cccccc;
   font-family: Montserrat;
-  font-size: 46px;
+  font-size: 3.5vmax;
   font-weight: 700;
   position: relative;
   right: 4px;
@@ -1269,7 +1282,7 @@ body::-webkit-scrollbar-thumb {
   height: 87px;
   color: #999999;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 1vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1279,7 +1292,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 50px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 1vmax;
   font-weight: 400;
   text-align: left;
   font-family: "Montserrat - Regular";
@@ -1297,7 +1310,7 @@ body::-webkit-scrollbar-thumb {
 
 .footer_contact_info_followers strong {
   font-family: "Montserrat - Bold";
-  font-size: 18px;
+  font-size: 1max;
   font-weight: 700;
 }
 
@@ -1316,7 +1329,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 1vmax;
   text-align: left;
 }
 
@@ -1342,7 +1355,7 @@ body::-webkit-scrollbar-thumb {
 .footer_contact_info_subscribe_input::placeholder {
   color: #cccccc;
   font-family: "Roboto-LightItalic";
-  font-size: 15px;
+  font-size: 1vmax;
   line-height: 24px;
   text-align: left;
 }
@@ -1353,7 +1366,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #95e1d3;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
@@ -1376,7 +1389,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 80px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1410,7 +1423,7 @@ body::-webkit-scrollbar-thumb {
   height: 27px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 12px;
+  font-size: 1vmax;
   font-weight: 600;
   line-height: 18px;
   text-align: left;
@@ -1420,7 +1433,7 @@ body::-webkit-scrollbar-thumb {
 .footer_blogs_image_paragraph {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 13px;
+  font-size: 1vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1450,7 +1463,7 @@ body::-webkit-scrollbar-thumb {
 .footer_instagram_caption {
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1461,7 +1474,7 @@ body::-webkit-scrollbar-thumb {
 .footer_instagram_paragraph {
   color: #333333;
   font-family: "Roboto-LightItalic";
-  font-size: 13px;
+  font-size: 1vmax;
   line-height: 24px;
   text-align: left;
 }
@@ -1470,7 +1483,7 @@ body::-webkit-scrollbar-thumb {
   margin: 20px auto;
   color: #333333;
   font-family: Montserrat;
-  font-size: 14px;
+  font-size: 1vmax;
   font-weight: 600;
   text-align: center;
 }
@@ -1482,7 +1495,13 @@ body::-webkit-scrollbar-thumb {
 
 /* Адаптивная вёрстка */
 
-/* @media screen and (max-width: 1230px) {
+
+/* @media screen and (max-width: 900px) {
+  .intro__title {
+    font-size: 100px;
+  }
+}
+ @media screen and (max-width: 1230px) {
   
   .AboutUs__img img {
     width: 350px;
