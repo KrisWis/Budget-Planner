@@ -39,6 +39,8 @@ body {
   line-height: 1.6;
   color: #333;
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 *,
@@ -85,7 +87,7 @@ svg {
 }
 
 .intro__title {
-  font-size: 8vmax;
+  font-size: 8vw;
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
@@ -135,10 +137,6 @@ svg {
   width: 100%;
   padding-top: 15px;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
 }
 
 .header__inner {
@@ -153,11 +151,21 @@ svg {
   color: #fff;
 }
 
-/* Nav */
+/* Navigation */
 
 .nav {
   text-transform: uppercase;
-  font-size: 0.9vmax;
+  font-size: 0.7vmax;
+}
+
+.nav_burger {
+  display: none;
+}
+
+.nav_burger svg {
+  width: 100%;
+  height: 25px;
+  stroke: #fff;
 }
 
 .nav__link,
@@ -208,9 +216,8 @@ svg {
 /* Slider */
 
 .slider {
-  position: absolute;
-  top: 100%;
-  width: 100%;
+  position: relative;
+  top: 10%;
 }
 
 .slider__inner {
@@ -222,7 +229,7 @@ svg {
   width: 23%;
   padding: 20px 0;
   border-top: 3px solid #fff;
-  font-size: 1vmax;
+  font-size: 120%;
   color: #fff;
   text-transform: uppercase;
   opacity: 0.7;
@@ -335,7 +342,7 @@ svg {
   height: 39px;
   color: #999999;
   font-family: Roboto;
-  font-size: 1vmax;
+  font-size: 125%;
   font-weight: 400;
   line-height: 24px;
   text-align: center;
@@ -412,37 +419,37 @@ svg {
 /* Statistics */
 
 .statistics {
-  display: flex;
+  display: inline-flex;
   background-color: #95e1d3;
   width: 100%;
-  height: 25vh;
   justify-content: center;
 }
 
 .statistics__inner {
-  display: flex;
+  display: inline-flex;
   justify-content: space-evenly;
   width: 62%;
+  padding-bottom: 5%;
 }
 
 .statistics_item {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
-  padding-top: 50px;
+  padding-top: 5%;
   border-left: 2px solid #ace8dd;
   border-right: 2px solid #ace8dd;
   color: white;
   font-family: Montserrat;
-  font-size: 3.75vmax;
+  font-size: 4vw;
   font-weight: 700;
-  width: 26%;
-  height: 100%;
+  min-width: 25%;
+  height: 143%;
 }
 
 .statistics_item span {
-  font-size: 0.8vmax;
+  font-size: 25%;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -450,32 +457,23 @@ svg {
 /* We work with. Text */
 
 .WeWorkWith__inner {
+  margin-top: 100px;
   gap: 60px;
 }
 
 /* Amazing Services */
 
 .services {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
+  width: 150%;
 }
 
-.service {
-  width: 30%;
-}
-
-.services_first_row {
-  display: flex;
-  gap: 70px;
-  border-bottom: 1px #e5e5e5 solid;
-  padding-bottom: 50px;
-  width: 100%;
-}
-
-.services_second_row {
-  display: flex;
-  gap: 70px;
+.services__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 80%;
+  margin-left: 13%;
+  gap: 40px;
 }
 
 .service svg {
@@ -484,13 +482,14 @@ svg {
   margin-right: 20px;
   margin-bottom: 40px;
   width: 12%;
+  min-width: 15px;
 }
 
 .service h5 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
-  font-weight: 400;
+  font-size: 0.8vmax;
+  font-weight: 600;
   text-align: left;
   text-transform: uppercase;
 }
@@ -499,10 +498,21 @@ svg {
   width: 100%;
   color: #999999;
   font-family: Roboto;
-  font-size: 1vmax;
+  font-size: 100%;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+}
+
+.service:nth-of-type(3)::after {
+  content: "";
+  display: block;
+  position: relative;
+  right: 220%;
+  top: 1%;
+  width: 320%;
+  height: 1px;
+  background: #e5e5e5;
 }
 
 /* For all devices. Text */
@@ -597,7 +607,7 @@ svg {
 .WhatWeDo_service p {
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 500;
 }
 
@@ -617,7 +627,7 @@ svg {
 .WhatWeDo_text p {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 200;
   line-height: 24px;
   text-align: left;
@@ -695,11 +705,15 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 30%;
+  height: 150px;
+  min-width: 70px
 }
 
 .quote_icon svg {
-  width: 75px;
-  height: 75px;
+  width: 60%;
+  height: 60%;
+
 }
 
 .quote_chevron {
@@ -709,6 +723,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .quote_author {
+  min-width: 200%;
   color: #333333;
   font-family: "Kaushan Script";
   font-size: 1.25vmax;
@@ -733,7 +748,7 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 180px;
+  gap: 15%;
   width: 100%;
 }
 
@@ -827,8 +842,8 @@ body::-webkit-scrollbar-thumb {
 .WhoWeAre_block h5 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
-  font-weight: 900;
+  font-size: 0.8vmax;
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
   margin-top: 30px;
@@ -837,7 +852,7 @@ body::-webkit-scrollbar-thumb {
 .WhoWeAre_block p {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   line-height: 24px
 }
 
@@ -855,6 +870,7 @@ body::-webkit-scrollbar-thumb {
 
 .logos img {
   width: 65%;
+  min-width: 350px;
 }
 
 /* Some of our work. Images. */
@@ -864,7 +880,7 @@ body::-webkit-scrollbar-thumb {
   grid-template-columns: repeat(4, [col] 1fr);
   grid-template-rows: repeat(2, [row] 1fr);
   max-width: 100%;
-  height: 800px;
+  height: 100%;
 }
 
 .OurWork__inner {
@@ -905,7 +921,7 @@ body::-webkit-scrollbar-thumb {
   content: url("../images/Other/image.png") "\A creatively designed" ;
   display: block;
   position: absolute;
-  left: 32%;
+  left: 8vw;
   top: 30%;
   color: #ffffff;
   font-family: Montserrat;
@@ -950,7 +966,7 @@ body::-webkit-scrollbar-thumb {
   content: url("../images/Other/image.png") "\A creatively designed" ;
   display: block;
   position: absolute;
-  left: 32%;
+  left: 3.5rem;
   top: 75%;
   color: #ffffff;
   font-family: Montserrat;
@@ -1000,13 +1016,15 @@ body::-webkit-scrollbar-thumb {
 /* Happy Clients */
 
 .HappyClients_container {
+  display: inline;
   background: url("../images/HappyClients_images/happyclients_background_image.png") center no-repeat;
   width: 100%;
-  height: 1000px;
+  min-height: 1200px;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
+  background-size: cover;
 }
 
 .HappyClients_clients__inner {
@@ -1026,6 +1044,7 @@ body::-webkit-scrollbar-thumb {
 .HappyClients__item_info {
   display: flex;
   flex-direction: column;
+  padding-right: 5%
 }
 
 .HappyClients__item_info h3 {
@@ -1076,8 +1095,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurStories_image__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  padding: 10px;
 }
 
 .OurStories__inner {
@@ -1097,7 +1118,7 @@ body::-webkit-scrollbar-thumb {
   display: block;
   position: absolute;
   background-color: #95e1d3;
-  bottom: 20px;
+  bottom: 10%;
   width: 18%;
   height: 30%;
   color: #ffffff;
@@ -1112,11 +1133,13 @@ body::-webkit-scrollbar-thumb {
   content: "";
   display: block;
   position: absolute;
-  bottom: 30px;
+  bottom: 13%;
+  right: 80.5%;
   width: 20%;
   color: #ffffff;
   font-family: "Roboto-LightItalic";
   text-align: center;
+  font-size: 0.8vmax;
 }
 
 .OurStories__img_1::after {
@@ -1161,7 +1184,7 @@ body::-webkit-scrollbar-thumb {
 .OurStories__item_info h3 {
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1171,7 +1194,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   color: #999999;
   font-family: Roboto;
-  font-size: 1vmax;
+  font-size: 0.75vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1181,6 +1204,7 @@ body::-webkit-scrollbar-thumb {
   width: 6%;
   min-width: 15px;
   fill: #95e1d3;
+  gap: 5px;
 }
 
 .div_views {
@@ -1189,6 +1213,7 @@ body::-webkit-scrollbar-thumb {
   position: absolute;
   top: 90%;
   gap: 5px;
+  font-size: 0.8vmax;
 }
 
 .div_comments {
@@ -1198,6 +1223,7 @@ body::-webkit-scrollbar-thumb {
   top: 90%;
   left: 20%;
   gap: 5px;
+  font-size: 0.8vmax;
 }
 
 /* Open Map */
@@ -1247,13 +1273,16 @@ body::-webkit-scrollbar-thumb {
   display: grid;
   width: 100%;
   height: 560px;
-  grid-template-columns: 23% 18% 15%;
+  grid-template-columns: 25% 20% 15%;
+  margin-bottom: 3%;
+  gap: 15%;
 }
 
 .footer::after {
   content: "";
   display: flex;
-  margin: 65% 65%;
+  margin-top: 3%;
+  margin-left: 62%;
   width: 300%;
   height: 1px;
   background-color: #e5e5e5;
@@ -1279,10 +1308,9 @@ body::-webkit-scrollbar-thumb {
 
 .footer_contact_info_information {
   width: 100%;
-  height: 87px;
   color: #999999;
   font-family: Roboto;
-  font-size: 1vmax;
+  font-size: 0.9vmax;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1292,7 +1320,7 @@ body::-webkit-scrollbar-thumb {
   margin-top: 50px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 400;
   text-align: left;
   font-family: "Montserrat - Regular";
@@ -1318,6 +1346,10 @@ body::-webkit-scrollbar-thumb {
   display: flex;
 }
 
+.footer_contact_info_followUs a {
+  display: inline;
+}
+
 .footer_contact_info_followUs svg {
   fill: #95e1d3;
   width: 50%;
@@ -1329,7 +1361,7 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   text-align: left;
 }
 
@@ -1355,7 +1387,7 @@ body::-webkit-scrollbar-thumb {
 .footer_contact_info_subscribe_input::placeholder {
   color: #cccccc;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   line-height: 24px;
   text-align: left;
 }
@@ -1366,7 +1398,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #95e1d3;
   color: #ffffff;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
@@ -1380,16 +1412,16 @@ body::-webkit-scrollbar-thumb {
 .footer_blogs {
   display: flex;
   flex-direction: column;
-  margin-left: 115%;
   width: 100%;
   height: 100%;
+  margin-left: 35%;
 }
 
 .footer_blogs_caption {
   margin-top: 80px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1419,11 +1451,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .footer_blogs_image_caption {
+  display: inline;
   width: 140%;
-  height: 27px;
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vw;
   font-weight: 600;
   line-height: 18px;
   text-align: left;
@@ -1433,7 +1465,7 @@ body::-webkit-scrollbar-thumb {
 .footer_blogs_image_paragraph {
   color: #999999;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vw;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
@@ -1444,12 +1476,10 @@ body::-webkit-scrollbar-thumb {
 .footer_instagram {
   width: 100%;
   height: 100%;
-  margin-left: 180%;
 }
 
 .footer_instagram_images {
   display: grid;
-  width: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2px;
@@ -1463,7 +1493,7 @@ body::-webkit-scrollbar-thumb {
 .footer_instagram_caption {
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -1474,16 +1504,16 @@ body::-webkit-scrollbar-thumb {
 .footer_instagram_paragraph {
   color: #333333;
   font-family: "Roboto-LightItalic";
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   line-height: 24px;
   text-align: left;
 }
 
 .footer_copyrights {
-  margin: 20px auto;
+  margin: 6% auto;
   color: #333333;
   font-family: Montserrat;
-  font-size: 1vmax;
+  font-size: 0.8vmax;
   font-weight: 600;
   text-align: center;
 }
@@ -1496,77 +1526,267 @@ body::-webkit-scrollbar-thumb {
 /* Адаптивная вёрстка */
 
 
-/* @media screen and (max-width: 900px) {
-  .intro__title {
-    font-size: 100px;
+@media screen and (max-width: 1350px) {
+
+  /* Обновление шрифтов */
+
+  .HappyClients__item_info h3,
+  .HappyClients__item_info h5,
+  .HappyClients__item_info p,
+  .OurStories__item_info p,
+  .WhatWeDo_service p,
+  .div_views,
+  .div_comments,
+  .footer_contact_info_information,
+  .footer_contact_info_subscribe_button,
+  .footer_contact_info_subscribe_input::placeholder,
+  .footer_blogs_caption,
+  .footer_contact_info_followers,
+  .footer_blogs_image_caption,
+  .footer_blogs_image_paragraph,
+  .footer_instagram_caption,
+  .footer_instagram_paragraph,
+  .footer_copyrights {
+    font-size: 1.1vmax
   }
-}
- @media screen and (max-width: 1230px) {
+
+  /* We work with. Text */
+
+  .services__inner {
+    padding-left: 5%;
+    width: 65%
+  }
+
+  /* Who We Are */
+  .WhoWeAre__inner {
+    width: 80%;
+  }
+
+  /* Footer. Adaptive design. */
+
+  /* Footer contact information */
+
+  .footer {
+    display: inline;
+    grid-template-columns: 1fr;
+  }
   
-  .AboutUs__img img {
-    width: 350px;
-  }
-
-  .statistics_item span {
-    font-size: 11px;
-  }
-  
-  .service {
-    width: 330px;
-  }
-
-  .WhatWeDo_main__inner img {
-    padding-left: 30px;
-  }
-
-  .quote blockquote p {
-    font-size: 18px;
-  }
-  
-  .WhoWeAre__img img {
-    width: 340px;
-  }
-  
-  .logos img {
-    width: 1100px;
-  }
-
-  .OurWork__img:hover::after,
-  .OurWork__img_special:hover::after {
-    left: 23%;
-  }
-
-  .quote_2 blockquote p {
-    font-size: 18px;
-  }
-  
-  .HappyClients__item_info p {
-    padding-right: 30px;
-  }
-
-  .OurStories__item_info p {
-    font-size: 10px;
-  }
-
-  .footer_contact_info {
-    margin-left: 10vw;
-  }
-
-  .footer_blogs {
-    margin-left: 15vw;
-  }
-
+  .footer_contact_info,
+  .footer_blogs,
   .footer_instagram {
-    margin-left: 30vw;
+    margin: 0;
+    width: 100%;
+    padding: 1%;
+  }
+
+  .footer_contact_info_caption {
+    left: 40.5%
+  }
+
+  .footer_contact_info_followUs p {
+    position: relative;
+    left: 40.5%;
+    font-size: 2vmax;
+  }
+  
+  .footer_contact_info_followUs a {
+    width: 10%;
+    height: 10%;
+  }
+
+  .footer_contact_info_followUs {
+    flex-wrap: wrap;
+  }
+
+  .footer_contact_info_followUs svg {
+    margin-left: 100%;
+  }
+
+
+  .footer_contact_info_followers {
+    margin-left: 41.5%;
+  }
+
+  .footer_contact_info_followers::after {
+    width: 1900%;
+    position: relative;
+    right: 1000%;
+  }
+
+  /* Footer Blogs/Footer Instagram */
+
+  .footer_blogs_caption,
+  .footer_instagram_caption,
+  .footer_instagram_paragraph {
+    position: relative;
+    left: 43%;
+  }
+
+  .footer_blogs_image {
+    width: 40%;
+    height: 30%;
+  }
+
+  .footer_blogs_articles {
+    margin: 0;
   }
 
   .footer::after {
-    margin: 35vh 18vw;
+    position: relative;
+    right: 65%;
+    width: 100%;
   }
+
+  .footer_blogs_image_caption {
+    width: 100%
+  }
+
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 550px) {
+
+  /* About Us */
+
+  .AboutUs_header__inner p,
+  .WhoWeAre_header__inner p,
+  .OurWork_header__inner p,
+  .WhatWeDo_header__inner p {
+    font-size: 140%;
+  }
+
+  /* Statistics */
+  
+  .statistics_item {
+    border-right: 1px solid #ace8dd;
+    border-left: 1px solid #ace8dd; 
+  }
+
+  .statistics_item span {
+    font-size: 40%;
+  }
+
+  .statistics_item:nth-of-type(1) {
+    min-width: 35%
+  }
+  
+  /* Navigation */
+
   .nav {
     display: none;
   }
-} */
+
+  .nav_burger {
+    display: block;
+  }
+
+  /* Amazing Services */
+
+  .services__inner {
+    grid-template-columns: 1fr;
+    padding-left: 5%;
+  }
+
+  /* For All devices */
+
+  .ForAllDevices_phone1 {
+    width: 55%;
+  }
+
+  .ForAllDevices_phone2 {
+    width: 50%;
+    right: 1%
+  }
+
+  /* We work with. Text */
+
+  .WeWorkWith_container {
+    display: inline
+  }
+
+  .service:nth-of-type(3)::after {
+    top: 15%
+  }
+
+  .service:not(.service:last-child)::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #e5e5e5;
+    position: relative;
+    top: 15%;
+  }
+
+  .service p {
+    font-size: 150%;
+  }
+
+  /* What We Do. Text */
+
+  .WhatWeDo_main__inner {
+    gap: 0
+  }
+
+  .WhatWeDo_text p {
+    font-size: 1.5vmax;
+  }
+
+  /* Some of our work. Images. */
+
+  .OurWork__img:hover::after {
+    left: 40vw;
+    top: 35%;
+  }
+
+  .OurWork__img_special:hover::after {
+    left: 40vw;
+    top: 42%;
+  }
+
+  .OurWork_image__inner {
+    grid-template-columns: 1fr;
+  }
+  
+  .OurWork_container {
+    height: 3200px;
+  }
+  
+  .OurWork__item_6 {
+    grid-column: auto;
+  }
+
+  .OurWork__item_special {
+    height: 800px;
+  }
+
+  /* Quote 2 */
+
+  .quote_2 blockquote p {
+    width: 100%;
+  }
+
+  /* Happy Clients */
+
+  .HappyClients_clients__inner {
+    grid-template-columns: 1fr;
+  }
+
+  /* Our Stories */
+  
+  .OurStories_container {
+    height: 1100px;
+  }
+
+  .OurStories_image__inner {
+    grid-template-columns: 1fr;
+    gap: 150px;
+  }  
+
+  .OurStories__img::after {
+    height: 20%;
+  }
+
+  .OurStories__item::after {
+    font-size: 1.5vmax
+  }
+}
