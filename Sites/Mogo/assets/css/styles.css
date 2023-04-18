@@ -304,27 +304,27 @@ svg {
   font-family: "Kaushan Script";
 }
 
-.AboutUs_header__inner h5,
-.WeWorkWith_header__inner h5,
-.ForAllDevices_header__inner h5,
-.WhatWeDo_header__inner h5,
-.WhoWeAre_header__inner h5,
-.OurWork_header__inner h5,
-.HappyClients_header__inner h5,
-.OurStories_header__inner h5 {
+.AboutUs_header__inner h2,
+.WeWorkWith_header__inner h2,
+.ForAllDevices_header__inner h2,
+.WhatWeDo_header__inner h2,
+.WhoWeAre_header__inner h2,
+.OurWork_header__inner h2,
+.HappyClients_header__inner h2,
+.OurStories_header__inner h2 {
   font-family: Montserrat;
   font-size: 1.5vmax;
   text-transform: uppercase;
 }
 
-.AboutUs_header__inner h5::after,
-.WeWorkWith_header__inner h5::after,
-.ForAllDevices_header__inner h5::after,
-.WhatWeDo_header__inner h5::after,
-.WhoWeAre_header__inner h5::after,
-.OurWork_header__inner h5::after,
-.HappyClients_header__inner h5::after,
-.OurStories_header__inner h5::after {
+.AboutUs_header__inner h2::after,
+.WeWorkWith_header__inner h2::after,
+.ForAllDevices_header__inner h2::after,
+.WhatWeDo_header__inner h2::after,
+.WhoWeAre_header__inner h2::after,
+.OurWork_header__inner h2::after,
+.HappyClients_header__inner h2::after,
+.OurStories_header__inner h2::after {
   content: "";
   display: block;
   width: 10%;
@@ -485,7 +485,7 @@ svg {
   min-width: 15px;
 }
 
-.service h5 {
+.service h2 {
   color: #333333;
   font-family: Montserrat;
   font-size: 0.8vmax;
@@ -559,7 +559,7 @@ svg {
   top: 50%;
 }
 
-.ForAllDevices_header__inner h5::after {
+.ForAllDevices_header__inner h2::after {
   margin-top: 10px;
   margin-bottom: 1px;
 }
@@ -966,7 +966,7 @@ body::-webkit-scrollbar-thumb {
   content: url("../images/Other/image.png") "\A creatively designed" ;
   display: block;
   position: absolute;
-  left: 3.5rem;
+  left: 8vw;
   top: 75%;
   color: #ffffff;
   font-family: Montserrat;
@@ -1047,7 +1047,7 @@ body::-webkit-scrollbar-thumb {
   padding-right: 5%
 }
 
-.HappyClients__item_info h3 {
+.HappyClients__item_info h2 {
   color: #333333;
   font-family: Montserrat;
   font-size: 0.8vmax;
@@ -1056,7 +1056,7 @@ body::-webkit-scrollbar-thumb {
   text-transform: uppercase;
 }
 
-.HappyClients__item_info h5 {
+.HappyClients__item_info h3 {
   color: #333333;
   font-family: "Roboto-LightItalic";
   font-weight: 100;
@@ -1065,7 +1065,7 @@ body::-webkit-scrollbar-thumb {
   text-align: left;
 }
 
-.HappyClients__item_info h5::after {
+.HappyClients__item_info h3::after {
   content: "";
   display: block;
   width: 20%;
