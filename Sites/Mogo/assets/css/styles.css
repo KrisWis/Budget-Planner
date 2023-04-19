@@ -865,7 +865,6 @@ body::-webkit-scrollbar-thumb {
 
 .logos img {
   width: 65%;
-  min-width: 350px;
 }
 
 /* Some of our work. Images. */
@@ -1726,6 +1725,12 @@ body::-webkit-scrollbar-thumb {
     font-size: 1.5vmax;
   }
 
+  /* Logos */
+
+  .logos img {
+    width: 100%
+  }
+
   /* Some of our work. Images. */
 
   .OurWork__img:hover::after {
@@ -1743,7 +1748,7 @@ body::-webkit-scrollbar-thumb {
   }
   
   .OurWork_container {
-    height: 3200px;
+    min-height: 500px;
   }
   
   .OurWork__item_6 {
@@ -1757,7 +1762,7 @@ body::-webkit-scrollbar-thumb {
   /* Quote 2 */
 
   .quote_2 {
-    margin-top: 350px;
+    margin-top: 100px;
   }
 
   .quote_2 blockquote p {
@@ -1766,6 +1771,10 @@ body::-webkit-scrollbar-thumb {
 
   /* Happy Clients */
 
+  .HappyClients_header__inner {
+    margin-top: 100px;
+  }
+  
   .HappyClients_clients__inner {
     grid-template-columns: 1fr;
   }
