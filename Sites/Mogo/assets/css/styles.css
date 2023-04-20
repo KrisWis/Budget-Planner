@@ -1,34 +1,34 @@
 /* Определение шрифтов */
 @font-face {
   font-family: "Roboto-LightItalic";
-  src: url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.ttf") format("truetype"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff") format("woff"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff2") format("woff2"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.otf") format("opentype");
+  src: url(/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.ttf) format("truetype"),
+        url(/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff) format("woff"),
+        url(/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.woff2) format("woff2"),
+        url(/Sites/Mogo/assets/fonts/Roboto/Roboto-LightItalic.otf) format("opentype");
 } 
 
 @font-face {
   font-family: Roboto;
-  src: url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff") format("woff"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff2") format("woff2"),
-        url("/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.otf") format("opentype");
+  src: url(/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.ttf) format("truetype"),
+        url(Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff) format("woff"),
+        url(/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.woff2) format("woff2"),
+        url(/Sites/Mogo/assets/fonts/Roboto/Roboto-Regular.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Montserrat - Regular";
-  src: url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff") format("woff"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff2") format("woff2"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.otf") format("opentype");
+  src: url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff) format("woff"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.woff2) format("woff2"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Regular.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Montserrat - Bold";
-  src: url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff") format("woff"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff2") format("woff2"),
-        url("/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.otf") format("opentype");
+  src: url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.ttf) format("truetype"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff) format("woff"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.woff2) format("woff2"),
+        url(/Sites/Mogo/assets/fonts/Montserrat/Montserrat-Bold.otf) format("opentype");
 }
 
 /* Вёрстка */
@@ -77,7 +77,7 @@ figure {
   justify-content: center;
   width: 100%;
   height: 1000px;
-  background: url("../images/Other/background.png") center no-repeat;
+  background: url(../images/Other/background.png) center no-repeat;
   background-size: cover;
 }
 
@@ -401,7 +401,7 @@ figure {
   left: 36%;
   width: 100%;
   height: 100%;
-  background-image: url("../images/Other/users.png");
+  background-image: url(../images/Other/users.png);
   background-repeat: no-repeat;
   background-size: 29%;
 }
@@ -523,7 +523,7 @@ figure {
 }
 
 .ForAllDevices_container {
-  background: url("../images/ForAllDevices_images/ForAllDevices_background.png") center no-repeat;
+  background: url(../images/ForAllDevices_images/ForAllDevices_background.png) center no-repeat;
   background-size: cover;
 }
 
@@ -622,7 +622,7 @@ figure {
   height: 180px;
   border: 1px solid #e5e5e5;
   overflow: auto;
-  scrollbar-width: 5px;
+  scrollbar-width: thin;
   scrollbar-color: #95e1d3 #f5f5f5
 }
 
@@ -674,7 +674,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 * {
-  scrollbar-width: 20px;
+  scrollbar-width: auto;
   scrollbar-color: #fce38a #f5f5f5;
 }
 
@@ -912,7 +912,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurWork__img:hover::after {
-  content: url("../images/Other/image.png") "\A creatively designed" ;
+  content: url(../images/Other/image.png) "\A creatively designed" ;
   display: block;
   position: absolute;
   left: 8vw;
@@ -957,7 +957,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .OurWork__img_special:hover::after {
-  content: url("../images/Other/image.png") "\A creatively designed" ;
+  content: url(../images/Other/image.png) "\A creatively designed" ;
   display: block;
   position: absolute;
   left: 8vw;
@@ -1011,7 +1011,7 @@ body::-webkit-scrollbar-thumb {
 
 .HappyClients_container {
   display: inline;
-  background: url("../images/HappyClients_images/happyclients_background_image.png") center no-repeat;
+  background: url(../images/HappyClients_images/happyclients_background_image.png) center no-repeat;
   width: 100%;
   min-height: 1200px;
   align-items: center;
@@ -1229,7 +1229,7 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
   width: 100%;
   height: 200px;
-  background: url("../images/Other/OpenMap_background.png") center no-repeat;
+  background: url(../images/Other/OpenMap_background.png) center no-repeat;
   background-size: cover;
   margin-top: 300px;
   gap: 5px;
@@ -1332,7 +1332,7 @@ body::-webkit-scrollbar-thumb {
 
 .footer_contact_info_followers strong {
   font-family: "Montserrat - Bold";
-  font-size: 1max;
+  font-size: 1vmax;
   font-weight: 700;
 }
 
