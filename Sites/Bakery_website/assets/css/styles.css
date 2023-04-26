@@ -1,3 +1,55 @@
+/* Определение шрифтов */
+
+@font-face {
+  font-family: "Coffee Service";
+  src: url(/Sites/Bakery_website/assets/fonts/coffeeservice.ttf) format("truetype"),
+        url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/coffeeservice.otf) format("opentype");
+} 
+
+@font-face {
+  font-family: Helvetica-bold;
+  src: url(/Sites/Bakery_website/assets/fonts/helvetica_bold.ttf) format("truetype"),
+        url(Sites/Bakery_website/assets/fonts/helvetica_bold.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/helvetica_bold.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/helvetica_bold.otf) format("opentype");
+}
+
+@font-face {
+  font-family: Helvetica;
+  src: url(/Sites/Bakery_website/assets/fonts/helvetica_regular.ttf) format("truetype"),
+        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Helvetica-Oblique";
+  src: url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.ttf) format("truetype"),
+        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "MyriadPro";
+  src: url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.ttf) format("truetype"),
+        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "SansusWebissimo";
+  src: url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.ttf) format("truetype"),
+        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff) format("woff"),
+        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff2) format("woff2"),
+        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.otf) format("opentype");
+}
+
+/* Базовые стили. CSS Normalize */
+
 *,
 *::after,
 *::before {
@@ -14,13 +66,123 @@ h6 {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   margin: 0;
   padding: 0;
-  }
+  width: 100vw;
+  max-width: 1500px;
+}
+
+/* Header */
 
 .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100vw;
   height: 560px;
   background: url(../images/header_background.png) center;
+}
+
+/* Navigation */
+
+.nav {
+  display: flex;
+  width: 63%;
+  height: 36px;
+  background-color: #fdfdfd;
+  border-radius: 30px;
+  margin-top: 60px;
+  align-items: center;
+}
+
+.nav__logo {
+  display: inline-block;
+  color: #ce8f15;
+  font-family: "Coffee Service";
+  font-size: 24px;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 2%;
+}
+
+.nav__items {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2%;
+  margin-left: 7%;
+}
+
+.nav__items__item {
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.nav__item--contact {
+  margin-left: 18%;
+  opacity: 0.52;
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.nav--tagline {
+  opacity: 0.52;
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  margin-right: 55%;
+}
+
+.nav__items__item__focus {
+  display: none;
+  width: 7%;
+  height: 161px;
+  background-color: #ffffff;
+  opacity: 0.7;
+  position: absolute;
+  top: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__items__item:focus ~ .nav__items__item__focus {
+  display: flex;
+}
+
+.nav__items__item__focus__container {
+  width: 100%;
+  height: 128px;
+  margin-top: 3%;
+  margin-left: 12%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3%;
+}
+
+.nav__items__item__focus__item {
+  color: #d4a65d;
+  font-family: Helvetica;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.donuts {
+  color: #ac7d33;
 }
