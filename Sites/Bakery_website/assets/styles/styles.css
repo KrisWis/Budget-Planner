@@ -1,0 +1,290 @@
+@charset "UTF-8";
+/* Определение шрифтов */
+@font-face {
+  font-family: "Coffee Service";
+  src: url(/Sites/Bakery_website/assets/fonts/coffeeservice.ttf) format("truetype"), url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/coffeeservice.otf) format("opentype");
+}
+@font-face {
+  font-family: Helvetica-bold;
+  src: url(/Sites/Bakery_website/assets/fonts/helvetica_bold.ttf) format("truetype"), url(Sites/Bakery_website/assets/fonts/helvetica_bold.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/helvetica_bold.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/helvetica_bold.otf) format("opentype");
+}
+@font-face {
+  font-family: Helvetica;
+  src: url(/Sites/Bakery_website/assets/fonts/helvetica_regular.ttf) format("truetype"), url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/helvetica_regular.otf) format("opentype");
+}
+@font-face {
+  font-family: "Helvetica-Oblique";
+  src: url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.ttf) format("truetype"), url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.otf) format("opentype");
+}
+@font-face {
+  font-family: "MyriadPro";
+  src: url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.ttf) format("truetype"), url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.otf) format("opentype");
+}
+@font-face {
+  font-family: "Sansus Webissimo";
+  src: url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.ttf) format("truetype"), url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff) format("woff"), url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff2) format("woff2"), url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.otf) format("opentype");
+}
+/* Базовые стили. CSS Normalize */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  max-width: 1500px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 80vh;
+  background: url(../images/header_images/header_background.png) center no-repeat;
+  background-size: 100vw 80vh;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  width: 63%;
+  background-color: #fdfdfd;
+  border-radius: 30px;
+  margin-top: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav__logo {
+  display: inline-block;
+  color: #ce8f15;
+  font-family: "Coffee Service";
+  font-size: 1.3vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 2%;
+}
+
+.nav__items {
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  gap: 2%;
+  margin-left: 7%;
+  flex-wrap: wrap;
+}
+
+.nav__items__item {
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 0.8vmax;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.nav__item--contact {
+  opacity: 0.52;
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 0.8vmax;
+  font-weight: 400;
+  text-align: left;
+  text-transform: uppercase;
+  position: relative;
+  left: 20%;
+}
+
+.nav--tagline {
+  opacity: 0.52;
+  color: #b1885c;
+  font-family: "Coffee Service";
+  font-size: 0.8vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-right: 55%;
+}
+
+.nav__items__item__focus {
+  display: none;
+  width: 7%;
+  height: 161px;
+  background-color: #ffffff;
+  opacity: 0.7;
+  position: absolute;
+  top: 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__items__item:focus ~ .nav__items__item__focus {
+  display: flex;
+}
+
+.nav__items__item__focus__container {
+  width: 100%;
+  height: 128px;
+  margin-top: 3%;
+  margin-left: 12%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 3%;
+}
+
+.nav__items__item__focus__item {
+  color: #d4a65d;
+  font-family: Helvetica;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.donuts {
+  color: #ac7d33;
+}
+
+/* Header Content */
+.header__content {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
+  gap: 100px;
+}
+
+.header__content__adding--right, .header__content__adding--left {
+  display: flex;
+  align-items: center;
+  width: 3%;
+  height: 18%;
+  position: relative;
+  top: 85%;
+}
+
+.header__content__adding--left {
+  right: 30%;
+}
+
+.header__content__adding--right {
+  left: 30%;
+}
+
+.header__content__adding--left__shadow,
+.header__content__adding--right__shadow {
+  width: 8px;
+  height: 113px;
+}
+
+.header__content__adding__plus--right, .header__content__adding__plus--left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 170%;
+  height: 170%;
+  background: #b6976f;
+  color: #fff;
+  font-size: 70%;
+}
+
+.header__content__adding__plus--left {
+  border-radius: 100% 0 0 100%/50% 0 0 50%;
+}
+
+.header__content__adding__plus--right {
+  border-radius: 0 100% 100% 0/0 50% 50% 0;
+}
+
+.header__content__text {
+  width: 10%;
+  height: 100%;
+  position: relative;
+  left: 33%;
+  top: 80%;
+}
+
+.header__content__text__ingridients {
+  width: 65%;
+  color: #d4a65d;
+  font-family: Helvetica;
+  font-size: 0.8vmax;
+  font-weight: 700;
+  text-align: left;
+}
+
+.header__content__text__caption {
+  color: #926a2c;
+  font-family: Helvetica;
+  font-size: 0.9vmax;
+  font-weight: 700;
+  text-align: left;
+}
+
+.header__subtext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 350px;
+}
+
+.header__subtext__caption {
+  opacity: 0.5;
+  color: #765028;
+  font-family: "Coffee Service";
+  font-size: 1.5vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.header__subtext__text {
+  color: #c8a37c;
+  font-family: "Sansus Webissimo";
+  font-size: 0.8vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+/* Отзывчиво-адаптивная вёрстка */
+@media screen and (max-width: 550px) {
+  /* Navigation */
+  .nav,
+  .nav__items {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    border-radius: 0;
+  }
+  .nav__item--contact {
+    left: 3%;
+    font-size: 1vmax;
+  }
+  .nav--tagline {
+    font-size: 1.5vmax;
+    margin-right: -10%;
+  }
+}/*# sourceMappingURL=styles.css.map */
