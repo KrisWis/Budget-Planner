@@ -2,50 +2,50 @@
 
 @font-face {
   font-family: "Coffee Service";
-  src: url(/Sites/Bakery_website/assets/fonts/coffeeservice.ttf) format("truetype"),
-        url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/coffeeservice.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/coffeeservice.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/coffeeservice.ttf) format("truetype"),
+        url(/Sites/Delecioussary/assets/fonts/coffeeservice.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/coffeeservice.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/coffeeservice.otf) format("opentype");
 } 
 
 @font-face {
   font-family: Helvetica-bold;
-  src: url(/Sites/Bakery_website/assets/fonts/helvetica_bold.ttf) format("truetype"),
-        url(Sites/Bakery_website/assets/fonts/helvetica_bold.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/helvetica_bold.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/helvetica_bold.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/helvetica_bold.ttf) format("truetype"),
+        url(Sites/Delecioussary/assets/fonts/helvetica_bold.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/helvetica_bold.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/helvetica_bold.otf) format("opentype");
 }
 
 @font-face {
   font-family: Helvetica;
-  src: url(/Sites/Bakery_website/assets/fonts/helvetica_regular.ttf) format("truetype"),
-        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/helvetica_regular.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/helvetica_regular.ttf) format("truetype"),
+        url(/Sites/Delecioussary/assets/fonts/helvetica_regular.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/helvetica_regular.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/helvetica_regular.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Helvetica-Oblique";
-  src: url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.ttf) format("truetype"),
-        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/ofont.ru_Helvetica.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.ttf) format("truetype"),
+        url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.otf) format("opentype");
 }
 
 @font-face {
   font-family: "MyriadPro";
-  src: url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.ttf) format("truetype"),
-        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/MYRIADPRO-BOLD.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/MYRIADPRO-BOLD.ttf) format("truetype"),
+        url(/Sites/Delecioussary/assets/fonts/MYRIADPRO-BOLD.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/MYRIADPRO-BOLD.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/MYRIADPRO-BOLD.otf) format("opentype");
 }
 
 @font-face {
   font-family: "Sansus Webissimo";
-  src: url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.ttf) format("truetype"),
-        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff) format("woff"),
-        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.woff2) format("woff2"),
-        url(/Sites/Bakery_website/assets/fonts/Sansus_Webissimo-Regular.otf) format("opentype");
+  src: url(/Sites/Delecioussary/assets/fonts/Sansus_Webissimo-Regular.ttf) format("truetype"),
+        url(/Sites/Delecioussary/assets/fonts/Sansus_Webissimo-Regular.woff) format("woff"),
+        url(/Sites/Delecioussary/assets/fonts/Sansus_Webissimo-Regular.woff2) format("woff2"),
+        url(/Sites/Delecioussary/assets/fonts/Sansus_Webissimo-Regular.otf) format("opentype");
 }
 
 /* Базовые стили. CSS Normalize */
@@ -242,7 +242,6 @@ body {
   @extend %header__content__adding__plus;
   border-radius: 100% 0 0 100% / 50% 0 0 50%;
 }
-
 
 .header__content__adding__plus--right {
   @extend %header__content__adding__plus;
