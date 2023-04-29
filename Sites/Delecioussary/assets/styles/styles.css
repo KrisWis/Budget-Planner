@@ -13,7 +13,7 @@
   src: url(/Sites/Delecioussary/assets/fonts/helvetica_regular.ttf) format("truetype"), url(/Sites/Delecioussary/assets/fonts/helvetica_regular.woff) format("woff"), url(/Sites/Delecioussary/assets/fonts/helvetica_regular.woff2) format("woff2"), url(/Sites/Delecioussary/assets/fonts/helvetica_regular.otf) format("opentype");
 }
 @font-face {
-  font-family: "Helvetica-Oblique";
+  font-family: "Helvetica - Oblique";
   src: url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.ttf) format("truetype"), url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.woff) format("woff"), url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.woff2) format("woff2"), url(/Sites/Delecioussary/assets/fonts/ofont.ru_Helvetica.otf) format("opentype");
 }
 @font-face {
@@ -49,8 +49,7 @@ a {
 body {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  max-width: 1500px;
+  max-width: 100%;
 }
 
 /* Header */
@@ -58,7 +57,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  max-width: 100%;
   height: 80vh;
   background: url(../images/header_images/header_background.png) center no-repeat;
   background-size: 100vw 80vh;
@@ -184,11 +183,11 @@ body {
 }
 
 .header__content__adding--left {
-  right: 30%;
+  right: 25%;
 }
 
 .header__content__adding--right {
-  left: 30%;
+  left: 25%;
 }
 
 .header__content__adding--left__shadow,
@@ -228,7 +227,7 @@ body {
   width: 65%;
   color: #d4a65d;
   font-family: Helvetica;
-  font-size: 0.8vmax;
+  font-size: 1vmax;
   font-weight: 700;
   text-align: left;
 }
@@ -236,7 +235,7 @@ body {
 .header__content__text__caption {
   color: #926a2c;
   font-family: Helvetica;
-  font-size: 0.9vmax;
+  font-size: 1vmax;
   font-weight: 700;
   text-align: left;
 }
@@ -246,8 +245,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 350px;
+  padding-top: 350px;
 }
 
 .header__subtext__caption {
@@ -262,29 +260,173 @@ body {
 .header__subtext__text {
   color: #c8a37c;
   font-family: "Sansus Webissimo";
-  font-size: 0.8vmax;
+  font-size: 1vmax;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* Main content */
+.main {
+  display: flex;
+  max-width: 100%;
+  height: 130vh;
+  background-color: #fff;
+  justify-content: center;
+}
+
+.main__container {
+  width: 65%;
+}
+
+.main__container__todayChoice__captions {
+  display: flex;
+  margin-top: 60px;
+}
+
+.main__container__todayChoice--caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1.5vmax;
   font-weight: 400;
   text-align: left;
 }
 
-/* Отзывчиво-адаптивная вёрстка */
+.main__container__todayChoice--paragraph {
+  color: #d7b897;
+  font-family: Helvetica;
+  font-size: 1vmax;
+  font-weight: 400;
+  text-align: left;
+  padding-top: 0.5%;
+  margin-left: 1%;
+}
+
+.main__container__todayChoice__items {
+  display: flex;
+  gap: 5%;
+  margin-top: 30px;
+  align-items: baseline;
+  position: relative;
+}
+
+.main__container__todayChoice__item {
+  width: 100%;
+  height: 100%;
+}
+
+.main__container__todayChoice__item--caption,
+.main__container__todayChoice__item--description {
+  color: #b7926c;
+  font-family: "Helvetica - Oblique";
+  font-size: 1.1vmax;
+  font-weight: 400;
+  text-align: center;
+}
+
+.main__container__todayChoice__item--description {
+  font-size: 1vmax;
+}
+
+.main__container__todayChoice__item--image {
+  width: 100%;
+  height: 100%;
+}
+
+.main__container__todayChoice {
+  position: relative;
+}
+
+.main__container__todayChoice::before {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 10px;
+  background-color: #ffdca2;
+  border-radius: 30px;
+  position: absolute;
+  top: 114%;
+  left: 20%;
+}
+
+.main__container__todayChoice__items::before {
+  content: "";
+  display: block;
+  width: 15%;
+  height: 10px;
+  background-color: #765028;
+  opacity: 0.1;
+  position: absolute;
+  top: 117%;
+  left: 43%;
+}
+
+.main__container__todayChoice__items::after {
+  content: "";
+  display: block;
+  width: 3%;
+  height: 5%;
+  background-image: url(../images/main_images/main_separator.png);
+  position: absolute;
+  top: 117%;
+  left: 49%;
+}
+
+/* Адаптивная вёрстка */
+@media screen and (max-width: 1000px) and (min-width: 600px) {
+  /* Navigation */
+  .nav__item--contact {
+    left: 5%;
+  }
+  /* Header content */
+  .header__subtext {
+    padding-top: 550px;
+  }
+  .header__content__adding--left,
+  .header__content__adding--right {
+    top: 250%;
+  }
+  .header__content__text {
+    top: 250%;
+  }
+}
 @media screen and (max-width: 550px) {
   /* Navigation */
   .nav,
   .nav__items {
     width: 100%;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-top: 0;
     border-radius: 0;
+    font-size: 2vmax;
+  }
+  .nav__items {
+    padding-left: 43%;
   }
   .nav__item--contact {
-    left: 3%;
-    font-size: 1vmax;
+    left: 0;
+    font-size: 1.5vmax;
   }
   .nav--tagline {
     font-size: 1.5vmax;
     margin-right: -10%;
+  }
+  /* Header Content */
+  .header__subtext {
+    padding-top: 200px;
+  }
+  .header__content__adding--right {
+    left: 5%;
+  }
+  .header__content__adding--left {
+    right: 5%;
+  }
+  /* Main Content */
+  .main__container__todayChoice__items::before {
+    top: 123%;
+  }
+  .main__container__todayChoice__items::after {
+    width: 5%;
+    height: 15%;
+    top: 122%;
   }
 }/*# sourceMappingURL=styles.css.map */
