@@ -275,7 +275,7 @@ body {
 .main {
   display: flex;
   max-width: 100%;
-  height: 130vh;
+  height: 200vh;
   background-color: #fff;
   justify-content: center;
 }
@@ -377,6 +377,132 @@ body {
   left: 49%;
 }
 
+.main__container--2_cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 150px;
+}
+
+/* About Us */
+.main__container--2_cols--first_col__AboutUs--caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.main__container--2_cols--first_col__AboutUs--description,
+.main__container--2_cols--first_col__AboutUs--end_of_description {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1vmax;
+  text-align: left;
+  line-height: 20px;
+}
+
+.main__container--2_cols--first_col__AboutUs--end_of_description {
+  margin-top: 30px;
+}
+
+.main__container--2_cols--first_col__AboutUs--continue_reading {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 0.9vmax;
+  font-weight: 400;
+  text-align: left;
+  text-decoration: underline;
+  margin-top: 20px;
+}
+
+/* Special Offer */
+.main__container--2_cols--first_col__SpecialOffer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 80px;
+}
+
+.main__container--2_cols--first_col__SpecialOffer--text--caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.main__container--2_cols--first_col__SpecialOffer--description {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 10px;
+  line-height: 20px;
+}
+
+.main__container--2_cols--first_col__SpecialOffer--text--oldPrice {
+  color: #b7926c;
+  font-family: "Sansus Webissimo";
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+  text-decoration: line-through;
+  margin-top: 30px;
+}
+
+.main__container--2_cols--first_col__SpecialOffer--text--newPrice {
+  color: #be4c7d;
+  font-family: "Sansus Webissimo";
+  font-size: 2vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.main__container--2_cols--first_col__SpecialOffer--image {
+  margin-left: 50px;
+  width: 70%;
+  height: 100%;
+}
+
+/* Testimonials */
+.main__container--2_cols--first_col__testimonials {
+  margin-top: 80px;
+}
+
+.main__container--2_cols--first_col__testimonials--caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.main__container--2_cols--first_col__testimonials--text {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 20px;
+  gap: 5%;
+}
+
+.main__container--2_cols--first_col__testimonials--text__item--quote {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1vmax;
+  font-weight: 400;
+  text-align: left;
+  line-height: 15px;
+}
+
+.main__container--2_cols--first_col__testimonials--text__item--author {
+  color: #9b754d;
+  font-family: Helvetica;
+  font-size: 0.9vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 15px;
+}
+
 /* Адаптивная вёрстка */
 @media screen and (max-width: 1281px) {
   /* Navigation */
@@ -465,6 +591,10 @@ body {
     width: 5%;
     height: 15%;
     top: 122%;
+  }
+  /* Testimonials */
+  .main__container--2_cols--first_col__testimonials--text {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 @media screen and (max-width: 400px) {
