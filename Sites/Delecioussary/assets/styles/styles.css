@@ -175,29 +175,33 @@ body {
 }
 
 .header__content__adding--left,
-.header__content__adding--right {
-  display: flex;
+.header__content__adding--right,
+.main__content__adding--left,
+.main__content__adding--right {
+  display: inline-flex;
   align-items: center;
-  width: 3%;
-  height: 18%;
+  width: 100%;
+  height: 50px;
 }
 
-.header__content__adding--left::after {
+.header__content__adding--right::before,
+.main__content__adding--right::before, .header__content__adding--left::after,
+.main__content__adding--left::after {
   content: "";
   width: 8px;
   height: 113px;
+  margin-left: 4%;
+  opacity: 0.3;
+}
+
+.header__content__adding--left::after,
+.main__content__adding--left::after {
   box-shadow: -5px 0px 10px 1px black;
-  margin-left: 4%;
-  opacity: 0.3;
 }
 
-.header__content__adding--right::before {
-  content: "";
-  width: 8px;
-  height: 113px;
+.header__content__adding--right::before,
+.main__content__adding--right::before {
   box-shadow: 5px 0px 10px 1px black;
-  margin-left: 4%;
-  opacity: 0.3;
 }
 
 .header__content__adding__plus--right, .header__content__adding__plus--left {
@@ -205,7 +209,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 170%;
-  height: 170%;
+  height: 100%;
   background: #b6976f;
   color: #fff;
   font-size: 70%;
@@ -308,16 +312,12 @@ body {
 }
 
 .main__container__todayChoice__items {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   gap: 5%;
   margin-top: 30px;
   align-items: baseline;
   position: relative;
-}
-
-.main__container__todayChoice__item {
-  width: 100%;
-  height: 100%;
 }
 
 .main__container__todayChoice__item--caption,
@@ -377,39 +377,39 @@ body {
   left: 49%;
 }
 
-.main__container--2_cols {
+.main__container--grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-top: 150px;
 }
 
 /* About Us */
-.main__container--2_cols--first_col__AboutUs--caption {
+.main__container--grid--first_col__AboutUs--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1vmax;
+  font-size: 1.5vmax;
   font-weight: 400;
   text-align: left;
   margin-bottom: 20px;
 }
 
-.main__container--2_cols--first_col__AboutUs--description,
-.main__container--2_cols--first_col__AboutUs--end_of_description {
+.main__container--grid--first_col__AboutUs--description,
+.main__container--grid--first_col__AboutUs--end_of_description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 1.3vmax;
   text-align: left;
   line-height: 20px;
 }
 
-.main__container--2_cols--first_col__AboutUs--end_of_description {
+.main__container--grid--first_col__AboutUs--end_of_description {
   margin-top: 30px;
 }
 
-.main__container--2_cols--first_col__AboutUs--continue_reading {
+.main__container--grid--first_col__AboutUs--continue_reading {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 0.9vmax;
+  font-size: 1.2vmax;
   font-weight: 400;
   text-align: left;
   text-decoration: underline;
@@ -417,41 +417,41 @@ body {
 }
 
 /* Special Offer */
-.main__container--2_cols--first_col__SpecialOffer {
+.main__container--grid--first_col__SpecialOffer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-top: 80px;
 }
 
-.main__container--2_cols--first_col__SpecialOffer--text--caption {
+.main__container--grid--first_col__SpecialOffer--text--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.2vmax;
+  font-size: 1.5vmax;
   font-weight: 400;
   text-align: left;
 }
 
-.main__container--2_cols--first_col__SpecialOffer--description {
+.main__container--grid--first_col__SpecialOffer--description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 1.3vmax;
   font-weight: 400;
   text-align: left;
   margin-top: 10px;
   line-height: 20px;
 }
 
-.main__container--2_cols--first_col__SpecialOffer--text--oldPrice {
+.main__container--grid--first_col__SpecialOffer--text--oldPrice {
   color: #b7926c;
   font-family: "Sansus Webissimo";
-  font-size: 1.2vmax;
+  font-size: 1.5vmax;
   font-weight: 400;
   text-align: left;
   text-decoration: line-through;
   margin-top: 30px;
 }
 
-.main__container--2_cols--first_col__SpecialOffer--text--newPrice {
+.main__container--grid--first_col__SpecialOffer--text--newPrice {
   color: #be4c7d;
   font-family: "Sansus Webissimo";
   font-size: 2vmax;
@@ -459,48 +459,213 @@ body {
   text-align: left;
 }
 
-.main__container--2_cols--first_col__SpecialOffer--image {
+.main__container--grid--first_col__SpecialOffer--image {
   margin-left: 50px;
   width: 70%;
   height: 100%;
 }
 
 /* Testimonials */
-.main__container--2_cols--first_col__testimonials {
+.main__container--grid--first_col__testimonials {
   margin-top: 80px;
 }
 
-.main__container--2_cols--first_col__testimonials--caption {
+.main__container--grid--first_col__testimonials--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.2vmax;
+  font-size: 1.5vmax;
   font-weight: 400;
   text-align: left;
 }
 
-.main__container--2_cols--first_col__testimonials--text {
+.main__container--grid--first_col__testimonials--text {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 20px;
   gap: 5%;
 }
 
-.main__container--2_cols--first_col__testimonials--text__item--quote {
+.main__container--grid--first_col__testimonials--text__item--quote {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 1.3vmax;
   font-weight: 400;
   text-align: left;
   line-height: 15px;
 }
 
-.main__container--2_cols--first_col__testimonials--text__item--author {
+.main__container--grid--first_col__testimonials--text__item--author {
   color: #9b754d;
   font-family: Helvetica;
-  font-size: 0.9vmax;
+  font-size: 1.2vmax;
   font-weight: 400;
   text-align: left;
   margin-top: 15px;
+}
+
+/* Our ingridients */
+.main__container--grid--second_col {
+  margin-left: 15%;
+}
+
+.main__container--grid--second_col__our_ingridients__images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.main__container--grid--second_col__our_ingridients__captions--caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1.5vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.main__container--grid--second_col__our_ingridients__captions--description {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1.3vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.our_ingridients__image {
+  width: 100%;
+  height: 100%;
+}
+
+/* Pluses */
+.main__content__adding__plus--right, .main__content__adding__plus--left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14px;
+  height: 27px;
+  background: #e4d1b7;
+  color: #fff;
+  font-size: 70%;
+  color: black;
+}
+
+.main__content__adding__plus--left {
+  border-radius: 100% 0 0 100%/50% 0 0 50%;
+}
+
+.main__content__adding__plus--right {
+  border-radius: 0 100% 100% 0/0 50% 50% 0;
+}
+
+.our_ingridients__image {
+  height: 90%;
+}
+
+.our_ingridients__caption {
+  color: #987046;
+  font-family: Helvetica;
+  font-size: 1.5vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.our_ingridients__desciption {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1.3vmax;
+  font-weight: 400;
+  text-align: left;
+  line-height: 15px;
+  margin-top: 10px;
+  width: 90%;
+}
+
+.our_ingridients__view {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+  text-decoration: underline;
+  margin-top: 30px;
+}
+
+/* Mailing list */
+.mailing_list {
+  margin-top: 70px;
+}
+
+.mailing_list__caption {
+  color: #765028;
+  font-family: "Sansus Webissimo";
+  font-size: 1.5vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.mailing_list__description {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.mailing_list__input_block {
+  display: flex;
+  background-color: #ffdca2;
+  width: 80%;
+  height: 40px;
+  margin-top: 10px;
+  border: solid 1px #f4dfbe;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 1px 4px rgba(3, 3, 3, 0.2);
+}
+
+.mailing_list__input {
+  border: none;
+  background-color: transparent;
+  width: 73%;
+  outline: none;
+}
+
+.mailing_list__input::-moz-placeholder {
+  color: #c2a281;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.mailing_list__input::placeholder {
+  color: #c2a281;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+}
+
+.mailing_list__button {
+  width: 25%;
+  height: 30px;
+  background-image: linear-gradient(to top, #3e1116 0%, #7d4249 100%);
+  color: #c2a281;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 700;
+  margin-top: 1%;
+  cursor: pointer;
+}
+
+.mailing_list__view {
+  color: #b7926c;
+  font-family: Helvetica;
+  font-size: 1.2vmax;
+  font-weight: 400;
+  text-align: left;
+  text-decoration: underline;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 /* Адаптивная вёрстка */
@@ -592,8 +757,32 @@ body {
     height: 15%;
     top: 122%;
   }
+  .main__container__todayChoice__items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .main__container__todayChoice__items::before {
+    top: 115.5%;
+  }
+  .main__container__todayChoice__items::after {
+    height: 2.5%;
+    top: 115.5%;
+  }
+  .main__container--grid {
+    grid-template-columns: 1fr;
+  }
+  .main__container--grid--second_col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20%;
+    margin-left: 0;
+  }
+  .mailing_list {
+    margin-right: 40%;
+  }
   /* Testimonials */
-  .main__container--2_cols--first_col__testimonials--text {
+  .main__container--grid--first_col__testimonials--text {
     grid-template-columns: repeat(1, 1fr);
   }
 }
