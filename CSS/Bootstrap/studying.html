@@ -1,0 +1,88 @@
+
+
+<!-- ОБЗОР, ЗАГРУЗКА И ПОДКЛЮЧЕНИЕ. https://www.youtube.com/watch?v=MbOcveDTHZQ&list=PLuY6eeDuleINmJ4DV22gtPL4--HQ49Df3 -->
+
+
+<!-- Bootstrap использует mobile-first, а также box-sizing: border-box для всех элементов.
+Также, в CSS он отключает некоторые стандартные стили у элементов, чтобы в разных браузерах всё выглядело одинаково. -->
+<!-- Мы скачиваем файлы с оффициального сайта Bootstrap и потом css файл засовываем в папку "css" а JavaScript файл засовываем в папку "js". -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Чтобы подключить Bootstrap, в тег head подключаем наш ранее скаченный файл css. -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Я скачал расширение "Bootstrap 5 & Font Awesome Snippets" и вот как оно работает. 
+        Нужно набрать фразу "b5" и дальше предложатся варианты выбора и выбираем то, что нужно нам. -->
+
+    <!-- Чтобы подключить Bootstrap, в конец тега body подключаем наш ранее скаченный файл JavaScript. -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+<!-- ШАПКА, МОДАЛЬНОЕ ОКНО, ГРАДИЕНТ, ТРЕУГОЛЬНИК, АДАПТИВНОЕ ВИДЕО. https://www.youtube.com/watch?v=sFRrfUt7jc0&list=PLuY6eeDuleINmJ4DV22gtPL4--HQ49Df3&index=2 -->
+
+
+<!-- Bootstrap хорош в ситуациях, когда нам нужно сделать что то без макета, быстро и с адаптивом. -->
+
+<!-- Чтобы подключить иконку для сайта можно написать "link:favicon" перед title и шаблон будет создан. -->
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+<!-- Сначала нужно подключать BootStrap, а потом уже собственные стили. -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/fontello.css">
+<link rel="stylesheet" href="css/style.css">
+
+<header>
+    <!-- В BootStrap нужно создавать div с классом container для адаптивности. Он ограничивает содержимое. -->
+    <div class="container">
+        <!-- div контейнер с классом row отвечает за создание строки. -->
+        <div class="row">
+            <!-- div контейнер с классом row отвечает за создание столбца. -->
+            <div class="col">
+                <!-- В Bootstrap сетка поделена на 12 столбцов. 
+                И чтобы поделить сетку на 3 столбца, нужно к каждому элементу применить "col-4" (каждый элемент будет занимать по 4 столбца сетки).
+                А чтобы сделать 2х-колоночный макет, нужно к каждому элементу применить "col-6" (каждый элемент будет занимать по 6 столбцов сетки). -->
+                <!-- У нас 1-колоночный макет, поэтому задаём "col-12", чтобы элемент занимал всю сетку. -->
+                <div class="col-12">
+                    <!-- Чтобы создать элемент с определёнными классами, 
+                    нужно написать сам элемент, а потом через точку писать классы, например "h1.text-center.text-white". -->
+                    <!-- Bootstrap использует классы для примения стилей к элементам. 
+                    Например, класс "text-center" выравняет текст по центру, а "text-white" выравняет его по центру. -->
+                    <h1 class="text-center text-white"></h1>
+                </div> 
+                <!-- Класс "btn" определяет элемент как кнопку, "btn-lg" делает её большой, "text-uppercase" делает текст в верхнем регистре. -->
+                <!-- В атрибуте "href" мы указали идентификатор футера, 
+                поэтому Bootstrap сам сделает так, чтобы по нажатию этой кнопки осуществлялся плавный скролл к элементу с id "footer". -->
+                <a href="#footer" class="btn btn-lg text-uppercase">Заказать</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Связываем кнопку с модальным окном с помощью data-bs-target="#MyModal". -->
+    <div class="itd_play" data-bs-toggle="modal" data-bs-target="#MyModal"></div>
+
+    <!-- И у самого модального окна указываем id="MyModal". -->
+    <div class="modal fade" id="MyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Трейлер видео курса по HTML и CSS</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- С помощью этого сайта - http://embedresponsively.com/ создаём адаптивное видео. 
+            Лучше все стили в тегах <style> перенести в CSS файл. -->
+            <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed/QILiHiTD3uc' frameborder='0' allowfullscreen></iframe></div>
+        </div>
+    </div>
+    </div>
+    </div>
+</header>
