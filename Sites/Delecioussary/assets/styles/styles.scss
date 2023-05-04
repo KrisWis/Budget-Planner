@@ -106,7 +106,7 @@ body {
   display: inline-block;
   color: #ce8f15;
   font-family: "Coffee Service";
-  font-size: 1.3vmax;
+  font-size: 24px;
   font-weight: 400;
   text-align: left;
   margin-left: 2%;
@@ -124,7 +124,7 @@ body {
 .nav__items__item {
   color: #b1885c;
   font-family: "Coffee Service";
-  font-size: 0.8vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   text-transform: uppercase;
@@ -134,7 +134,7 @@ body {
   opacity: 0.52;
   color: #b1885c;
   font-family: "Coffee Service";
-  font-size: 0.8vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   text-transform: uppercase;
@@ -146,7 +146,7 @@ body {
   opacity: 0.52;
   color: #b1885c;
   font-family: "Coffee Service";
-  font-size: 0.8vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   margin-right: 55%;
@@ -236,11 +236,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 170%;
-  height: 100%;
+  width: 22px;
+  height: 43px;
   background: #b6976f;
   color: #fff;
-  font-size: 70%;
+  font-size: 14px;
 }
 
 .header__content__adding__plus--left {
@@ -255,7 +255,7 @@ body {
 
 .header__content--image {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .header__content__text {
@@ -267,7 +267,7 @@ body {
   width: 65%;
   color: #d4a65d;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 11px;
   font-weight: 700;
   text-align: left;
 }
@@ -275,7 +275,7 @@ body {
 .header__content__text__caption {
   color: #926a2c;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 12px;
   font-weight: 700;
   text-align: left;
 }
@@ -292,7 +292,7 @@ body {
   opacity: 0.5;
   color: #765028;
   font-family: "Coffee Service";
-  font-size: 1.5vmax;
+  font-size: 24px;
   font-weight: 400;
   text-align: left;
 }
@@ -300,7 +300,7 @@ body {
 .header__subtext__text {
   color: #c8a37c;
   font-family: "Sansus Webissimo";
-  font-size: 1vmax;
+  font-size: 12px;
   font-weight: 400;
   text-align: center;
 }
@@ -327,7 +327,7 @@ body {
 .main__container__todayChoice--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
 }
@@ -335,7 +335,7 @@ body {
 .main__container__todayChoice--paragraph {
   color: #d7b897;
   font-family: Helvetica;
-  font-size: 1vmax;
+  font-size: 12px;
   font-weight: 400;
   text-align: left;
   padding-top: 0.5%;
@@ -353,20 +353,21 @@ body {
 
 .main__container__todayChoice__item--caption,
 .main__container__todayChoice__item--description {
-  color: #b7926c;
+  color: #946c42;
   font-family: "Helvetica - Oblique";
-  font-size: 1.1vmax;
+  font-size: 16px;
   font-weight: 400;
   text-align: center;
 }
 
 .main__container__todayChoice__item--description {
-  font-size: 1vmax;
+  color: #b7926c;
+  font-size: 10px;
 }
 
 .main__container__todayChoice__item--image {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .main__container__todayChoice {
@@ -419,7 +420,7 @@ body {
 .main__container--grid--first_col__AboutUs--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
   margin-bottom: 20px;
@@ -429,7 +430,7 @@ body {
 .main__container--grid--first_col__AboutUs--end_of_description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.3vmax;
+  font-size: 15px;
   text-align: left;
   line-height: 20px
 }
@@ -441,7 +442,7 @@ body {
 .main__container--grid--first_col__AboutUs--continue_reading {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 12px;
   font-weight: 400;
   text-align: left;
   text-decoration: underline;
@@ -459,7 +460,7 @@ body {
 .main__container--grid--first_col__SpecialOffer--text--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
 }
@@ -467,7 +468,7 @@ body {
 .main__container--grid--first_col__SpecialOffer--description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.3vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
   margin-top: 10px;
@@ -477,7 +478,7 @@ body {
 .main__container--grid--first_col__SpecialOffer--text--oldPrice {
   color: #b7926c;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 22px;
   font-weight: 400;
   text-align: left;
   text-decoration: line-through;
@@ -487,7 +488,7 @@ body {
 .main__container--grid--first_col__SpecialOffer--text--newPrice {
   color: #be4c7d;
   font-family: "Sansus Webissimo";
-  font-size: 2vmax;
+  font-size: 35px;
   font-weight: 400;
   text-align: left;
 }
@@ -495,7 +496,7 @@ body {
 .main__container--grid--first_col__SpecialOffer--image {
   margin-left: 50px;
   width: 70%;
-  height: 100%;
+  height: auto;
 }
 
 /* Testimonials */
@@ -507,7 +508,7 @@ body {
 .main__container--grid--first_col__testimonials--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
 }
@@ -522,7 +523,7 @@ body {
 .main__container--grid--first_col__testimonials--text__item--quote {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.3vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
   line-height: 15px;
@@ -531,7 +532,7 @@ body {
 .main__container--grid--first_col__testimonials--text__item--author {
   color: #9b754d;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   margin-top: 15px;
@@ -547,13 +548,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  height: 450px;
 }
 
 .main__container--grid--second_col__our_ingridients__captions--caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
 }
@@ -561,14 +562,14 @@ body {
 .main__container--grid--second_col__our_ingridients__captions--description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.3vmax;
+  font-size: 12px;
   font-weight: 400;
   text-align: left;
 }
 
 .our_ingridients__image {
   width: 100%;
-  height: 100%;
+  height: 70%;
 }
 
 /* Pluses */
@@ -581,7 +582,7 @@ body {
   height: 27px;
   background: #e4d1b7;
   color: #fff;
-  font-size: 70%;
+  font-size: 14px;
   color: black;
 }
 
@@ -595,14 +596,10 @@ body {
   border-radius: 0 100% 100% 0 / 0 50% 50% 0;
 }
 
-.our_ingridients__image {
-  height: 90%;
-}
-
 .our_ingridients__caption {
   color: #987046;
   font-family: Helvetica;
-  font-size: 1.5vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
 }
@@ -610,7 +607,7 @@ body {
 .our_ingridients__desciption {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.3vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   line-height: 15px;
@@ -621,23 +618,24 @@ body {
 .our_ingridients__view {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   text-decoration: underline;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 /* Mailing list */
 
 .mailing_list {
-  margin-top: 70px;
+  margin-top: 120px;
 }
 
 .mailing_list__caption {
   color: #765028;
   font-family: "Sansus Webissimo";
-  font-size: 1.5vmax;
+  font-size: 20px;
   font-weight: 400;
   text-align: left;
 }
@@ -645,7 +643,7 @@ body {
 .mailing_list__description {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
   margin-top: 20px;
@@ -671,7 +669,7 @@ body {
 .mailing_list__input::placeholder {
   color: #c2a281;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
 }
@@ -682,7 +680,7 @@ body {
   background-image: linear-gradient(to top, #3e1116 0%, #7d4249 100%);
   color: #c2a281;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 15px;
   font-weight: 700;
   margin-top: 1%;
   cursor: pointer;
@@ -691,7 +689,7 @@ body {
 .mailing_list__view {
   color: #b7926c;
   font-family: Helvetica;
-  font-size: 1.2vmax;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
   text-decoration: underline;
@@ -756,7 +754,7 @@ body {
     flex-direction: column;
     margin-top: 0;
     border-radius: 0;
-    font-size: 2vmax;
+    font-size: 20px;
   }
 
   .nav__items {
@@ -765,11 +763,11 @@ body {
 
   .nav__item--contact {
     left: 0;
-    font-size: 1.5vmax;
+    font-size: 20px;
   }
 
   .nav--tagline {
-    font-size: 1.5vmax;
+    font-size: 15px;
     margin-right: -10%;
   }
 
@@ -852,16 +850,4 @@ body {
   .main__container--grid--first_col__testimonials--text {
     grid-template-columns: repeat(1, 1fr);
   }
-}
-
-@media screen and (max-width: 400px) {
-  
-  .header__content__adding--right {
-    right: 60%;
-  }
-
-  .header__content__adding--left {
-    left: 55%;
-  }
-
 }
