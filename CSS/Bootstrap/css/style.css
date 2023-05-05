@@ -87,7 +87,7 @@ header, footer {
 
 /* О курсе */
 
-.about, .shedule, .learning {
+.about, .schedule, .author {
   background-color: #eee;
 }
 
@@ -108,7 +108,8 @@ header, footer {
   align-items: center;
 }
 
-.line {
+.line,
+.reviews_line {
   width: 100px;
   height: 3px;
   background-color: var(--color1);
@@ -143,6 +144,27 @@ header, footer {
 .learning h5 {
   padding: 25px;
   border: 3px solid var(--color1);
+}
+
+/* Об авторе */
+
+.author {
+  padding-bottom: 0;
+}
+
+.itd_img {
+  max-width: 260px;
+}
+
+/* Отзывы о курсе */
+
+.reviews-img {
+  border: 3px solid cyan;
+  border-radius: 50%;
+}
+
+.reviews_line {
+  background-color: var(--color2);
 }
 
 /* Цвет */
