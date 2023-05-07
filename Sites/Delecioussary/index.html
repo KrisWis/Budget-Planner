@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Website for bakery.">
+  <meta name="todayChoice_desc" content="Website for bakery.">
   <meta name="keywords" content="html, webdev, css, bakery">
   <meta name="author" content="Некрасов Евгений">
   <link rel="stylesheet" href="assets/styles/styles.css">
@@ -13,7 +13,7 @@
 <body>
   <header class="header">
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" role="navigation">
     <h1 class="nav__logo">Delecioussary</h1>
     <div class="nav__items">
 
@@ -142,18 +142,13 @@
         </div>
         <img src="assets/images/header_images/header_shadow_left.png" alt="" aria-disabled="true">
       </div>
-      
-      <img class="header__content--image" src="assets/images/header_images/header_image.png" alt="Tasty!">
-      <div class="header__content__text">
-        <h2 class="header__content__text__caption">Ingridients</h2>
-        <p class="header__content__text__ingridients">
-          Sugar
-          Starch
-          Vanilla
-          Chocolate
-          Wheet
-          Milk
-        </p>
+
+      <div class="header__content__block">
+        <img class="header__content--image" src="assets/images/header_images/header_image.png" alt="Tasty!" aria-labelledby="ingridients">
+        <div class="header__content__text">
+          <h2 class="header__content__text__caption">Ingridients</h2>
+          <div class="header__content__text__ingridients" id="ingridients">Sugar Starch Vanilla Chocolate Wheet Milk</div>
+        </div>
       </div>
 
       <div class="header__content__adding--right">
@@ -184,39 +179,39 @@
 
         <div class="main__container__todayChoice__items">
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_1.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_1.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
 
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_2.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_2.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
 
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_3.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_3.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
 
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_4.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_4.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
 
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_5.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_5.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
 
           <div class="main__container__todayChoice__item">
-            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_6.png" alt="Tasty!">
+            <img class="main__container__todayChoice__item--image" src="assets/images/main_images/todayChoice_image_6.png" alt="Tasty!" aria-labelledby="todayChoice_desc">
             <h2 class="main__container__todayChoice__item--caption">Creamsy Creamy</h2>
-            <p class="main__container__todayChoice__item--description">a little description</p>
+            <p class="main__container__todayChoice__item--description" id="todayChoice_desc">a little description</p>
           </div>
         </div>
       </section>
@@ -234,11 +229,11 @@
           <section class="main__container--grid--first_col__SpecialOffer">
             <div class="main__container--grid--first_col__SpecialOffer--text">
               <h2 class="main__container--grid--first_col__SpecialOffer--text--caption">Special Offer !</h2>
-              <p class="main__container--grid--first_col__SpecialOffer--description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been..</p>
+              <p class="main__container--grid--first_col__SpecialOffer--description" id="specialOffer_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been..</p>
               <h5 class="main__container--grid--first_col__SpecialOffer--text--oldPrice">1.22 £</h5>
               <h6 class="main__container--grid--first_col__SpecialOffer--text--newPrice">0.99 £</h6>
             </div>
-            <img class="main__container--grid--first_col__SpecialOffer--image" src="assets/images/main_images/specialOffer_image.png" alt="Special Offer!">
+            <img class="main__container--grid--first_col__SpecialOffer--image" src="assets/images/main_images/specialOffer_image.png" alt="Special Offer!" aria-labelledby="specialOffer_desc">
           </section>
 
           <!-- Testimonials -->
@@ -272,11 +267,11 @@
                 <div class="main__content__adding__plus--left">
                   +
                 </div>
-                <img src="assets/images/main_images/Our_ingridients_shadow_left.png" alt="Левая тень">
+                <img src="assets/images/main_images/Our_ingridients_shadow_left.png" alt="" aria-disabled="true">
               </div>
-              <img class="our_ingridients__image" src="assets/images/main_images/ourIngredients_image.png" alt="Chocolate shavings">
+              <img class="our_ingridients__image" src="assets/images/main_images/ourIngredients_image.png" alt="Chocolate shavings" aria-labelledby="ourIngridients_desc">
               <div class="main__content__adding--right">
-                <img src="assets/images/main_images/Our_ingridients_shadow_right.png" alt="Правая тень">
+                <img src="assets/images/main_images/Our_ingridients_shadow_right.png" alt="" aria-disabled="true">
                 <div class="main__content__adding__plus--right">
                   +
                 </div>
@@ -284,7 +279,7 @@
             </div>
             <div class="main__container--grid--second_col__our_ingridients__footer">
               <h5 class="our_ingridients__caption">Pure Swiss Chocolate</h5>
-              <p class="our_ingridients__desciption">It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently...</p>
+              <p class="our_ingridients__desciption" id="ourIngridients_desc">It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently...</p>
               <p class="our_ingridients__view">View all our ingredients</p>
             </div>
           </section>
@@ -304,12 +299,12 @@
   </main>
 
   <!-- Separator -->
-  <img class="MainFooter_separator" src="assets/images/MainFooter_separator.png" alt="Разделитель">
+  <img class="MainFooter_separator" src="assets/images/MainFooter_separator.png" alt="" aria-disabled="true">
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer__rights">
-      <p>All rights reserved 2012   www.blugraphic.com   @blugraphic</p>
+      <p class="footer__rights--rights">All rights reserved 2012   www.blugraphic.com   @blugraphic</p>
       <p class="footer__rights--nav">Home  .  About  .  Sevices  .  Products  .  Ingredients  .  E-Shop  .  Branches  .  Contact</p>
     </div>
     <div class="footer__socials">
