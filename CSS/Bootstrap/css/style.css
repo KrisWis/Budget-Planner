@@ -5,7 +5,7 @@
   --color2: #52339a;
 }
 
-header, footer, section {
+section {
   padding: 100px 0;
 }
 
@@ -172,6 +172,12 @@ header, footer {
 .yooMoney_btn {
   position: relative;
   left: 20%;
+}
+
+/* Подвал */
+
+footer {
+  padding: 30px 0;
 }
 
 /* Цвет */
