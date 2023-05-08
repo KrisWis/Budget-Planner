@@ -1,0 +1,13 @@
+
+/* Header */
+
+header {
+  height: 75vh;
+  background: url(../images/header_background.png), #111;
+}
+
+.header_btn {
+  width: 200px;
+  height: 50px;
+  font-weight: 500;
+}
