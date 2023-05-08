@@ -1,4 +1,14 @@
 
+/* Цвета */
+
+:root {
+  --color1: #eebb12;
+}
+
+.color1 {
+  color: var(--color1)
+}
+
 /* Header */
 
 header {
@@ -10,4 +20,10 @@ header {
   width: 200px;
   height: 50px;
   font-weight: 500;
+}
+
+/* Author */
+
+.author {
+  background-color: #070707;
 }
