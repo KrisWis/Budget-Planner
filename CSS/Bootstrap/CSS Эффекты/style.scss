@@ -1,12 +1,16 @@
-body {
+* {
   margin: 0;
   padding: 0;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .caption {
   color: white;
   font-size: 30px;
   margin-bottom: 100px;
+  position: relative;
+  top: 5%;
 }
 
 /* ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ КНОПКИ. https://www.youtube.com/watch?v=qYkqQCohfAc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI */
@@ -20,9 +24,9 @@ $border-size: 3px;
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(45deg, #3c0453, $base-color);
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +34,6 @@ $border-size: 3px;
 }
 
 button {
-  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   text-shadow: 0 0 15px #000;
   letter-spacing: 15px;
@@ -125,6 +128,7 @@ button {
 
 @keyframes animateTop {
   0% {
+    /* translate () Сдвигает элемент на заданное значение по горизонтали и вертикали в плоскости экрана. */
     transform: translateX(-100%)
   }
 
@@ -162,4 +166,126 @@ button {
     transform: translateY(-100%);
   }
 }
+
+
+/* АНИМАЦИЯ 3D ПЕРЕВОРОТА КАРТОЧКИ. https://www.youtube.com/watch?v=l7UbiJwE9mc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=2 */
+
+
+.wrapper2 {
+  background: linear-gradient(10deg, rgb(85, 8, 85), black);
+  height: 100vh;
+  text-align: center;
+}
+
+.card {
+  width: 340px;
+  height: 320px;
+  cursor: pointer;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+
+  &:hover {
+    .front {
+      /* При наведении, поворачиваем элемент на 180 градусов, чтобы этот элемент был повёрнут к пользователю задом, 
+      а мы сделали backface-visibility: hidden, поэтому элемент не будет виден. 
+      Поставлено "-180deg", а не просто "180deg", чтобы при повороте back элемента они не перекрещивались. */
+      transform: perspective(600px) rotateY(-180deg);
+    }
+
+    /* При наведении, поварачиваем задний элемент нам передом, чтобы мы его видели. */
+    .back {
+      transform: perspective(600px) rotateY(0);
+    }
+  }
+}
+
+.front, 
+.back {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  /* Свойство backface-visibility определяет, должна ли быть видна задняя поверхность элемента, когда он обращен к пользователю. 
+  Задняя поверхность элемента является зеркальным отражением отображаемой передней поверхности. 
+  Оно позволяет выбрать, должен ли пользователь видеть заднюю поверхность или нет. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform .5s ease;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgb(85, 8, 85), black);
+}
+
+.front {
+  /*  свойство perspective определяет на сколько элемент удален от точки обзора. 
+  Чем больше значение, указанное для перспективы, тем дальше от пользователя расположен элемент. */
+  transform: perspective(600px) rotateY(0);
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.back {
+  /* Делаем переворот 180 градусов сразу, чтобы этот элемент был повёрнут к пользователю задом, 
+  а мы сделали backface-visibility: hidden, поэтому элемент не будет виден. */
+  transform: perspective(600px) rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(110, 40, 144);
+    font-size: 24px;
+
+    span {
+      display: flex;
+      font-size: 18px;
+      font-weight: 800;
+      margin: 5px 0 10px;
+      justify-content: baseline;
+      align-items: baseline;
+      gap: 5px;
+
+      span {
+        color: rgb(56, 8, 81); 
+      }
+    }
+  }
+
+  .socials {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      color: rgb(91, 23, 128);
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      /* Выравниваем иконки, которые находятся в тегах <a> по центру */
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      border-radius: 50%;
+      transition: .4s ease;
+
+      &:hover {
+        background-color: rgb(91, 23, 128);
+        color: rgb(167, 0, 250);
+
+      }
+    }
+  }
+}
+
+
+/* КАРТОЧКИ СО СКОШЕННЫМ ДИЗАЙНОМ. https://www.youtube.com/watch?v=1JYPSI1ZDBc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=3&pp=iAQB */
+
 
