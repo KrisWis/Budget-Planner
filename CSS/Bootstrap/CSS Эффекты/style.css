@@ -360,4 +360,82 @@ body {
   background: linear-gradient(#af36ff, #ff0070);
 }
 
-/* КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ. https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4 *//*# sourceMappingURL=style.css.map */
+/* КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ. https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4 */
+.wrapper4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #ee0979, #ff6a00);
+}
+
+.container4 {
+  display: flex;
+  list-style: none;
+}
+.container4 li {
+  margin: 10px;
+}
+.container4 a {
+  text-decoration: none;
+  background-color: #f1f1f1;
+  color: #ff2626;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30%;
+  box-shadow: -5px 5px 20px -5px #010101;
+  position: relative;
+  overflow: hidden;
+  /* Создаём штуку, которая будет покрывать элемент при наведении */
+}
+.container4 a i {
+  font-size: 34px;
+  transition: 0.3s ease;
+}
+.container4 a:before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background-color: #ff2626;
+  left: -110%;
+  top: 90%;
+  /* Поворачиваем её на 45 градусов, чтобы лучше выглядела */
+  transform: rotate(45deg);
+}
+.container4 a:hover {
+  /* Увеличиваем иконку и меняем её цвет при наведении */
+}
+.container4 a:hover i {
+  transform: scale(1.3);
+  color: #f1f1f1;
+}
+.container4 a:hover::before {
+  animation-name: hover;
+  animation-duration: 0.6s;
+  top: -10%;
+  left: -10%;
+}
+
+@keyframes hover {
+  /* Сначала позиция таже, что и изначально */
+  0% {
+    top: -110%;
+    left: 90%;
+  }
+  /* Потом позиционируем элемент ниже и правее */
+  50% {
+    top: 10%;
+    left: -30%;
+  }
+  /* И чтобы красный фон полностью заполнил элемент позициионируем ещё раз */
+  100% {
+    top: -10%;
+    left: -10%;
+  }
+}
+/* КНОПКИ С НЕОНОВЫМ СВЕТОМ. https://www.youtube.com/watch?v=iha5Z6qv8xs&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=5 *//*# sourceMappingURL=style.css.map */
