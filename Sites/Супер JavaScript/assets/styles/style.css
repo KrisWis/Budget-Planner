@@ -78,4 +78,9 @@ header {
 .accordion-button:not(.collapsed) {
   color: var(--bs-black);
   font-weight: bold;
+}
+
+/* FAQ */
+.faq__link:hover {
+  opacity: 0.8;
 }/*# sourceMappingURL=style.css.map */
