@@ -518,4 +518,105 @@ body {
   background: linear-gradient(0, transparent, #1bffff);
 }
 
-/* МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ. https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6 *//*# sourceMappingURL=style.css.map */
+/* МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ. https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6 */
+.wrapper6 {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(80deg, violet, black, black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container6 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.container6 h2 {
+  margin: 10px 0;
+}
+.container6 h2 span {
+  color: rgb(34, 2, 47);
+}
+.container6 h1 {
+  margin: 0;
+  font-size: 170px;
+  letter-spacing: 20px;
+  /* Задаём background изображением */
+  background: url(logo.png) center;
+  background-size: contain;
+  /* Свойство -webkit-text-fill-color равносильно свойству color для текста. Т.е просто меняет цвет текста */
+  -webkit-text-fill-color: transparent;
+  /* Свойство background-clip определяет, где простирается фон элемента, в нашем случае - за текстом. */
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.container6 p {
+  font-size: 20px;
+}
+.container6 p span {
+  color: rgb(54, 4, 75);
+}
+.container6 a {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+  padding: 3% 6%;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.6s ease;
+  position: relative;
+  z-index: 0;
+  /* Создаём 2 псевдоэлемента и в каждом задаём свойство background cо своими значениями.
+  У after свойство opacity равно 0, поэтому виден только before.
+  А при наведении, after делаем opacity: 1, а before делаем opacity: 0, чтобы был виден только фон after. */
+}
+.container6 a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, violet, black, black);
+  z-index: -1;
+  left: 0.5%;
+  bottom: 5%;
+  transition: all 0.6s ease;
+}
+.container6 a:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, black, black, violet);
+  z-index: -1;
+  left: 0.5%;
+  bottom: 5%;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+.container6 a span {
+  color: rgb(54, 4, 75);
+}
+.container6 a:hover {
+  color: rgb(54, 4, 75);
+}
+.container6 a:hover span {
+  color: black;
+}
+.container6 a:hover:before {
+  opacity: 0;
+}
+.container6 a:hover:after {
+  opacity: 1;
+}
+
+/* ОТЗЫВЧИВОЕ МЕНЮ НАВИГАЦИИ. https://www.youtube.com/watch?v=z-3hnHn6V5w&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI *//*# sourceMappingURL=style.css.map */
