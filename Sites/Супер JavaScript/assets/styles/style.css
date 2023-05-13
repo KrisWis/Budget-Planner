@@ -22,7 +22,8 @@ header {
   background: url(../images/header_background.png), #111;
 }
 
-.header_btn {
+.header_btn,
+.buying_btn {
   width: 200px;
   height: 50px;
   font-weight: 500;
@@ -83,4 +84,9 @@ header {
 /* FAQ */
 .faq__link:hover {
   opacity: 0.8;
+}
+
+/* Супер JavaScript */
+.buying_btn {
+  margin-left: 40%;
 }/*# sourceMappingURL=style.css.map */
