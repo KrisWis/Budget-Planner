@@ -20,7 +20,7 @@ $accent-color: #07e8ff;
 $base-color: #2f0000;
 $border-size: 3px;
 
-.wrapper {
+.wrapper1 {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -33,7 +33,7 @@ $border-size: 3px;
   flex-direction: column;
 }
 
-.wrapper button {
+.wrapper1 button {
   text-transform: uppercase;
   text-shadow: 0 0 15px #000;
   letter-spacing: 15px;
@@ -60,6 +60,7 @@ $border-size: 3px;
   }
 
   span {
+
     &:nth-child(1),
     &:nth-child(2),
     &:nth-child(3),
@@ -89,7 +90,7 @@ $border-size: 3px;
       height: 100%;
       background: linear-gradient(0, $base-color, $accent-color, $base-color);
       animation: animateRight 2s linear infinite;
-    } 
+    }
 
     /* Нижняя линия */
 
@@ -103,12 +104,12 @@ $border-size: 3px;
     }
 
     /* Левая линия */
-    
+
     &:nth-child(4) {
       top: 0;
       left: 0;
       width: $border-size;
-      height: 100% ;
+      height: 100%;
       background: linear-gradient(0, $base-color, $accent-color, $base-color);
       animation: animateLeft 2s linear infinite;
     }
@@ -116,6 +117,7 @@ $border-size: 3px;
 
   &:hover {
     span {
+
       &:nth-child(1),
       &:nth-child(2),
       &:nth-child(3),
@@ -200,7 +202,7 @@ $border-size: 3px;
   }
 }
 
-.front, 
+.front,
 .back {
   width: 100%;
   height: 100%;
@@ -255,7 +257,7 @@ $border-size: 3px;
       gap: 5px;
 
       span {
-        color: rgb(56, 8, 81); 
+        color: rgb(56, 8, 81);
       }
     }
   }
@@ -325,7 +327,7 @@ $border-size: 3px;
     padding: 0;
     font-size: 160px;
     line-height: 1.2;
-    color: rgba(255, 255, 255 ,.06);
+    color: rgba(255, 255, 255, .06);
     transition: 0.5s;
   }
 
@@ -488,6 +490,7 @@ $border-size: 3px;
     }
 
     &:hover {
+
       /* Увеличиваем иконку и меняем её цвет при наведении */
       i {
         transform: scale(1.3);
@@ -515,13 +518,13 @@ $border-size: 3px;
   /* Потом позиционируем элемент ниже и правее */
   50% {
     top: 10%;
-    left: -30%; 
+    left: -30%;
   }
 
   /* И чтобы красный фон полностью заполнил элемент позициионируем ещё раз */
   100% {
     top: -10%;
-    left: -10%; 
+    left: -10%;
   }
 }
 
@@ -565,10 +568,21 @@ $neon: #1bffff;
     box-shadow: 0 0 10px $neon, 0 0 40px $neon, 0 0 80px $neon;
 
     span {
-      &:nth-child(1) {left: 100%;}
-      &:nth-child(2) {top: 100%;}
-      &:nth-child(3) {right: 100%;}
-      &:nth-child(4) {bottom: 100%;}
+      &:nth-child(1) {
+        left: 100%;
+      }
+
+      &:nth-child(2) {
+        top: 100%;
+      }
+
+      &:nth-child(3) {
+        right: 100%;
+      }
+
+      &:nth-child(4) {
+        bottom: 100%;
+      }
     }
   }
 
@@ -707,7 +721,7 @@ $neon: #1bffff;
       opacity: 0;
       transition: all 0.6s ease;
     }
-    
+
     span {
       color: rgb(54, 4, 75);
     }
@@ -735,3 +749,112 @@ $neon: #1bffff;
 /* ОТЗЫВЧИВОЕ МЕНЮ НАВИГАЦИИ. https://www.youtube.com/watch?v=z-3hnHn6V5w&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI */
 
 
+.wrapper7 {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background: #f4f5f8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wrapper7 .caption {
+  text-align: center;
+  color: black;
+}
+
+header {
+  min-height: 100px;
+  background: linear-gradient(-45deg, #00537e, #3aa17e);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+
+  /* Уносим switcher за пределы экрана, чтобы пользователь его не видел */
+  .switcher {
+    position: absolute;
+    visibility: hidden;
+    left: -9999px;
+  }
+
+  label {
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+  }
+
+  ul {
+    list-style-type: none;
+    display: flex;
+  }
+
+  a {
+    display: block;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0 15px;
+    color: white;
+    transition: .45s;
+
+    &:hover {
+      color: #3498db;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  /* Делаем так чтобы иконки открытия и закрытия были видны */
+  .open,
+  .close {
+    display: block;
+  }
+
+  /* Закрывающая иконка находиться выше */
+  .close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+
+  /* Селектор :checked представляет любой элемент radio, checkbox или option, который отмечен или переведен в on состояние. */
+  /* Знак "~" работает так, что стили применяются ко всем nav, которые идут за .switcher:checked. */
+  /* Следующие 2 строчки отвечает за то, чтобы панель навигации выдвигалась по нажатию на switcher.
+  Так как, изначально у неё стоит right: -100% и она не видна пользователю, то делаем right: 0. */
+  .switcher:checked~nav {
+    right: 0;
+  }
+
+  /* Создаём панель навигации но убираем её вправо на 100%, чтобы пользователь не мог её видеть*/
+  nav {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, #00537e, #3aa17e);
+    right: -100%;
+    top: 0;
+    text-align: center;
+    padding: 100px 0;
+    transition: .7s;
+  }
+
+  ul {
+    flex-direction: column;
+
+    a {
+      padding: 20px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .03);
+      }
+    }
+  }
+}
+
+
+/* АНИМИРОВАННЫЙ ИНДИКАТОР ВЫПОЛНЕНИЯ. https://www.youtube.com/watch?v=z-jJrClQXRQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=8 */

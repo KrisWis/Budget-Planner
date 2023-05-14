@@ -1,154 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
-  <!-- Скрипт для установки CDN иконок. -->
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
-  <title>CSS Эффекты</title>
-</head>
-<body>
-  
-  
-  <!-- ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ КНОПКИ. https://www.youtube.com/watch?v=qYkqQCohfAc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI --> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Скрипт для установки CDN иконок. -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>CSS Эффекты</title>
+  </head>
+  <body>
 
 
-  <div class="wrapper">
-    <a class="caption" href="https://www.youtube.com/watch?v=qYkqQCohfAc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI" target="_blank">ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ КНОПКИ.</a>
-    <button>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      button
-    </button>
-  </div>
+    <!-- ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ КНОПКИ. https://www.youtube.com/watch?v=qYkqQCohfAc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI -->
 
-  
-  <!-- АНИМАЦИЯ 3D ПЕРЕВОРОТА КАРТОЧКИ. https://www.youtube.com/watch?v=l7UbiJwE9mc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=2 --> 
-
-
-  <div class="wrapper2">
-    <a class="caption" href="https://www.youtube.com/watch?v=l7UbiJwE9mc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=2" target="_blank">АНИМАЦИЯ 3D ПЕРЕВОРОТА КАРТОЧКИ</a>
-    <div class="card">
-      <div class="front">
-        <img src="logo.png" alt="Photo">
-      </div>
-      <div class="back">
-        <div class="content">
-          <h1>
-            KrisKras
-            <span>
-              Front-end <span>Developer</span>
-            </span>
-          </h1>
-          <ul class="socials">
-            <li>
-              <a href="#"><i class="fa fa-youtube"></i></a>
-              <a href="#"><i class="fa fa-instagram"></i></a>
-              <a href="#"><i class="fa fa-twitter"></i></a>
-              <a href="#"><i class="fa fa-vk"></i></a>
-              <a href="#"><i class="fa fa-github"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- КАРТОЧКИ СО СКОШЕННЫМ ДИЗАЙНОМ. https://www.youtube.com/watch?v=1JYPSI1ZDBc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=3&pp=iAQB -->
-
-  
-  <div class="wrapper3">
-    <a class="caption" href="https://www.youtube.com/watch?v=1JYPSI1ZDBc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=3&pp=iAQB" target="_blank">КАРТОЧКИ СО СКОШЕННЫМ ДИЗАЙНОМ.</a>
-    <div class="container">
-
-      <div class="box">
-        <div class="content">
-          <h2>01</h2>
-          <h3>Card Heading</h3>
-          <p>Exercitation ullamco est in non aliqua deserunt aliqua deserunt aliqua. Est amet occaecat magna anim ut consequat proident nulla mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et sint Lorem dolor laborum aliquip. Cillum et laboris id irure aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur mollit non cupidatat magna cillum voluptate.</p>
-          <button>Show more</button>
-        </div>
-      </div>
-
-      <div class="box">
-        <div class="content">
-          <h2>02</h2>
-          <h3>Card Heading</h3>
-          <p>Exercitation ullamco est in non aliqua deserunt aliqua deserunt aliqua. Est amet occaecat magna anim ut consequat proident nulla mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et sint Lorem dolor laborum aliquip. Cillum et laboris id irure aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur mollit non cupidatat magna cillum voluptate.</p>
-          <button>Show more</button>
-        </div>
-      </div>
-
-      <div class="box">
-        <div class="content">
-          <h2>03</h2>
-          <h3>Card Heading</h3>
-          <p>Exercitation ullamco est in non aliqua deserunt aliqua deserunt aliqua. Est amet occaecat magna anim ut consequat proident nulla mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et sint Lorem dolor laborum aliquip. Cillum et laboris id irure aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur mollit non cupidatat magna cillum voluptate.</p>
-          <button>Show more</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  
-
-  <!-- КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ. https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4 -->
-
-  
-  <div class="wrapper4">
-    <a class="caption" href="https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4" target="_blank">КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ</a>
-    <ul class="container4">
-      <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-      <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-      <li><a href="#"><i class="fa fa-github"></i></a></li>
-    </ul>
-  </div>
-
-  
-  <!-- КНОПКA С НЕОНОВЫМ СВЕТОМ. https://www.youtube.com/watch?v=iha5Z6qv8xs&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=5 -->
-
-
-  <div class="wrapper5">
-    <a class="caption" href="https://www.youtube.com/watch?v=iha5Z6qv8xs&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=5" target="_blank">КНОПКA С НЕОНОВЫМ СВЕТОМ.</a>
-    <button>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Neon Button
-    </button>
-  </div>
-  
-
-  <!-- МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ. https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6 -->
-
-  
-  <div class="wrapper6">
-    <a class="caption" href="https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6" target="_blank">МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ.</a>
-    <div class="container6">
-      <h2>Oops! <span>Nothing was found.</span></h2>
-      <h1>404</h1>
-      <p>We can't find the pa<span>ge you're looking for.</span></p>
-      <a href="#">Go ba<span>ck home</span></a>
-    </div>
-  </div>
     
+    <div class="wrapper1">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=qYkqQCohfAc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI"
+        target="_blank"
+        >ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ КНОПКИ.</a
+      >
+      <button>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        button
+      </button>
+    </div>
 
-  <!-- ОТЗЫВЧИВОЕ МЕНЮ НАВИГАЦИИ. https://www.youtube.com/watch?v=z-3hnHn6V5w&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI -->
 
-  
-  
-</body>
+    <!-- АНИМАЦИЯ 3D ПЕРЕВОРОТА КАРТОЧКИ. https://www.youtube.com/watch?v=l7UbiJwE9mc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=2 -->
+
+
+    <div class="wrapper2">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=l7UbiJwE9mc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=2"
+        target="_blank"
+        >АНИМАЦИЯ 3D ПЕРЕВОРОТА КАРТОЧКИ</a
+      >
+      <div class="card">
+        <div class="front">
+          <img src="logo.png" alt="Photo" />
+        </div>
+        <div class="back">
+          <div class="content">
+            <h1>
+              KrisKras
+              <span> Front-end <span>Developer</span> </span>
+            </h1>
+            <ul class="socials">
+              <li>
+                <a href="#"><i class="fa fa-youtube"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-vk"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- КАРТОЧКИ СО СКОШЕННЫМ ДИЗАЙНОМ. https://www.youtube.com/watch?v=1JYPSI1ZDBc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=3&pp=iAQB -->
+
+
+    <div class="wrapper3">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=1JYPSI1ZDBc&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=3&pp=iAQB"
+        target="_blank"
+        >КАРТОЧКИ СО СКОШЕННЫМ ДИЗАЙНОМ.</a
+      >
+      <div class="container">
+        <div class="box">
+          <div class="content">
+            <h2>01</h2>
+            <h3>Card Heading</h3>
+            <p>
+              Exercitation ullamco est in non aliqua deserunt aliqua deserunt
+              aliqua. Est amet occaecat magna anim ut consequat proident nulla
+              mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et
+              sint Lorem dolor laborum aliquip. Cillum et laboris id irure
+              aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur
+              mollit non cupidatat magna cillum voluptate.
+            </p>
+            <button>Show more</button>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="content">
+            <h2>02</h2>
+            <h3>Card Heading</h3>
+            <p>
+              Exercitation ullamco est in non aliqua deserunt aliqua deserunt
+              aliqua. Est amet occaecat magna anim ut consequat proident nulla
+              mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et
+              sint Lorem dolor laborum aliquip. Cillum et laboris id irure
+              aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur
+              mollit non cupidatat magna cillum voluptate.
+            </p>
+            <button>Show more</button>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="content">
+            <h2>03</h2>
+            <h3>Card Heading</h3>
+            <p>
+              Exercitation ullamco est in non aliqua deserunt aliqua deserunt
+              aliqua. Est amet occaecat magna anim ut consequat proident nulla
+              mollit eiusmod. Nostrud mollit pariatur pariatur do duis. Ex et
+              sint Lorem dolor laborum aliquip. Cillum et laboris id irure
+              aliquip laboris voluptate id. Anim ea ex fugiat sit duis excepteur
+              mollit non cupidatat magna cillum voluptate.
+            </p>
+            <button>Show more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ. https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4 -->
+
+
+    <div class="wrapper4">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=IqMBPjwg8nM&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=4"
+        target="_blank"
+        >КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ С КРЕАТИВНЫМ HOVER-ЭФФЕКТОМ</a
+      >
+      <ul class="container4">
+        <li>
+          <a href="#"><i class="fa fa-youtube"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-github"></i></a>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- КНОПКA С НЕОНОВЫМ СВЕТОМ. https://www.youtube.com/watch?v=iha5Z6qv8xs&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=5 -->
+
+
+    <div class="wrapper5">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=iha5Z6qv8xs&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=5"
+        target="_blank"
+        >КНОПКA С НЕОНОВЫМ СВЕТОМ.</a
+      >
+      <button>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Neon Button
+      </button>
+    </div>
+
+
+    <!-- МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ. https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6 -->
+
+
+    <div class="wrapper6">
+      <a
+        class="caption"
+        href="https://www.youtube.com/watch?v=32GwTL-8yXQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=6"
+        target="_blank"
+        >МИНИМАЛИСТИЧНАЯ СТРАНИЦА ОШИБКИ.</a
+      >
+      <div class="container6">
+        <h2>Oops! <span>Nothing was found.</span></h2>
+        <h1>404</h1>
+        <p>We can't find the pa<span>ge you're looking for.</span></p>
+        <a href="#">Go ba<span>ck home</span></a>
+      </div>
+    </div>
+
+
+    <!-- ОТЗЫВЧИВОЕ МЕНЮ НАВИГАЦИИ. https://www.youtube.com/watch?v=z-3hnHn6V5w&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI -->
+
+
+    <div class="wrapper7">
+      <a class="caption" href="https://www.youtube.com/watch?v=z-3hnHn6V5w&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI" target="_blank">ОТЗЫВЧИВОЕ МЕНЮ НАВИГАЦИИ.</a>
+      <header>
+        <h2>WebDev</h2>
+        <!-- switcher тут это специальная кнопка, которую не видно и она спрятана за иконкой. -->
+        <input class="switcher" type="checkbox" id="menu" />
+        <label class="open" for="menu">
+          <i class="fa fa-bars"></i>
+        </label>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Me</a></li>
+            <li><a href="#">Scills</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Contacts</a></li>
+          </ul>
+          <label class="close" for="menu">
+            <i class="fa fa-times"></i>
+          </label>
+        </nav>
+      </header>
+    </div>
+
+
+    <!-- АНИМИРОВАННЫЙ ИНДИКАТОР ВЫПОЛНЕНИЯ. https://www.youtube.com/watch?v=z-jJrClQXRQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=8 -->
+
+
+
+  </body>
 </html>
