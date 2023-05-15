@@ -858,3 +858,83 @@ header {
 
 
 /* АНИМИРОВАННЫЙ ИНДИКАТОР ВЫПОЛНЕНИЯ. https://www.youtube.com/watch?v=z-jJrClQXRQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=8 */
+
+
+.wrapper8 {
+  background: linear-gradient(45deg, #93278f, #00a99d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0 200px;
+}
+
+.progress {
+  cursor: pointer;
+  background-color: #111;
+  height: 40px;
+  width: 70%;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 70px;
+  padding: 6px;
+
+  &:hover {
+
+    /* При наведении, начинаем анимацию */
+    .fill {
+      animation-play-state: running;
+    }
+
+    /* А число поднимаем выше. */
+    .number {
+      transform: translateY(-40px);
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .fill {
+    /* Ширина определяет то, на сколько процентов заполнен прогресс бар */
+    width: 50%;
+    /* В свойстве background чередуются цвета, которые использованы в прогресс баре. 
+    Количество градусов определяет наклон палочек. 
+    Настройка градиента идёт снизу вверх и указываем два цвета с одинаковыми процентами, чтобы они чередовались. */
+    background: linear-gradient(45deg,
+        rgba(218, 9, 218, 0.5) 25%,
+        black 25%,
+        black 50%,
+        rgba(218, 9, 218, 0.5) 50%,
+        rgba(218, 9, 218, 0.5) 75%,
+        black 75%);
+    background-size: 40px;
+    border-radius: 5px;
+    height: 100%;
+    animation: move .5s linear infinite paused;
+  }
+
+  .number {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, .6);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: .3s ease;
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+/* Анимация для движения прогресс бара */
+@keyframes move {
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+
+/* АНИМАЦИЯ 3D ВРАЩЕНИЯ. https://www.youtube.com/watch?v=LKI-i_J79EQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=9 */
