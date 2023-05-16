@@ -219,7 +219,7 @@ $border-size: 3px;
 }
 
 .front {
-  /*  свойство perspective определяет на сколько элемент удален от точки обзора. 
+  /* Свойство perspective определяет на сколько элемент удален от точки обзора. 
   Чем больше значение, указанное для перспективы, тем дальше от пользователя расположен элемент. 
   Но на самом деле, оно здесь почему то не влияет на то, как мы видим элемент, скорей всего автор ошибся. */
   transform: perspective(600px) rotateY(0);
@@ -938,3 +938,74 @@ header {
 
 
 /* АНИМАЦИЯ 3D ВРАЩЕНИЯ. https://www.youtube.com/watch?v=LKI-i_J79EQ&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=9 */
+
+
+.wrapper9 {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(45deg, #009245, #fcee21);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.spinner {
+  /* Свойство perspective определяет на сколько элемент удален от точки обзора. 
+  Чем больше значение, указанное для перспективы, тем дальше от пользователя расположен элемент. 
+  Но на самом деле, оно здесь почему то не влияет на то, как мы видим элемент, скорей всего автор ошибся. */
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+
+  .circle,
+  .line {
+    width: 260px;
+    height: 260px;
+    border: 5px solid white;
+    border-radius: 50%;
+  }
+
+  .circle {
+    position: relative;
+    /* Свойство transform-style определяет, будут ли дочерние элементы элемента расположены в трехмерном пространстве или будут сглажены в плоскости элемента. 
+    У нас - в трёхмерном и создаётся некая иллюзия, что полосок много, но на самом деле их 4. */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    animation: spinn 6s infinite linear;
+  }
+
+  .line {
+    display: block;
+    position: absolute;
+    top: -5px;
+    right: 0;
+    bottom: 0;
+    left: -5px;
+
+    &:nth-child(1) {
+      transform: rotateY(36deg);
+    }
+
+    &:nth-child(2) {
+      transform: rotateY(72deg);
+    }
+
+    &:nth-child(3) {
+      transform: rotateY(108deg);
+    }
+
+    &:nth-child(4) {
+      transform: rotateY(144deg);
+    }
+  }
+}
+
+@keyframes spinn {
+  100% {
+    transform: rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+
+/* АНИМИРОВАННЫЙ ТЕКСТ ЗАГРУЗКИ. https://www.youtube.com/watch?v=ITYNnrDSk68&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=10 */
