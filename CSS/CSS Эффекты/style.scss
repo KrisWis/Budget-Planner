@@ -1054,4 +1054,60 @@ h1 {
 }
 
 
-/*  АНИМИРОВАННЫЕ КНОПКИ С ГРАДИЕНТОМ. https://www.youtube.com/watch?v=TfziVoVo-94&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=11 */
+/* АНИМИРОВАННЫЕ КНОПКИ С ГРАДИЕНТОМ. https://www.youtube.com/watch?v=TfziVoVo-94&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=11 */
+
+
+.wrapper11 {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.container {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  min-width: 200px;
+  border: none;
+  letter-spacing: 1px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px #000;
+  padding: 20px;
+  border-radius: 15px;
+  background-size: 220%;
+  box-shadow: 0 5px 5px -5px #010101;
+  transition: .5s ease;
+
+  &-1 {
+    background-image: linear-gradient(45deg, #ed1e79, #662d8c, #ed1e79);
+  }
+
+  &-2 {
+    background-image: linear-gradient(45deg, #63e2ff, #d585ff, #63e2ff);
+  }
+
+  &-3 {
+    background-image: linear-gradient(45deg, #fcee21, #009e00, #fcee21);
+  }
+
+  &-4 {
+    background-image: linear-gradient(45deg, #fbb03b, #d4145a, #fbb03b);
+  }
+
+  &:hover {
+    // Меняем положение фона для эффекта.
+    background-position: right;
+  }
+}
+
+
+/* КРУГОВАЯ ПОЛОСА ПРОГРЕССА. https://www.youtube.com/watch?v=hRYA1CXfwP4&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=12 */
