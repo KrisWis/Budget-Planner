@@ -254,7 +254,7 @@ body {
   z-index: 0;
 }
 
-.container {
+.container3 {
   position: relative;
   display: flex;
   justify-content: space-around;
@@ -310,7 +310,7 @@ body {
   background-color: #fff;
 }
 
-.box {
+.box3 {
   width: 300px;
   min-height: 450px;
   cursor: pointer;
@@ -322,15 +322,15 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.5);
   /* Сдвиг при наведении */
 }
-.box:hover .content h2 {
+.box3:hover .content h2 {
   top: -120px;
 }
-.box:hover .content button {
+.box3:hover .content button {
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
 }
-.box::after {
+.box3::after {
   content: "";
   position: absolute;
   top: 0;
@@ -339,7 +339,7 @@ body {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.06);
 }
-.box::before {
+.box3::before {
   content: "";
   position: absolute;
   top: -3px;
@@ -350,13 +350,13 @@ body {
   transform: skew(2deg, 2deg);
   z-index: -1;
 }
-.box:nth-child(1):before {
+.box3:nth-child(1):before {
   background: linear-gradient(#ff0000, #0037ff);
 }
-.box:nth-child(2):before {
+.box3:nth-child(2):before {
   background: linear-gradient(#d3ff00, #17f4ff);
 }
-.box:nth-child(3):before {
+.box3:nth-child(3):before {
   background: linear-gradient(#af36ff, #ff0070);
 }
 
@@ -851,7 +851,7 @@ header a:hover {
   background: linear-gradient(45deg, #333333, #4c4a4a);
 }
 
-h1 {
+.wrapper10 h1 {
   font-family: "Lato", sans-serif;
   position: relative;
   color: #212121;
@@ -860,7 +860,7 @@ h1 {
   text-transform: uppercase;
   border-bottom: 18px solid #212121;
 }
-h1:before {
+.wrapper10 h1:before {
   content: "Loading...";
   position: absolute;
   top: 0;
@@ -879,4 +879,187 @@ h1:before {
     width: 100%;
   }
 }
-/*  АНИМИРОВАННЫЕ КНОПКИ С ГРАДИЕНТОМ. https://www.youtube.com/watch?v=TfziVoVo-94&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=11 *//*# sourceMappingURL=style.css.map */
+/* АНИМИРОВАННЫЕ КНОПКИ С ГРАДИЕНТОМ. https://www.youtube.com/watch?v=TfziVoVo-94&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=11 */
+.wrapper11 {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #373737;
+  flex-direction: column;
+}
+
+.container11 {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  min-width: 200px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px #000;
+  padding: 20px;
+  border-radius: 15px;
+  background-size: 220%;
+  box-shadow: 0 5px 5px -5px #010101;
+  transition: 0.5s ease;
+}
+.btn-1 {
+  background-image: linear-gradient(45deg, #ed1e79, #662d8c, #ed1e79);
+}
+.btn-2 {
+  background-image: linear-gradient(45deg, #63e2ff, #d585ff, #63e2ff);
+}
+.btn-3 {
+  background-image: linear-gradient(45deg, #fcee21, #009e00, #fcee21);
+}
+.btn-4 {
+  background-image: linear-gradient(45deg, #fbb03b, #d4145a, #fbb03b);
+}
+.btn:hover {
+  background-position: right;
+}
+
+/* КРУГОВАЯ ПОЛОСА ПРОГРЕССА. https://www.youtube.com/watch?v=hRYA1CXfwP4&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=12 */
+.container12 .percent .number, .container12 .card12, .wrapper12 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper12 {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #333333, #5a5454);
+  display: flex;
+  flex-direction: column;
+}
+
+.container12 {
+  position: relative;
+  width: 960px;
+  display: flex;
+  justify-content: space-around;
+}
+.container12 .card12 {
+  position: relative;
+  width: 250px;
+  height: 330px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  transition: 0.5s ease;
+}
+.container12 .card12:hover {
+  transform: translatey(-15px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+.container12 .card12:hover .number h2 {
+  color: #fff;
+  font-size: 50px;
+}
+.container12 .card12:hover .number h2 span {
+  color: #fff;
+}
+.container12 .card12:hover h3 {
+  color: #fff;
+}
+.container12 .card12:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+.container12 .percent {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 50px #000;
+  background-color: #222;
+  z-index: 1;
+}
+.container12 .percent h3 {
+  margin-top: 16px;
+  color: #777;
+  font-size: 22px;
+  transition: 0.5s ease;
+}
+.container12 .percent .number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.container12 .percent .number h2 {
+  color: #777;
+  font-size: 44px;
+  transition: 0.5s ease;
+}
+.container12 .percent .number h2 span {
+  color: #777;
+  padding-left: 3px;
+  font-size: 24px;
+  transition: 0.5s ease;
+}
+.container12 .percent h3 {
+  margin-top: 16px;
+  color: #777;
+  font-size: 22px;
+  transition: 0.5s ease;
+}
+
+svg {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform: rotate(-85deg);
+}
+svg circle {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #191919;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+}
+svg circle:nth-child(2) {
+  /* Свойство stroke-dasharray нужно для пунктирной, чтобы определить длину штриха и пробела. 
+  Т.к у нас одно значение, то оно применяется и к пробелу и к штриху. */
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+}
+
+.card12:nth-child(1) svg circle:nth-child(2) {
+  stroke-dashoffset: 44;
+  stroke: #63E2FF;
+}
+.card12:nth-child(2) svg circle:nth-child(2) {
+  stroke-dashoffset: 176;
+  stroke: #D9E021;
+}
+.card12:nth-child(3) svg circle:nth-child(2) {
+  stroke-dashoffset: 264;
+  stroke: #ED1E79;
+}
+
+/* ОРИГИНАЛЬНЫЙ ЭФФЕКТ ВРАЩЕНИЯ КАРТОЧКИ. https://www.youtube.com/watch?v=d1xGDF2ToEY&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=13 *//*# sourceMappingURL=style.css.map */
