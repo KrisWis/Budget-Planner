@@ -1165,6 +1165,7 @@ svg circle:nth-child(2) {
   margin: 0;
   padding: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -1243,4 +1244,120 @@ svg circle:nth-child(2) {
     transform: translate(-120px, -50%);
   }
 }
-/* КРЕАТИВНЫЙ ОДНОСТРАНИЧНЫЙ СЛАЙДЕР. https://www.youtube.com/watch?v=sOsDBYOi74Q&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=15 *//*# sourceMappingURL=style.css.map */
+/* КРЕАТИВНЫЙ ОДНОСТРАНИЧНЫЙ СЛАЙДЕР. https://www.youtube.com/watch?v=sOsDBYOi74Q&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=15 */
+.wrapper15 {
+  height: 100vh;
+  color: #fff;
+  font-family: "Sedgwick Ave", cursive;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Директива SCSS @for работает так, что сначала задаётся переменная (у нас - $i), 
+  пишется ключевое слово "from" и после него - индекс элемента с которого начнётся цикл, 
+  потом ключевое слово "through" и число до которого будет идти цикл (у нас это длина списка $colors). */
+  /* Все эти свойства применяются для всех section. 
+  Чтобы использовать переменную нужно написать "#", потом фигурные скобки и название переменной. */
+  /* Все эти свойства применяются для всех section. 
+  Чтобы использовать переменную нужно написать "#", потом фигурные скобки и название переменной. */
+  /* Все эти свойства применяются для всех section. 
+  Чтобы использовать переменную нужно написать "#", потом фигурные скобки и название переменной. */
+  /* Все эти свойства применяются для всех section. 
+  Чтобы использовать переменную нужно написать "#", потом фигурные скобки и название переменной. */
+}
+.wrapper15 .caption {
+  position: absolute;
+  z-index: 2;
+}
+.wrapper15 input {
+  display: none;
+}
+.wrapper15 input#section1:checked ~ nav label[for=section1] {
+  background-color: #fff;
+}
+.wrapper15 input#section1:checked ~ section:nth-of-type(1) {
+  transform: translateY(0);
+  transition: 0.3s ease;
+  transition-delay: 0.2s;
+  z-index: 1;
+}
+.wrapper15 input#section2:checked ~ nav label[for=section2] {
+  background-color: #fff;
+}
+.wrapper15 input#section2:checked ~ section:nth-of-type(2) {
+  transform: translateY(0);
+  transition: 0.3s ease;
+  transition-delay: 0.2s;
+  z-index: 1;
+}
+.wrapper15 input#section3:checked ~ nav label[for=section3] {
+  background-color: #fff;
+}
+.wrapper15 input#section3:checked ~ section:nth-of-type(3) {
+  transform: translateY(0);
+  transition: 0.3s ease;
+  transition-delay: 0.2s;
+  z-index: 1;
+}
+.wrapper15 input#section4:checked ~ nav label[for=section4] {
+  background-color: #fff;
+}
+.wrapper15 input#section4:checked ~ section:nth-of-type(4) {
+  transform: translateY(0);
+  transition: 0.3s ease;
+  transition-delay: 0.2s;
+  z-index: 1;
+}
+.wrapper15 nav {
+  position: absolute;
+  right: 30px;
+  z-index: 2;
+  transform: translateY(-50%);
+  top: 50%;
+}
+.wrapper15 nav label {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 12px 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.wrapper15 nav label:hover {
+  background-color: #fff;
+}
+.wrapper15 section {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-delay: 0.5s;
+  transform: translateY(-100%);
+}
+.wrapper15 section:nth-of-type(1) {
+  background-color: #662d8c;
+}
+.wrapper15 section:nth-of-type(2) {
+  background-color: #009245;
+}
+.wrapper15 section:nth-of-type(3) {
+  background-color: #2e3192;
+}
+.wrapper15 section:nth-of-type(4) {
+  background-color: #ed1c24;
+}
+.wrapper15 section h2 {
+  font-size: 140px;
+  text-align: center;
+  letter-spacing: 5px;
+  color: #fff;
+}
+
+/* ПАРАЛЛАКС ЭФФЕКТ. https://www.youtube.com/watch?v=QEGsNQosAt0&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=16 *//*# sourceMappingURL=style.css.map */
