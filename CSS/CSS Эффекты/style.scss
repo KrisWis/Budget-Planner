@@ -1657,3 +1657,72 @@ $colors: #662d8c, #009245, #2e3192, #ed1c24;
 
 
 /* GLITCH ЭФФЕКТ. https://www.youtube.com/watch?v=gbXx9I1qQN4&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=17 */
+
+
+.wrapper17 {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  h1 {
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 20px;
+    font-size: 140px;
+    position: relative;
+
+    &:after,
+    &:before {
+      content: 'Glitch Effect';
+      position: absolute;
+      top: 0;
+      color: #fff;
+      background-color: #000;
+      overflow: hidden;
+    }
+
+    /* Накладываем анимацию для двух псевдоэлементов для пущего эффекта глича. */
+    &:after {
+      left: 2px;
+      text-shadow: -1px 0 #ff1b1b;
+      animation: glitch 2s infinite ease;
+    }
+
+    &:before {
+      left: -2px;
+      text-shadow: 1px 0 #2124ff;
+      animation: glitch 10s infinite ease;
+    }
+
+    @keyframes glitch {
+      $steps: 25;
+
+      @for $i from 0 through $steps {
+
+        // Функция percentage конвертирует любое число в процент
+        #{percentage($i*(1/$steps))} {
+          $top: random(100);
+          $bottom: random(101 - $top);
+          /* Свойство clip-path создаёт ограниченную область, которая определяет какая часть элемента должна быть видимой. 
+          Те части, которые находятся внутри области, видимы, в то время как части вне области, скрыты. 
+          Т.е мы видим только некоторые части слова, поэтому создаётся эффект глича. */
+          /* inset() определяет логический блок и встроенные начальное и конечное смещения элемента, которые отображают физическое смещение, 
+          зависящее от способа записи, направления и ориентации текста. 
+          Здесь мы его используем для вычисления смещения элемента, чтобы отрезать эту часть. */
+          clip-path: inset(#{percentage($top/100)} 0 #{percentage($bottom/100)} 0);
+        }
+      }
+    }
+  }
+}
+
+
+/* ВРАЩАЮЩИЕСЯ 3D КНОПКИ. https://www.youtube.com/watch?v=XlsEP9iQs1s&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=18 */
