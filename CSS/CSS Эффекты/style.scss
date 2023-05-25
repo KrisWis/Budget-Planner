@@ -1726,3 +1726,87 @@ $colors: #662d8c, #009245, #2e3192, #ed1c24;
 
 
 /* ВРАЩАЮЩИЕСЯ 3D КНОПКИ. https://www.youtube.com/watch?v=XlsEP9iQs1s&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=18 */
+
+
+.wrapper18 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #00ac85, #ffff7e);
+  flex-direction: column;
+}
+
+.container18 {
+  display: inline-block;
+  margin: 10px;
+  height: 50px;
+  width: 200px;
+  cursor: pointer;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  $colors: linear-gradient(45deg, #c4302b, #fff31b),
+  linear-gradient(45deg, #2183bf, #2faffe),
+  linear-gradient(45deg, #b12169, #ff2f97);
+
+  @for $i from 1 through length($colors) {
+    .flipper--#{$i} {
+
+      .front18,
+      .back18 {
+        background: nth($colors, $i);
+      }
+    }
+  }
+
+  &:hover {
+    .flipper {
+      transform: rotateX(-90deg);
+    }
+  }
+
+  .flipper {
+    transition: all .5s ease;
+    transform-style: preserve-3d;
+    position: relative;
+    /* Свойство transfrom-origin задаёт место, с которого начнётся преобразование элемента - https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin. */
+    transform-origin: 100% 25px;
+  }
+
+  .button {
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 180px;
+    padding: 0 10px;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 2px;
+
+    .fa {
+      font-size: 24px;
+    }
+
+    &.front18 {
+      transform: translateZ(22px);
+    }
+
+    &.back18 {
+      text-shadow: 1px 0 2px #000;
+      transform: rotateX(90deg) translateZ(22px);
+    }
+  }
+}
+
+
+/* КНОПКА С АНИМАЦИЕЙ ВОЛНЫ. https://www.youtube.com/watch?v=hSeNSV2Epzo&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=19 */
