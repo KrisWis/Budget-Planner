@@ -2286,3 +2286,136 @@ $size: 250px;
 
 
 /* АНИМАЦИЯ ГРАНИЦЫ КАРТОЧКИ ТОВАРА. https://www.youtube.com/watch?v=4eDhKnDhzb8&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=24 */
+
+
+.wrapper24 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* radial-gradient() создает градиент в форме круга или эллипса. */
+  background: radial-gradient(#ff0000, #000);
+  font-family: 'Mansalva', cursive;
+
+  figure {
+    width: 1000px;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 3em;
+    position: relative;
+
+    &:before,
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      /* inherit заставляет в элементе использовать значение свойства из родительского элемента. */
+      box-sizing: inherit;
+      border: 4px solid transparent;
+      position: absolute;
+      z-index: 0;
+    }
+
+    &:before {
+      top: 0;
+      left: 0;
+    }
+
+    &:after {
+      bottom: 0;
+      right: 0;
+    }
+
+    &:hover {
+
+      &:before,
+      &:after {
+        width: 100%;
+        height: 100%;
+      }
+
+      &:before {
+        border-top-color: #ff0000;
+        border-right-color: #ff0000;
+        transition: width .25s ease, height .25s ease;
+      }
+
+      &:after {
+        border-bottom-color: #f07e7e;
+        border-left-color: #f07e7e;
+        transition: width .25s ease .5s, height .25s ease .75s, border-color 0s ease .5s;
+      }
+
+      h2 {
+        left: 20%;
+        z-index: 1;
+      }
+
+      button {
+        left: 62%;
+        z-index: 1;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 350px;
+      top: 45%;
+      left: 22%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    figcaption {
+      margin-top: 50px;
+      position: relative;
+      overflow: hidden;
+
+      h2 {
+        font-family: 'Mansalva', cursive;
+        font-size: 68px;
+        color: #0c0c0c;
+        text-shadow: 1px 1px 5px #ff0000;
+        margin: 0 0 50px;
+        position: relative;
+        top: 10%;
+        left: -50%;
+        transition: 1s ease;
+        text-align: center;
+
+        span {
+          display: block;
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+
+      button {
+        cursor: pointer;
+        background-color: transparent;
+        height: 45px;
+        width: 140px;
+        border: 2px solid #fff;
+        color: #fff;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 35px;
+        position: relative;
+        top: 0;
+        left: 0;
+        transition: 1s ease;
+
+        &:hover {
+          background-color: #ffffff6d;
+        }
+      }
+    }
+  }
+}
+
+
+/* СКОШЕННОЕ МЕНЮ С ИКОНКАМИ. https://www.youtube.com/watch?v=5dbRRfmNsss&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=25 */
