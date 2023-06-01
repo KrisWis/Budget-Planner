@@ -1810,3 +1810,91 @@ $colors: #662d8c, #009245, #2e3192, #ed1c24;
 
 
 /* КНОПКА С АНИМАЦИЕЙ ВОЛНЫ. https://www.youtube.com/watch?v=hSeNSV2Epzo&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=19 */
+
+
+$size: 250px;
+
+.wrapper19 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #333;
+  flex-direction: column;
+
+  button {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 24px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 20px 30px;
+    width: $size;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    position: relative;
+    // overflow: hidden чтобы обрезать то, что выходит за границы кнопки.
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      .wave {
+        top: -150px;
+      }
+    }
+
+    span {
+      position: relative;
+    }
+
+    .wave {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      width: $size;
+      height: $size;
+      background: linear-gradient(45deg, #4f00bc, #29abe3);
+      transition: .5s ease;
+
+      &:after,
+      &:before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: 0;
+        left: 50%;
+        // Значение translate перемещает элемент в горизонтальном и вертикальном направлениях. 
+        transform: translate(-50%, -75%);
+      }
+
+      &:after {
+        border-radius: 40%;
+        background-color: rgba(#333, .5);
+        animation: wave 7s linear infinite;
+      }
+
+      &:after {
+        border-radius: 45%;
+        background-color: rgba(#333, 1);
+        animation: wave 12s linear infinite;
+      }
+    }
+  }
+
+  @keyframes wave {
+    0% {
+      transform: translate(-50%, -75%) rotate(0deg);
+    }
+
+    100% {
+      transform: translate(-50%, -75%) rotate(360deg);
+    }
+  }
+}
+
+
+/* ИНТЕРЕСНЫЙ HOVER-ЭФФЕКТ КАРТОЧКИ. https://www.youtube.com/watch?v=8bDropEZmA4&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=20 */
