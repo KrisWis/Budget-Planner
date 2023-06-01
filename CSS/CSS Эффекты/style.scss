@@ -2132,3 +2132,69 @@ $size: 250px;
 
 
 /* АНИМИРОВАННЫЙ ЭФФЕКТ ГРАДИЕНТНОЙ ТЕНИ. https://www.youtube.com/watch?v=3naanA-_Krw&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=22 */
+
+
+.wrapper22 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #000;
+  position: relative;
+  z-index: 0;
+}
+
+// Мы создаём у псевдоэлементов сзади фон, блюрим его, а потом анимируем меняя его положение и так получаем эффект "анимированной тени".
+.shadow {
+  position: relative;
+  width: 500px;
+  height: 350px;
+  background: linear-gradient(#000, #262626);
+
+  img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+    background-size: 500%;
+    z-index: -1;
+    animation: animate 30s ease infinite;
+  }
+
+  &:after {
+    // Добавляем эффект blur`a на фон.
+    filter: blur(25px);
+  }
+
+  @keyframes animate {
+    0% {
+      background-position: 0 0;
+    }
+
+    50% {
+      background-position: 300% 0;
+    }
+
+    100% {
+      background-position: 0 0;
+    }
+  }
+}
+
+
+/* ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ ЭЛЕМЕНТОВ МЕНЮ. https://www.youtube.com/watch?v=FTvMze67TTo&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=23 */
