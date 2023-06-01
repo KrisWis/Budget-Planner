@@ -2198,3 +2198,91 @@ $size: 250px;
 
 
 /* ОРИГИНАЛЬНЫЙ HOVER-ЭФФЕКТ ЭЛЕМЕНТОВ МЕНЮ. https://www.youtube.com/watch?v=FTvMze67TTo&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=23 */
+
+
+%line {
+  content: '';
+  position: absolute;
+  height: 33.33%;
+  width: 0%;
+  background-color: #fb872b;
+  transition: .4s ease;
+}
+
+.wrapper23 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #93278f, #00a99d);
+
+  nav {
+    ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+
+      li {
+        position: relative;
+        padding: 4px 15px;
+        margin: 0 5px;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        a {
+          font-family: 'Tomorrow', sans-serif;
+          font-size: 24px;
+          color: #fff;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          text-decoration: none;
+          padding: 10px 5px;
+          transition: .4s ease;
+          z-index: 1;
+
+          &:before {
+            @extend %line;
+            left: 0;
+            bottom: 66.66%;
+          }
+        }
+
+        &:after {
+          @extend %line;
+          right: 0;
+          bottom: 33.33%;
+        }
+
+        &:before {
+          @extend %line;
+          left: 0;
+          bottom: 1%;
+        }
+
+        &:hover {
+          a {
+            text-shadow: 1px 1px 5px #000;
+
+            &:before {
+              width: 100%;
+            }
+          }
+
+          &:before,
+          &:after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/* АНИМАЦИЯ ГРАНИЦЫ КАРТОЧКИ ТОВАРА. https://www.youtube.com/watch?v=4eDhKnDhzb8&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=24 */
