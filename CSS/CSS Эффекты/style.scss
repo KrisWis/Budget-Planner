@@ -2041,3 +2041,94 @@ $size: 250px;
 
 
 /* КРЕАТИВНАЯ КАРТОЧКА ПРОДУКТА. https://www.youtube.com/watch?v=T9Vq-8BXFXA&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=21 */
+
+
+.wrapper21 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #333, #5a5454);
+
+  .card21 {
+    font-family: 'Montserrat', sans-serif;
+    width: 190px;
+    height: 240px;
+    background: linear-gradient(240deg, #808080, #e6e6e6);
+    border-radius: 20px;
+    position: relative;
+    text-transform: uppercase;
+
+    .price {
+      background: linear-gradient(45deg, #b066fe, #63e2ff);
+    }
+  }
+
+  .picture {
+    text-align: center;
+
+    img {
+      position: relative;
+      width: 80px;
+      top: -10px;
+      left: 45px;
+      z-index: 1;
+    }
+  }
+
+  .price {
+    position: absolute;
+    right: 0;
+    bottom: 100px;
+    width: 120px;
+    height: 200px;
+    border-radius: 20px 20px 0 2px;
+    // skewY() трансформирует элемент, наклоняя его в 2D-пространстве по оси Y. */
+    transform: skewY(40deg);
+
+    span {
+      position: absolute;
+      top: 130px;
+      left: 40px;
+      font-size: 28px;
+      color: #fff;
+      font-weight: 700;
+      transform: skewy(-40deg);
+    }
+  }
+
+  .info {
+    position: absolute;
+    top: 45%;
+    left: 10%;
+
+    .icon {
+      font-size: 12px;
+      color: #606060;
+      text-align: left;
+      letter-spacing: 1px;
+      position: absolute;
+
+      img {
+        padding-left: 10px;
+        width: 40px;
+      }
+    }
+  }
+
+  .name {
+    font-size: 14px;
+    color: #606060;
+    font-weight: 600;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    max-width: 80px;
+  }
+}
+
+
+/* АНИМИРОВАННЫЙ ЭФФЕКТ ГРАДИЕНТНОЙ ТЕНИ. https://www.youtube.com/watch?v=3naanA-_Krw&list=PLNkWIWHIRwMEosiVP_3B-h4fE7CIfZ7pI&index=22 */
