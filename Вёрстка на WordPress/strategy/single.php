@@ -34,118 +34,28 @@ WordPress цикл.
             <div class="row">
 
                 <div class="col-md-8">
-                    <?php the_content() ?>
+                    <div>
+                        <?php the_content() ?>
+                    </div>
 
                     <div class="pt-5 mt-5">
-                        <h3 class="mb-5">6 Comments</h3>
-                        <ul class="comment-list">
-                        <li class="comment">
-                            <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                            <h3>Jean Doe</h3>
-                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                        </li>
+                    <?php 
+                        // Получаем ID поста.
+                        $post_id = get_the_ID();
+                        // Получаем количество комментариев в разделе "Комментарии" в WordPress.
+                        $comments_count = wp_count_comments($post_id);
 
-                        <li class="comment">
-                            <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                            <h3>Jean Doe</h3>
-                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-
-                            <ul class="children">
-                            <li class="comment">
-                                <div class="vcard bio">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                <h3>Jean Doe</h3>
-                                <div class="meta">January 9, 2018 at 2:21pm</div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                                </div>
+                        ?>  
+                            <!-- $comments_count->total_comments - так мы получаем общее количество комментариев на сайте. -->
+                            <h3 class="mb-5"><?php echo $comments_count->total_comments . " комментариев"; ?></h3>
+                        <?php
 
 
-                                <ul class="children">
-                                <li class="comment">
-                                    <div class="vcard bio">
-                                    <img src="images/person_1.jpg" alt="Image placeholder">
-                                    </div>
-                                    <div class="comment-body">
-                                    <h3>Jean Doe</h3>
-                                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                    </div>
-
-                                    <ul class="children">
-                                        <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="images/person_1.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>Jean Doe</h3>
-                                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                </ul>
-                            </li>
-                            </ul>
-                        </li>
-
-                        <li class="comment">
-                            <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                            <h3>Jean Doe</h3>
-                            <div class="meta">January 9, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                        </li>
-                        </ul>
-                        <!-- END comment-list -->
-                        
-                        <div class="comment-form-wrap pt-5">
-                        <h3 class="mb-5">Leave a comment</h3>
-                        <form action="#" class="">
-                            <div class="form-group">
-                            <label for="name">Name *</label>
-                            <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" class="form-control" id="email">
-                            </div>
-                            <div class="form-group">
-                            <label for="website">Website</label>
-                            <input type="url" class="form-control" id="website">
-                            </div>
-
-                            <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                            <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                            </div>
-
-                        </form>
-                    </div>
+                        ?>
+                    <!-- comments_template() - загружает наш шаблон комментариев (функция mytheme_comment из файла comments.php). -->
+                    <?php comments_template(); ?>
+                    <!-- comment_form() - выводит на экран готовый код формы комментирования. -->
+                    <?php comment_form(); ?>
                 </div>
 
                 </div> <!-- .col-md-8 -->
@@ -153,7 +63,7 @@ WordPress цикл.
                     <div class="sidebar-box">
                         <!-- echo get_avatar(get_the_ID()) - выводит изображение профиля пользователя, который добавил статью. -->
                         <?php echo get_avatar(get_the_ID()); ?>
-                        <h3>About The Author</h3>
+                        <h3 class="mt-3">About The Author</h3>
                         <!-- the_author_meta("description") - получаем биографию пользователя. -->
                         <?php the_author_meta("description"); ?>
                     </div>

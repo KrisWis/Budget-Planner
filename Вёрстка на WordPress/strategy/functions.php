@@ -35,3 +35,6 @@ show_admin_bar(false);
 add_theme_support('post-thumbnails');
 
 add_theme_support('post-thumbnails', array('portfolio'));
+
+// Добавляем поддержку нашего меню, которое добавили в WordPress.
+add_theme_support("menus");

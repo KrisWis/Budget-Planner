@@ -30,7 +30,8 @@
     <header class="templateux-navbar" data-aos="fade-down">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-3 col-3"><div class="site-logo"><a href="index.html" class="animsition-link">Strategy</a></div></div>
+          <!-- href="/" переносит пользователя на главную страницу. -->
+          <div class="col-sm-3 col-3"><div class="site-logo"><a href="/" class="animsition-link">Strategy</a></div></div>
           <div class="col-sm-9 col-9 text-right">
 
             <button class="hamburger hamburger--spin toggle-menu ml-auto js-toggle-menu" type="button">
@@ -40,13 +41,26 @@
             </button>  
 
             <nav class="templateux-menu js-templateux-menu" role="navigation">
-              <ul class="list-unstyled">
-                <li class="d-md-none d-block active"><a href="index.html" class="animsition-link">Home</a></li>
-                <li><a href="work.html" class="animsition-link">Work</a></li>
-                <li><a href="about.html" class="animsition-link">About</a></li>
-                <li><a href="blog.html" class="animsition-link">Blog</a></li>
-                <li><a href="contact.html" class="animsition-link">Contact</a></li>
-              </ul>
+              <!-- Получаем и выводим наше меню навигации, которое добавили в WordPress. -->
+              <?php wp_nav_menu( [
+              'theme_location'  => '',
+              'menu'            => '',
+              'container'       => 'div',
+              'container_class' => '',
+              'container_id'    => '',
+              'menu_class'      => 'menu',
+              'menu_id'         => '',
+              'echo'            => true,
+              'fallback_cb'     => 'wp_page_menu',
+              'before'          => '',
+              'after'           => '',
+              'link_before'     => '',
+              'link_after'      => '',
+              'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+              'depth'           => 0,
+              'walker'          => '',
+            ] ); 
+              ?>
             </nav>  
           </div>
         </div>

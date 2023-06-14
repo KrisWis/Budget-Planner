@@ -1,5 +1,5 @@
 
-<a class="templateux-section templateux-cta animsition-link mt-5" href="contact.html" data-aos="fade-up">
+<a class="templateux-section templateux-cta animsition-link mt-5" href="/contacts/" data-aos="fade-up">
   <div class="container-fluid">
     <div class="cta-inner">
       <h2><span class="words-1">Start a Project.</span> <span class="words-2">Let's chat we are good people.</span></h2>
