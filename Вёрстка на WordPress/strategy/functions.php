@@ -38,3 +38,44 @@ add_theme_support('post-thumbnails', array('portfolio'));
 
 // Добавляем поддержку нашего меню, которое добавили в WordPress.
 add_theme_support("menus");
+
+// Добавляем событие в WordPress, чтобы была отправка почты, и указываем нашу функцию, которая будет осуществлять это.
+add_action("wp_ajax_callback_mail", "callback_mail");
+
+// Следующее событие делает так, чтобы привелегии не учитывались и почту могли отправлять и обычный пользователь, и админ.
+add_action("wp_ajax_nopriv_callback_mail", "callback_mail");
+
+// Функция для отправки почты.
+function callback_mail() {
+	/* Инициализируем переменные, обращаясь к специальной переменной $_POST, которая отвечает за данные формы. 
+	В скобках указываем текст, который указан в атрибуте name у input`ов в форме. */
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$phone = $_POST['phone'];
+	$zone = $_POST['zone'];
+	$budget = $_POST['budget'];
+	$type = $_POST['type'];
+
+	// В переменную $to добавляем электронную почту, на которую должно будет придти сообщение формы.
+	$to = "nekrasov.2h@yandex.ru";
+	$subject = "asd";
+	$message = "asd";
+
+	// Специальные фильтры, чтобы всё правильно работало.
+	remove_all_filters("wp_mail_from");
+	remove_all_filters("wp_mail_from_name");
+
+	// Специальный массив, в котором собраны данные для отправки формы.
+	$headers = array(
+		'From: Me Myself <me@example.net>',
+		'content-type: text/html',
+		'Cc: John Q Codex <jqc@wordpress.org>',
+		'Cc: iluvwp@wordpress.org', // тут можно использовать только простой email адрес
+	);
+
+	// В функцию wp_mail() мы передаём данные, и отправляем с помощью неё письмо.
+	wp_mail($to, $subject, $message, $headers);
+	
+	// Функция wp_die() завершает функцию.
+	wp_die();
+}

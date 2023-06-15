@@ -36,51 +36,51 @@
         <div class="row">
 
           <?php
-          // get_posts() - достаём все посты по определённым критериям.
-          $my_posts = get_posts( array(
-            // 'numberposts' => -1 - делает так, чтобы можно было получить любое количество постов.
-            'numberposts' => -1,
-            'category'    => 0,
-            'orderby'     => 'date',
-            /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
-            Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
-            'order'       => 'ASC',
-            'include'     => array(),
-            'exclude'     => array(),
-            'meta_key'    => '',
-            'meta_value'  =>'',
-            // Т.к нам нужно вывести только посты Portfolio, то в 'post_type' пищем portfolio.
-            'post_type'   => 'portfolio',
-            'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
-          ) );
+            // get_posts() - достаём все посты по определённым критериям.
+            $my_posts = get_posts( array(
+              // 'numberposts' => -1 - делает так, чтобы можно было получить любое количество постов.
+              'numberposts' => -1,
+              'category'    => 0,
+              'orderby'     => 'date',
+              /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
+              Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
+              'order'       => 'ASC',
+              'include'     => array(),
+              'exclude'     => array(),
+              'meta_key'    => '',
+              'meta_value'  =>'',
+              // Т.к нам нужно вывести только посты Portfolio, то в 'post_type' пищем portfolio.
+              'post_type'   => 'portfolio',
+              'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+            ) );
 
-          global $post;
-          // foreach - это цикл, и мы проходимся по всем постам, чтобы выводить их с одной и той же разметкой.
-          foreach( $my_posts as $post ){
-            setup_postdata( $post );
-            ?>
+            global $post;
+            // foreach - это цикл, и мы проходимся по всем постам, чтобы выводить их с одной и той же разметкой.
+            foreach( $my_posts as $post ){
+              setup_postdata( $post );
+              ?>
 
-            <article class="proj-article">
-              <!-- the_permalink() - ссылка на текущий пост. -->
-              <a class="project animsition-link" href="<?php the_permalink(); ?>">
-                <figure>
-                  <!-- echo get_the_post_thumbnail_url() - выводит миниатюру записи(картинку), которою мы добавили в WordPress. -->
-                  <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Free Template" class="img-fluid">  
-                </figure>
-                <div class="project-hover">
-                  <div class="project-hover-inner">
-                    <h2><?php the_title(); ?></h2>
-                    <span><?php the_content(); ?></span>
+              <article class="proj-article">
+                <!-- the_permalink() - ссылка на текущий пост. -->
+                <a class="project animsition-link" href="<?php the_permalink(); ?>">
+                  <figure>
+                    <!-- echo get_the_post_thumbnail_url() - выводит миниатюру записи(картинку), которою мы добавили в WordPress. -->
+                    <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Free Template" class="img-fluid">  
+                  </figure>
+                  <div class="project-hover">
+                    <div class="project-hover-inner">
+                      <h2><?php the_title(); ?></h2>
+                      <span><?php the_content(); ?></span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </article>
+                </a>
+              </article>
 
-            <?php
-            
-          }
+              <?php
+              
+            }
 
-          wp_reset_postdata(); // сброс
+            wp_reset_postdata(); // сброс
           ?>
         </div>
 

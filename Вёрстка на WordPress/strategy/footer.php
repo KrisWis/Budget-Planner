@@ -18,10 +18,39 @@
       </p>
       </div>
       <div class="col-md-6 text-md-right text-center footer-social">
-        <a href="#" class="p-3"><span class="icon-facebook2"></span></a>
-        <a href="#" class="p-3"><span class="icon-twitter2"></span></a>
-        <a href="#" class="p-3"><span class="icon-dribbble2"></span></a>
-        <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+        <?php
+          // get_posts() - достаём все посты по определённым критериям.
+          $my_posts = get_posts( array(
+            // 'numberposts' => 5 - делает так, чтобы можно было получить только 5 постов.
+            'numberposts' => 5,
+            'category'    => 0,
+            'orderby'     => 'date',
+            /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
+            Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
+            'order'       => 'ASC',
+            'include'     => array(),
+            'exclude'     => array(),
+            'meta_key'    => '',
+            'meta_value'  =>'',
+            // Т.к нам нужно вывести только посты social, то в 'post_type' пищем social.
+            'post_type'   => 'social',
+            'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+          ) );
+
+          global $post;
+          // foreach - это цикл, и мы проходимся по всем постам, чтобы выводить их с одной и той же разметкой.
+          foreach( $my_posts as $post ){
+            setup_postdata( $post );
+            ?>
+
+            <a href="<?php echo get_post_meta(get_the_ID(), 'link', true); ?>" class="p-3" target="_blank"><span class="icon-<?php the_title(); ?>"></span></a>
+
+            <?php
+            
+          }
+
+          wp_reset_postdata(); // сброс
+        ?>
       </div>
     </div>
   </div>

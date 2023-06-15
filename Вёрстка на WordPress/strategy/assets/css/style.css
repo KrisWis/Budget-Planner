@@ -1288,3 +1288,16 @@ textarea.form-control {
 #map>div {
   height: 100% !important;
 }
+
+.main-blog-wrapper {
+  overflow: hidden;
+}
+
+.main-blog-wrapper:not(:first-child) {
+  width: 48%;
+  float: left;
+}
+
+.main-blog-wrapper:nth-child(2n) {
+  margin-right: 4%;
+}

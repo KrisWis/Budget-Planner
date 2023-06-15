@@ -28,27 +28,28 @@
 <section class="templateux-portfolio-overlap mb-5" data-aos="fade-up" id="next">
     <div class="container">
     <!-- <div class="row"> -->
-        <form action="#" method="post">
+        <!-- Делаем правильный action, передавая url админа и делаем action, как отправку почты. -->
+        <form class="contacts__form" action="<?php echo admin_url('admin-ajax.php?action=callback_mail'); ?>" method="post">
         <div class="row">
             <div class="col-md-4  mb-4">
-            <input type="text" class="form-control" placeholder="Name">
+            <input type="text" name="name" class="form-control" placeholder="Name">
             </div>
             <div class="col-md-4  mb-4">
-            <input type="email" class="form-control" placeholder="Email">
+            <input type="email" name="email" class="form-control" required placeholder="Email">
             </div>
             <div class="col-md-4  mb-4">
-            <input type="text" class="form-control" placeholder="Phone">
+            <input type="text" name="phone" class="form-control" required placeholder="Phone">
             </div>
         </div>
         <div class="row">
             <div class="col-md-4  mb-4">
-            <input type="text" class="form-control" placeholder="Time Zone">
+            <input type="text" name="zone" class="form-control" placeholder="Time Zone">
             </div>
             <div class="col-md-4  mb-4">
-            <input type="email" class="form-control" placeholder="Budget">
+            <input type="text" name="budget" class="form-control" placeholder="Budget">
             </div>
             <div class="col-md-4  mb-4">
-            <input type="text" class="form-control" placeholder="Type of Work">
+            <input type="text" name="type" class="form-control" placeholder="Type of Work">
             </div>
         </div>
         <div class="row">

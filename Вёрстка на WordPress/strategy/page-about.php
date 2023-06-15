@@ -168,9 +168,6 @@
 </section>
 <!-- END section -->
 
-
-
-
 <section class="templateux-section">
 
 
@@ -223,7 +220,7 @@
           }
 
           wp_reset_postdata(); // сброс
-        ?>
+      ?>
     </div>
   </div>  
 </section>

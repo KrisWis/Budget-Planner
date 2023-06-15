@@ -1,8 +1,20 @@
+
+
+<!-- КАК ПОДКЛЮЧИТЬ САЙТ, НАПИСАННЫЙ НА WORDPRESS НА ХОСТИНГ - https://www.youtube.com/watch?v=BpRJlZ9-8j4&list=PLCMvV-acWe2C3ruTp6kzHU7FqlErsl2nR&index=11. -->
+
+
 <?php 
 
 get_header() 
 
 ?>    
+<?php 
+
+/* Следующий комментарий нужен для того, чтобы в WordPress появился шаблон "main" и этот файл был связан со страницей. */
+/* Template Name: main */
+
+?>
+
     <!-- END templateux-navbar -->
     <section class="templateux-hero">
       <div class="container">
@@ -19,76 +31,53 @@ get_header()
     <section class="templateux-portfolio-overlap" id="next">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6" data-aos="fade-up">
-            <a class="project animsition-link" href="work-single.html">
-              <figure>
-                <img src="images/img_1.jpg" alt="Free Template" class="img-fluid">  
-              </figure>
-              <div class="project-hover">
-                <div class="project-hover-inner">
-                  <h2>Canvas Tote Bag</h2>
-                  <span>View Case Study</span>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <a class="project animsition-link" href="work-single.html">
-              <figure>
-                <img src="images/img_2.jpg" alt="Free Template" class="img-fluid">  
-              </figure>
-              <div class="project-hover">
-                <div class="project-hover-inner">
-                  <h2>Work Hard, Play Hard</h2>
-                  <span>View Case Study</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        <!-- END row -->
-    
-        <div class="row">
-          <div class="col-lg-4 col-md-6" data-aos="fade-up">
-            <a class="project animsition-link" href="work-single.html">
-              <figure>
-                <img src="images/img_3.jpg" alt="Free Template" class="img-fluid">  
-              </figure>
-              <div class="project-hover">
-                <div class="project-hover-inner">
-                  <h2>Moon High Res</h2>
-                  <span>View Case Study</span>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <a class="project animsition-link" href="work-single.html">
-              <figure>
-                <img src="images/img_4.jpg" alt="Free Template" class="img-fluid">  
-              </figure>
-              <div class="project-hover">
-                <div class="project-hover-inner">
-                  <h2>H20 Water Bottle</h2>
-                  <span>View Case Study</span>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <a class="project animsition-link" href="work-single.html">
-              <figure>
-                <img src="images/img_5.jpg" alt="Free Template" class="img-fluid">  
-              </figure>
-              <div class="project-hover">
-                <div class="project-hover-inner">
-                  <h2>Creatsy Mailing Box</h2>
-                  <span>View Case Study</span>
-                </div>
-              </div>
-            </a>
-          </div>
-          
+          <?php
+            // get_posts() - достаём все посты по определённым критериям.
+            $my_posts = get_posts( array(
+              // 'numberposts' => 5 - делает так, чтобы можно было получить только 5 постов.
+              'numberposts' => 5,
+              'category'    => 0,
+              'orderby'     => 'date',
+              /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
+              Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
+              'order'       => 'ASC',
+              'include'     => array(),
+              'exclude'     => array(),
+              'meta_key'    => '',
+              'meta_value'  =>'',
+              // Т.к нам нужно вывести только посты Portfolio, то в 'post_type' пищем portfolio.
+              'post_type'   => 'portfolio',
+              'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+            ) );
+
+            global $post;
+            // foreach - это цикл, и мы проходимся по всем постам, чтобы выводить их с одной и той же разметкой.
+            foreach( $my_posts as $post ){
+              setup_postdata( $post );
+              ?>
+
+              <article class="proj-article">
+                <!-- the_permalink() - ссылка на текущий пост. -->
+                <a class="project animsition-link" href="<?php the_permalink(); ?>">
+                  <figure>
+                    <!-- echo get_the_post_thumbnail_url() - выводит миниатюру записи(картинку), которою мы добавили в WordPress. -->
+                    <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Free Template" class="img-fluid">  
+                  </figure>
+                  <div class="project-hover">
+                    <div class="project-hover-inner">
+                      <h2><?php the_title(); ?></h2>
+                      <span><?php the_content(); ?></span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <?php
+              
+            }
+
+            wp_reset_postdata(); // сброс
+          ?>
         </div>
         <!-- END row -->
       </div>
@@ -112,59 +101,48 @@ get_header()
             
 
             <div class="row  pt-sm-0 pt-md-5 mb-5">
+              <?php
+              $my_posts = get_posts( array(
+                // 'numberposts' => 4 - делает так, чтобы можно было получить только 4 поста.
+                'numberposts' => 4,
+                'category'    => 0,
+                'orderby'     => 'date',
+                /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
+                Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
+                'order'       => 'ASC',
+                'include'     => array(),
+                'exclude'     => array(),
+                'meta_key'    => '',
+                'meta_value'  =>'',
+                // Т.к нам нужно вывести только experts-adv, то в 'post_type' пищем experts-adv.
+                'post_type'   => 'experts-adv',
+                'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+              ) );
 
-              <div class="col-lg-6">
-                <div class="media templateux-media mb-4">
-                  <div class="mr-4 icon">
-                    <span class="icon-monitor display-3"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3 class="h5">Web Development</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              global $post;
+              // foreach - это цикл, и тут он нам нужен, чтобы get_the_ID() получал правильный ID.
+              foreach( $my_posts as $post ){
+                setup_postdata( $post );
+                ?>
+
+                <div class="col-md-6"  data-aos="fade-up" data-aos-delay="100">
+                  <div class="media templateux-media mb-4">
+                    <div class="mr-4 icon">
+                      <span class="<?php echo get_post_meta(get_the_ID(), 'adv-icon', true); ?> display-3"></span>
+                    </div>
+                    <div class="media-body">
+                      <h3 class="h5"><?php the_title(); ?></h3>
+                      <p><?php the_content(); ?></p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-lg-6">
-                <div class="media templateux-media mb-4">
-                  <div class="mr-4 icon">
-                    <span class="icon-command display-3"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3 class="h5">Brand identity</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <!-- END row -->
-            <div class="row clearfix">
-              <div class="col-lg-6">
-                <div class="media templateux-media mb-4">
-                  <div class="mr-4 icon">
-                    <span class="icon-feather display-3"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3 class="h5">Copywriting</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
+                <?php
                 
-                <div class="media templateux-media mb-4">
-                  <div class="mr-4 icon">
-                    <span class="icon-shopping-cart display-3"></span>
-                  </div>
-                  <div class="media-body">
-                    <h3 class="h5">eCommerce</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                  </div>
-                </div>
-                
-              </div>
-            </div>
+              }
+
+              wp_reset_postdata(); // сброс
+              ?>
             <!-- END row -->
 
             
@@ -184,53 +162,59 @@ get_header()
           <div class="col-md-8">
             <div class="row">
               <div class="col-lg-12">
-                <a class="post animsition-link" href="blog-single.html" data-aos="fade-up" data-aos-delay="100">
-                  <figure>
-                    <img src="images/img_1.jpg" alt="Free Template" class="img-fluid">  
-                  </figure>
-                  <div class="post-hover">
-                    <div class="post-hover-inner">
-                      <h2>45 Cool Bag Illustrations</h2>
-                      <span>February 21, 2018</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+                <?php
+              // get_posts() - достаём все посты по определённым критериям.
+              $my_posts = get_posts( array(
+                // 'numberposts' => 3 - делает так, чтобы можно было получить только 3 поста.
+                'numberposts' => 3,
+                'category'    => 0,
+                'orderby'     => 'date',
+                /* 'order'       => 'DESC' - делаем так, чтобы сортировка добавленных постов в WordPress шла по тому, что было добавлено последним, то и будет первым. 
+                Если поставить 'ASC', то сортировка будет идти по тому, что первей было добавлено, то и будет идти первым. */
+                'order'       => 'ASC',
+                'include'     => array(),
+                'exclude'     => array(),
+                'meta_key'    => '',
+                'meta_value'  =>'',
+                // Т.к нам нужно вывести только посты Portfolio, то в 'post_type' пищем portfolio.
+                'post_type'   => 'portfolio',
+                'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+              ) );
 
-            <div class="row">
-              <div class="col-lg-6">
-                <a class="post animsition-link" href="blog-single.html" data-aos="fade-up" data-aos-delay="200">
-                  <figure>
-                    <img src="images/img_4.jpg" alt="Free Template" class="img-fluid">  
-                  </figure>
-                  <div class="post-hover">
-                    <div class="post-hover-inner">
-                      <h2>45 Cool Bag Illustrations</h2>
-                      <span>February 21, 2018</span>
+              global $post;
+              // foreach - это цикл, и мы проходимся по всем постам, чтобы выводить их с одной и той же разметкой.
+              foreach( $my_posts as $post ){
+                setup_postdata( $post );
+                ?>
+
+                <div class="main-blog-wrapper" data-aos="fade-up">
+                  <a class="post animsition-link" href="<?php the_permalink(); ?>">
+                    <figure>
+                      <img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="Free Template" class="img-fluid">  
+                    </figure>
+                    <div class="project-hover">
+                      <div class="project-hover-inner">
+                        <h2><?php the_title(); ?></h2>
+                        <!-- echo date('F j, Y') - выводит месяц, день и год создания записи. -->
+                        <span><?php echo date('F j, Y'); ?></span>
+                      </div>
                     </div>
-                  </div>
-                </a>
+                  </a>
               </div>
-              <div class="col-lg-6">
-                <a class="post animsition-link" href="blog-single.html" data-aos="fade-up" data-aos-delay="300">
-                  <figure>
-                    <img src="images/img_5.jpg" alt="Free Template" class="img-fluid">  
-                  </figure>
-                  <div class="post-hover">
-                    <div class="post-hover-inner">
-                      <h2>45 Cool Bag Illustrations</h2>
-                      <span>February 21, 2018</span>
-                    </div>
-                  </div>
-                </a>
+
+              <?php
+                
+              }
+
+              wp_reset_postdata(); // сброс
+              ?>
               </div>
             </div>
           </div>
         </div>
         <div class="row" data-aos="fade-up" data-aos-delay="400">
           <div class="col-md-8 ml-auto">
-            <a href="blog.html" class="animsition-link">Read All Blog Posts </a>
+            <a href="/blog/" class="animsition-link">Read All Blog Posts </a>
           </div>
         </div>
       </div>
