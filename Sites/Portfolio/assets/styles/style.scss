@@ -1,3 +1,4 @@
+/* CSS Normalize*/
 body {
   margin: 0;
   padding: 0;
@@ -5,6 +6,17 @@ body {
   background-image: url(../images/header_background.png);
   background-size: cover;
   font-family: 'Space Grotesk', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
 }
 
 /* Navigation */
@@ -51,7 +63,6 @@ body {
   align-items: center;
   font-size: 60px;
   font-weight: 500;
-  margin: 0;
 }
 
 .header--info--desc {
@@ -85,8 +96,67 @@ body {
   }
 }
 
+/* Мои работы */
+.work {
+  color: #fff;
+  margin-top: 10%;
+  padding: 15%;
+}
+
+.work__header {
+  display: grid;
+  justify-content: end;
+  align-items: end;
+  grid-template-columns: 60% 40%;
+
+  .work__header--text {
+    width: 70%;
+  }
+
+  h3 {
+    font-size: 35px;
+    margin-bottom: 3%;
+  }
+
+  p {
+    font-weight: 100;
+  }
+}
+
+.work__skills {
+  display: flex;
+  gap: 3%;
+
+  .skill {
+    display: flex;
+    align-items: baseline;
+    justify-content: baseline;
+    gap: 5%;
+
+    p {
+      width: 150px;
+    }
+
+    i {
+      font-size: 25px;
+    }
+
+    &:nth-child(1) i {
+      color: #3B82F6;
+    }
+
+    &:nth-child(2) i {
+      color: #EAB308;
+    }
+
+    &:nth-child(3) i {
+      color: #06B6D4;
+    }
+  }
+}
+
 /* Responsive Design */
-@media (max-width: 1000px) {
+@media (max-width: 750px) {
 
   /* Navigation */
   .to-talk {
@@ -95,14 +165,34 @@ body {
 
   /* Header */
   .header--info {
-    margin-top: 40%;
+    margin-top: 10%;
   }
 
   .header--info--caption {
-    font-size: 25px;
+    font-size: 30px;
+    margin-bottom: 3%;
   }
 
   .header--info--desc {
-    font-size: 9px;
+    font-size: 15px;
+  }
+
+  /* Мои работы */
+  .work {
+    padding: 10%;
+
+    .work__header {
+      grid-template-columns: 1fr;
+
+      .work__skills {
+        margin-top: 3%;
+        gap: 10%;
+      }
+
+      .work__header--text {
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
 }
