@@ -1,1 +1,0 @@
-var str = 'Web-developer';
