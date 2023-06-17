@@ -7,6 +7,7 @@ body {
   background-image: url(../images/header_background.png);
   background-size: cover;
   font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
 }
 
 h1,
@@ -18,6 +19,15 @@ h6,
 p {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+button {
+  border: none;
 }
 
 /* Navigation */
@@ -44,8 +54,6 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  color: #fff;
 }
 
 /* Header */
@@ -91,22 +99,22 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  color: #fff;
 }
 
 /* Мои работы */
 .work {
+  display: flex;
+  flex-direction: column;
   color: #fff;
   margin-top: 10%;
-  padding: 15%;
+  padding: 5%;
 }
 
 .work__header {
   display: grid;
   justify-content: end;
   align-items: end;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 68% 32%;
 }
 .work__header .work__header--text {
   width: 70%;
@@ -121,7 +129,7 @@ p {
 
 .work__skills {
   display: flex;
-  gap: 3%;
+  gap: 5%;
 }
 .work__skills .skill {
   display: flex;
@@ -130,7 +138,7 @@ p {
   gap: 5%;
 }
 .work__skills .skill p {
-  width: 150px;
+  min-width: 100%;
 }
 .work__skills .skill i {
   font-size: 25px;
@@ -143,6 +151,56 @@ p {
 }
 .work__skills .skill:nth-child(3) i {
   color: #06B6D4;
+}
+
+.work__my-works {
+  display: flex;
+  gap: 3%;
+}
+
+.my-works__work {
+  width: 30%;
+  height: 500px;
+  margin-top: 3%;
+}
+.my-works__work .my-works__work--image {
+  width: 100%;
+  height: auto;
+  border-radius: 3%;
+}
+.my-works__work .my-works__work--desc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.my-works__work .my-works__work--desc h3 {
+  font-size: 25px;
+}
+.my-works__work .my-works__work--desc p {
+  font-size: 20px;
+}
+.my-works__work .my-works__work--desc .work--desc--circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.work--more {
+  width: 200px;
+  height: 50px;
+  justify-self: center;
+  align-self: center;
+  background: #6C4BEF;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* Responsive Design */
@@ -176,5 +234,12 @@ p {
   .work .work__header .work__header--text {
     width: 100%;
     text-align: center;
+  }
+  .work .work__my-works {
+    flex-direction: column;
+  }
+  .work .work__my-works .my-works__work {
+    width: 100%;
+    height: 400px;
   }
 }/*# sourceMappingURL=style.css.map */
