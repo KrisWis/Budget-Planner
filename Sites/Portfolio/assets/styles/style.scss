@@ -69,8 +69,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   font-size: 60px;
-  font-weight: 500;
 }
 
 .header--info--desc {
@@ -78,6 +78,7 @@ button {
   flex-direction: column;
   align-items: center;
   font-size: 15px;
+  text-align: center;
   color: #D1D5DB
 }
 
@@ -121,13 +122,9 @@ button {
     width: 70%;
   }
 
-  h3 {
+  h2 {
     font-size: 35px;
     margin-bottom: 3%;
-  }
-
-  p {
-    font-weight: 100;
   }
 }
 
@@ -209,17 +206,32 @@ button {
 .work--more {
   width: 200px;
   height: 50px;
-  justify-self: center;
-  align-self: center;
   background: #6C4BEF;
   border-radius: 12px;
   color: #fff;
   font-size: 20px;
+  margin-left: 43%;
   cursor: pointer;
 }
 
+/* Отзывы */
+.reviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 5%;
+
+  h2 {
+    font-size: 60px;
+    margin-bottom: 3%;
+  }
+}
+
 /* Responsive Design */
-@media (max-width: 750px) {
+@media (max-width: 760px) {
 
   /* Navigation */
   .to-talk {
@@ -249,7 +261,10 @@ button {
 
       .work__skills {
         margin-top: 3%;
-        gap: 10%;
+
+        p {
+          min-width: 0;
+        }
       }
 
       .work__header--text {
@@ -265,6 +280,10 @@ button {
         width: 100%;
         height: 400px;
       }
+    }
+
+    .work--more {
+      margin-left: 32%;
     }
   }
 }
