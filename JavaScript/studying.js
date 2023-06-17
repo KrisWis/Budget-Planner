@@ -224,3 +224,26 @@ parseFloat("100.32 px", 10); /* parseFloat() берёт из строки тол
 /* ОБЪЕКТЫ - https://www.youtube.com/watch?v=sfqsBd6Iwx0&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=9 */
 
 
+// Объект можно создать 2 способами:
+var obj = Object();
+var obj = {};
+// Ключом объекта может быть любая строка, обычно без кавычек. Значением может быть всё что угодно, кроме undefined.
+obj = {
+  keey: 1,
+  func: function () {
+    console.log(this.keey); // С помощью ключевого слова this можно обратиться к корневому объекту. В нашем случае, это obj.
+  }
+};
+// Чтобы обратиться к ключу объекта можно использовать точку или квадратные скобки.
+obj.keey;
+var prop = 'func';
+obj[prop];
+console.log(obj.fff || 'name'); // Если у obj нету ключа fff, то выводиться 'name'.
+obj.new = "new"; // Добавляем новую пару ключ/значение.
+obj.new = "neeeeew" // Изменяем пару ключ/значение.
+delete obj.func; // Удаляем пару ключ/значение у obj.
+
+
+/* МАССИВЫ - https://www.youtube.com/watch?v=5hjC9Y0WAig&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=10 */
+
+
