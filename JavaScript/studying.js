@@ -177,3 +177,24 @@ Infinity + 31223; // Всё равно будет равно infinity.
 /* СТРОКИ - https://www.youtube.com/watch?v=BTzuzSLsai8&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=6 */
 
 
+var str = "\"string\" is a type";// Таким способом, ставя "\" перед кавычками можно писать в одинаковых кавычках эти же кавычки.
+var str = "string\nstring"; // "\n" делает перенос на новую строку.
+var str = "string\tstring"; // "\t" делает таб перед словом.
+console.log(str.length); // length выводит длину строки.
+console.log(str.concat("Ещё строка")); // concat() соединяет данные строки.
+console.log(str.charAt(0)); // chatAt() выводит символ данной строки, соотвествующий индексу, который дан в скобочках.
+console.log(str.charCodeAt(0)); // chatCodeAt() выводит код символа данной строки, соотвествующий индексу, который дан в скобочках.
+console.log(str.substring(5)); // substring() выводит символы данной строки, которые идут после индекса, который дан в скобочках.
+console.log(str.substring(5, 7)); // Выведет все символы с 5 по 7 индексы.
+console.log(str.slice(-5)); // slice() делает всё тоже самое, что и substring(), но может принимать отрицательные значения, чтобы обрезание шло в обратном порядке.
+console.log(str.substr(5, 5)); // substr() выводит количество (второе число в скобках) символов данной строки, которые идут после индекса, который дан в скобочках.
+console.log(str.split()); // split() разбивает строку на массив.
+console.log(str.replace("string", "number")); // replace() заменяет в строке строку, которая дана первой в скобках, строкой, которая дана второй.
+console.log(str.indexOf("s")); // indexOf() возвращает индекс данного символа.
+console.log(str.toUpperCase()); // toUpperCase() возводит строку в верхний регистр.
+console.log(str.toLowerCase()); // toLowerCase() возводит строку в нижний регистр.
+
+
+/* BOOLEAN, NULL, UNDEFINED - https://www.youtube.com/watch?v=vyC1BTyh-E0&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=7 */
+
+
