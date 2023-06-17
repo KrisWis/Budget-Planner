@@ -198,3 +198,11 @@ console.log(str.toLowerCase()); // toLowerCase() возводит строку �
 /* BOOLEAN, NULL, UNDEFINED - https://www.youtube.com/watch?v=vyC1BTyh-E0&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=7 */
 
 
+// NaN, 0, "", null, undefined - равны false.
+// undefined возвращает JavaScript, если элемент не найден, a null мы можем присвоить сами переменной.
+// Также, undefined выводиться, если функции не переданы аргументы и ей нечего выводить.
+
+
+/* ПРЕОБРАЗОВАНИЯ ТИПОВ ДАННЫХ - https://www.youtube.com/watch?v=OhldHbz93Kw&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=8 */
+
+
