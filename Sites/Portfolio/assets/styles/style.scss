@@ -288,6 +288,52 @@ button {
   }
 }
 
+.reviews__stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 160px;
+  padding: 5%;
+  margin-top: 10%;
+  background: #6C4BEF;
+  border-radius: 12px;
+
+  h3 {
+    font-size: 60px;
+  }
+
+  p {
+    font-size: 25px;
+  }
+
+  .stats__block:nth-child(1) h3,
+  .stats__block:nth-child(2) h3 {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 150px;
+      width: 1px;
+      background-color: #9D86F4;
+      position: absolute;
+      top: -30%;
+    }
+  }
+
+
+  .stats__block:nth-child(1) h3::after {
+    left: 170%;
+  }
+
+  .stats__block:nth-child(2) h3::after {
+    left: 230%;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 760px) {
 
@@ -347,7 +393,7 @@ button {
 
   /* Отзывы */
   .reviews {
-    padding: 5%;
+    padding: 10%;
   }
 
   .reviews__blocks {
@@ -358,6 +404,24 @@ button {
     .reviews__block:nth-child(3) {
       grid-column: 1;
       grid-row: 3;
+    }
+  }
+
+  .reviews__stats {
+    height: 600px;
+    flex-direction: column;
+    margin-top: 170%;
+
+    .stats__block:nth-child(1) h3::after,
+    .stats__block:nth-child(2) h3::after {
+      height: 1px;
+      width: 150px;
+      left: -5%;
+      top: 195%;
+    }
+
+    .stats__block:nth-child(2) h3::after {
+      left: -20%;
     }
   }
 }
