@@ -196,7 +196,8 @@ button {
   border-radius: 12px;
   color: #fff;
   font-size: 20px;
-  margin-left: 43%;
+  justify-self: center;
+  align-self: center;
   cursor: pointer;
 }
 
@@ -208,11 +209,61 @@ button {
   align-items: center;
   text-align: center;
   color: #fff;
-  padding: 5%;
+  padding: 15%;
 }
 .reviews h2 {
   font-size: 60px;
   margin-bottom: 3%;
+}
+
+.reviews__blocks {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 40% 60%;
+  height: 500px;
+  width: 100%;
+  gap: 5%;
+  margin-top: 5%;
+}
+.reviews__blocks .reviews__block {
+  background: rgba(31, 41, 55, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 5%;
+  text-align: left;
+}
+.reviews__blocks .reviews__block:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1/3;
+  font-size: 35px;
+}
+.reviews__blocks .reviews__block:nth-child(3) a::after {
+  margin-bottom: 20%;
+}
+.reviews__blocks .reviews__block q {
+  display: block;
+  font-size: 25px;
+}
+.reviews__blocks .reviews__block address {
+  font-size: 30px;
+  margin-top: 10%;
+  font-weight: 600;
+}
+.reviews__blocks .reviews__block a {
+  display: inline-block;
+}
+.reviews__blocks .reviews__block a::after {
+  content: "";
+  display: inline-block;
+  width: 0%;
+  height: 1px;
+  background-color: #000;
+  transition: all 0.2s linear;
+  margin-bottom: 10%;
+}
+.reviews__blocks .reviews__block a:hover::after {
+  width: 100%;
 }
 
 /* Responsive Design */
@@ -258,5 +309,18 @@ button {
   }
   .work .work--more {
     margin-left: 32%;
+  }
+  /* Отзывы */
+  .reviews {
+    padding: 5%;
+  }
+  .reviews__blocks {
+    height: 300px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+  }
+  .reviews__blocks .reviews__block:nth-child(3) {
+    grid-column: 1;
+    grid-row: 3;
   }
 }/*# sourceMappingURL=style.css.map */
