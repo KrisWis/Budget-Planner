@@ -509,3 +509,35 @@ outerScope();
 /* ЗАМЫКАНИЕ (CLOSURE) - https://www.youtube.com/watch?v=N09Ljaaexqk&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=14 */
 
 
+/* Все переменные внутри функции это свойства объекта Lexical Environment. 
+При запуске, функция создаёт этот объект и записывает в него все переменные, аргументы, параметры и тд. 
+У него есть скрытое свойство - scope (область видимости). Его никак нельзя изменить.
+Оно ссылается на функцию, в которой было создано. И из-за scope функции доступны внешние переменные и тд. */
+/* Замыкание - это функция и все внешние переменные, которые ей доступны. */
+
+var FirstFunc = function () {
+  var index = 5;
+  return function () {
+    return index;
+  };
+};
+
+var SecondFunc = function () {
+  var index = 15;
+  console.log(FirstFunc()()); /* Функция запоминает только тот Lexical Environment, 
+  в котором она была создана, но не в котором она была вызвана. Поэтому переменная index не перезапишетcя и останется равной 5. */
+};
+
+SecondFunc(); // Выведет 5.
+
+// Замыкание даёт возможность брать переменные из прошлых функцией, и можно сравнивать их с переменными из новой функции.
+var SecondFunc = function () {
+  var index = 15;
+  var oldIndex = FirstFunc()();
+  console.log(index > oldIndex)
+};
+
+
+/* ОБЪЕКТ WINDOW и DOM (объективная модель браузера) - https://www.youtube.com/watch?v=mzoe-I7r5HE&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=15 */
+
+
