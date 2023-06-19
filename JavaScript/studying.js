@@ -541,3 +541,26 @@ var SecondFunc = function () {
 /* ОБЪЕКТ WINDOW и DOM (объективная модель браузера) - https://www.youtube.com/watch?v=mzoe-I7r5HE&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=15 */
 
 
+// C помощью объекта window можно обращаться к глобальным переменным.
+var foo = '';
+console.log(window.foo); // К глобальной переменной console тоже можно обратиться с помощью window.
+console.log(navigator); // Объект navigator хранит данные о ОП пользователя, его браузере и тд.
+console.log(navigator.userAgent); // navigator.userAgent выведет всю информацию о браузере пользователя.
+console.log(screen); // Объект screen хранит данные о экране пользователя, разрешении тд.
+console.log(screen.width + ' x ' + screen.height); // Выведет разрешение экрана пользователя.
+console.log(location); // Объект location хранит данные о текущем url и странице.
+//location.reload(); // location.reload() перезагрузит страницу.
+console.log(location.toString()); // location.toString() выведет полную ссылку на текущую страницу.
+//location.href = "http://..." // Перезаписав свойство href у объекта location можно переадресовать пользователя на другую страницу.
+console.log(frames); // Объект frames возвращает массив, распечатывая все элементы текущего окна.
+console.log(history); /* Объект history позволяет манипулировать историей браузера в пределах сессии, 
+а именно историей о посещённых страницах в пределах вкладки или фрейма загруженного внутри страницы. */
+
+window.confirm("Примите."); // Метод confirm() выводит модальное окно подтверждения действия с переданным текстом.
+var prompt = window.prompt(); /* Метод prompt() выводит модальное окно, где пользователь может написать и передать данные. 
+Так как мы сохранили этот метод в переменную, то она будет хранить текст, который написал пользователь. */
+
+
+/* DOM (ОБЪЕКТНАЯ МОДЕЛЬ ДОКУМЕНТА) - https://www.youtube.com/watch?v=1FpuKVmotNc&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=16 */
+
+
