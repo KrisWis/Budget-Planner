@@ -122,7 +122,9 @@ button {
 }
 .work__header h2 {
   font-size: 35px;
-  margin-bottom: 3%;
+}
+.work__header p {
+  color: #9CA3AF;
 }
 
 .work__skills {
@@ -163,7 +165,7 @@ button {
 }
 .my-works__work .my-works__work--image {
   width: 100%;
-  height: auto;
+  height: 50%;
   border-radius: 3%;
 }
 .my-works__work .my-works__work--desc {
@@ -189,7 +191,7 @@ button {
   cursor: pointer;
 }
 
-.work--more {
+.readMore {
   width: 200px;
   height: 50px;
   background: #6C4BEF;
@@ -213,7 +215,9 @@ button {
 }
 .reviews h2 {
   font-size: 60px;
-  margin-bottom: 3%;
+}
+.reviews p {
+  color: #9CA3AF;
 }
 
 .reviews__blocks {
@@ -306,6 +310,61 @@ button {
   left: 230%;
 }
 
+/* Мои блоги */
+.blog {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 10%;
+}
+.blog .blog__header {
+  color: #fff;
+}
+.blog .blog__header h2 {
+  font-size: 45px;
+}
+.blog .blog__header p {
+  color: #9CA3AF;
+}
+
+.blog__my-blogs {
+  display: flex;
+  gap: 3%;
+}
+
+.my-blogs__blog {
+  width: 30%;
+  height: 500px;
+  margin-top: 3%;
+}
+.my-blogs__blog .my-blogs__blog--image {
+  width: 100%;
+  height: 50%;
+  border-radius: 3%;
+}
+.my-blogs__blog .my-blogs__blog--desc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #D1D5DB;
+  margin-top: 1%;
+}
+.my-blogs__blog .my-blogs__blog--desc p {
+  width: 90%;
+  font-size: 20px;
+}
+.my-blogs__blog .my-blogs__blog--desc .blog--desc--circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 /* Responsive Design */
 @media (max-width: 760px) {
   /* Navigation */
@@ -345,10 +404,11 @@ button {
   }
   .work .work__my-works .my-works__work {
     width: 100%;
-    height: 400px;
+    height: 100%;
+    margin-bottom: 5%;
   }
-  .work .work--more {
-    margin-left: 32%;
+  .readMore {
+    margin-top: 35%;
   }
   /* Отзывы */
   .reviews {
@@ -366,7 +426,7 @@ button {
   .reviews__stats {
     height: 600px;
     flex-direction: column;
-    margin-top: 170%;
+    margin-top: 190%;
   }
   .reviews__stats .stats__block:nth-child(1) h3::after,
   .reviews__stats .stats__block:nth-child(2) h3::after {
@@ -377,5 +437,21 @@ button {
   }
   .reviews__stats .stats__block:nth-child(2) h3::after {
     left: -20%;
+  }
+  /* Мои блоги */
+  .blog .blog__header--text {
+    width: 100%;
+    text-align: center;
+  }
+  .blog .blog__my-blogs {
+    gap: 100px;
+    flex-direction: column;
+  }
+  .blog .blog__my-blogs .my-blogs__blog--image {
+    height: 100%;
+  }
+  .blog .blog__my-blogs .my-blogs__blog {
+    width: 100%;
+    height: 300px;
   }
 }/*# sourceMappingURL=style.css.map */

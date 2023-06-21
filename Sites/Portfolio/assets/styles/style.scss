@@ -124,7 +124,10 @@ button {
 
   h2 {
     font-size: 35px;
-    margin-bottom: 3%;
+  }
+
+  p {
+    color: #9CA3AF;
   }
 }
 
@@ -172,7 +175,7 @@ button {
 
   .my-works__work--image {
     width: 100%;
-    height: auto;
+    height: 50%;
     border-radius: 3%;
   }
 
@@ -203,7 +206,7 @@ button {
   }
 }
 
-.work--more {
+.readMore {
   width: 200px;
   height: 50px;
   background: #6C4BEF;
@@ -227,7 +230,10 @@ button {
 
   h2 {
     font-size: 60px;
-    margin-bottom: 3%;
+  }
+
+  p {
+    color: #9CA3AF;
   }
 }
 
@@ -334,6 +340,69 @@ button {
   }
 }
 
+/* Мои блоги */
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 10%;
+
+  .blog__header {
+    color: #fff;
+
+    h2 {
+      font-size: 45px;
+    }
+
+    p {
+      color: #9CA3AF;
+    }
+  }
+}
+
+.blog__my-blogs {
+  display: flex;
+  gap: 3%;
+}
+
+.my-blogs__blog {
+  width: 30%;
+  height: 500px;
+  margin-top: 3%;
+
+  .my-blogs__blog--image {
+    width: 100%;
+    height: 50%;
+    border-radius: 3%;
+  }
+
+  .my-blogs__blog--desc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #D1D5DB;
+    margin-top: 1%;
+
+    p {
+      width: 90%;
+      font-size: 20px;
+    }
+
+    .blog--desc--circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #FFFFFF66;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 760px) {
 
@@ -382,13 +451,14 @@ button {
 
       .my-works__work {
         width: 100%;
-        height: 400px;
+        height: 100%;
+        margin-bottom: 5%;
       }
     }
+  }
 
-    .work--more {
-      margin-left: 32%;
-    }
+  .readMore {
+    margin-top: 35%;
   }
 
   /* Отзывы */
@@ -410,7 +480,7 @@ button {
   .reviews__stats {
     height: 600px;
     flex-direction: column;
-    margin-top: 170%;
+    margin-top: 190%;
 
     .stats__block:nth-child(1) h3::after,
     .stats__block:nth-child(2) h3::after {
@@ -422,6 +492,29 @@ button {
 
     .stats__block:nth-child(2) h3::after {
       left: -20%;
+    }
+  }
+
+  /* Мои блоги */
+  .blog {
+
+    .blog__header--text {
+      width: 100%;
+      text-align: center;
+    }
+
+    .blog__my-blogs {
+      gap: 100px;
+      flex-direction: column;
+
+      .my-blogs__blog--image {
+        height: 100%;
+      }
+
+      .my-blogs__blog {
+        width: 100%;
+        height: 300px;
+      }
     }
   }
 }
