@@ -403,6 +403,88 @@ button {
   }
 }
 
+/* Моя история */
+.author_story {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10%;
+  height: 700px;
+  align-items: center;
+
+  .author {
+    color: #E5E7EB;
+    text-align: center;
+
+    img {
+      width: 30%;
+    }
+
+    h3 {
+      font-size: 30px;
+    }
+
+    p {
+      width: 50%;
+      position: relative;
+      left: 25%;
+    }
+
+    .story__youtube::after {
+      content: '';
+      display: block;
+      width: 5%;
+      height: 2px;
+      background-color: rgb(90, 5, 126);
+      transition: all .2s linear;
+      position: relative;
+      left: 60%;
+    }
+
+    .story__youtube:hover::after {
+      width: 35%;
+    }
+
+    .story__to-talk {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: baseline;
+      font-size: 20px;
+      margin-top: 1%;
+    }
+
+    .story__to-talk__circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 25px;
+      border: 1px solid #fff;
+
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  .story {
+
+    h2 {
+      color: #fff;
+      font-size: 50px;
+    }
+
+    p {
+      width: 80%;
+      font-size: 25px;
+      color: #b5bfd3;
+      line-height: 40px;
+    }
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 760px) {
 
@@ -514,6 +596,49 @@ button {
       .my-blogs__blog {
         width: 100%;
         height: 300px;
+      }
+    }
+  }
+
+  /* Моя история */
+  .author_story {
+    grid-template-columns: 1fr;
+    position: relative;
+
+    .author {
+      .story__youtube::after {
+        left: 30%;
+      }
+
+      .story__youtube:hover::after {
+        width: 40%;
+      }
+
+      .story__to-talk {
+        position: absolute;
+        top: 120%;
+        left: 43%;
+      }
+
+      .story__to-talk__circle {
+        width: 100px;
+        height: 100px;
+        font-size: 50px;
+      }
+    }
+
+    .story {
+      h2 {
+        position: absolute;
+        bottom: 85%;
+        left: 27%;
+      }
+
+      p {
+        position: absolute;
+        left: 10%;
+        bottom: -20%;
+        text-align: center;
       }
     }
   }
