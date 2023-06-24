@@ -1032,3 +1032,24 @@ console.log(history); /* Объект history позволяет манипул�
 /* МОДЕЛЬ СОБЫТИЙ INTERNET EXPLORER - https://www.youtube.com/watch?v=OGs4L59vVS4&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=22 */
 
 
+(function () {
+  let box = document.getElementById("box");
+  let changeColor = function (e) {
+    // e.returnValue = false равносильно e.preventDefault(), но для старых версий IE.
+    e.returnValue = false;
+    // Ключевое слово this в IE не работает, поэтому, чтобы получить элемент, на который сработало событие, нужно использовать свойство srcElement.
+    let elem = e.srcElement;
+  }
+
+  /* В старый версиях IE событие добавляется с помощью attachEvent(). 
+  Первый параметр - это название события.
+  Второй параметр - это функция, которая сработает при этом событии. */
+  box.attachEvent("click", changeColor);
+  // В старый версиях IE событие удаляется с помощью detachEvent() и принимает все те же параметры, что и attachEvent().
+  box.detachEvent("click", changeColor);
+})();
+
+
+/* КРОСС-БРАУЗЕРНЫЕ СОБЫТИЯ - https://www.youtube.com/watch?v=FFlRoNYXEW0&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=23 */
+
+
