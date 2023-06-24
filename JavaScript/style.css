@@ -11,3 +11,13 @@
   height: 100px;
   width: 100px;
 }
+
+.day {
+  background-color: white;
+  color: black;
+}
+
+.night {
+  background-color: black;
+  color: white;
+}
