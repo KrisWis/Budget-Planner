@@ -1,0 +1,151 @@
+@charset "UTF-8";
+/* Добавление шрифтов */
+@font-face {
+  font-family: "Gilroy";
+  src: url("Gilroy-Regular.eot");
+  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("Gilroy-Regular.woff2") format("woff2"), url("Gilroy-Regular.woff") format("woff"), url("Gilroy-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+/* CSS Normalize*/
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  min-height: 1600px;
+  background-image: url(../images/background.png);
+  background-size: cover;
+  font-family: "Gilroy";
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  border: none;
+}
+
+/* Navigation */
+header {
+  max-width: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+nav {
+  display: flex;
+  align-items: baseline;
+  gap: 5%;
+  color: #fff;
+  stroke: #000;
+  margin-top: 3%;
+  max-width: 100%;
+}
+nav .logo {
+  display: flex;
+  align-items: baseline;
+  font-size: 30px;
+}
+nav .logo img {
+  width: 40px;
+  height: 35px;
+}
+nav .navigation {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+  width: 80%;
+}
+nav .navigation a::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 4px;
+  background-color: #14D4E0;
+  border-radius: 20px;
+  box-shadow: 1px 1px 15px #14D4E0;
+  transition: all 0.2s linear;
+}
+nav .navigation a:hover::after {
+  width: 100%;
+}
+nav .icons {
+  display: flex;
+  gap: 20%;
+  font-size: 30px;
+}
+nav .icons i {
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+nav .icons i:hover {
+  text-shadow: 1px 1px 30px #14D4E0;
+  color: #14D4E0;
+}
+nav .navicon {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 10%;
+}
+nav .navicon__container {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 800%;
+  height: 100%;
+  padding: 70%;
+  margin-top: 30%;
+  background: linear-gradient(to right, rgb(85, 3, 120), black);
+}
+nav .navicon__container a {
+  margin-left: 15%;
+}
+
+/* Responsive Design */
+@media (max-width: 1600px) {
+  /* Header */
+  header {
+    padding-left: 5%;
+  }
+}
+@media (max-width: 1350px) {
+  /* Navigation */
+  nav {
+    gap: 0;
+    justify-content: space-between;
+  }
+  nav .navigation {
+    display: none;
+  }
+  nav .navicon {
+    display: flex;
+  }
+  nav .navicon:focus .navicon__container {
+    display: flex;
+  }
+}
+@media (max-width: 400px) {
+  /* Navigation */
+  nav .logo {
+    font-size: 15px;
+  }
+  nav .icons {
+    gap: 15%;
+    font-size: 20px;
+  }
+}/*# sourceMappingURL=style.css.map */
