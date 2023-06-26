@@ -57,7 +57,8 @@ nav {
 nav .logo {
   display: flex;
   align-items: baseline;
-  font-size: 30px;
+  font-size: 25px;
+  text-transform: uppercase;
 }
 nav .logo img {
   width: 40px;
@@ -116,14 +117,101 @@ nav .navicon__container a {
   margin-left: 15%;
 }
 
+/* Main */
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 29%);
+  max-width: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+main .container {
+  margin-top: 30%;
+}
+
+/* Photos */
+.photos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 330px;
+  gap: 5%;
+}
+.photos .photos__mini {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  gap: 2%;
+}
+.photos .photos__mini img {
+  cursor: pointer;
+  width: 20%;
+}
+.photos .photos__mini .images__more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  width: 20%;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
+  color: #fff;
+  cursor: pointer;
+}
+.photos .images__main_image {
+  width: 65%;
+  height: 250px;
+  position: relative;
+  cursor: pointer;
+}
+.photos .images__main_image img {
+  width: 100%;
+  height: 250px;
+}
+.photos .images__main_image i {
+  display: block;
+  color: #fff;
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  font-size: 30px;
+  top: 5%;
+  right: 5%;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.photos .images__main_image i:hover {
+  text-shadow: 1px 1px 30px #14D4E0;
+  color: #14D4E0;
+}
+.photos .images__main_image::after {
+  content: "21%";
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  font-size: 46px;
+  font-weight: 600;
+  width: 100%;
+  height: 50%;
+  border-radius: 0px 0px 10px 10px;
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0) 0%, rgba(0, 240, 255, 0.7) 43.23%);
+  position: absolute;
+  bottom: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 1600px) {
   /* Header */
   header {
     padding-left: 5%;
   }
+  /* Main */
+  /* Photos */
 }
-@media (max-width: 1350px) {
+@media (max-width: 1400px) {
   /* Navigation */
   nav {
     gap: 0;
@@ -138,6 +226,8 @@ nav .navicon__container a {
   nav .navicon:focus .navicon__container {
     display: flex;
   }
+  /* Main */
+  /* Photos */
 }
 @media (max-width: 400px) {
   /* Navigation */
@@ -148,4 +238,6 @@ nav .navicon__container a {
     gap: 15%;
     font-size: 20px;
   }
+  /* Main */
+  /* Photos */
 }/*# sourceMappingURL=style.css.map */

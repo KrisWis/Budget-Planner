@@ -61,7 +61,8 @@ nav {
   .logo {
     display: flex;
     align-items: baseline;
-    font-size: 30px;
+    font-size: 25px;
+    text-transform: uppercase;
 
     img {
       width: 40px;
@@ -131,6 +132,100 @@ nav {
   }
 }
 
+/* Main */
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 29%);
+  max-width: 100%;
+  padding-left: 15%;
+  padding-right: 15%;
+
+  .container {
+    margin-top: 30%;
+  }
+}
+
+/* Photos */
+.photos {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 330px;
+  gap: 5%;
+
+  .photos__mini {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    gap: 2%;
+
+    img {
+      cursor: pointer;
+      width: 20%;
+    }
+
+    .images__more {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      font-weight: 700;
+      width: 20%;
+      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.72) 100%);
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  .images__main_image {
+    width: 65%;
+    height: 250px;
+    position: relative;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 250px;
+    }
+
+    i {
+      display: block;
+      color: #fff;
+      width: 10%;
+      height: 10%;
+      position: absolute;
+      font-size: 30px;
+      top: 5%;
+      right: 5%;
+      cursor: pointer;
+      transition: all .2s linear;
+
+      &:hover {
+        text-shadow: 1px 1px 30px #14D4E0;
+        color: #14D4E0;
+      }
+    }
+
+    &::after {
+      content: '21%';
+      display: flex;
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      font-size: 46px;
+      font-weight: 600;
+      width: 100%;
+      height: 50%;
+      border-radius: 0px 0px 10px 10px;
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.00) 0%, rgba(0, 240, 255, 0.70) 43.23%);
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1600px) {
 
@@ -138,9 +233,12 @@ nav {
   header {
     padding-left: 5%;
   }
+
+  /* Main */
+  /* Photos */
 }
 
-@media (max-width: 1350px) {
+@media (max-width: 1400px) {
 
   /* Navigation */
   nav {
@@ -159,6 +257,9 @@ nav {
       }
     }
   }
+
+  /* Main */
+  /* Photos */
 }
 
 @media (max-width: 400px) {
@@ -174,4 +275,7 @@ nav {
       font-size: 20px;
     }
   }
+
+  /* Main */
+  /* Photos */
 }
