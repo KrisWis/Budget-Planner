@@ -72,9 +72,8 @@ let c = {
 
 console.log(c.hasOwnProperty("font")); // Метод hasOwnProperty() выдаёт логическое значение, есть ли переданное свойство в объекте.
 
-/* Так как в файле index.html мы подключили файл user.js,
-то в файле OOP.js мы можем управлять всеми объектами и тд, что в user.js.
-В user.js мы также можем использовать все объекты из OOP.js, т.к эти файлы подключены в одном html файле.
+/* Так как в файле index.html мы подключили файл user.js раньше, чем OOP.js,
+то в файле OOP.js мы можем управлять всеми объектами и тд, что есть в user.js.
 Разделение различных функция программы на разные файлы - довольно удобный подход. */
 user.password = 'password';
 console.log(user.validatePassword()); // Вёрнет true.
@@ -86,5 +85,30 @@ let user_profile = {
 
 
 /* КЛАССЫ, СВОЙСТВА, МЕТОДЫ - https://www.youtube.com/watch?v=qjl1nZlW9q8&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=4 */
+
+
+// К коду данного урока также относяться файлы "Person.js", "Student.js".
+
+let username = 'ivan';
+let password = "3232";
+
+/* Объект класса обычно создаётся с помощью const.
+После объявления константы, присваиваем ей класс с помощью ключевого слова new.
+В класс, в качестве параметров передаём параметры, которые передали в метод constructor() при создании класса. 
+В данном объекте, в свойстве __proto__ будет указан класс, с помощью которого, он был создан. */
+const person = new Person(username, password);
+console.log(person.validatePassword());
+
+/* Одно из главных возможностей ООП - это красивое деление на модули.
+Поэтому, стоит разные классы держать в разных файлах,
+имена которых начинаются с большой буквы. В этих файлах должны находиться только сами классы. */
+const testStudent = new Student(); // Так как ничего не было передано, то все значения свойств будут равны undefined.
+const student = new Student(username, password, "Nick");
+/* Так как класс Student наследуется от класса Person, 
+то объект класса Student может использовать все свойства и методы класса Person. */
+student.print();
+
+
+/* НАСЛЕДОВАНИЕ, КЛАССЫ, SUPER, КОНСТРУКТОР - https://www.youtube.com/watch?v=JWwSH92tq7E&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=5 */
 
 

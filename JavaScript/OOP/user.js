@@ -12,4 +12,3 @@ let user = {
 }
 
 let test = "testgggg";
-console.log(c.font); // Мы можем использовать объекты из OOP.js.
