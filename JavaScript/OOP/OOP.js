@@ -112,3 +112,29 @@ student.print();
 /* НАСЛЕДОВАНИЕ, КЛАССЫ, SUPER, КОНСТРУКТОР - https://www.youtube.com/watch?v=JWwSH92tq7E&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=5 */
 
 
+// Если вызвать функцию через console.log(), которая просто выводит текст, но ничего не возвращает, то выведеться undefined.
+console.log(student.print());
+
+// Также, вполне можно вызвать функцию, в которой будут только методы без свойств и constructor().
+class Person2 {
+  print() {
+    console.log("person")
+  }
+}
+
+const person2 = new Person2();
+person2.print();
+
+class Person3 extends Person2 {
+  constructor(name) {
+    super(); // super() должен быть вызван в любом случае, если класс от кого на наследуется.
+    this.name = name;
+  }
+}
+
+const person3 = new Person3('nick');
+
+
+/* GET, SET JAVASCRIPT, ПРИВАТНЫЕ И ЗАЩИЩЕННЫЕ СВОЙСТВА - https://www.youtube.com/watch?v=6KvItbbzi-g&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=6 */
+
+
