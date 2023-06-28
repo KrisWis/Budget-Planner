@@ -34,9 +34,9 @@
         <a href="#">Правила и оферты</a>
       </div>
       <div class="icons">
-        <div tabindex=0 class="navicon">
+        <div id="navicon" class="navicon">
           <i class="fa fa-navicon" aria-hidden="true"></i>
-          <div class="navicon__container">
+          <div id="navicon__container" class="navicon__container">
             <a href="#">Главная</a>
             <a href="#">О нас</a>
             <a href="#">Копилки</a>
@@ -57,7 +57,7 @@
     <section class="first_col">
       <!-- Photos -->
       <div class="photos">
-        <div class="images__main_image">
+        <div class="photos__main_photo">
           <i class="fa fa-arrow-right" aria-hidden="true"></i>
           <img src="./assets/images/photos_image.png" alt="Дом мечты">
         </div>
@@ -121,13 +121,14 @@
         </div>
 
         <div class="post__other-information">
-          <input type="checkbox">
-          <h3>Донатеры</h3>
-          <input type="checkbox">
-          <h3>Комментарии</h3>
+          <h3 id="donaters">Донатеры</h3>
+          <h3 id="comments">Комментарии</h3>
         </div>
       </article>
     </section>
   </main>
+
+  <script src="./assets/js/eventsObj.js"></script>
+  <script src="./assets/js/main.js"></script>
 </body>
 </html>
