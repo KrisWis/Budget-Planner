@@ -383,7 +383,7 @@ main {
   margin-top: 10%;
   position: relative;
 }
-.post__other-information .active {
+.post__other-information .text__active {
   text-shadow: 1px 1px 5px #fff;
   border-bottom: 1px solid #00F0FF;
 }
@@ -397,6 +397,17 @@ main {
   width: 100%;
   cursor: pointer;
   transition: all 0.2s linear;
+}
+
+/* Донатеры */
+/* Комментарии */
+.donaters,
+.comments {
+  display: none;
+}
+
+.section__active {
+  display: block;
 }
 
 /* Responsive Design */

@@ -431,7 +431,7 @@ main {
   margin-top: 10%;
   position: relative;
 
-  .active {
+  .text__active {
     text-shadow: 1px 1px 5px #fff;
     border-bottom: 1px solid #00F0FF;
   }
@@ -447,6 +447,19 @@ main {
     cursor: pointer;
     transition: all .2s linear;
   }
+}
+
+/* Донатеры */
+
+/* Комментарии */
+
+.donaters,
+.comments {
+  display: none;
+}
+
+.section__active {
+  display: block;
 }
 
 

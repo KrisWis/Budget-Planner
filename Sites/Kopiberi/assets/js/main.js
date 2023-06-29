@@ -10,20 +10,32 @@ let openNav = function () {
 eventsObj.addEvent(navicon, "click", openNav);
 
 /* Донатеры и комментарии */
+let text_donaters = document.getElementById("text_donaters");
+let text_comments = document.getElementById("text_comments");
 let donaters = document.getElementById("donaters");
 let comments = document.getElementById("comments");
 
 let changeToActive = function () {
+  let text_arr = [text_donaters, text_comments];
+  let arr = [donaters, comments];
 
-  if (comments.classList.contains("active") && this === donaters) {
-    comments.classList.remove("active");
+  for (const element of text_arr) {
 
-  } else if (donaters.classList.contains("active") && this === comments) {
-    donaters.classList.remove("active");
+    if (element.classList.contains("text__active") && this !== element) {
+      element.classList.remove("text__active");
+      arr[text_arr.indexOf(element)].classList.remove("section__active");
+    }
+
+    else if (this.classList.contains("text__active") && this == element) {
+      arr[text_arr.indexOf(element)].classList.remove("section__active");
+
+    } else if (!this.classList.contains("text__active") && this == element) {
+      arr[text_arr.indexOf(element)].classList.add("section__active");
+    }
   }
 
-  this.classList.toggle('active');
+  this.classList.toggle('text__active');
 }
 
-eventsObj.addEvent(donaters, "click", changeToActive);
-eventsObj.addEvent(comments, "click", changeToActive);
+eventsObj.addEvent(text_donaters, "click", changeToActive);
+eventsObj.addEvent(text_comments, "click", changeToActive);
