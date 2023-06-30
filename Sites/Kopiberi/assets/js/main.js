@@ -12,8 +12,8 @@ eventsObj.addEvent(navicon, "click", openNav);
 /* Донатеры и комментарии */
 let text_donaters = document.getElementById("text_donaters");
 let text_comments = document.getElementById("text_comments");
-let donaters = document.getElementById("donaters");
-let comments = document.getElementById("comments");
+let donaters = document.getElementById("donaters_section");
+let comments = document.getElementById("comments_section");
 
 let changeToActive = function () {
   let text_arr = [text_donaters, text_comments];

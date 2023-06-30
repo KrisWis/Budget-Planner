@@ -126,12 +126,50 @@
         </div>
       </article>
 
-      <section id="donaters" class="donaters">
+      <section id="donaters_section" class="donaters_section">
         Донатеры
       </section>
   
-      <section id="comments" class="comments section__active">
-        Комментарии
+      <section id="comments_section" class="comments_section section__active">
+        <div class="comments">
+          <div class="comment">
+            <div class="comment__header">
+              <div class="comment__author">
+                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <h3>Татьяна</h3>
+              </div>
+              <time class="comment__date">22.06.22</time>
+            </div>
+            <p class="comment__text">
+              нужен срочно новый телефон, у меня очень старый и невозможно печатать всё время все приложения вылетают и нету памяти😕помогите накопить на новый хороший телефон
+            </p>
+          </div>
+
+          <div class="comment">
+            <div class="comment__header">
+              <div class="comment__author">
+                <img src="./assets/images/comments_image2.png" alt="Комментатор">
+                <h3>Николай</h3>
+              </div>
+              <time class="comment__date">10.06.22</time>
+            </div>
+            <p class="comment__text">
+              Коплю на мечту детства .... увидеть море .
+            </p>
+          </div>
+        </div>
+
+        <form name="comments__form">
+          <h3>Ваш комментарий</h3>
+      
+          <textarea placeholder="Введите текст.." rows="10" cols="30" name="comment"></textarea><br>
+      
+          <input type="submit">
+
+          <input type="checkbox">Даю согласие на обработку своих персональных данных.
+          С политикой конфеденциальности ознакомлен и согласен.
+      
+        </form>
       </section>
 
     </section>

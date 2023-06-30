@@ -382,6 +382,7 @@ main {
   font-size: 16px;
   margin-top: 10%;
   position: relative;
+  margin-bottom: 10%;
 }
 .post__other-information .text__active {
   text-shadow: 1px 1px 5px #fff;
@@ -401,13 +402,56 @@ main {
 
 /* Донатеры */
 /* Комментарии */
-.donaters,
-.comments {
+.donaters_section,
+.comments_section {
   display: none;
 }
 
 .section__active {
   display: block;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  height: 215px;
+  overflow-y: scroll;
+  padding-right: 5%;
+  gap: 20%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: rgba(255, 255, 255, 0.1450980392);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00F0FF;
+  border-radius: 15px;
+}
+
+.comment__header {
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+}
+.comment__header .comment__author {
+  display: flex;
+  align-items: center;
+  gap: 10%;
+  font-size: 16px;
+}
+.comment__header .comment__date {
+  color: rgba(255, 255, 255, 0.262745098);
+  font-size: 14px;
+}
+
+.comment__text {
+  color: #fff;
+  font-size: 14px;
+  margin-left: 8%;
+  margin-top: 2%;
 }
 
 /* Responsive Design */

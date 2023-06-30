@@ -430,6 +430,7 @@ main {
   font-size: 16px;
   margin-top: 10%;
   position: relative;
+  margin-bottom: 10%;
 
   .text__active {
     text-shadow: 1px 1px 5px #fff;
@@ -453,8 +454,8 @@ main {
 
 /* Комментарии */
 
-.donaters,
-.comments {
+.donaters_section,
+.comments_section {
   display: none;
 }
 
@@ -462,6 +463,50 @@ main {
   display: block;
 }
 
+.comments {
+  display: flex;
+  flex-direction: column;
+  height: 215px;
+  overflow-y: scroll;
+  padding-right: 5%;
+  gap: 20%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: #ffffff25;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00F0FF;
+  border-radius: 15px;
+}
+
+.comment__header {
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+
+  .comment__author {
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    font-size: 16px;
+  }
+
+  .comment__date {
+    color: #ffffff43;
+    font-size: 14px;
+  }
+}
+
+.comment__text {
+  color: #fff;
+  font-size: 14px;
+  margin-left: 8%;
+  margin-top: 2%;
+}
 
 /* Responsive Design */
 @media (max-width: 1600px) {

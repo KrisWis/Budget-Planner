@@ -254,3 +254,48 @@ console.log(Person8.user_var);
 /* THIS - https://www.youtube.com/watch?v=9_qHG3dKfaw&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=8 */
 
 
+// Если просто вывести this, то выведеться объект Window.
+console.log(this);
+
+// Если вывести this при срабатывании события, то выведеться элемент, на который ПОВЕШЕН обработчик, а не на который он сработал.
+function testttt() {
+  console.log(this);
+}
+document.onclick = testttt;
+// Тоже выведет элемент, на который повешен обработчик.
+document.getElementById("test").addEventListener('click', testttt);
+
+// Если использовать this в стрелочных функциях, то всегда будет выводить объект Window.
+document.onclick = () => {
+  console.log(this);
+};
+
+class Person9 {
+  constructor(model) {
+    // this в классе указывает на экземпляр созданного класса.
+    this.model = model;
+  }
+  showThis() {
+    // Выведет экземпляр класса, который и вызвал данный метод.
+    console.log(this);
+  }
+}
+
+const person9 = new Person9("модель");
+person9.showThis();
+
+class Person10 extends Person9 {
+  constructor(model, color) {
+    super(model);
+    this.color = color;
+    // Выведет модель экземпляра текущего класса, а не его родителя.
+    console.log(this.model); // Выведет "модель10".
+  }
+}
+
+const person10 = new Person10("модель10", 'красный');
+
+
+/* BIND, CALL, APPLY - https://www.youtube.com/watch?v=CJ6Txj8leZQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=11 */
+
+
