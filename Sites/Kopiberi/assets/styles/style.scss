@@ -168,18 +168,30 @@ main {
   margin-top: 5%;
 }
 
+.second_col::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 1000px;
+  background: gray;
+  position: absolute;
+  left: 70%;
+  opacity: 0.2;
+}
+
 /* Photos */
 .photos {
   display: flex;
   flex-wrap: wrap;
-  width: 110%;
+  width: 140%;
   height: 330px;
   gap: 5%;
+  position: relative;
 
   .photos__mini {
     display: flex;
     width: 100%;
-    height: 70px;
+    height: 25%;
     gap: 2%;
 
     img {
@@ -204,7 +216,7 @@ main {
 
   .photos__main_photo {
     width: 65%;
-    height: 250px;
+    height: 76%;
     position: relative;
     cursor: pointer;
 
@@ -441,8 +453,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
     padding: 3%;
     width: 100%;
     cursor: pointer;
@@ -457,6 +469,19 @@ main {
 .donaters_section,
 .comments_section {
   display: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 650px;
+    background: gray;
+    opacity: 0.2;
+    position: absolute;
+    right: 107%;
+    bottom: -10%;
+  }
 }
 
 .section__active {
@@ -506,6 +531,86 @@ main {
   font-size: 14px;
   margin-left: 8%;
   margin-top: 2%;
+}
+
+/* Форма оставления комментария */
+.comments__form {
+  color: #fff;
+  margin-top: 10%;
+
+  h3 {
+    font-size: 18px;
+    margin: 2%;
+  }
+
+  .comments__textarea {
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.20);
+    outline: none;
+    background: transparent;
+    padding: 3%;
+    resize: none;
+    color: #fff;
+
+    &::placeholder {
+      font-size: 14px;
+      color: #ffffff95;
+    }
+  }
+
+  .comments__submit {
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #B224EF, #7579FF);
+    color: #fff;
+    font-size: 16px;
+    margin-top: 3%;
+  }
+
+  .comments__checkbox {
+    position: absolute;
+    opacity: 0;
+    left: 45%;
+    cursor: pointer;
+    top: 40%;
+    height: 30%;
+  }
+
+  .comments__buttons {
+    display: flex;
+    gap: 10%;
+    position: relative;
+  }
+
+  .comments__checkbox+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    color: #FFF;
+    font-size: 10px;
+    gap: 5%;
+    width: 135%;
+    margin-top: 3%;
+  }
+
+  .comments__checkbox+label::before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.20);
+    cursor: pointer;
+  }
+
+  .comments__checkbox:checked+label::before {
+    border-color: #7579FF;
+    background: #7579FF;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  }
 }
 
 /* Responsive Design */
@@ -562,10 +667,14 @@ main {
   main {
     margin-top: 35%;
     grid-template-columns: 50% 50% 50%;
+
+    .second_col::before {
+      display: none;
+    }
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   main {
     margin-top: 50%;
     padding: 5%;
@@ -603,7 +712,6 @@ main {
           }
         }
       }
-
     }
   }
 }

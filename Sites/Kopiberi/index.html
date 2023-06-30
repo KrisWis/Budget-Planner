@@ -159,16 +159,18 @@
           </div>
         </div>
 
-        <form name="comments__form">
+        <form name="comments__form" class="comments__form">
           <h3>Ваш комментарий</h3>
       
-          <textarea placeholder="Введите текст.." rows="10" cols="30" name="comment"></textarea><br>
-      
-          <input type="submit">
-
-          <input type="checkbox">Даю согласие на обработку своих персональных данных.
-          С политикой конфеденциальности ознакомлен и согласен.
-      
+          <textarea placeholder="Введите текст.." rows="10" cols="30" name="comment" class="comments__textarea"></textarea><br>
+          
+          <div class="comments__buttons">
+            <input class="comments__submit" type="submit">
+          
+            <input type="checkbox" class="comments__checkbox" name="comments__checkbox" value="yes">
+            <label for="comments__checkbox">Даю согласие на обработку своих персональных данных.
+              С политикой конфеденциальности ознакомлен и согласен.</label>
+          </div>
         </form>
       </section>
 
