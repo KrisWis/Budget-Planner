@@ -163,27 +163,33 @@ main {
   display: grid;
   grid-template-columns: 28% 45% 27%;
   max-width: 100%;
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 10%;
+  padding-right: 10%;
   margin-top: 5%;
 }
 
-.second_col::before {
-  content: '';
-  display: block;
-  width: 1px;
-  height: 1000px;
-  background: gray;
-  position: absolute;
-  left: 70%;
-  opacity: 0.2;
+.second_col {
+  position: relative;
+  right: 5%;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 1130px;
+    background: gray;
+    position: absolute;
+    left: 110%;
+    opacity: 0.2;
+  }
 }
+
 
 /* Photos */
 .photos {
   display: flex;
   flex-wrap: wrap;
-  width: 140%;
+  width: 110%;
   height: 330px;
   gap: 5%;
   position: relative;
@@ -286,7 +292,6 @@ main {
     }
   }
 
-
   .special_offers__container {
     width: 65%;
   }
@@ -305,7 +310,8 @@ main {
     font-weight: 600;
     margin-bottom: 5%;
     text-shadow: 1px 1px 5px #fff;
-    margin-left: 25%;
+    margin: 0 auto;
+    margin-bottom: 10%;
   }
 
   img {
@@ -320,6 +326,7 @@ main {
     width: 100%;
     height: 200px;
     padding: 5%;
+    padding-bottom: 10%;
 
     p:not(.special_offer--price) {
       width: 80%;
@@ -462,10 +469,7 @@ main {
   }
 }
 
-/* Донатеры */
-
-/* Комментарии */
-
+/* Донатеры и комментарии */
 .donaters_section,
 .comments_section {
   display: none;
@@ -484,19 +488,6 @@ main {
   }
 }
 
-.section__active {
-  display: block;
-}
-
-.comments {
-  display: flex;
-  flex-direction: column;
-  height: 215px;
-  overflow-y: scroll;
-  padding-right: 5%;
-  gap: 20%;
-}
-
 ::-webkit-scrollbar {
   width: 5px;
   background: #ffffff25;
@@ -507,25 +498,47 @@ main {
   border-radius: 15px;
 }
 
+.section__active {
+  display: block;
+}
+
+.donats,
+.comments {
+  display: flex;
+  flex-direction: column;
+  height: 215px;
+  overflow-y: scroll;
+  padding-right: 5%;
+  gap: 20%;
+}
+
+.donat__header,
 .comment__header {
   display: flex;
   color: #fff;
   align-items: center;
   justify-content: space-between;
 
+  .donat__author,
   .comment__author {
     display: flex;
     align-items: center;
     gap: 10%;
     font-size: 16px;
+
+    p {
+      color: #14D4E0;
+    }
   }
 
+  .donat__date,
   .comment__date {
     color: #ffffff43;
     font-size: 14px;
   }
 }
 
+.donat__text,
 .comment__text {
   color: #fff;
   font-size: 14px;
@@ -533,7 +546,8 @@ main {
   margin-top: 2%;
 }
 
-/* Форма оставления комментария */
+/* Форма оставления доната */
+.donats__form,
 .comments__form {
   color: #fff;
   margin-top: 10%;
@@ -543,6 +557,7 @@ main {
     margin: 2%;
   }
 
+  .donats__textarea,
   .comments__textarea {
     height: 200px;
     width: 100%;
@@ -560,6 +575,7 @@ main {
     }
   }
 
+  .donats__submit,
   .comments__submit {
     width: 80%;
     height: 50px;
@@ -570,6 +586,7 @@ main {
     margin-top: 3%;
   }
 
+  .donats__checkbox,
   .comments__checkbox {
     position: absolute;
     opacity: 0;
@@ -579,12 +596,14 @@ main {
     height: 30%;
   }
 
+  .donats__buttons,
   .comments__buttons {
     display: flex;
     gap: 10%;
     position: relative;
   }
 
+  .donats__checkbox+label,
   .comments__checkbox+label {
     display: inline-flex;
     align-items: center;
@@ -596,6 +615,7 @@ main {
     margin-top: 3%;
   }
 
+  .donats__checkbox+label::before,
   .comments__checkbox+label::before {
     content: '';
     display: inline-block;
@@ -606,10 +626,106 @@ main {
     cursor: pointer;
   }
 
+  .donats__checkbox:checked+label::before,
   .comments__checkbox:checked+label::before {
     border-color: #7579FF;
     background: #7579FF;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+/* Цель */
+.third_col {
+  margin-left: 15%;
+  margin-top: 5%;
+}
+
+.goal {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  .goal__money {
+    display: flex;
+    align-items: baseline;
+    gap: 10%;
+
+    h2 {
+      font-size: 36px;
+    }
+
+    p {
+      color: #00F0FF;
+      font-size: 25px;
+    }
+  }
+
+  .goal__donate {
+    display: flex;
+    width: 80%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
+    color: #FFF;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15%;
+  }
+
+  .goal__subscribe {
+    display: flex;
+    width: 80%;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: #0D102C;
+    color: #FFF;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 5%;
+  }
+
+  .goal__other {
+    display: flex;
+    gap: 10%;
+    margin-top: 5%;
+
+    button {
+      width: 35%;
+      height: 50px;
+      border-radius: 10px;
+      background: #0D102C;
+      color: #fff;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .favourite__active {
+      color: red;
+      transition: all .2s linear;
+      animation: favourite_anim .5s linear;
+    }
+  }
+}
+
+@keyframes favourite_anim {
+  0% {
+    font-size: 25px;
+  }
+
+  50% {
+    font-size: 35px;
+  }
+
+  100% {
+    font-size: 25px;
   }
 }
 
@@ -627,8 +743,7 @@ main {
 
   /* Navigation */
   nav {
-    gap: 0;
-    justify-content: space-between;
+    gap: 5%;
 
     .navigation {
       display: none;
@@ -646,7 +761,8 @@ main {
 
   /* Main */
   main {
-    grid-template-columns: 30% 30% 30%;
+    padding: 1%;
+    grid-template-columns: 25% 40% 25%;
   }
 }
 
@@ -665,35 +781,21 @@ main {
 
   /* Main */
   main {
-    margin-top: 35%;
-    grid-template-columns: 50% 50% 50%;
-
-    .second_col::before {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 800px) {
-  main {
-    margin-top: 50%;
-    padding: 5%;
+    margin-top: 10%;
+    padding: 10%;
     grid-template-columns: 1fr;
 
     .first_col {
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-left: 5%;
 
       .special_offers {
         margin: 0;
         justify-content: center;
         width: 50%;
         margin-bottom: 9%;
-
-        h2 {
-          margin-left: 7%;
-        }
       }
 
       .photos {
@@ -711,6 +813,12 @@ main {
             width: 40%;
           }
         }
+      }
+    }
+
+    .second_col {
+      &::before {
+        display: none;
       }
     }
   }

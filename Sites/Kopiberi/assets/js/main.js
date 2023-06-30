@@ -39,3 +39,15 @@ let changeToActive = function () {
 
 eventsObj.addEvent(text_donaters, "click", changeToActive);
 eventsObj.addEvent(text_comments, "click", changeToActive);
+
+/* Favourite */
+let favourite_button = document.getElementById("favourite_button");
+let favourite_icon = document.getElementById("favourite_icon");
+
+let changeToFavourite = function () {
+  this.classList.toggle('favourite__active');
+}
+
+let changeToFavouriteFunc = changeToFavourite.bind(favourite_icon);
+
+eventsObj.addEvent(favourite_button, "click", changeToFavouriteFunc);

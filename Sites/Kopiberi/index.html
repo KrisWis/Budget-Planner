@@ -54,6 +54,7 @@
 
   <!-- Main -->
   <main>
+    <!-- First col -->
     <section class="first_col">
       <!-- Photos -->
       <div class="photos">
@@ -84,7 +85,9 @@
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
       </div>
     </section>
+    <!-- End of First col -->
 
+    <!-- Second col -->
     <section class="second_col">
       <article class="post">
 
@@ -127,7 +130,63 @@
       </article>
 
       <section id="donaters_section" class="donaters_section">
-        Донатеры
+        <div class="donats">
+          <div class="donat">
+            <div class="donat__header">
+              <div class="donat__author">
+                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <h3>Татьяна</h3>
+                <p>500$</p>
+              </div>
+              <time class="donat__date">22.06.22</time>
+            </div>
+            <p class="donat__text">
+              Отправила деньги, так как верю в мечту!
+            </p>
+          </div>
+
+          <div class="donat">
+            <div class="donat__header">
+              <div class="donat__author">
+                <img src="./assets/images/comments_image2.png" alt="Комментатор">
+                <h3>Николай</h3>
+                <p>1000$</p>
+              </div>
+              <time class="donat__date">10.06.22</time>
+            </div>
+            <p class="donat__text">
+              Мне совсем не жалко пожертвовать!
+            </p>
+          </div>
+
+          <div class="donat">
+            <div class="donat__header">
+              <div class="donat__author">
+                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <h3>Елена</h3>
+                <p>3000$</p>
+              </div>
+              <time class="donat__date">10.06.22</time>
+            </div>
+            <p class="donat__text">
+              Я верю в вас!
+            </p>
+          </div>
+        </div>
+
+        <form name="donats__form" class="donats__form">
+          <h3>Ваш донат</h3>
+      
+          <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea"></textarea><br>
+          
+          <div class="donats__buttons">
+            <input class="donats__submit" type="submit">
+          
+            <input type="checkbox" class="donats__checkbox" name="donats__checkbox" value="yes">
+            <label for="donats__checkbox">Даю согласие на обработку своих персональных данных.
+              С политикой конфеденциальности ознакомлен и согласен.</label>
+          </div>
+        </form>
       </section>
   
       <section id="comments_section" class="comments_section section__active">
@@ -174,6 +233,27 @@
         </form>
       </section>
 
+    </section>
+    <!-- End of Second col -->
+
+    <!-- Third col -->
+    <section class="third_col">
+      <div class="goal">
+        <div class="goal__money">
+          <h2>Цель: </h2>
+          <p>500.000.00₽</p>
+        </div>
+        <button class="goal__donate">Внести пожертвование</button>
+        <button class="goal__subscribe">Подписка на автоплатеж</button>
+        <div class="goal__other">
+          <button>
+            <i class="fa fa-link" aria-hidden="true"></i>
+          </button>
+          <button id="favourite_button">
+            <i id="favourite_icon" class="fa fa-heart" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
     </section>
   </main>
 
