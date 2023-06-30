@@ -299,3 +299,39 @@ const person10 = new Person10("модель10", 'красный');
 /* BIND, CALL, APPLY - https://www.youtube.com/watch?v=CJ6Txj8leZQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=11 */
 
 
+let test3 = function (param1, param2) {
+  console.log(this);
+  this.style.background = 'red';
+}
+
+let test4 = document.getElementById("test");
+let test5 = document.getElementById("test2");
+/* Метод call() вызывает функцию, которая идёт перед call и
+делает ей тот контекст выполнения, который вызван в скобках. 
+Т.е в скобках мы передали test4, значит this будет равен test4. 
+Параметры функции передаются после контекста выполения через запятую. */
+test3.call(test4, 'param1', 232);
+// Данное событие сработает при клике на test5, но функция сработает именно для test4.
+test5.onclick = function () {
+  test3.call(test4, 'param1', 232)
+}
+
+/* Метод apply() работает точно также, как и call, просто аргументы функции передаются в квадратных скобках. */
+test5.onclick = function () {
+  test3.apply(test4, ['param1', 232])
+}
+
+/* Метод bind заранее делает функции нужный, переданный контекст выполнения и нужно сохранить её в новую переменную.
+Эти функции не сработают, пока не будут вызваны, но в них заранее записан нужный контекст выполнения.
+Данные функции можно использовать также, как и обычные, просто с нужным нам контекстом выполнения.
+Параметры функции передаются также, как и в методе call(), через запятую. */
+let testFunc1 = test3.bind(test4, 'param1', 232);
+let testFunc2 = test3.bind(test5, 'param1', 232);
+
+// При клике на test4 сработает функция testFunc2, где this равен test5.
+test4.onclick = testFunc2;
+
+
+/* ДЕЛАЕМ ВИДЖЕТ GRIDVIEW НА ООП - https://www.youtube.com/watch?v=8FjoHtHY2mQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=11 */
+
+
