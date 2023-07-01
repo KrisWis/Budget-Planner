@@ -275,8 +275,6 @@ main {
   color: #FFF;
   text-align: center;
   font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 5%;
   text-shadow: 1px 1px 5px #fff;
   margin: 0 auto;
   margin-bottom: 10%;
@@ -672,7 +670,95 @@ main {
 .goal .goal__other .favourite__active {
   color: red;
   transition: all 0.2s linear;
-  animation: favourite_anim 0.5s linear;
+  animation: favourite_anim 0.4s linear;
+}
+
+/* КОПИстори */
+.kopistories {
+  margin-top: 20%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.kopistories .kopistories__header {
+  position: relative;
+}
+.kopistories .kopistories__header h2 {
+  font-size: 20px;
+  text-shadow: 1px 1px 5px #fff;
+  margin: 0 auto;
+  margin-bottom: 10%;
+  margin-left: 10%;
+}
+.kopistories .kopistories__header .kopistories__hint {
+  width: 6%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #00F0FF;
+  color: #00F0FF;
+  position: relative;
+  left: 70%;
+  cursor: pointer;
+}
+.kopistories .kopistories__header .kopistories__hint_text {
+  width: 60%;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  font-size: 10.5px;
+  padding: 5%;
+  position: absolute;
+  bottom: 80%;
+  left: 80%;
+  display: none;
+}
+.kopistories .kopistories__header .kopistories__hint_text--active {
+  display: block;
+}
+.kopistories .kopistory {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3%;
+  font-size: 35px;
+  position: relative;
+}
+.kopistories .kopistory .kopistory__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.kopistories .kopistory .kopistory__image img {
+  border-radius: 10px;
+  border: 1px solid #00F0FF;
+}
+.kopistories .kopistory .kopistory__image .kopistory__lock {
+  position: absolute;
+  color: rgba(0, 240, 255, 0.4);
+  font-size: 100px;
+}
+.kopistories .kopistory i {
+  cursor: pointer;
+}
+.kopistories .kopistory__switchers {
+  display: flex;
+  gap: 5px;
+  margin-top: 5%;
+  margin-left: 30%;
+}
+.kopistories .kopistory__switchers span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.kopistories .kopistory__switchers .kopistory_switcher__active {
+  background: #00F0FF;
 }
 
 @keyframes favourite_anim {

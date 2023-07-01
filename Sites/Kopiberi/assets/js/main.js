@@ -48,6 +48,27 @@ let changeToFavourite = function () {
   this.classList.toggle('favourite__active');
 }
 
-let changeToFavouriteFunc = changeToFavourite.bind(favourite_icon);
+let changeToFavouriteBind = changeToFavourite.bind(favourite_icon);
 
-eventsObj.addEvent(favourite_button, "click", changeToFavouriteFunc);
+eventsObj.addEvent(favourite_button, "click", changeToFavouriteBind);
+
+/* Kopistories hint */
+let kopistories__hint = document.getElementById("kopistories__hint");
+let kopistories__hint_text = document.getElementById("kopistories__hint_text");
+
+let showHint = function () {
+  this.classList.toggle("kopistories__hint_text--active");
+}
+
+let showHintBind = showHint.bind(kopistories__hint_text);
+
+eventsObj.addEvent(kopistories__hint, "click", showHintBind);
+
+/* Kopistory switchers */
+let kopistory__switchers = document.querySelectorAll("#kopistory__switchers span");
+kopistory__switchers.forEach(function (entry) {
+  eventsObj.addEvent(entry, "click", function () {
+    document.querySelector(".kopistory_switcher__active").classList.remove("kopistory_switcher__active");
+    this.classList.toggle("kopistory_switcher__active");
+  });
+})
