@@ -332,6 +332,118 @@ let testFunc2 = test3.bind(test5, 'param1', 232);
 test4.onclick = testFunc2;
 
 
-/* ДЕЛАЕМ ВИДЖЕТ GRIDVIEW НА ООП - https://www.youtube.com/watch?v=8FjoHtHY2mQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=11 */
+/* ДЕЛАЕМ ВИДЖЕТ GRIDVIEW НА ООП - https://www.youtube.com/watch?v=8FjoHtHY2mQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=11 и 
+https://www.youtube.com/watch?v=IjoVIS7t9SQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=12 */
 
+
+/* Пример данных, которые могут прийти с backend.
+Обычно, это объекты в квадратных скобках. */
+const dataExample = [
+  {
+    company: "aboba1 <b>Example</b>", // Пример входных данных с html тегами.
+    chef: 'maria1',
+    country: 'germany1'
+  },
+
+  {
+    company: "aboba2",
+    chef: 'maria2',
+    country: 'germany2'
+  },
+
+  {
+    company: "aboba3",
+    chef: 'maria3',
+    country: 'germany3'
+  },
+
+  {
+    company: "aboba4",
+    chef: 'maria4',
+    country: 'germany4'
+  },
+
+  {
+    company: "aboba5",
+    chef: 'maria5',
+    country: 'germany5'
+  },
+]
+
+class GridView {
+  /* В начале класса, есть js.doc - это "описательный" язык.
+  Будучи внедрённым в класс, он позволяет генерировать документацию.
+  Писать его следует в комментариях, используя символы "*", как в примере.
+  В нашем js.doc мы перечисляем различные свойства класса, поэтому задаём ему название "properties".
+  Чтобы задать свойство нужно использовать медиафункцию @param, 
+  а дальше в квадратных скобках передать тип свойство (в нашем случае массив), 
+  дальше - название свойства, и потом через тире его описание.
+  js.doc пишется примерно следующим образом: */
+  /**
+   * properties
+   * @param [array] _tableClass - css классы, оформление.
+   * @param [array] data - входные данные.
+   * @param [array] _attribute - что именно выводим из входных данных.
+   * @param [array] _element - где в HTML-разметке выводить таблицу.
+   * @param [array] _header - заголовок таблицы.
+   * @param [array] _headerClass - css классы заголовка таблицы.
+   */
+
+  // Конструктор, который просто задаёт свойствам значения по-умолчанию.
+  constructor() {
+    this._header = '';
+    this._headerClass = [];
+    this._tableClass = [];
+    this._element = body;
+    this._attribute = [];
+  }
+
+  // Следущие 3 метода - это сеттеры хедера и его классов, и то, где в HTML-разметке мы будем выводить таблицу.
+
+  /**
+   * Method set header
+   */
+  set header(header) {
+    // Проверяем входные данные.
+    if (typeof header === 'string' && header.trim != '') {
+      this._header = header.trim();
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method set headerClass
+   */
+  set headerClass(headerClass) {
+    // Проверяем входные данные.
+    if (typeof headerClass === 'object') {
+      this._headerClass = headerClass;
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method set element
+   */
+  set element(element) {
+    // Проверяем входные данные на то, существует ли элемент в разметке.
+    if (document.querySelector(element)) {
+      this._element = document.querySelector(element);
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method for show GridViewTable.
+   */
+  render() {
+
+  }
+}
 
