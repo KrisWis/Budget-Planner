@@ -72,3 +72,14 @@ kopistory__switchers.forEach(function (entry) {
     this.classList.toggle("kopistory_switcher__active");
   });
 })
+
+/* Отзывчивая навигация футера */
+let footer__navicon = document.getElementById("footer__navicon");
+let footer__navicon__container = document.getElementById("footer__navicon__container");
+
+let openFooterNav = function () {
+
+  footer__navicon__container.classList.toggle('open');
+}
+
+eventsObj.addEvent(footer__navicon, "click", openFooterNav);
