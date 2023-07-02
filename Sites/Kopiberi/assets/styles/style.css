@@ -120,6 +120,8 @@ nav .navicon__container {
   top: 130%;
   left: -800%;
   width: 2100%;
+  border-radius: 10px;
+  z-index: 1;
 }
 nav .navicon__container a {
   font-size: 20px;
@@ -782,7 +784,7 @@ main {
 @media (max-width: 1400px) {
   /* Navigation */
   nav {
-    gap: 5%;
+    gap: 80%;
   }
   nav .navigation {
     display: none;
@@ -802,6 +804,9 @@ main {
 }
 @media (max-width: 1000px) {
   /* Navigation */
+  nav {
+    gap: 40%;
+  }
   nav .logo {
     font-size: 15px;
   }
@@ -813,6 +818,8 @@ main {
     margin-top: 10%;
     padding: 10%;
     grid-template-columns: 1fr;
+    /* Goal */
+    /* KOPIstories */
   }
   main .first_col {
     display: flex;
@@ -825,6 +832,9 @@ main {
     justify-content: center;
     width: 50%;
     margin-bottom: 9%;
+  }
+  main .first_col .special_offers h2 {
+    width: 100%;
   }
   main .first_col .photos {
     width: 50%;
@@ -839,7 +849,103 @@ main {
   main .first_col .photos .photos__mini .images__more {
     width: 40%;
   }
-  main .second_col::before {
+  main .second_col {
+    right: 0;
+  }
+  main .second_col::before,
+  main .second_col .donaters_section::after,
+  main .second_col .comments_section::after {
     display: none;
+  }
+  main .goal .goal__money {
+    margin-left: 15%;
+  }
+  main .kopistories {
+    margin-top: 5%;
+    margin-left: 15%;
+  }
+  main .kopistories .kopistories__header .kopistories__hint {
+    width: 5%;
+    left: 55%;
+  }
+  main .kopistories .kopistories__header .kopistories__hint_text {
+    width: 40%;
+    left: 63%;
+  }
+  main .kopistories .kopistory {
+    margin-left: 2.5%;
+  }
+  main .kopistories .kopistory__switchers {
+    margin-left: 25%;
+  }
+}
+@media (max-width: 600px) {
+  /* Main */
+  main {
+    padding: 3%;
+  }
+  main .kopistories {
+    margin-left: 8%;
+  }
+}
+@media (max-width: 400px) {
+  /* Navigation */
+  nav {
+    gap: 20%;
+  }
+  nav .icons {
+    gap: 20%;
+  }
+  /* Main */
+  main {
+    padding: 3%;
+    /* Post */
+    /* Goal */
+    /* KopiStories */
+  }
+  main .first_col {
+    /* Special Offers */
+  }
+  main .first_col .special_offers {
+    width: 60%;
+  }
+  main .first_col .special_offers .special_offer__text button {
+    font-size: 12px;
+  }
+  main .post__text .post__desc .desc__info {
+    gap: 5%;
+  }
+  main .post__text .post__desc .desc__info p {
+    flex-direction: column;
+  }
+  main .comments__form .donats__checkbox + label::before,
+  main .comments__form .comments__checkbox + label::before {
+    width: 75px;
+  }
+  main .goal {
+    margin-left: 15%;
+  }
+  main .goal .goal__money {
+    margin-left: 0;
+  }
+  main .kopistories {
+    margin-left: 10%;
+  }
+  main .kopistories .kopistories__header h2 {
+    margin-left: 13%;
+  }
+  main .kopistories .kopistories__header .kopistories__hint {
+    width: 6%;
+    left: 75%;
+  }
+  main .kopistories .kopistories__header .kopistories__hint_text {
+    bottom: 105%;
+    left: 55%;
+  }
+  main .kopistories .kopistory__switchers {
+    margin-left: 33%;
+  }
+  .third_col {
+    margin-left: 0;
   }
 }/*# sourceMappingURL=style.css.map */

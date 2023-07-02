@@ -134,6 +134,8 @@ nav {
     top: 130%;
     left: -800%;
     width: 2100%;
+    border-radius: 10px;
+    z-index: 1;
 
     a {
       font-size: 20px;
@@ -842,7 +844,7 @@ main {
 
   /* Navigation */
   nav {
-    gap: 5%;
+    gap: 80%;
 
     .navigation {
       display: none;
@@ -869,6 +871,8 @@ main {
 
   /* Navigation */
   nav {
+    gap: 40%;
+
     .logo {
       font-size: 15px;
     }
@@ -895,6 +899,10 @@ main {
         justify-content: center;
         width: 50%;
         margin-bottom: 9%;
+
+        h2 {
+          width: 100%;
+        }
       }
 
       .photos {
@@ -916,9 +924,141 @@ main {
     }
 
     .second_col {
-      &::before {
+      right: 0;
+
+      &::before,
+      .donaters_section::after,
+      .comments_section::after {
         display: none;
       }
     }
+
+    /* Goal */
+    .goal .goal__money {
+      margin-left: 15%;
+    }
+
+    /* KOPIstories */
+    .kopistories {
+      margin-top: 5%;
+      margin-left: 15%;
+
+      .kopistories__header {
+
+        .kopistories__hint {
+          width: 5%;
+          left: 55%;
+        }
+
+        .kopistories__hint_text {
+          width: 40%;
+          left: 63%;
+        }
+      }
+
+      .kopistory {
+        margin-left: 2.5%;
+      }
+
+      .kopistory__switchers {
+        margin-left: 25%;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Main */
+  main {
+    padding: 3%;
+
+    .kopistories {
+      margin-left: 8%;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+
+  /* Navigation */
+  nav {
+    gap: 20%;
+
+    .icons {
+      gap: 20%;
+    }
+  }
+
+  /* Main */
+  main {
+    padding: 3%;
+
+    .first_col {
+
+      /* Special Offers */
+      .special_offers {
+        width: 60%;
+
+        .special_offer__text button {
+          font-size: 12px;
+        }
+      }
+    }
+
+    /* Post */
+    .post__text .post__desc .desc__info {
+      gap: 5%;
+
+      p {
+        flex-direction: column;
+      }
+    }
+
+    .comments__form {
+
+      .donats__checkbox+label::before,
+      .comments__checkbox+label::before {
+        width: 75px;
+      }
+    }
+
+    /* Goal */
+    .goal {
+      margin-left: 15%;
+
+      .goal__money {
+        margin-left: 0;
+      }
+    }
+
+    /* KopiStories */
+    .kopistories {
+      margin-left: 10%;
+
+      .kopistories__header {
+        h2 {
+          margin-left: 13%;
+        }
+
+        .kopistories__hint {
+          width: 6%;
+          left: 75%;
+        }
+
+        .kopistories__hint_text {
+          bottom: 105%;
+          left: 55%;
+        }
+      }
+
+      .kopistory__switchers {
+        margin-left: 33%;
+      }
+    }
+  }
+
+  .third_col {
+    margin-left: 0;
   }
 }
