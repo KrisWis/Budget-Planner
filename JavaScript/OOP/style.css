@@ -1,0 +1,25 @@
+.header {
+    color: #000;
+}
+
+.site-header {
+    background-color: #fff;
+}
+
+.myTable {
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+}
+
+.myTable th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+.myTable td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+    text-align: center;
+}

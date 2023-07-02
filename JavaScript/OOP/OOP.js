@@ -336,6 +336,149 @@ test4.onclick = testFunc2;
 https://www.youtube.com/watch?v=IjoVIS7t9SQ&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=12 */
 
 
+class GridView {
+  /* В начале класса, есть js.doc - это "описательный" язык.
+  Будучи внедрённым в класс, он позволяет генерировать документацию.
+  Писать его следует в комментариях, используя символы "*", как в примере.
+  В нашем js.doc мы перечисляем различные свойства класса, поэтому задаём ему название "properties".
+  Чтобы задать свойство нужно использовать медиафункцию @param, 
+  а дальше в квадратных скобках передать тип свойство (в нашем случае массив), 
+  дальше - название свойства, и потом через тире его описание.
+  js.doc пишется примерно следующим образом: */
+  /**
+   * properties
+   * @param [array] _tableClass - css классы, оформление.
+   * @param [array] data - входные данные.
+   * @param [array] _attribute - что именно выводим из входных данных.
+   * @param [array] _element - где в HTML-разметке выводить таблицу.
+   * @param [array] _header - заголовок таблицы.
+   * @param [array] _headerClass - css классы заголовка таблицы.
+   */
+
+  // Конструктор, который просто задаёт свойствам значения по-умолчанию.
+  constructor() {
+    this._header = '';
+    this._headerClass = [];
+    this._tableClass = [];
+    this._element = 'body';
+    this._attribute = [];
+  }
+
+  // Следущие 4 метода - это сеттеры хедера и его классов, и то, где в HTML-разметке мы будем выводить таблицу, классов таблицы.
+
+  /**
+   * Method set header
+   */
+  set header(header) {
+    // Проверяем входные данные.
+    if (typeof header === 'string' && header.trim != '') {
+      this._header = header.trim();
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method set headerClass
+   */
+  set headerClass(headerClass) {
+    // Проверяем входные данные.
+    if (typeof headerClass === 'object') {
+      this._headerClass = headerClass;
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method set tableClass
+   */
+  set tableClass(tableClass) {
+    // Проверяем входные данные.
+    if (typeof tableClass === 'object') {
+      this._tableClass = tableClass;
+      return true;
+    }
+
+    return false;
+  }
+
+
+  /**
+   * Method set element
+   */
+  set element(element) {
+    // Проверяем входные данные на то, существует ли элемент в разметке.
+    if (document.querySelector(element)) {
+      this._element = document.querySelector(element);
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Method for show GridViewTable.
+   */
+  render() {
+    // Создаём заголовок таблицы и для начала, проверяем его наличие.
+    if (this._header) {
+      const header = document.createElement("h1");
+      header.textContent = this._header; // Присваиваем элементу текст
+      this._headerClass.forEach(cssClass => { // Перебирая, присваиваем все переданные css классы элементу.
+        header.classList.add(cssClass);
+      });
+      document.querySelector(this._element).append(header); // Отрисовываем элемент в нужном элементе.
+    }
+
+    // Создаём таблицу
+    const table = document.createElement("table");
+    this._tableClass.forEach(cssClass => { // Перебирая, присваиваем все переданные css классы элементу.
+      table.classList.add(cssClass);
+    });
+
+    // Создаём заголовок столбца
+    let trHeader = document.createElement("tr");
+    for (let key in this._attribute) { // Перебираем все ключи из объекта атрибутов.
+      let th = document.createElement("th");
+      if (this._attribute[key].label) { // В свойстве label обычно у каждого ключа храниться название соответствующего столбца.
+        th.textContent = this._attribute[key].label; // Если оно есть, то присваиваем его, как название столбца.
+      }
+      else {
+        th.textContent = key; // Если его нет, то названием столбца будет ключ.
+      }
+      trHeader.append(th); // Добавляем наш элемент в заголовки таблицы.
+    }
+    table.append(trHeader); // Добавляем заголовки таблицы в таблицу.
+
+    // Рисуем данные таблицы
+    for (let i = 0; i < this.data.length; i++) { // Перебираем все объекты переданных данных.
+      let dataArr = this.data[i]; // Объект данных.
+      let tr = document.createElement('tr');
+      for (let key in this._attribute) { // Перебираем все ключи атрибутов.
+        let td = document.createElement('td');
+        let value = dataArr[key]; // Так ключи атрибутов и входных данных у нас одинаковые, то мы можем их так использовать.
+        if (this._attribute[key].value) { // Если имеется свойство value.
+          value = this._attribute[key].value(dataArr); // value у нас является функцией, поэтому передаём ему необходимые данные.
+        }
+
+        if (this._attribute[key].src) { // Если имеется свойство src.
+          td.innerHTML = value; // Вставляем в HTML код значение.
+        }
+
+        else { // Если нужно вставить просто текст, а не html-код..
+          td.textContent = value;
+        }
+        tr.append(td); // Добавляем значения в столбец.
+      }
+      table.append(tr); // Добавляем столбец в таблицу.
+    }
+    document.querySelector(this._element).append(table); // Добавляем таблицу в документ.
+  }
+}
+
 /* Пример данных, которые могут прийти с backend.
 Обычно, это объекты в квадратных скобках. */
 const dataExample = [
@@ -370,15 +513,40 @@ const dataExample = [
   },
 ]
 
-class GridView {
-  /* В начале класса, есть js.doc - это "описательный" язык.
-  Будучи внедрённым в класс, он позволяет генерировать документацию.
-  Писать его следует в комментариях, используя символы "*", как в примере.
-  В нашем js.doc мы перечисляем различные свойства класса, поэтому задаём ему название "properties".
-  Чтобы задать свойство нужно использовать медиафункцию @param, 
-  а дальше в квадратных скобках передать тип свойство (в нашем случае массив), 
-  дальше - название свойства, и потом через тире его описание.
-  js.doc пишется примерно следующим образом: */
+let gridView = new GridView(); // Создаём экземпляр класса GridView.
+gridView.header = 'Заголовок'; // Присваиваем заголовок таблицы.
+gridView.headerClass = ['header', 'site-header']; // Присваиваем классы для заголовка.
+gridView.tableClass = ['myTable']; // Присваиваем классы для таблицы.
+gridView._attribute = { // Присваиваем атрибуты.
+  company: {
+    label: 'Компания',
+    src: 'html'
+  },
+
+  chef: {
+    label: 'Директор'
+  },
+
+  country: {
+    label: 'Страна',
+    value: (data) => {
+      if (data['country'] === 'germany2') {
+        return data['country'] + 'map';
+      }
+      return data['country'];
+    }
+  }
+}
+gridView.data = dataExample; // Присваиваем данные.
+gridView.render(); // Отрисовываем таблицу.
+
+/* Иногда, лучше использовать не сеттеры, а функции, когда нужна именно проверка и возвращение каких либо результатов, например:
+не set name(), а setName(), который уже будет нормально возвращать true или false.
+Т.е чаще всего, сеттеры нужно заменить функцией, если эта функция должна и присваивать значение и возвращать что-либо (чаще всего true или false). */
+
+
+// Немного переделанный класс GridView под удобство программисту.
+class GridView2 {
   /**
    * properties
    * @param [array] _tableClass - css классы, оформление.
@@ -389,22 +557,20 @@ class GridView {
    * @param [array] _headerClass - css классы заголовка таблицы.
    */
 
-  // Конструктор, который просто задаёт свойствам значения по-умолчанию.
   constructor() {
     this._header = '';
     this._headerClass = [];
     this._tableClass = [];
-    this._element = body;
+    this._element = 'body';
     this._attribute = [];
   }
 
-  // Следущие 3 метода - это сеттеры хедера и его классов, и то, где в HTML-разметке мы будем выводить таблицу.
+  // Следущие 4 функции - это теперь методы, а не сетторы.
 
   /**
-   * Method set header
+   * Method setHeader
    */
-  set header(header) {
-    // Проверяем входные данные.
+  setHeader(header) {
     if (typeof header === 'string' && header.trim != '') {
       this._header = header.trim();
       return true;
@@ -414,10 +580,9 @@ class GridView {
   }
 
   /**
-   * Method set headerClass
+   * Method setHeaderClass
    */
-  set headerClass(headerClass) {
-    // Проверяем входные данные.
+  setHeaderClass(headerClass) {
     if (typeof headerClass === 'object') {
       this._headerClass = headerClass;
       return true;
@@ -427,10 +592,22 @@ class GridView {
   }
 
   /**
-   * Method set element
+   * Method setTableClass
    */
-  set element(element) {
-    // Проверяем входные данные на то, существует ли элемент в разметке.
+  setTableClass(tableClass) {
+    if (typeof tableClass === 'object') {
+      this._tableClass = tableClass;
+      return true;
+    }
+
+    return false;
+  }
+
+
+  /**
+   * Method setElement
+   */
+  setElement(element) {
     if (document.querySelector(element)) {
       this._element = document.querySelector(element);
       return true;
@@ -442,8 +619,101 @@ class GridView {
   /**
    * Method for show GridViewTable.
    */
-  render() {
+  render(data) { // Теперь render() принимает объект data.
+    // Присваиваем переменным значения из объекта data.
+    this.setElement(data.element);
+    this.setHeaderClass(data.headerClass);
+    this.setTableClass(data.tableClass);
+    this._attribute = data.attribute;
+    this.setHeader(data.header);
+    this.data = data.data;
 
+    if (this._header) {
+      const header = document.createElement("h1");
+      header.textContent = this._header;
+      this._headerClass.forEach(cssClass => {
+        header.classList.add(cssClass);
+      });
+      document.querySelector(this._element).append(header);
+    }
+
+    const table = document.createElement("table");
+    this._tableClass.forEach(cssClass => {
+      table.classList.add(cssClass);
+    });
+
+    let trHeader = document.createElement("tr");
+    for (let key in this._attribute) {
+      let th = document.createElement("th");
+      if (this._attribute[key].label) {
+        th.textContent = this._attribute[key].label;
+      }
+      else {
+        th.textContent = key;
+      }
+      trHeader.append(th);
+
+      table.append(trHeader);
+    }
+
+    for (let i = 0; i < this.data.length; i++) {
+      let dataArr = this.data[i];
+      let tr = document.createElement('tr');
+      for (let key in this._attribute) {
+        let td = document.createElement('td');
+        let value = dataArr[key];
+        if (this._attribute[key].value) {
+          value = this._attribute[key].value(dataArr);
+        }
+
+        if (this._attribute[key].src) {
+          td.innerHTML = value;
+        }
+
+        else {
+          td.textContent = value;
+        }
+        tr.append(td);
+      }
+      table.append(tr);
+    }
+    document.querySelector(this._element).append(table);
   }
 }
+
+let gridView2 = new GridView2();
+
+const data = {
+  header: 'Заголовок',
+  headerClass: ['header', 'site-header'],
+  tableClass: ['myTable'],
+  attribute: {
+    company: {
+      label: 'Компания',
+      src: 'html'
+    },
+
+    chef: {
+      label: 'Директор'
+    },
+
+    country: {
+      label: 'Страна',
+      value: (data) => {
+        if (data['country'] === 'germany2') {
+          return data['country'] + 'map';
+        }
+        return data['country'];
+      }
+    }
+  },
+
+  data: dataExample,
+}
+
+gridView2.render(data); // Отрисовываем таблицу.
+
+
+/* КОРЗИНА В ООП СТИЛЕ - https://www.youtube.com/watch?v=ar1p7PxzG8c&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=13 */
+
 
