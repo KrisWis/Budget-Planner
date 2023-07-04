@@ -1,0 +1,53 @@
+<!-- Материал взят с - https://www.youtube.com/watch?v=2tAPxjcGLms&list=LL&index=5&t=17s -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3D Parallax Effect</title>
+	<link rel="stylesheet" href="css/main.css">
+	<!-- Теперь, лучше подключить js скрипты не в конце body,
+	a в head с атрибутом defer, который говорит подключать скрипты при полной загрузки html и css. -->
+	<script src="js/app.js" defer></script>
+	<script src="libs/rain.js" defer></script>
+</head>
+<body>
+
+	<!-- Если нам будут поступать данные с бекенда, то лучше использовать инлайновые стили.-->
+	<div class="logo" style="background-image: url(img/logo.svg);"></div>
+
+	<section class="layers">
+		<!-- Так как у нас 3D эффект, то нужен контейнер. -->
+		<div class="layers__container">
+			<!-- Чтобы был эффект 3D обычные 2D картинки не подойдут, 
+			нужны специальные - уже с размытием и с неким эффектом "скорости".
+			Как делать такие изображения рассказано в видео. -->
+			<!-- При экспорте таких изображений нужно ОБЯЗАТЕЛЬНО выбирать Preset: PNG-24. 
+			Для таких изображений следует использовать разрешение 2560 x 1440. 
+			Также, если мы экспортируем изображение без прозрачных слов, то следует использовать .jpg. -->
+			<!-- Также, чтобы сделать множественное выделение нужно просто зажать alt. -->
+
+			<!-- Каждому слою, кроме текста и дождя присваиваем соотвествующее изображение, так как они шли в создании изображения. -->
+			<div class="layers__item layer-1" style="background-image: url(img/layer-1.jpg);"></div>
+			<div class="layers__item layer-2" style="background-image: url(img/layer-2.png);"></div>
+			<div class="layers__item layer-3">
+				<div class="hero-content">
+					<!-- Оборачиваем текст "HTML / CSS" в span, чтобы перенести его на след.строчку. -->
+					<h1>Natural Forest <span>HTML / CSS</span></h1>
+					<div class="hero-content__p">Creating a beautiful 3D website with a ‘lens effect’</div>
+					<button class="button-start">Start Learning</button>
+				</div>
+			</div>
+			<div class="layers__item layer-4">
+				<!-- Реализуем дождь с помощью класса rain и тега <canvas>,
+				т.к только на нём можно рисовать с помощью js. -->
+				<canvas class="rain"></canvas>
+			</div>
+			<div class="layers__item layer-5" style="background-image: url(img/layer-5.png);"></div>
+			<div class="layers__item layer-6" style="background-image: url(img/layer-6.png);"></div>
+		</div>
+	</section>
+
+</body>
+</html>

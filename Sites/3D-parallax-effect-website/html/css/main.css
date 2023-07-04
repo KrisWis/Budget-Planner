@@ -1,0 +1,161 @@
+/* Материал взят с - https://www.youtube.com/watch?v=2tAPxjcGLms&list=LL&index=5&t=17s */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	/* Переменная --index часто используется для резиновости сайта,
+	чтобы элементы изменяли свой размер от изменения разрешения экрана.
+	Его значением является отношение ширины к высоте. */
+	--index: calc(1vw + 1vh);
+	/* Создаём переменную для плавной анимации с помощью cubic-bezier(). */
+	--transition: 1.5s cubic-bezier(.05, .5, 0, 1);
+}
+
+@font-face {
+	/* Чтобы шрифты загружались из файлов, а не из системы, 
+	они должны быть уникальными (например, иметь какой то суффикс, как у нас 3d). */
+	font-family: kamerik-3d;
+	src: url(../fonts/kamerik205-heavy.woff2);
+	font-weight: 900;
+}
+
+@font-face {
+	font-family: merriweather-italic-3d;
+	src: url(../fonts/merriweather-regular-italic.woff2);
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: kamerik-3d;
+}
+
+.logo {
+	/* Высчитываем наш --index для расчётов резинового размера логотипа.
+	На чем большее число мы умножаем переменную, тем больше будет наш логотип. */
+	--logo-size: calc(var(--index) * 7.8);
+	width: var(--logo-size);
+	height: var(--logo-size);
+	background-repeat: no-repeat;
+	position: absolute;
+	/* Так как нам нужно центрировать лого исходя из его размера, то делаем соответствующую формулу.
+	Из 51% мы минусуем половину размера логотипа чтобы центрировать элемент всегда независимо от разрешения. */
+	left: calc(51% - calc(var(--logo-size) / 2));
+	/* Свойство top вычисляем также c помощью --index.*/
+	top: calc(var(--index) * 2.8);
+	z-index: 1;
+}
+
+.layers {
+	/* Для родительского элемента мы обязательно задаём перспективу.
+	Оно определяет насколько близко будет камера пользователя к объекту. */
+	perspective: 1200px;
+	overflow: hidden;
+}
+
+.layers__container {
+	height: 100vh;
+	min-height: 500px;
+	/* Контейнер, который содержит все элементы должен иметь свойство transform-style: preserve-3d, чтобы все его элементы были в 3D. */
+	transform-style: preserve-3d;
+	/* Поварачиваем контейнер, используя переменные, которые определяем в app.js. */
+	transform: rotateX(var(--move-y)) rotateY(var(--move-x));
+	/* Свойство will-change следует использовать для элементов, которые динамически меняются. 
+	Это свойство даёт понять браузеру, чтобы он дал этому элементу больше ресурсов.
+	В значение для этого свойства нужно передать свойство, которое и изменяет динамически элемент. */
+	will-change: transform;
+	/* Указываем свойство transition для плавного перехода. */
+	transition: transform var(--transition);
+}
+
+.layers__item {
+	/* position: absolute чтобы картинки можно было накладывать друг на друга. */
+	position: absolute;
+	/* Свойство inset задаёт свойствам top, right, bottom, top одинаковое переданное значение.*/
+	inset: -5vw;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Располагаем слои по глубине используя свойство translateZ(). 
+Так как, layer-1 содержит просто саму картинку леса, то он должен быть дальше, глубже всех.
+layer-2 содержит ствол, который должен находиться ближе к пользователю, поэтому задаём ему значение больше, чтобы он был ближе, чем layer1.
+И так далее, с каждым слоём и его свойством translateZ().
+Чтобы сайт выглядел красивее, то чем элемент глубже, то тем больше мы увеличиваем его с помощью scale(). */
+.layer-1 {
+	transform: translateZ(-55px) scale(1.06);
+}
+
+.layer-2 {
+	transform: translateZ(80px) scale(.88);
+}
+
+.layer-3 {
+	transform: translateZ(180px) scale(.8);
+}
+
+.layer-4 {
+	transform: translateZ(190px) scale(.9);
+}
+
+.layer-5 {
+	transform: translateZ(300px) scale(.9);
+}
+
+.layer-6 {
+	transform: translateZ(380px);
+}
+
+.hero-content {
+	/* С помощью --index вычисляем свойства font-size, letter-spacing и margin-top для резиновости. */
+	font-size: calc(var(--index) * 2.9);
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: calc(var(--index) * -.15);
+	line-height: 1.35em;
+	margin-top: calc(var(--index) * 5.5);
+}
+
+/* Чтобы span переносился на новую строку указываем у него display: block.*/
+.hero-content span {
+	display: block;
+}
+
+.hero-content__p {
+	text-transform: none;
+	font-family: merriweather-italic-3d;
+	letter-spacing: normal;
+	font-size: calc(var(--index) * .73);
+	line-height: 3;
+}
+
+.button-start {
+	font-family: Arial;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: calc(var(--index) * .71);
+	letter-spacing: -.02vw;
+	padding: calc(var(--index) * .7) calc(var(--index) * 1.25);
+	background-color: transparent;
+	color: #fff;
+	border-radius: 10em;
+	border: rgb(255 255 255 / .4) 3px solid;
+	/* outline: none лучше делать на кнопках. */
+	outline: none;
+	cursor: pointer;
+	margin-top: calc(var(--index) * 2.5);
+}
+
+/* Так как эти элементы перекрывают текст и поэтому его нельзя выделить,
+мы указываем pointer-events: none для того, чтобы эти элементы были не кликабельны и не перекрывали текст. */
+.layer-4,
+.layer-5,
+.layer-6 {
+	pointer-events: none;
+}

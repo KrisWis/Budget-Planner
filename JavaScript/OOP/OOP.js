@@ -712,8 +712,3 @@ const data = {
 }
 
 gridView2.render(data); // Отрисовываем таблицу.
-
-
-/* КОРЗИНА В ООП СТИЛЕ - https://www.youtube.com/watch?v=ar1p7PxzG8c&list=PLM7wFzahDYnHyRpmcSGOptXan08CNb9nh&index=13 */
-
-
