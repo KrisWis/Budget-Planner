@@ -6,14 +6,26 @@
 let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let new_array = [];
 
-/* Метод forEach() не возвращает никакого значения. Поэтому записываем значения в новый массив.
-Метод forEach() перебирает все элементы массива. */
+/* Метод forEach() перебирает все элементы массива. Он не изменяет сам массив. */
 array.forEach(function (elem) {
   new_array.push(elem *= elem);
 });
 
+//Метод forEach() не возвращает никакого значения.
+new_array = array.forEach(function (elem) { // Ничего не присвоит, т.к forEach() равен undefined.
+  return elem *= elem;
+});
 
 
 /* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - map - https://www.youtube.com/watch?v=W5vpClM_VDw&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=3 */
+
+
+// Метод forEach() перебирает все элементы массива. Он не изменяет сам массив, но может возвращать значение.
+new_array = array.map(function (elem) { // Присваиваем переменной массив, сделанный map().
+  return elem *= elem;
+});
+
+
+/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - filter - https://www.youtube.com/watch?v=DTfFcLKpM2g&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=4 */
 
 
