@@ -107,3 +107,23 @@ argumentsFunc(1, 3434, 121, 'wqqw');
 /* ФУНКЦИИ: ТИПЫ ФУНКЦИЙ FUNCTION EXPRESSION, FUNCTION DECLORATION & NFE - https://www.youtube.com/watch?v=rtGTZ4knRSY&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=8 */
 
 
+// Пример function decloration. Её можно вызвать до её объявления.
+function sum(a, b) {
+  return a + b;
+}
+
+// Пример function expression. Её нельзя вызвать до её объявления.
+let sum = function (a, b) {
+  return a + b;
+}
+
+/* Пример Named function expression. 
+Особенность в том, что её функция (в нашем случае sum) доступна только внутри переменной. Она нужна только для рекурсии. */
+let func = function sum(a, b) {
+  return a + b;
+}
+
+
+/* ФУНКЦИИ: this контекст вызова - https://www.youtube.com/watch?v=tfzrgp22Hwo&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=9 */
+
+
