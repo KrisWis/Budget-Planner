@@ -86,3 +86,24 @@ flattened = flattened.reduceRight(function (sum, elem) {
 /* ФУНКЦИИ: ПСЕВДОМАССИВ ARGUMENTS - https://www.youtube.com/watch?v=ZSrk2_W9FmY&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=7 */
 
 
+/* Псевдомассив arguments хранит все параметры, которые переданы в функцию. 
+Из методов массивов, для него можно использовать только length.
+На самом деле, arguments это объект, а не массив. */
+function argumentsFunc() {
+  console.log(arguments); // Вернёт [1, 3434, 121, 'wqqw'].
+  console.log(arguments.length); // Вернёт 4.
+  /* Следующим способом можно преобразовать псевдомассив arguments из объекта в массив.
+  Точнее, arguments так и останеться псевдомассивом, просто все его значения будут в массиве arr. */
+  var arr = [];
+  for (let index = 0; index < arguments.length; index++) {
+    arr[index] = arguments[index];
+  }
+  console.log(arr.concat(['2', 23])) // Теперь можно использовать методы массивов.
+}
+
+argumentsFunc(1, 3434, 121, 'wqqw');
+
+
+/* ФУНКЦИИ: ТИПЫ ФУНКЦИЙ FUNCTION EXPRESSION, FUNCTION DECLORATION & NFE - https://www.youtube.com/watch?v=rtGTZ4knRSY&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=8 */
+
+
