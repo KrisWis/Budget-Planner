@@ -17,7 +17,7 @@ new_array = array.forEach(function (elem) { // Ничего не присвои�
 });
 
 
-/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - map - https://www.youtube.com/watch?v=W5vpClM_VDw&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=3 */
+/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - MAP - https://www.youtube.com/watch?v=W5vpClM_VDw&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=3 */
 
 
 // Метод map() перебирает все элементы массива. Он не изменяет сам массив, но может возвращать значение.
@@ -26,7 +26,7 @@ new_array = array.map(function (elem) { // Присваиваем перемен
 });
 
 
-/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - filter - https://www.youtube.com/watch?v=DTfFcLKpM2g&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=4 */
+/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - FILTER - https://www.youtube.com/watch?v=DTfFcLKpM2g&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=4 */
 
 
 /* Метод filter() перебирает все элементы массива.
@@ -37,6 +37,25 @@ array = array.filter(function (elem) {
 });
 
 
-/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - every и some - https://www.youtube.com/watch?v=39bcY4aV3AI&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=5 */
+/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - EVERY И SOME - https://www.youtube.com/watch?v=39bcY4aV3AI&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=5 */
+
+
+/* Метод every() и some() перебирают все элементы массива.
+Но функция, которая им передаётся должна возвращать логическое значение. */
+
+/* every() работает так, что если все элементы массива прошли проверку, то она возвращает true.
+Но если хотя бы один не прошёл, то возвращает false. */
+array = array.every(function (elem) {
+  return elem > 0;
+});
+
+/* some() работает так, что если хотя бы один элемент прошёл проверку, то она возвращает true.
+Но если никто не прошёл, то возвращает false. */
+array = array.some(function (elem) {
+  return elem > 0;
+});
+
+
+/* МАССИВ ПЕРЕБИРАЮЩИЕ МЕТОДЫ - REDUCE И REDUCERIGHT - https://www.youtube.com/watch?v=Wy4rgg2iWpw&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=6 */
 
 
