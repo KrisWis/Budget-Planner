@@ -1,0 +1,228 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Curve;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: Curve;
+  src: url(../fonts/ofont.ru_Blue\ Curve.ttf);
+}
+
+.coupon {
+  min-width: 400px;
+  width: 40%;
+  min-height: 150px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  padding: 1%;
+  background-color: #FAFAFA;
+
+  .coupon__image-socials {
+    img {
+      width: 100%;
+      height: 130px;
+    }
+
+    .coupon__socials {
+      display: flex;
+      gap: 5%;
+      margin-top: 10%;
+
+      .socials__circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 21%;
+        height: 35px;
+        border-radius: 50%;
+        color: #fff;
+      }
+
+      .socials__vk {
+        background-color: blue;
+      }
+
+      .socials__odnoklassniki {
+        background-color: orange;
+      }
+
+      .socials__whatsapp {
+        background-color: green;
+      }
+
+      .socials__telegram {
+        background-color: skyblue;
+      }
+    }
+  }
+
+  .coupon__header {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+      font-weight: bolder;
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-top: 3%;
+    }
+  }
+
+  .coupon__info {
+    margin-top: 30%;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 35px;
+      border-radius: 10px;
+      color: #fff;
+      background-color: #347BAF;
+      position: relative;
+      cursor: pointer;
+      font-size: 17px;
+      border: 1px solid #fff;
+
+      span {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 10%;
+        height: 100%;
+        background-color: #fff;
+        color: #000;
+        position: relative;
+        left: 7%;
+        font-weight: bold;
+        font-size: 15px;
+        border-radius: 0 10px 10px 0;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border: 6px solid transparent;
+        border-color: #fff #fff #ec496b #ec496b;
+        left: 84%;
+        bottom: 21.5px;
+      }
+
+      &:hover {
+        transition: .3s linear all;
+        background-color: #0095ff;
+        border: 1px solid #0095ff;
+      }
+    }
+
+    .coupon__expiring {
+      margin-left: 55%;
+      font-size: 17px;
+      margin-top: 3%;
+    }
+
+    .coupon__assessments {
+      display: flex;
+      justify-content: center;
+      margin-top: 20%;
+      width: 100%;
+      gap: 5%;
+
+      .coupon__like {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        color: green;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      .coupon__dislike {
+        font-size: 20px;
+        color: red;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .coupon {
+    grid-template-columns: 1fr;
+    padding: 5%;
+
+    .coupon__image-socials {
+      display: flex;
+      flex-direction: column;
+
+      img {
+        align-self: center;
+        width: 90%;
+        height: 200px;
+      }
+
+      .coupon__socials {
+        justify-content: center;
+        margin-bottom: 5%;
+
+        .socials__circle {
+          width: 13%;
+        }
+      }
+    }
+
+    .coupon__header {
+      text-align: center;
+    }
+
+    .coupon__info {
+      margin-top: 5%;
+
+      button {
+        span {
+          left: 24%;
+        }
+
+        &::after {
+          left: 87%;
+        }
+      }
+
+      .coupon__expiring {
+        margin-left: 75%;
+      }
+
+      .coupon__assessments {
+        font-size: 20px;
+
+        .coupon__like,
+        .coupon__dislike {
+          i {
+            font-size: 30px;
+          }
+        }
+      }
+    }
+  }
+}
