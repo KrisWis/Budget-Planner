@@ -157,3 +157,77 @@ let func = function sum(a, b) {
 /* ОБЪЕКТЫ: МЕТОД CALL - https://www.youtube.com/watch?v=piM-njF6haM&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=11 */
 
 
+let test3 = function (param1, param2) {
+  console.log(this);
+  this.style.background = 'red';
+}
+
+let test4 = document.getElementById("test");
+let test5 = document.getElementById("test2");
+/* Метод call() вызывает функцию, которая идёт перед call и
+делает ей тот контекст выполнения, который вызван в скобках. 
+Т.е в скобках мы передали test4, значит this будет равен test4. 
+Параметры функции передаются после контекста выполения через запятую. */
+test3.call(test4, 'param1', 232);
+// Данное событие сработает при клике на test5, но функция сработает именно для test4.
+test5.onclick = function () {
+  test3.call(test4, 'param1', 232)
+}
+
+// Следующим образом, с помощью метода call() можно преобразовать псевдомассив arguments в массив.
+function remodelingArgsToArr() {
+  let args = Array.prototype.slice.call(arguments);
+}
+remodelingArgsToArr(1, 43, 212, 'wewe');
+
+
+/* ОБЪЕКТЫ: МЕТОД APPLY - https://www.youtube.com/watch?v=4j0HOpm9OJ0&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=13 */
+
+
+/* Метод apply() работает точно также, как и call, просто аргументы функции передаются в квадратных скобках.
+C помощью него можно, например, создать функцию, которая будет принимать любое число параметров и суммировать их. */
+function sum() {
+  for (let index = 0, res = 0; index < arguments.length; res += arguments[index++]) {
+    return res;
+  }
+}
+
+sum.apply([4321, 2323, 111, 8]);
+
+/* Также, apply() стоит использовать если нужно в функцию, которая принимает список передать массив.
+Например, Math.max(). */
+var arr = [1, 4334, 676, 21];
+console.log(Math.max.apply(null, arr)); // Если бы мы просто передали массив, без apply, то вывело бы NaN.
+
+
+/* ОБЪЕКТЫ: МЕТОД BIND - https://www.youtube.com/watch?v=7oB57sW5Fho&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=14 */
+
+
+/* Метод bind заранее делает функции нужный, переданный контекст выполнения и нужно сохранить её в новую переменную.
+Эти функции не сработают, пока не будут вызваны, но в них заранее записан нужный контекст выполнения.
+Данные функции можно использовать также, как и обычные, просто с нужным нам контекстом выполнения.
+Параметры функции передаются также, как и в методе call(), через запятую. */
+let testFunc1 = test3.bind(test4, 'param1', 232);
+let testFunc2 = test3.bind(test5, 'param1', 232);
+
+// При клике на test4 сработает функция testFunc2, где this равен test5.
+test4.onclick = testFunc2;
+
+
+/* ОБЪЕКТЫ: КАРРИРОВАНИЕ - https://www.youtube.com/watch?v=j0ZUA3WoTPw&list=PLNkWIWHIRwMHKLotIS_d-wyj00pg0AnUg&index=15 */
+
+
+/* Каррирование - это когда у нас есть функция, принимающая какие-либо параметры,
+но потом мы присваиваем эту функции с помощью bind() какой-либо другой переменной, 
+но также мы передаём ей какие-либо параметры, которые теперь будут постояные.
+И поэтому функция, которая была создана будет принимать меньше аргументов, чем функция, с помощью которой её создали. */
+function mul(a, b) {
+  return a * b;
+}
+
+/* Присваиваем переменной double функцию mul, 
+при этом с помощью bind() контекст вызова у неё будет равен null (т.к this в ней не используется), 
+а первый параметр постоянно будет равен 2. Но вот второй параметр можно уже передавать какой хочешь при вызове double. */
+let double = mul.bind(null, 2);
+console.log(double(2)); // 2 умножиться на 2.
+console.log(double(3));// 2 умножиться на 3.
