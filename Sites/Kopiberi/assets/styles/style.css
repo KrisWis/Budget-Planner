@@ -24,6 +24,11 @@ body {
   flex-direction: column;
 }
 
+.kopistory__modal-window .kopistory__price, .goal .goal__money p, .special_offers .special_offer__text .special_offer--price {
+  color: #00F0FF;
+  font-size: 25px;
+}
+
 h1,
 h2,
 h3,
@@ -313,10 +318,6 @@ main {
   font-size: 18px;
   font-weight: 600;
   text-shadow: 1px 1px 5px #fff;
-}
-.special_offers .special_offer__text .special_offer--price {
-  color: #00F0FF;
-  font-size: 25px;
 }
 .special_offers .special_offer__text button {
   display: flex;
@@ -635,24 +636,6 @@ main {
 .goal .goal__money h2 {
   font-size: 36px;
 }
-.goal .goal__money p {
-  color: #00F0FF;
-  font-size: 25px;
-}
-.goal .goal__donate {
-  display: flex;
-  width: 80%;
-  height: 60px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
-  color: #FFF;
-  font-size: 15px;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 15%;
-}
 .goal .goal__subscribe {
   display: flex;
   width: 80%;
@@ -685,6 +668,21 @@ main {
   color: red;
   transition: all 0.2s linear;
   animation: favourite_anim 0.4s linear;
+}
+
+.donate_button {
+  display: flex;
+  width: 80%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
+  color: #FFF;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15%;
 }
 
 /* КОПИстори */
@@ -740,23 +738,6 @@ main {
   font-size: 35px;
   position: relative;
 }
-.kopistories .kopistory .kopistory__image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.kopistories .kopistory .kopistory__image img {
-  border-radius: 10px;
-  border: 1px solid #00F0FF;
-}
-.kopistories .kopistory .kopistory__image .kopistory__lock {
-  position: absolute;
-  color: rgba(0, 240, 255, 0.4);
-  font-size: 100px;
-}
-.kopistories .kopistory i {
-  cursor: pointer;
-}
 .kopistories .kopistory__switchers {
   display: flex;
   gap: 5px;
@@ -775,6 +756,23 @@ main {
   background: #00F0FF;
 }
 
+.kopistory__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.kopistory__image img {
+  border-radius: 10px;
+  border: 1px solid #00F0FF;
+}
+.kopistory__image .kopistory__lock {
+  position: absolute;
+  color: #00F0FF;
+  font-size: 100px;
+  opacity: 0.5;
+}
+
 @keyframes favourite_anim {
   0% {
     font-size: 25px;
@@ -786,6 +784,63 @@ main {
     font-size: 25px;
   }
 }
+/* Модальное окно*/
+.kopistory__modal-wrapper {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 3;
+}
+
+.kopistory__modal_wrapper--active {
+  display: flex;
+}
+
+.modal_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.kopistory__modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  z-index: 2;
+  gap: 15px;
+  margin-top: 5%;
+}
+.kopistory__modal-window .kopistory__caption {
+  font-size: 25px;
+  text-shadow: 1px 1px 5px #fff;
+}
+.kopistory__modal-window .kopistory__close {
+  margin-left: 150%;
+  font-size: 50px;
+  cursor: pointer;
+}
+.kopistory__modal-window .kopistory__price {
+  font-size: 40px;
+  text-shadow: 1px 1px 10px #00F0FF;
+}
+.kopistory__modal-window .donate_button {
+  margin-top: 5%;
+  width: 60%;
+}
+.kopistory__modal-window .kopistory__image {
+  width: 65%;
+}
+.kopistory__modal-window .kopistory__image img {
+  width: 100%;
+}
+
 /* Footer */
 footer {
   width: 100%;

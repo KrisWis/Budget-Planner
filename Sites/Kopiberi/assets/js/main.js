@@ -83,3 +83,25 @@ let openFooterNav = function () {
 }
 
 eventsObj.addEvent(footer__navicon, "click", openFooterNav);
+
+/* Открытие КОПИстори */
+let kopistory__lock = document.getElementById("kopistory__lock");
+let body = document.querySelector("body");
+let kopistory__modal_wrapper = document.getElementById("kopistory__modal_wrapper");
+
+let OpenKopistory = function () {
+
+  kopistory__modal_wrapper.classList.add('kopistory__modal_wrapper--active');
+}
+
+eventsObj.addEvent(kopistory__lock, "click", OpenKopistory);
+
+/* Закрытие КОПИстори */
+let kopistory__modal_wrapper__close = document.getElementById("kopistory__modal_wrapper__close");
+
+let CloseKopistory = function () {
+
+  kopistory__modal_wrapper.classList.remove('kopistory__modal_wrapper--active');
+}
+
+eventsObj.addEvent(kopistory__modal_wrapper__close, "click", CloseKopistory);

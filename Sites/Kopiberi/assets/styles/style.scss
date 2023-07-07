@@ -29,6 +29,13 @@ body {
   flex-direction: column;
 }
 
+$price_color: #00F0FF;
+
+%price {
+  color: $price_color;
+  font-size: 25px;
+}
+
 h1,
 h2,
 h3,
@@ -346,8 +353,7 @@ main {
     }
 
     .special_offer--price {
-      color: #00F0FF;
-      font-size: 25px;
+      @extend %price;
     }
 
     button {
@@ -434,7 +440,7 @@ main {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-left: 3px solid #00F0FF;
+      border-left: 3px solid $price_color;
       padding-left: 10%;
 
       p {
@@ -443,7 +449,7 @@ main {
         justify-content: space-between;
 
         :only-child {
-          color: #00F0FF;
+          color: $price_color;
         }
       }
     }
@@ -461,7 +467,7 @@ main {
 
   .text__active {
     text-shadow: 1px 1px 5px #fff;
-    border-bottom: 1px solid #00F0FF;
+    border-bottom: 1px solid $price_color;
   }
 
   h3 {
@@ -502,7 +508,7 @@ main {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00F0FF;
+  background: $price_color;
   border-radius: 15px;
 }
 
@@ -665,24 +671,8 @@ main {
     }
 
     p {
-      color: #00F0FF;
-      font-size: 25px;
+      @extend %price;
     }
-  }
-
-  .goal__donate {
-    display: flex;
-    width: 80%;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
-    color: #FFF;
-    font-size: 15px;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 15%;
   }
 
   .goal__subscribe {
@@ -723,6 +713,21 @@ main {
   }
 }
 
+.donate_button {
+  display: flex;
+  width: 80%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
+  color: #FFF;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15%;
+}
+
 /* КОПИстори */
 .kopistories {
   margin-top: 20%;
@@ -748,8 +753,8 @@ main {
       justify-content: center;
       align-items: center;
       border-radius: 50%;
-      border: 1px solid #00F0FF;
-      color: #00F0FF;
+      border: 1px solid $price_color;
+      color: $price_color;
       position: relative;
       left: 70%;
       cursor: pointer;
@@ -780,27 +785,6 @@ main {
     gap: 3%;
     font-size: 35px;
     position: relative;
-
-    .kopistory__image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        border-radius: 10px;
-        border: 1px solid #00F0FF;
-      }
-
-      .kopistory__lock {
-        position: absolute;
-        color: #00F0FF66;
-        font-size: 100px;
-      }
-    }
-
-    i {
-      cursor: pointer;
-    }
   }
 
   .kopistory__switchers {
@@ -819,8 +803,27 @@ main {
     }
 
     .kopistory_switcher__active {
-      background: #00F0FF;
+      background: $price_color;
     }
+  }
+}
+
+.kopistory__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    border-radius: 10px;
+    border: 1px solid $price_color;
+  }
+
+  .kopistory__lock {
+    position: absolute;
+    color: $price_color;
+    font-size: 100px;
+    opacity: 0.5;
   }
 }
 
@@ -835,6 +838,70 @@ main {
 
   100% {
     font-size: 25px;
+  }
+}
+
+/* Модальное окно*/
+.kopistory__modal-wrapper {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, .7);
+  z-index: 3;
+}
+
+.kopistory__modal_wrapper--active {
+  display: flex;
+}
+
+.modal_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.kopistory__modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  z-index: 2;
+  gap: 15px;
+  margin-top: 5%;
+
+  .kopistory__caption {
+    font-size: 25px;
+    text-shadow: 1px 1px 5px #fff;
+  }
+
+  .kopistory__close {
+    margin-left: 150%;
+    font-size: 50px;
+    cursor: pointer;
+  }
+
+  .kopistory__price {
+    @extend %price;
+    font-size: 40px;
+    text-shadow: 1px 1px 10px $price_color;
+  }
+
+  .donate_button {
+    margin-top: 5%;
+    width: 60%;
+  }
+
+  .kopistory__image {
+    width: 65%;
+
+    img {
+      width: 100%;
+    }
   }
 }
 
