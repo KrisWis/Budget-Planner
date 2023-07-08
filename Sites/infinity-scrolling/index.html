@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>JavaScript Infinity Scrolling</title>
+</head>
+<body>
+    <!-- Контейнер, где будут находиться все карточки. -->
+    <div id="card-container"></div>
+
+    <!-- Контейнер, где будут храниться карточки, которые загружаются. -->
+    <div id="loader">
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+
+    <!-- Контейнер, где будут показываться сколько карт уже есть и осталось. -->
+    <div class="card-actions">
+      <span>Showing 
+        <span id="card-count"></span> of 
+        <span id="card-total"></span> cards      
+      </span>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
