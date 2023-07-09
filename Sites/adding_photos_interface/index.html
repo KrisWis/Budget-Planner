@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Интерфейс добавления фото</title>
+</head>
+<body>
+    <!-- Контейнер, куда надо будет загружать изображения. -->
+    <div class="photos" id="photos">
+        <div class="photo">
+            <label class="photo__wrapper" id="photo__wrapper1" for="upload_photo_input1">
+                Photo
+            </label>
+            <!-- Вызываем функцию download(), когда пользователь загружает свой файл. -->
+            <input type="file" class="upload_photo_input" id="upload_photo_input1" onchange="download(this)"> 
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

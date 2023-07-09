@@ -1,0 +1,30 @@
+/* Стилизация всех элементов */
+.photos {
+    display: flex;
+}
+
+.photo__wrapper {
+    width: 100%;
+    min-width: 340px;
+    height: 250px;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    color: black;
+}
+
+.upload_photo_input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.photo img {
+    width: 340px;
+    height: 250px;
+}
