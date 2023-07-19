@@ -2,12 +2,15 @@
 let navicon = document.getElementById("navicon");
 let navicon__container = document.getElementById("navicon__container");
 
-let openNav = function () {
+let open = function () {
 
-  navicon__container.classList.toggle('open');
+  for (let index = 0; index < arguments.length; index++) {
+    arguments[index].classList.toggle('open');
+    arguments[index].classList.toggle('close');
+  }
 }
 
-eventsObj.addEvent(navicon, "click", openNav);
+eventsObj.addEvent(navicon, "click", function () { open(navicon__container) });
 
 /* Донатеры и комментарии */
 let text_donaters = document.getElementById("text_donaters");
@@ -77,12 +80,7 @@ kopistory__switchers.forEach(function (entry) {
 let footer__navicon = document.getElementById("footer__navicon");
 let footer__navicon__container = document.getElementById("footer__navicon__container");
 
-let openFooterNav = function () {
-
-  footer__navicon__container.classList.toggle('open');
-}
-
-eventsObj.addEvent(footer__navicon, "click", openFooterNav);
+eventsObj.addEvent(footer__navicon, "click", function () { open(footer__navicon__container) });
 
 /* Открытие КОПИстори */
 let kopistory__lock = document.getElementById("kopistory__lock");
@@ -105,3 +103,12 @@ let CloseKopistory = function () {
 }
 
 eventsObj.addEvent(kopistory__modal_wrapper__close, "click", CloseKopistory);
+
+/* Функциональность кнопки "благодарить" */
+let thanks__circles = document.querySelectorAll(".thanks__circle");
+let donat__thanks_ways = document.querySelectorAll(".donat__thanks_ways");
+let thanks_ways__triangles = document.querySelectorAll(".thanks_ways__triangle");
+
+for (let index = 0; index < thanks__circles.length; index++) {
+  eventsObj.addEvent(thanks__circles[index], "click", function () { open(donat__thanks_ways[index], thanks_ways__triangles[index]) });
+}
