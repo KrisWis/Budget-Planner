@@ -8,12 +8,12 @@
   <meta name="description" content='Сайт для Kopiberi.'>
   <meta name="keywords" content="html, css, Kopiberi">
   <meta name="author" content="Некрасов Евгений">
-  <link rel="shortcut icon" href="./assets/images/icon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="static/images/icon.png" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="assets/styles/style.css">
+  <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/styles/style.css">
   <title>Kopiberi</title>
 </head>
 </head>
@@ -25,19 +25,19 @@
       <h2 class="kopistory__caption">Донат за просмотр КОПИстори:</h2>
       <p class="kopistory__price">2 500₽</p>
       <div class="kopistory__image">
-        <img src="./assets/images/kopistories_image.png" alt="Задонать ради КОПИстори">
+        <img src="static/images/kopistories_image.png" alt="Задонать ради КОПИстори">
         <i class="fa fa-lock kopistory__lock" aria-hidden="true"></i>
       </div>
       <button class="donate_button">Внести пожертвование</button>
     </div>
-    <div class="modal_overlay"></div>
+    <div class="kopistory__modal_overlay"></div>
   </div>
 
   <!-- Header -->
   <header>
     <nav>
       <div class="logo">
-        <img src="./assets/images/icon.png" alt="Логотип">
+        <img src="static/images/icon.png" alt="Логотип">
         <h1>Kopiberi</h1>
       </div>
       <div class="navigation">
@@ -75,11 +75,11 @@
       <div class="photos">
         <div class="photos__main_photo">
           <i class="fa fa-arrow-right" aria-hidden="true"></i>
-          <img src="./assets/images/photos_image.png" alt="Дом мечты">
+          <img src="static/images/photos_image.png" alt="Дом мечты">
         </div>
         <div class="photos__mini">
-          <img src="./assets/images/photos_image.png" alt="Дом мечты">
-          <img src="./assets/images/photos_image.png" alt="Дом мечты">
+          <img src="static/images/photos_image.png" alt="Дом мечты">
+          <img src="static/images/photos_image.png" alt="Дом мечты">
           <div class="images__more">+2</div>
         </div>
       </div>
@@ -89,7 +89,7 @@
         <div class="special_offers__container">
           <h2>Специальные предложения</h2>
           <div class="special_offer">
-            <img src="./assets/images/special_offers_image.png" alt="Специальное предложение">
+            <img src="static/images/special_offers_image.png" alt="Специальное предложение">
             <div class="special_offer__text">
               <p>Звонок по видеосвязи 30 минут</p>
               <p class="special_offer--price">500₽</p>
@@ -108,7 +108,7 @@
 
         <div class="post__user_info">
           <div class="user_bio">
-            <img src="assets/images/post_image.png" alt="Автор поста">
+            <img src="static/images/post_image.png" alt="Автор поста">
             <h3>Ольга</h3>
           </div>
           <div class="user_socials">
@@ -149,19 +149,19 @@
           <div class="donat">
             <div class="donat__header">
               <div class="donat__author">
-                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <img id="donater__image--1" src="static/images/comments_image1.png" alt="Комментатор">
                 <div class="donat__info">
-                  <h3>Татьяна</h3>
-                  <time class="donat__date">22.06.22</time>
+                  <h3 id="donater__name--1">Татьяна</h3>
+                  <time id="donater__date--1" class="donat__date">22.06.22</time>
                 </div>
               </div>
             </div>
             <div class="donat__money">
               <div class="donat__thanks">
                 <div class="donat__thanks_ways close">
-                  <i class="fa fa-comment" aria-hidden="true"></i>
-                  <i class="fa fa-camera" aria-hidden="true"></i>
-                  <i class="fa fa-microphone" aria-hidden="true"></i>
+                  <i class="fa fa-comment thanks__comment" aria-hidden="true"></i>
+                  <i class="fa fa-camera thanks__camera" aria-hidden="true"></i>
+                  <i class="fa fa-microphone thanks__microphone" aria-hidden="true"></i>
                 </div>
                 <span class="thanks_ways__triangle close"></span>
                 <div class="thanks__circle">
@@ -169,17 +169,47 @@
                 </div>
                 <p>Поблагодарить</p>
               </div>
-              <p>+ 22 000$</p>
+              <p id="donater__money--1">+ 22 000$</p>
             </div>
           </div>
 
           <div class="donat">
             <div class="donat__header">
               <div class="donat__author">
-                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <img id="donater__image--2" src="static/images/comments_image2.png" alt="Комментатор">
                 <div class="donat__info">
-                  <h3>Татьяна</h3>
-                  <time class="donat__date">22.06.22</time>
+                  <h3 id="donater__name--2">Николай</h3>
+                  <time id="donater__date--2" class="donat__date">22.06.23</time>
+                </div>
+              </div>
+            </div>
+            <div class="donat__money">
+              <div class="donat__thanks">
+                <div class="donat__thanks_ways close">
+                  <i class="fa fa-comment thanks__comment" aria-hidden="true"></i>
+                  <i class="fa fa-camera thanks__camera" aria-hidden="true"></i>
+                  <i class="fa fa-microphone thanks__microphone" aria-hidden="true"></i>
+                </div>
+                <span class="thanks_ways__triangle close"></span>
+                <div class="thanks__circle">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+                <p>Поблагодарить</p>
+              </div>
+              <p id="donater__money--2">+ 18 000$</p>
+            </div>
+          </div>
+        </div>
+
+        <form name="donats__form" class="donats__form close" id="donats__form">
+
+          <div class="donat close" id="donats__form__donat">
+            <div class="donat__header">
+              <div class="donat__author">
+                <img id="form__image" alt="Комментатор">
+                <div class="donat__info">
+                  <h3 id="form__name"></h3>
+                  <time id="form__date" class="donat__date"></time>
                 </div>
               </div>
             </div>
@@ -196,35 +226,31 @@
                 </div>
                 <p>Поблагодарить</p>
               </div>
-              <p>+ 22 000$</p>
+              <p id="form__money"></p>
             </div>
           </div>
-        </div>
-
-        <form name="donats__form" class="donats__form">
-          <h3>Ваш донат</h3>
-      
-          <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea"></textarea><br>
           
-          <div class="donats__buttons">
+          <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea close" id="donats__form__textarea"></textarea><br>
+          
+          <div class="donats__buttons close" id="donats__form__buttons">
             <input class="donats__submit" type="submit">
-          
-            <input type="checkbox" class="donats__checkbox" name="donats__checkbox" value="yes">
-            <label for="donats__checkbox">Даю согласие на обработку своих персональных данных.
-              С политикой конфеденциальности ознакомлен и согласен.</label>
           </div>
         </form>
       </section>
   
       <section id="comments_section" class="comments_section section__active">
-        <div class="comments">
-          <div class="comment">
+        <div class="comments" id="comments">
+          <p id="comments__none" class="comments__none">Комментариев ещё нету.</p>
+          <!-- <div class="comment">
             <div class="comment__header">
               <div class="comment__author">
-                <img src="./assets/images/comments_image1.png" alt="Комментатор">
+                <img src="static/images/comments_image1.png" alt="Изображение комментатора">
                 <h3>Татьяна</h3>
               </div>
-              <time class="comment__date">22.06.22</time>
+              <div class="comment__other">
+                <time class="comment__date">22.06.22</time>
+                <i id="comment__delete" class="fa fa-trash comment__delete" aria-hidden="true"></i>
+              </div>
             </div>
             <p class="comment__text">
               нужен срочно новый телефон, у меня очень старый и невозможно печатать всё время все приложения вылетают и нету памяти😕помогите накопить на новый хороший телефон
@@ -234,24 +260,33 @@
           <div class="comment">
             <div class="comment__header">
               <div class="comment__author">
-                <img src="./assets/images/comments_image2.png" alt="Комментатор">
+                <img src="static/images/comments_image2.png" alt="Изображение комментатора">
                 <h3>Николай</h3>
               </div>
-              <time class="comment__date">10.06.22</time>
+              <div class="comment__other">
+                <time class="comment__date">10.04.22</time>
+                <i id="comment__delete" class="fa fa-trash comment__delete" aria-hidden="true"></i>
+              </div>
             </div>
             <p class="comment__text">
               Коплю на мечту детства .... увидеть море .
             </p>
-          </div>
+          </div> -->
         </div>
 
         <form name="comments__form" class="comments__form">
           <h3>Ваш комментарий</h3>
-      
-          <textarea placeholder="Введите текст.." rows="10" cols="30" name="comment" class="comments__textarea"></textarea><br>
-          
+          <div class="image__input">
+            <div class="comments_form__photo">
+              <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">Ваше изображение профиля</label>
+              <input type="file" class="comments_form__upload_photo" id="comments_form__upload_photo" onchange="download__form_image(this)"> 
+            </div>
+          </div>
+          <textarea placeholder="Введите ваше имя.." rows="5" cols="15" name="comment" id="comments__textarea--author" class="comments__textarea author__textarea"></textarea>
+          <textarea placeholder="Введите текст комментария.." rows="10" cols="30" name="comment" class="comments__textarea" id="comments__textarea"></textarea>
+
           <div class="comments__buttons">
-            <input class="comments__submit" type="submit">
+            <input class="comments__submit" type="submit" id="comments__submit">
           
             <input type="checkbox" class="comments__checkbox" name="comments__checkbox" value="yes">
             <label for="comments__checkbox">Даю согласие на обработку своих персональных данных.
@@ -273,8 +308,12 @@
         <button class="donate_button">Внести пожертвование</button>
         <button class="goal__subscribe">Подписка на автоплатеж</button>
         <div class="goal__other">
-          <button>
-            <i class="fa fa-link" aria-hidden="true"></i>
+          <button id="link_button">
+            <i id="link_icon" class="fa fa-link" aria-hidden="true"></i>
+            <div class="link__modal-wrapper" id="link__modal-wrapper">
+              <p>Ссылка скопирована! <i class="fa fa-check" aria-hidden="true"></i></p>
+              <div class="link__modal_overlay"></div>
+            </div>
           </button>
           <button id="favourite_button">
             <i id="favourite_icon" class="fa fa-heart" aria-hidden="true"></i>
@@ -295,7 +334,7 @@
         <div class="kopistory">
           <i class="fa fa-chevron-left" aria-hidden="true"></i>
           <div class="kopistory__image" id="kopistory__lock">
-            <img src="./assets/images/kopistories_image.png" alt="КОПИстори">
+            <img src="static/images/kopistories_image.png" alt="КОПИстори">
             <i class="fa fa-lock kopistory__lock" aria-hidden="true"></i>
           </div>
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
@@ -317,7 +356,7 @@
     <!-- Footer navigation -->
     <div class="footer__nav">
       <div class="logo">
-        <img src="./assets/images/icon.png" alt="Логотип">
+        <img src="static/images/icon.png" alt="Логотип">
         <h1>Kopiberi</h1>
       </div>
       <div class="navigation">
@@ -374,7 +413,9 @@
     <a href="#" class="footer__policy">Политика конциденциальности</a>
   </footer>
 
-  <script src="./assets/js/eventsObj.js"></script>
-  <script src="./assets/js/main.js"></script>
+  <script src="static/clipboard.js-master/dist/clipboard.min.js"></script>
+  <script src="static/js/eventsObj.js"></script>
+  <script src="static/js/comments.js"></script>
+  <script src="static/js/main.js"></script>
 </body>
 </html>
