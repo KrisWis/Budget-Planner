@@ -1113,30 +1113,30 @@ eventsObj.removeEvent(box, "click", changeColor);
 var test = function (e) {
   var elem = eventsObj.getTarget(e);
   eventsObj.preventDefault(e);
-}
+};
 
 
-  /* ДЕЛЕГИРОВАНИЕ СОБЫТИЙ - https://www.youtube.com/watch?v=07pqPoYbY0k&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=24 */
+/* ДЕЛЕГИРОВАНИЕ СОБЫТИЙ - https://www.youtube.com/watch?v=07pqPoYbY0k&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX&index=24 */
 
 
-  /* Делегирование событий - это когда события принимает весь родитель, а не один элемент. 
-  Идея в том, что если у нас есть много элементов, события на которых нужно обрабатывать похожим образом,
-  то вместо того, чтобы назначать обработчик каждому, мы ставим один обработчик на их общего предка. 
-  Больше примеров на https://learn.javascript.ru/event-delegation. */
-  (function () {
-    let test = function (event) {
-      let elem = eventsObj.getTarget(event), // Получаем элемент, на который кликнули.
-        colorData = elem.getAttribute('data-color'); // Получаем значение атрибута 'data-color'.
+/* Делегирование событий - это когда события принимает весь родитель, а не один элемент. 
+Идея в том, что если у нас есть много элементов, события на которых нужно обрабатывать похожим образом,
+то вместо того, чтобы назначать обработчик каждому, мы ставим один обработчик на их общего предка. 
+Больше примеров на https://learn.javascript.ru/event-delegation. */
+(function () {
+  let test = function (event) {
+    let elem = eventsObj.getTarget(event), // Получаем элемент, на который кликнули.
+      colorData = elem.getAttribute('data-color'); // Получаем значение атрибута 'data-color'.
 
-      /* Обработчик у нас стоит на весь документ, 
-      но с помощью if мы делаем действия только для тех элементов, которые нам нужны. */
-      if (colorData) { // Если у элемента есть атрибут 'data-color'.
-        document.body.className = colorData; // Задаём нужный класс.
-      }
+    /* Обработчик у нас стоит на весь документ, 
+    но с помощью if мы делаем действия только для тех элементов, которые нам нужны. */
+    if (colorData) { // Если у элемента есть атрибут 'data-color'.
+      document.body.className = colorData; // Задаём нужный класс.
     }
+  }
 
-    /* Всего один обработчик, но на весь документ. 
-    Это намного лучше чем использовать цикл по всем элементам документа. 
-    Все операции, связанные с DOM деревом затратные по памяти. */
-    eventsObj.addEvent(document, 'click', test); // Передаём в функцию document, как главный родительский элемент.
-  })();
+  /* Всего один обработчик, но на весь документ. 
+  Это намного лучше чем использовать цикл по всем элементам документа. 
+  Все операции, связанные с DOM деревом затратные по памяти. */
+  eventsObj.addEvent(document, 'click', test); // Передаём в функцию document, как главный родительский элемент.
+})();

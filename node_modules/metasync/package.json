@@ -1,0 +1,69 @@
+{
+  "name": "metasync",
+  "version": "0.3.32",
+  "author": "Timur Shemsedinov <timur.shemsedinov@gmail.com>",
+  "description": "Asynchronous Programming Library",
+  "license": "MIT",
+  "keywords": [
+    "metasync",
+    "callback",
+    "promise",
+    "async",
+    "asyncronous",
+    "parallel",
+    "sequential",
+    "metarhia",
+    "flow",
+    "collector",
+    "errback",
+    "err-first",
+    "error-first",
+    "callback-last",
+    "throttle",
+    "impress",
+    "datacollector",
+    "keycollector",
+    "composition"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metarhia/metasync"
+  },
+  "main": "metasync.js",
+  "browser": {
+    "metasync.js": "dist/metasync.js"
+  },
+  "files": [
+    "dist/",
+    "lib/"
+  ],
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "npm run lint && metatests test/*.js",
+    "perf": "tests/load/run.sh",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
+    "doc": "metadoc",
+    "fmt": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\" \".*rc\" \"**/*.yml\"",
+    "build": "babel metasync.js -d dist && babel lib -d dist/lib",
+    "prepublish": "npm run -s build"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "dependencies": {
+    "@metarhia/common": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@metarhia/doc": "^0.6.1",
+    "eslint": "^7.5.0",
+    "eslint-config-metarhia": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "metatests": "^0.7.2",
+    "prettier": "^2.0.5"
+  }
+}
