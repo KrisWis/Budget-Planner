@@ -187,3 +187,16 @@ function download__form_image(input) {
     photo__wrapper.appendChild(img);
   }
 }
+
+// Уменьшение текста при наведении на поиск.
+header__navigation = document.getElementById("header__navigation");
+search = document.getElementById("search");
+nav__socials = document.getElementById("nav__socials");
+eventsObj.addEvent(search, "mouseover", function () {
+  header__navigation.classList.add('navigation__search')
+  nav__socials.classList.add('socials__search')
+});
+eventsObj.addEvent(search, "mouseout", function () {
+  header__navigation.classList.remove('navigation__seach')
+  nav__socials.classList.remove('socials__search')
+})

@@ -2706,6 +2706,8 @@ $size: 50px;
     height: $size;
     border-radius: $size;
     padding: 5px;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       input {

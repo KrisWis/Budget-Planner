@@ -40,7 +40,7 @@
         <img src="static/images/icon.png" alt="Логотип">
         <h1>Kopiberi</h1>
       </div>
-      <div class="navigation">
+      <div class="navigation" id="header__navigation">
         <a href="#">Главная</a>
         <a href="#">О нас</a>
         <a href="#">Копилки</a>
@@ -60,9 +60,16 @@
             <a href="#">Правила и оферты</a>
           </div>
         </div>
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        <div class="nav__socials" id="nav__socials">
+          <div class="search" id="search">
+            <input type="search" placeholder="Введите текст">
+            <button>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        </div>
       </div>
     </nav>
   </header>
