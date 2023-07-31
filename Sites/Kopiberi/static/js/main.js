@@ -4,9 +4,9 @@ let navicon__container = document.getElementById("navicon__container");
 
 let open = function () {
 
-  for (let index = 0; index < arguments.length; index++) {
-    arguments[index].classList.toggle('open');
-    arguments[index].classList.toggle('close');
+  for (el of arguments) {
+    el.classList.toggle('open');
+    el.classList.toggle('close');
   }
 }
 
@@ -147,16 +147,16 @@ let openForm = function (id) {
   arguments__arr = Array.prototype.slice.call(arguments);
   arguments__arr.shift();
 
-  for (let index = 0; index < arguments__arr.length; index++) {
-    if (arguments__arr[index].classList.contains("open") && forms__ids[forms__ids.length - 1] != id) {
+  for (el of arguments__arr) {
+    if (el.classList.contains("open") && forms__ids[forms__ids.length - 1] != id) {
 
       setTimeout(function () {
-        arguments__arr[index].classList.toggle('open');
-        arguments__arr[index].classList.toggle('close');
+        el.classList.toggle('open');
+        el.classList.toggle('close');
       }, 500)
     }
-    arguments__arr[index].classList.toggle('open');
-    arguments__arr[index].classList.toggle('close');
+    el.classList.toggle('open');
+    el.classList.toggle('close');
     setTimeout(function () {
       form__image.src = document.getElementById(`donater__image--${id}`).src;
       form__name.textContent = document.getElementById(`donater__name--${id}`).textContent;
@@ -168,8 +168,8 @@ let openForm = function (id) {
 }
 
 forms__ids = [];
-for (let index = 0; index < thanks__comments.length; index++) {
-  eventsObj.addEvent(thanks__comments[index], "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
+for (el of thanks__comments) {
+  eventsObj.addEvent(el, "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
 }
 
 /* Загрузка изображения формы */

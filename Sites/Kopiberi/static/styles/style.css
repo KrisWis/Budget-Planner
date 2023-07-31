@@ -207,6 +207,7 @@ nav .socials__search {
   display: flex;
   gap: 20%;
   font-size: 30px;
+  align-items: center;
 }
 .icons i {
   cursor: pointer;
@@ -1210,6 +1211,7 @@ footer {
 }
 footer .footer__nav {
   display: flex;
+  align-items: baseline;
   gap: 5%;
 }
 footer .navigation {
@@ -1221,7 +1223,7 @@ footer .navigation {
   margin-top: 1%;
 }
 footer .navicon__container {
-  top: -530%;
+  top: -850%;
 }
 footer .footer__contacts {
   display: flex;

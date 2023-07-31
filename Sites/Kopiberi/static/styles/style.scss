@@ -231,6 +231,7 @@ nav {
   display: flex;
   gap: 20%;
   font-size: 30px;
+  align-items: center;
 
   i {
     cursor: pointer;
@@ -1299,6 +1300,7 @@ footer {
   /* Footer navigation */
   .footer__nav {
     display: flex;
+    align-items: baseline;
     gap: 5%;
   }
 
@@ -1313,7 +1315,7 @@ footer {
   }
 
   .navicon__container {
-    top: -530%;
+    top: -850%;
   }
 
   /* Footer contacts */

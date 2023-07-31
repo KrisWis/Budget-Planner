@@ -61,105 +61,6 @@ let production = () => {
     }, 0)
 };
 
-/* Promises были изобретены для избавления от ада обратных вызовов и для лучшей обработки наших задач.
-Promise имеет три состояния:
-Ожидание. Это начальная стадия. Здесь ничего не происходит.
-Решено. Это означает, что задача выполнена.
-Отклонено. Это означает, что задача потерпела ошибку или по какой либо другой причине не выполнилась. */
-let is_shop_open = true;
-
-let order = (time, work) => {
-    /* Наш Promise состоит из 2 частей:
-    Решено [resolve].
-    Отклонено [reject]. 
-    resolve и reject - callback функции. */
-    return new Promise((resolve, reject) => {
-
-        if (is_shop_open) { // Если задача решена
-
-            setTimeout(() => {
-
-                resolve(work()) // В качестве аргумента передаём наш колбэк, который передали функции order.
-
-            }, time)
-
-        }
-
-        else { // Если задача не выполнена.
-            reject(console.log("Что то пошло не так!"))
-        }
-
-    })
-        /* Метод .then() принимает до двух аргументов: функции обратного вызова для выполненных и отклоненных случаев из Promise.
-        Обработчик .then применяется только к Promise() и работает так, 
-        что возвращает promise, когда наше первое Promise будет выполнено.
-        Таким образом мы можем создать целую цепочку функций. */
-
-        .then(() => { // Шаг 2
-            return order(0, () => console.log('production has started'))
-        })
-
-
-        .then(() => { // Шаг 3
-            return order(2000, () => console.log("Fruit has been chopped"))
-        })
-
-        .then(() => { // Шаг 4
-            return order(1000, () => console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} added`))
-        })
-
-        .then(() => { // Шаг 5
-            return order(1000, () => console.log("start the machine"))
-        })
-
-        .then(() => { // Шаг 6
-            return order(2000, () => console.log(`ice cream placed on ${stocks.holder[1]}`))
-        })
-
-        .then(() => { // Шаг 7
-            return order(3000, () => console.log(`${stocks.toppings[0]} as toppings`))
-        })
-
-        .then(() => { // Шаг 8
-            return order(2000, () => console.log("Serve Ice Cream"))
-        })
-
-        /* Чтобы справиться с ошибкой (теперь функция order() будет возвращать reject() т.к is_shop_open равна false), мы используем обработчик .catch. 
-        Как и .then, он также возвращает Promise, но только в том случае, если наше первоначальное обещание потерпело ошибку. 
-        Т.е:
-        1. .then работает, когда Promise сработал как следует.
-        2. .catch работает, когда Promise отвергнут. 
-        Таким образом, между предыдущим обработчиком .then и обработчиком .catch не должно быть вообще ничего. */
-        .catch(() => {
-            /* Сначала выведеться то, что написано в reject() ("Что то пошло не так!"),
-            а потом уже выведеться то, что тут ("Ошибка!"). */
-            console.log("Ошибка!");
-        })
-
-        /* Существует обработчик .finally, который работает независимо от того, был ли наш Promise выполнен или отклонен. 
-        Например: независимо от того, обслужили ли мы хотя бы одного клиента или 100 клиентов, наш магазин закроется в конце дня.*/
-        .finally(() => {
-            console.log("Конец дня.")
-        })
-}
-
-/* Метод all() вызывается у класса Promise и в него передается массив функций-промиссов.
-Все эти функции будут выполнять параллельно, и только когда они все выполняться, то сработает .then или .catch, если обнаружиться ошибка. */
-Promise.all([
-    f1('step1'),
-    f2('step2'),
-    f3('done')
-]).then(() => {
-    console.log("Done")
-}).catch(() => {
-    console.log("error")
-})
-
-// Вызываем функцию order() передавай ей колбэк функцию.
-order(2000, () => console.log(`${stocks.Fruits[0]} was selected`)); // Шаг 1
-is_shop_open = false;
-
-
 /* Если написать слово async перед любой обычной функцией, то она станет Promise.
 Но, Когда мы используем async/await, мы используем немного другой формат. */
 async function test() {
@@ -480,6 +381,153 @@ async.series([
 
 
 /* АСИНХРОННОСТЬ НА ПРОМИСАХ, PROMISE, ALL, THEN, CATCH, RACE - https://www.youtube.com/watch?v=RMl4r6s1Y8M&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=6 */
+
+
+/* Promises были изобретены для избавления от ада обратных вызовов и для лучшей обработки наших задач.
+Promise имеет три состояния:
+Ожидание. Это начальная стадия. Здесь ничего не происходит.
+Решено. Это означает, что задача выполнена.
+Отклонено. Это означает, что задача потерпела ошибку или по какой либо другой причине не выполнилась. */
+let is_shop_open = true;
+
+let order = (time, work) => {
+    /* Наш Promise состоит из 2 частей:
+    Решено [resolve].
+    Отклонено [reject]. 
+    resolve и reject - callback функции. */
+    return new Promise((resolve, reject) => {
+
+        if (is_shop_open) { // Если задача решена
+
+            setTimeout(() => {
+
+                resolve(work()) // В качестве аргумента передаём наш колбэк, который передали функции order.
+
+            }, time)
+
+        }
+
+        else { // Если задача не выполнена.
+            reject(console.log("Что то пошло не так!"))
+        }
+
+    })
+        /* Метод .then() принимает до двух аргументов: функции обратного вызова для выполненных и отклоненных случаев из Promise.
+        Обработчик .then применяется только к Promise() и работает так, 
+        что возвращает promise, когда наше первое Promise будет выполнено.
+        Таким образом мы можем создать целую цепочку функций. */
+
+        .then(() => { // Шаг 2
+            return order(0, () => console.log('production has started'))
+        })
+
+
+        .then(() => { // Шаг 3
+            return order(2000, () => console.log("Fruit has been chopped"))
+        })
+
+        .then(() => { // Шаг 4
+            return order(1000, () => console.log(`${stocks.liquid[0]} and ${stocks.liquid[1]} added`))
+        })
+
+        .then(() => { // Шаг 5
+            return order(1000, () => console.log("start the machine"))
+        })
+
+        .then(() => { // Шаг 6
+            return order(2000, () => console.log(`ice cream placed on ${stocks.holder[1]}`))
+        })
+
+        .then(() => { // Шаг 7
+            return order(3000, () => console.log(`${stocks.toppings[0]} as toppings`))
+        })
+
+        .then(() => { // Шаг 8
+            return order(2000, () => console.log("Serve Ice Cream"))
+        })
+
+        /* Чтобы справиться с ошибкой (теперь функция order() будет возвращать reject() т.к is_shop_open равна false), мы используем обработчик .catch. 
+        Как и .then, он также возвращает Promise, но только в том случае, если наше первоначальное обещание потерпело ошибку. 
+        Т.е:
+        1. .then работает, когда Promise сработал как следует.
+        2. .catch работает, когда Promise отвергнут. 
+        Таким образом, между предыдущим обработчиком .then и обработчиком .catch не должно быть вообще ничего. */
+        .catch(() => {
+            /* Сначала выведеться то, что написано в reject() ("Что то пошло не так!"),
+            а потом уже выведеться то, что тут ("Ошибка!"). */
+            console.log("Ошибка!");
+        })
+
+        /* Существует обработчик .finally, который работает независимо от того, был ли наш Promise выполнен или отклонен. 
+        Например: независимо от того, обслужили ли мы хотя бы одного клиента или 100 клиентов, наш магазин закроется в конце дня.*/
+        .finally(() => {
+            console.log("Конец дня.")
+        })
+}
+
+// Promise можем принимать и только один resolve или только один reject.
+const promise1 = new Promise((resolve) => {
+    setTimeout(() => {
+        resolve('value1'); // Передаём в resolve значение.
+    }, 0);
+});
+promise1.then(console.log); // Выведеться 'value1', т.к мы передали в .then нужную функцию.
+
+// Также можно писать такие сокращённые виды промисов.
+const promise3 = Promise.resolve('value3');
+const promise4 = Promise.reject('error');
+promise3.then(console.log);
+promise4.catch(console.log);
+
+// Пример работы с Промисами.
+const fs = require('node:fs');
+const readFile = (filename, encoding) =>
+    new Promise((resolve, reject) =>
+        fs.readFile(filename, encoding, (err, data) => {
+            if (err) reject(err);
+            else resolve(data.toString());
+        }));
+
+readFile('file1.txt', 'utf8')
+    .then((data) => { // Этот .then происходит у readFile()
+        console.log(data);
+        return readFile('file2.txt', 'utf8');
+    })
+    .then((data) => { // Этот .then происходит у прошлого .then, и принимает данные, которые этот .then вернул с помощью return.
+        console.log(data);
+        return readFile('file3.txt', 'utf8');
+    })
+    .then((data) => { // Этот .then тоже происходит у своего прошлого .then, и принимает данные, которые этот .then вернул с помощью return.
+        console.log(data);
+    });
+
+/* Метод all() вызывается у класса Promise и в него передается массив функций-промиссов.
+Все эти функции будут выполнять параллельно, и только когда они все выполняться, то сработает .then или .catch, если обнаружиться ошибка. */
+Promise.all([
+    f1('step1'),
+    f2('step2'),
+    f3('done')
+]).then(() => {
+    console.log("Done")
+}).catch(() => {
+    console.log("error")
+});
+
+/* Метод race() вызывается у класса Promise и в него передается массив функций-промиссов.
+Все эти функции будут выполнять параллельно, но .then и .catch сработают лишь у того, кто пришёл раньше всех.
+А остальные функции-промисы в массиве просто будут потеряны, и на них .then и .catch не сработает. */
+Promise.race([
+    f1('step1'),
+    f2('step2'),
+    f3('done')
+]).then(() => {
+    console.log("Done")
+}).catch(() => {
+    console.log("error")
+});
+
+
+/* АСИНХРОННЫЕ ФУНКЦИИ, ASYNC/AWAIT, THENABLE, ОБРАБОТКА ОШИБОК - https://www.youtube.com/watch?v=Jdf_tZuJbHI&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=7 */
 
 
 

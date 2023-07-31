@@ -110,9 +110,9 @@ function delete_comment() {
 
         let comments__delete = document.getElementsByClassName("comment__delete");
 
-        for (let index = 0; index < comments__delete.length; index++) {
-            eventsObj.addEvent(comments__delete[index], "click", async function () {
-                let comment__id = comments__delete[index].id.slice(comments__delete[index].id.indexOf('--') + 2);
+        for (el of comments__delete) {
+            eventsObj.addEvent(el, "click", async function () {
+                let comment__id = el.id.slice(el.id.indexOf('--') + 2);
                 let responseRequest = await fetch('api/delete-comment', {
                     method: 'DELETE',
                     headers: {
