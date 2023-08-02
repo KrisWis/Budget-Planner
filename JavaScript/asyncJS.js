@@ -61,33 +61,6 @@ let production = () => {
     }, 0)
 };
 
-/* Если написать слово async перед любой обычной функцией, то она станет Promise.
-Но, Когда мы используем async/await, мы используем немного другой формат. */
-async function test() {
-
-    // В обработчике try нужно писать код, который стоит выполнить.
-    try {
-        /* Пробуем сделать какое либо действие. Функции в асинхронных функциях вызываются с помощью слова await.
-        Ключевое слово await заставляет JavaScript ждать, пока асинхронная функция выполнится и вернет результат. 
-        Т.е если после вызова await abc() будет другой код, то он не выполниться, пока не выполниться функция abc(). */
-        await abc();
-    }
-
-    // В обработчике catch нужно писать код, который выполниться если код в try() потерпет ошибку.
-    catch (error) { // Если действие не смогло выполниться, то срабатывает обработчик catch()
-        console.log("Функция abc() не запустилась!", error)
-    }
-
-    // В обработчике finally нужно писать код, который выполниться в любом случае.
-    finally {
-        console.log("Я выведусь в любом случае!")
-    }
-}
-
-// При использовании Async/Await вы также можете использовать обработчики .then, .catch и .finally, которые являются основной частью Promises.
-test().then(console.log("done").catch(console.log("error")));
-console.log("Этот вывод сработает сразу после того, как код в функции test() дойдёт до функции с await.");
-
 // Функция реализовывания цепочки. Functor - это функциональный объект. Наша цепочка это как раз functor.
 function chain(prev = null) {
     const cur = () => {
@@ -528,6 +501,113 @@ Promise.race([
 
 
 /* АСИНХРОННЫЕ ФУНКЦИИ, ASYNC/AWAIT, THENABLE, ОБРАБОТКА ОШИБОК - https://www.youtube.com/watch?v=Jdf_tZuJbHI&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=7 */
+
+
+/* Если написать слово async перед любой обычной функцией, то она станет Promise.
+Но, Когда мы используем async/await, мы используем немного другой формат.
+async перед функцией можно ставить и у метода класса, и у метода объекта, чтобы сделать их асинхронными. */
+async function test() {
+
+    // В обработчике try нужно писать код, который стоит выполнить.
+    try {
+        /* Пробуем сделать какое либо действие. Функции в асинхронных функциях вызываются с помощью слова await.
+        Ключевое слово await заставляет JavaScript ждать, пока асинхронная функция выполнится и вернет результат. 
+        Т.е если после вызова await abc() будет другой код, то он не выполниться, пока не выполниться функция abc(). */
+        await abc();
+    }
+
+    // В обработчике catch нужно писать код, который выполниться если код в try() потерпет ошибку.
+    catch (error) { // Если действие не смогло выполниться, то срабатывает обработчик catch()
+        console.log("Функция abc() не запустилась!", error)
+    }
+
+    // В обработчике finally нужно писать код, который выполниться в любом случае.
+    finally {
+        console.log("Я выведусь в любом случае!")
+    }
+}
+
+// При использовании Async/Await вы также можете использовать обработчики .then, .catch и .finally, которые являются основной частью Promises.
+test().then(console.log("done").catch(console.log("error")));
+console.log("Этот вывод сработает сразу после того, как код в функции test() дойдёт до функции с await.");
+
+// instanceof проверяет то, принадлежит объект к конкретному классу. Тут мы проверяем принадлежит функция test к классу Function.
+console.log(test instanceof Functiom)
+
+/* Чтобы сделать constructor() асинхронным, нужно просто возвращать у него Promise в return и также, 
+когда мы записываем в переменную экземпляр класса, то у него тоже должно быть слово async, если constructor() будет асинхронным. */
+
+// Пример реализации и работы функции sleep() для асинхронных функций.
+const sleep = (msec) => new Promise((resolve) => {
+    setTimeout(resolve, msec);
+});
+(async () => {
+
+    console.log('Start sleep: ' + new Date().toISOString());
+    console.log('  Sleep about 3 sec');
+    await sleep(3000);
+    console.log('After sleep: ' + new Date().toISOString());
+
+})();
+
+// В catch можно передавать return и тогда оно присвоиться самой функции, на которой была ошибка (и в catch вернуть уже верное значение).
+
+// for await используется для больших файлов и для оптимизации их чтения.
+const fs = require('node:fs');
+(async () => {
+    const stream = fs.createReadStream('./8-for-await.js', 'utf8');
+    for await (const chunk of stream) {
+        console.log(chunk);
+    }
+})();
+
+// Thenable этот тот же Promise, например, потому что он имеет метод then в виде Promise.prototype.then(). Но это не полноценный Promise.
+const fs = require('node:fs');
+// Пример Thenable.
+class Thenable {
+    constructor() {
+        this.next = null;
+        this.fn = null;
+    }
+
+    then(fn) {
+        this.fn = fn;
+        const next = new Thenable();
+        this.next = next;
+        return next;
+    }
+
+    resolve(value) {
+        const fn = this.fn;
+        if (fn) {
+            const next = fn(value);
+            if (next) {
+                next.then((value) => {
+                    this.next.resolve(value);
+                });
+            }
+        }
+    }
+}
+
+// Пример работы Thenable.
+const readFile2 = (filename) => {
+    const thenable = new Thenable();
+    fs.readFile2(filename, 'utf8', (err, data) => {
+        if (err) throw err;
+        thenable.resolve(data);
+    });
+    return thenable;
+};
+(async () => {
+
+    const file1 = await readFile2('9-thenable.js');
+    console.dir({ length: file1.length });
+
+})();
+
+
+/* АСИНХРОННЫЕ АДАПТЕРЫ: PROMISIFY, CALLBACKIFY, ASYNCIFY - https://www.youtube.com/watch?v=76k6_YkYRmU&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=8 */
 
 
 
