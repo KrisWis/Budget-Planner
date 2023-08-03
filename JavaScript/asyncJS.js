@@ -610,6 +610,75 @@ const readFile2 = (filename) => {
 /* АСИНХРОННЫЕ АДАПТЕРЫ: PROMISIFY, CALLBACKIFY, ASYNCIFY - https://www.youtube.com/watch?v=76k6_YkYRmU&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=8 */
 
 
+// С помощью async.asyncify() можно синхронную функцию превратить в асинхронную.
+async.asyncify(fn);
+// Пример создания asyncify().
+const asyncify = (fn) => (...args) => {
+    const callback = args.pop();
+    setTimeout(() => {
+        try {
+            const result = fn(...args);
+            if (result instanceof Error) callback(result);
+            else callback(null, result);
+        } catch (error) {
+            callback(error);
+        }
+    }, 0);
+};
+
+// С помощью async.promisify() можно асинхронную функцию превратить в функцию-Промис.
+async.promisify(fn);
+// Пример создания promisify().
+const promisify = (fn) => (...args) => new Promise(
+    (resolve, reject) => {
+        fn(...args, (err, data) => {
+            if (err) reject(err);
+            else resolve(data);
+        });
+    }
+);
+
+// С помощью async.promisifySync() можно синхронную функцию превратить в функцию-Промис.
+async.promisifySync(fn);
+// Пример создания promisifySync().
+const promisifySync = (fn) => (...args) => {
+    try {
+        const result = fn(...args);
+        if (result instanceof Error) return Promise.reject(result);
+        else return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+// Пример создания callbackify().
+const callbackify = (fn) => (...args) => {
+    const callback = args.pop();
+    fn(...args)
+        .then((value) => {
+            callback(null, value);
+        })
+        .catch((reason) => {
+            callback(reason);
+        });
+};
+// С помощью нашей функции callbackify() можно синхронную или асинхронную функцию превратить в функцию-колбэк.
+callbackify(fn);
+
+const promiseToCallbackLast = (promise) => (callback) => {
+    promise.then((value) => {
+        callback(null, value);
+    }).catch((reason) => {
+        callback(reason);
+    });
+};
+// С помощью нашей функции promiseToCallbackLast() можно функцию-Промис превратить в функцию-колбэк.
+promiseToCallbackLast(promise);
+
+
+/* АСИНХРОННЫЕ КОЛЛЕКТОРЫ ДАННЫХ - https://www.youtube.com/watch?v=tgodt1JL6II&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=9 */
+
+
 
 
 
