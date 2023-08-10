@@ -85,10 +85,11 @@ nav {
       border-radius: 40px;
       padding: 5px;
       align-items: center;
+      cursor: pointer;
 
       &:hover {
         input {
-          width: 200px;
+          width: clamp(100px, 10vw, 200px);
           padding: 0 10px;
         }
 
@@ -126,15 +127,11 @@ nav {
         border: none;
         background-color: #e6e6e6;
         font-size: 20px;
-        cursor: pointer;
         transition: .4s;
       }
     }
   }
 
-  .socials__search {
-    gap: 5%;
-  }
 }
 
 .navicon {

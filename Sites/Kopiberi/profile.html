@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content='Сайт для Kopiberi. Страница профиля.'>
+  <meta name="keywords" content="html, css, Kopiberi, profile">
+  <meta name="author" content="Некрасов Евгений">
+  <link rel="shortcut icon" href="static/images/icon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="static/profile_styles/profile.css">
+  <title>Kopiberi | Profile</title>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="static/images/icon.png" alt="Логотип">
+        <h1>Kopiberi</h1>
+      </div>
+      <div class="navigation" id="header__navigation">
+        <a href="#">Главная</a>
+        <a href="#">О нас</a>
+        <a href="#">Копилки</a>
+        <a href="#">Начать копить</a>
+        <a href="#">Контакты</a>
+        <a href="#">Правила и оферты</a>
+      </div>
+      <div class="icons">
+        <div id="navicon" class="navicon">
+          <i class="fa fa-navicon" aria-hidden="true"></i>
+          <div id="navicon__container" class="navicon__container close">
+            <a href="#">Главная</a>
+            <a href="#">О нас</a>
+            <a href="#">Копилки</a>
+            <a href="#">Начать копить</a>
+            <a href="#">Контакты</a>
+            <a href="#">Правила и оферты</a>
+          </div>
+        </div>
+        <div class="nav__socials" id="nav__socials">
+          <div class="search" id="search">
+            <input type="search" placeholder="Введите текст">
+            <button>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+          <a href="/profile">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </a>
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        </div>
+      </div>
+    </nav>
+  </header> 
+
+  <main>
+    <div class="login_reg">
+      <h2>Войти или
+      <span>зарегистрироваться</span>
+      </h2>
+      <div class="login">
+        <div class="email">
+          <h3>Эл. Почта</h3>
+          <input placeholder="Введите email" class="email__input" type="email">
+        </div>
+        <div class="password">
+          <h3>Пароль</h3>
+          <input placeholder="Введите пароль" class="email__password" type="password">
+        </div>
+        <div class="login__remember">
+          <input type="checkbox" class="remember__checkbox" name="remember__checkbox" value="yes">
+          <label for="remember__checkbox">Запомнить</label>
+        </div>
+        <div class="login__buttons">
+          <button class="login__button">Войти</button>
+          <button class="reg__button">Регистрация</button>
+        </div>
+        <p class="forget_password">Забыли ваш пароль?</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Footer navigation -->
+    <div class="footer__nav">
+      <div class="logo">
+        <img src="static/images/icon.png" alt="Логотип">
+        <h1>Kopiberi</h1>
+      </div>
+      <div class="navigation">
+        <a href="#">Главная</a>
+        <a href="#">О нас</a>
+        <a href="#">Копилки</a>
+        <a href="#">Начать копить</a>
+        <a href="#">Контакты</a>
+        <a href="#">Правила и оферты</a>
+      </div>
+      <div class="icons">
+        <div id="footer__navicon" class="navicon">
+          <i class="fa fa-navicon" aria-hidden="true"></i>
+          <div id="footer__navicon__container" class="navicon__container close">
+            <a href="#">Главная</a>
+            <a href="#">О нас</a>
+            <a href="#">Копилки</a>
+            <a href="#">Начать копить</a>
+            <a href="#">Контакты</a>
+            <a href="#">Правила и оферты</a>
+          </div>
+        </div>
+        <a href="https://vk.com/id402004410">
+          <i class="fa fa-vk" aria-hidden="true"></i>
+        </a>
+        <a href="https://github.com/KrisWis">
+          <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+        <a href="https://kwork.ru/user/evgeniy_wis">
+          <i class="fa fa-suitcase" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer contacts -->
+    <div class="footer__contacts">
+      <div class="footer__geo">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <p>Санкт-Петербург, пр. Ветеранов 166, лит. А</p>
+      </div>
+
+      <div class="footer__phone">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        <p>+7 (812) 744-77-12</p>
+      </div>
+
+      <div class="footer__mail">
+        <i class="fa fa-mail-forward" aria-hidden="true"></i>
+        <p>info@kopiberi.ru</p>
+      </div>
+    </div>
+
+    <!-- Privacy policy -->
+    <a href="#" class="footer__policy">Политика конциденциальности</a>
+  </footer>
+
+  <script src="static/js/eventsObj.js"></script>
+  <script src="static/profile_js/main.js"></script>
+</body>
