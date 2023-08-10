@@ -1026,6 +1026,79 @@
   <!--  Значение en атрибута lang отображает текст с помощью английского правописания. -->
   <h2 lang="en"><q>Hello world!</q></h2>
     
+  
+  <!-- НОВОВВЕДЕНИЯ CSS И HTML - https://www.youtube.com/watch?v=YFDKCAksZWw&t=1s -->
 
+
+  <!-- Контейнерные запросы -->
+  <div class="container">
+    <div class="card">
+      Картинка
+      Заголовок
+      Описание
+    </div>
+  </div>
+
+  <!-- Style queries -->
+  <!-- Чтобы задать Style queries, 
+  нужно в атрибуте style задать css переменную и ей определённое значение (чаще всего true). -->
+  <li class="card-container" style="--sunny: true;"> 
+    <div class="weather-card">
+      Sunny
+    </div>
+  </li>
+  <li class="card-container" style="--rain: true;">
+    <div class="weather-card">
+      Sunny
+    </div>
+  </li>
+
+  <!-- POPOVER API -->
+  <!-- Popover api даёт возможность создавать нативные всплывающие окна прямо в HTML.
+  Чтобы это сделать нужно элементу, который будет содержать само окно задать атрибут popover
+  и id, который нужно передавать в атрибут popovertarget элемента, на который нужно будет нажимать. -->
+  <div id="event-popup" popover></div>
+  <!-- Атрибут popovertargetaction="hide" добавляет крестик для закрытия в модальное окно. -->
+  <button popovertarget="event-popup" popovertargetaction="hide"></button>
+
+  <!-- DIALOG -->
+  <!-- <dialog> - это семантический тег для модальных окон.
+  Отличие между всплывающими и модальными окнами в том, что во всплывающим окнах контент это просто подсказка, 
+  а в модальных окнах можно как то взаимодействовать с пользователем (есть кнопка и тд).
+  Так вот, Popover API как раз используется для всплывающих окон, а <dialog> для модальных окнах.
+  Изначально контент dialog скрыт, но если добавить к нему атрибут open, то он будет виден. -->
+  <dialog id="myDialog">
+    Я скрыт 
+  </dialog>
+  <dialog open>
+    Я виден
+  </dialog>
+
+  <!-- Если dialog открыть с помощью show, то элементы позади будут кликабельны,
+  а если с помощью showModal(), то нет. -->
+  <button onclick="window.myDialog.show();"></button>
+  <button onclick="window.myDialog.showModal();"></button>
+
+  <!-- Но <dialog> хорошо работает с Popover API, получая его возможности, 
+  такие как кнопка закрытия или закрытие модалки просто кликнув по заднему экрану. -->
+  <button popovertarget="candle-01"></button>
+  <dialog popover id="candle-01">
+    <button popovertarget="candle-01" popovertargetaction="hide">Закрыть</button>
+    <div>
+      Контент
+    </div>
+  </dialog>
+
+  <!-- ANCHOR POSITIONING -->
+  <!-- Раньше была проблема, когда при наведении на элемент вспылывало подсказка, но из-за скроллинга её могло быть не видно.
+  Теперь можно в элементе, на которой нужно наводиться задать id и добавить этот id во всплывающую подсказку в атрибуте anchor, чтобы связать 2 элемента. -->
+  <a id="my-anchor" class="anchor"></a>
+  <div anchor="my-anchor" class="boat"></div>
+
+  <!-- КАСТОМНЫЙ СЕЛЕКТ -->
+  <!-- Раньше мы могли писать меню для выбора только с помощью <select> и его было очень трудно стилилизовать.
+  Но теперь у нас есть тег <selectmenu> и в нём можно будет написать свой кастомный селект и стилилизовать его уже как хочеться. 
+  Больше об этом - https://habr.com/ru/articles/707498/. -->
+  <selectmenu></selectmenu>
 </body>
 </html>
