@@ -31,13 +31,14 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-# Тут используется get, поскольку мы хотим, что бы пользователь увидел страницу в его браузере.
 @app.get("/profile", response_class=HTMLResponse)
-async def profle(request: Request):
-    # В отображении HTML-файлов FastAPI наоборот плох;
-    # поскольку нужно писать такой код каждый раз, когда нужно отобразить HTML-файл.
-
+async def profile(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request})
+
+
+@app.get("/register", response_class=HTMLResponse)
+async def register(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
 
 
 class CreateCommentRequest(BaseModel):

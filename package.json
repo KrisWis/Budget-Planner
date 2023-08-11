@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "devDependencies": {
     "htmlhint": "^1.1.4"
   },
@@ -7,6 +8,7 @@
     "bootstrap": "^5.3.0-alpha3",
     "clipboard": "^2.0.11",
     "idb": "^7.1.1",
+    "jquery": "^3.7.0",
     "metasync": "^0.3.32"
   }
 }

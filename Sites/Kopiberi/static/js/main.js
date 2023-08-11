@@ -1,17 +1,3 @@
-/* Отзывчивая навигация */
-let navicon = document.getElementById("navicon");
-let navicon__container = document.getElementById("navicon__container");
-
-let open = function () {
-
-  for (el of arguments) {
-    el.classList.toggle('open');
-    el.classList.toggle('close');
-  }
-}
-
-eventsObj.addEvent(navicon, "click", function () { open(navicon__container) });
-
 /* Донатеры и комментарии */
 let text_donaters = document.getElementById("text_donaters");
 let text_comments = document.getElementById("text_comments");
@@ -92,12 +78,6 @@ kopistory__switchers.forEach(function (entry) {
     this.classList.toggle("kopistory_switcher__active");
   });
 })
-
-/* Отзывчивая навигация футера */
-let footer__navicon = document.getElementById("footer__navicon");
-let footer__navicon__container = document.getElementById("footer__navicon__container");
-
-eventsObj.addEvent(footer__navicon, "click", function () { open(footer__navicon__container) });
 
 /* Открытие КОПИстори */
 let kopistory__lock = document.getElementById("kopistory__lock");
@@ -187,13 +167,3 @@ function download__form_image(input) {
     photo__wrapper.appendChild(img);
   }
 }
-
-// Уменьшение текста при наведении на поиск.
-header__navigation = document.getElementById("header__navigation");
-search = document.getElementById("search");
-eventsObj.addEvent(search, "mouseover", function () {
-  header__navigation.classList.add('navigation__search');
-});
-eventsObj.addEvent(search, "mouseout", function () {
-  header__navigation.classList.remove('navigation__seach')
-})

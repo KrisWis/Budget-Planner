@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="static/profile_styles/profile.css">
+  <link rel="stylesheet" href="static/profile/profile_styles/profile.css">
   <title>Kopiberi | Profile</title>
 </head>
 <body>
@@ -72,15 +72,19 @@
         </div>
         <div class="password">
           <h3>Пароль</h3>
-          <input placeholder="Введите пароль" class="email__password" type="password">
+          <input placeholder="Введите пароль" class="password__input" type="password">
         </div>
         <div class="login__remember">
           <input type="checkbox" class="remember__checkbox" name="remember__checkbox" value="yes">
           <label for="remember__checkbox">Запомнить</label>
         </div>
         <div class="login__buttons">
-          <button class="login__button">Войти</button>
-          <button class="reg__button">Регистрация</button>
+          <a href="/login">
+            <button class="login__button">Войти</button>
+          </a>
+          <a href="/register">
+            <button class="reg__button">Регистрация</button>
+          </a>
         </div>
         <p class="forget_password">Забыли ваш пароль?</p>
       </div>
@@ -149,6 +153,7 @@
     <a href="#" class="footer__policy">Политика конциденциальности</a>
   </footer>
 
+  <script src="static/js/jQuery/jquery-3.7.0.min.js"></script>
   <script src="static/js/eventsObj.js"></script>
-  <script src="static/profile_js/main.js"></script>
+  <script src="static/js/general.js"></script>
 </body>

@@ -1,12 +1,12 @@
 /* Добавление шрифтов */
 @font-face {
   font-family: 'Gilroy';
-  src: url('../fonts/Gilroy-Regular.eot');
+  src: url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot');
   src: local('Gilroy Regular'), local('Gilroy-Regular'),
-    url('../fonts/Gilroy-Regular.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Gilroy-Regular.woff2') format('woff2'),
-    url('../fonts/Gilroy-Regular.woff') format('woff'),
-    url('../fonts/Gilroy-Regular.ttf') format('truetype');
+    url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot?#iefix') format('embedded-opentype'),
+    url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff2') format('woff2'),
+    url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff') format('woff'),
+    url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -22,7 +22,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  background-image: url(../images/background.png);
+  background-image: url(/Sites/Kopiberi/static/images/background.png);
   background-size: cover;
   font-family: 'Gilroy';
   display: flex;
@@ -262,10 +262,11 @@ main {
     h3 {
       font-weight: 100;
       margin-top: 2%;
+      font-size: 15px;
     }
 
     input {
-      width: 60%;
+      width: 55%;
       border-radius: 10px;
       border: 2px solid rgba(255, 255, 255, 0.20);
       outline: none;
@@ -329,17 +330,20 @@ main {
       gap: 1.5%;
       color: #fff;
 
-      button {
-        width: 15%;
-        height: 65px;
-        text-align: center;
-        border-radius: 10px;
-        background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
-        color: #FFF;
-        font-size: 15px;
-        cursor: pointer;
-        font-weight: 600;
-        margin-top: 3%;
+      a {
+
+        button {
+          width: 9vw;
+          height: 65px;
+          text-align: center;
+          border-radius: 10px;
+          background: linear-gradient(90deg, #B224EF 0%, #7579FF 100%);
+          color: #FFF;
+          font-size: 15px;
+          cursor: pointer;
+          font-weight: 600;
+          margin-top: 3%;
+        }
       }
     }
 
