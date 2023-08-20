@@ -18,6 +18,15 @@ let agree__checkbox__check = document.getElementById("agree__checkbox__check");
 let privacy__checkbox__check = document.getElementById("privacy__checkbox__check");
 let agreement__checkbox__check = document.getElementById("agreement__checkbox__check");
 let rules__checkbox__check = document.getElementById("rules__checkbox__check");
+let recaptcha__check = document.getElementById("recaptcha__check");
+let password__check_length = document.getElementById("password__check_length");
+let password__check_data = document.getElementById("password__check_data");
+let password__check = document.getElementById("password__check");
+let confirm_password__check = document.getElementById("confirm_password__check");
+let confirmation_code__check = document.getElementById("confirmation_code__check");
+let name__check = document.getElementById("name__check");
+let email__check = document.getElementById("email__check");
+let confirmation_code__rightly = document.getElementById("confirmation_code__rightly");
 
 let reg__button = document.getElementById("reg__button");
 
@@ -26,6 +35,7 @@ let checkboxes__check = [offer__checkbox__check, access__checkbox__check, agree_
 
 let recaptchaCheck = false;
 function recaptchaChecking() {
+    recaptcha__check.classList.remove("recaptcha__check--active");
     recaptchaCheck = true;
 };
 
@@ -35,32 +45,42 @@ let checkData = function () {
 
     if (login__password.value) {
         if (login__password.value.length < 8) {
-            document.getElementById("password__check_length").classList.add("password__check_length--active");
+            password__check_length.classList.add("password__check_length--active");
             error = true;
         }
         if (!/(?=.*\d)(?=.*[A-Z])/i.test(login__password.value)) {
-            document.getElementById("password__check_data").classList.add("password__check_data--active");
+            password__check_data.classList.add("password__check_data--active");
             error = true;
         }
     } else {
-        document.getElementById("password__check").classList.add("password__check--active");
+        password__check.classList.add("password__check--active");
         error = true;
     }
     if (login__confirm_password.value !== login__password.value) {
-        document.getElementById("confirm_password__check").classList.add("confirm_password__check--active");
+        confirm_password__check.classList.add("confirm_password__check--active");
         error = true;
     }
     if (!login__confirmation_code.value) {
-        document.getElementById("confirmation_code__check").classList.add("confirmation_code__check--active");
+        confirmation_code__check.classList.add("confirmation_code__check--active");
         error = true;
     }
     if (!login__name.value) {
-        document.getElementById("name__check").classList.add("name__check--active");
+        name__check.classList.add("name__check--active");
         error = true;
     }
 
     if (!login__email.value) {
-        document.getElementById("email__check").classList.add("email__check--active");
+        email__check.classList.add("email__check--active");
+        error = true;
+    }
+
+    if (!recaptchaCheck) {
+        recaptcha__check.classList.add("recaptcha__check--active");
+        error = true;
+    }
+
+    if (login__confirmation_code.value != code) {
+        confirmation_code__rightly.classList.add("confirmation_code__rightly--active");
         error = true;
     }
 
@@ -71,7 +91,7 @@ let checkData = function () {
         }
     }
 
-    if (error === false && recaptchaCheck) {
+    if (error === false) {
         console.log("Вы зарегистрированы!")
         // Код для отправки данных на бекенд для регистрации.
     }
@@ -79,21 +99,22 @@ let checkData = function () {
 
 let checkInputs = function () {
     if (this === login__password) {
-        document.getElementById("password__check").classList.remove("password__check--active");
-        document.getElementById("password__check_length").classList.remove("password__check_length--active");
-        document.getElementById("password__check_data").classList.remove("password__check_data--active");
+        password__check.classList.remove("password__check--active");
+        password__check_length.classList.remove("password__check_length--active");
+        password__check_data.classList.remove("password__check_data--active");
 
     } else if (this === login__confirm_password) {
-        document.getElementById("confirm_password__check").classList.remove("confirm_password__check--active");
+        confirm_password__check.classList.remove("confirm_password__check--active");
 
     } else if (this === login__confirmation_code) {
-        document.getElementById("confirmation_code__check").classList.remove("confirmation_code__check--active");
+        confirmation_code__check.classList.remove("confirmation_code__check--active");
+        confirmation_code__rightly.classList.remove("confirmation_code__rightly--active");
 
     } else if (this === login__name) {
-        document.getElementById("name__check").classList.remove("name__check--active");
+        name__check.classList.remove("name__check--active");
 
     } else if (this === login__email) {
-        document.getElementById("email__check").classList.remove("email__check--active");
+        email__check.classList.remove("email__check--active");
     }
 }
 
@@ -110,3 +131,34 @@ checkboxes.forEach(function (element) {
 })
 
 eventsObj.addEvent(reg__button, "click", checkData);
+
+/* Отправка кода на почту */
+let get_code = document.getElementById("get_code");
+let code = 0;
+let sendCode = async function () {
+    $("body").css("cursor", "progress");
+
+    let user_email = login__email.value;
+    let username = login__name.value;
+    let responseRequest = await fetch('api/send-letter', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: user_email, username: username })
+    })
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        code = await responseRequest.json();
+        code = code["code"];
+        let get_code__modal_wrapper = document.getElementById("get_code__modal-wrapper");
+        get_code__modal_wrapper.classList.add('get_code__modal-wrapper--active');
+        setTimeout(() => {
+            get_code__modal_wrapper.classList.remove('get_code__modal-wrapper--active');
+        }, 1000);
+        $("body").css("cursor", "default");
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
+}
+eventsObj.addEvent(get_code, "click", sendCode);

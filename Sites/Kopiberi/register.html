@@ -97,38 +97,49 @@
           <h3>Код подтверждения из письма</h3>
           <input class="login__confirmation_code" id="login__confirmation_code" placeholder="Ввести код" type="text">
           <p class="confirmation_code__check" id="confirmation_code__check">Введите код!</p>
+          <p class="confirmation_code__rightly" id="confirmation_code__rightly">Неверный код!</p>
         </div>
-        <button class="get_code">Получить код</button>
-        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="recaptchaChecking"></div>
+
+        <button class="get_code" id="get_code">
+          Получить код
+          <div class="get_code__modal-wrapper" id="get_code__modal-wrapper">
+            <p>Код отправлен вам на почту! <i class="fa fa-check" aria-hidden="true"></i></p>
+            <div class="get_code__modal_overlay"></div>
+          </div>
+        </button>
+        <div class="recaptcha">
+          <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="recaptchaChecking"></div>
+          <p class="recaptcha__check" id="recaptcha__check">Пройдите капчу!</p>
+        </div>
         <div class="agree__buttons">
           <div>
             <input type="checkbox" class="agree__checkbox" name="offer__checkbox" value="yes" id="offer__checkbox">
-            <label for="offer__checkbox"><a href="/package.json" download>Я согласен с условиями оферты дарения</a></label>
+            <label for="offer__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты дарения</a></label>
             <p class="checkbox__check" id="offer__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="access__checkbox" value="yes" id="access__checkbox">
-            <label for="access__checkbox"><a href="/package.json" download>Я согласен с условиями оферты предоставления доступа</a></label>
+            <label for="access__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты предоставления доступа</a></label>
             <p class="checkbox__check" id="access__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="buying__checkbox" value="yes" id="agree__checkbox">
-            <label for="buying__checkbox"><a href="/package.json" download>Я согласен с условиями оферты услуги автоплатеж</a></label>
+            <label for="buying__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты услуги автоплатеж</a></label>
             <p class="checkbox__check" id="agree__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="privacy__checkbox" value="yes" id="privacy__checkbox">
-            <label for="privacy__checkbox"><a href="/package.json" download>Я согласен с условиями положения о конфеденциальности</a></label>
+            <label for="privacy__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями положения о конфеденциальности</a></label>
             <p class="checkbox__check" id="privacy__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="agreement__checkbox" value="yes" id="agreement__checkbox">
-            <label for="agreement__checkbox"><a href="/package.json" download>Я согласен с условиями пользовательского соглашения</a></label>
+            <label for="agreement__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями пользовательского соглашения</a></label>
             <p class="checkbox__check" id="agreement__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="rules__checkbox" value="yes" id="rules__checkbox">
-            <label for="rules__checkbox"><a href="/package.json" download>Я согласен с правилами сервиса</a></label>
+            <label for="rules__checkbox"><a href="/comments.db" download target="_blank">Я согласен с правилами сервиса</a></label>
             <p class="checkbox__check" id="rules__checkbox__check">Примите соглашение!</p>
           </div>
         </div>

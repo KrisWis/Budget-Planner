@@ -2,8 +2,8 @@
 /* Добавление шрифтов */
 @font-face {
   font-family: "Gilroy";
-  src: url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot");
-  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff2") format("woff2"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff") format("woff"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.ttf") format("truetype");
+  src: url("../../fonts/Gilroy-Regular.eot");
+  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("../../fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Gilroy-Regular.woff2") format("woff2"), url("../../fonts/Gilroy-Regular.woff") format("woff"), url("../../fonts/Gilroy-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  background-image: url(/Sites/Kopiberi/static/images/background.png);
+  background-image: url(../../images/background.png);
   background-size: cover;
   font-family: "Gilroy";
   display: flex;
@@ -269,7 +269,9 @@ main .login .name__check,
 main .login .email__check,
 main .login .confirm_password__check,
 main .login .confirmation_code__check,
-main .login .checkbox__check {
+main .login .checkbox__check,
+main .login .recaptcha__check,
+main .login .confirmation_code__rightly {
   color: red;
   content-visibility: hidden;
 }
@@ -280,7 +282,9 @@ main .login .name__check--active,
 main .login .email__check--active,
 main .login .confirm_password__check--active,
 main .login .confirmation_code__check--active,
-main .login .checkbox__check--active {
+main .login .checkbox__check--active,
+main .login .recaptcha__check--active,
+main .login .confirmation_code__rightly--active {
   content-visibility: auto;
 }
 main .login input {
@@ -354,6 +358,45 @@ main .login .reg__button {
   cursor: pointer;
   font-weight: 600;
   margin-top: 3%;
+}
+
+.get_code__modal-wrapper {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 3;
+}
+
+.get_code__modal-wrapper {
+  display: flex;
+  opacity: 0;
+  width: 15%;
+  height: 5%;
+  bottom: 50%;
+  left: 40%;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s linear;
+}
+.get_code__modal-wrapper i {
+  color: green;
+  font-size: 18px;
+}
+
+.get_code__modal-wrapper--active {
+  opacity: 1;
+}
+
+.get_code__modal_overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 /* Footer */
@@ -459,7 +502,7 @@ footer .footer__policy:hover::after {
   .navicon .close {
     transition: all 0.3s linear;
     opacity: 0;
-    transform: translateY(300%);
+    transform: translateY(500%);
   }
   /* Footer navigation */
   footer .footer__nav {
@@ -473,7 +516,7 @@ footer .footer__policy:hover::after {
   footer .footer__nav .close {
     transition: all 0.3s linear;
     opacity: 0;
-    transform: translateY(-300%);
+    transform: translateY(-500%);
   }
 }
 @media (max-width: 1200px) {

@@ -2,8 +2,8 @@
 /* Добавление шрифтов */
 @font-face {
   font-family: "Gilroy";
-  src: url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot");
-  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff2") format("woff2"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff") format("woff"), url("/Sites/Kopiberi/static/fonts/Gilroy-Regular.ttf") format("truetype");
+  src: url("../../fonts/Gilroy-Regular.eot");
+  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("../../fonts/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/Gilroy-Regular.woff2") format("woff2"), url("../../fonts/Gilroy-Regular.woff") format("woff"), url("../../fonts/Gilroy-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  background-image: url(/Sites/Kopiberi/static/images/background.png);
+  background-image: url(../../images/background.png);
   background-size: cover;
   font-family: "Gilroy";
   display: flex;

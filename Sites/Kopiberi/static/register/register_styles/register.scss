@@ -1,12 +1,12 @@
 /* Добавление шрифтов */
 @font-face {
     font-family: 'Gilroy';
-    src: url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot');
+    src: url('../../fonts/Gilroy-Regular.eot');
     src: local('Gilroy Regular'), local('Gilroy-Regular'),
-        url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.eot?#iefix') format('embedded-opentype'),
-        url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff2') format('woff2'),
-        url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.woff') format('woff'),
-        url('/Sites/Kopiberi/static/fonts/Gilroy-Regular.ttf') format('truetype');
+        url('../../fonts/Gilroy-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/Gilroy-Regular.woff2') format('woff2'),
+        url('../../fonts/Gilroy-Regular.woff') format('woff'),
+        url('../../fonts/Gilroy-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -22,7 +22,7 @@ body {
     padding: 0;
     width: 100%;
     min-height: 100vh;
-    background-image: url(/Sites/Kopiberi/static/images/background.png);
+    background-image: url(../../images/background.png);
     background-size: cover;
     font-family: 'Gilroy';
     display: flex;
@@ -296,7 +296,9 @@ main {
         .email__check,
         .confirm_password__check,
         .confirmation_code__check,
-        .checkbox__check {
+        .checkbox__check,
+        .recaptcha__check,
+        .confirmation_code__rightly {
             color: red;
             content-visibility: hidden;
         }
@@ -308,7 +310,9 @@ main {
         .email__check--active,
         .confirm_password__check--active,
         .confirmation_code__check--active,
-        .checkbox__check--active {
+        .checkbox__check--active,
+        .recaptcha__check--active,
+        .confirmation_code__rightly--active {
             content-visibility: auto;
         }
 
@@ -385,6 +389,46 @@ main {
             margin-top: 3%;
         }
     }
+}
+
+.get_code__modal-wrapper {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+    background: rgba(0, 0, 0, .7);
+    z-index: 3;
+}
+
+.get_code__modal-wrapper {
+    display: flex;
+    opacity: 0;
+    width: 15%;
+    height: 5%;
+    bottom: 50%;
+    left: 40%;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    transition: all 1s linear;
+
+    i {
+        color: green;
+        font-size: 18px;
+    }
+}
+
+.get_code__modal-wrapper--active {
+    opacity: 1;
+}
+
+.get_code__modal_overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 /* Footer */
@@ -505,7 +549,7 @@ footer {
         .close {
             transition: all .3s linear;
             opacity: 0;
-            transform: translateY(300%);
+            transform: translateY(500%);
         }
     }
 
@@ -522,7 +566,7 @@ footer {
         .close {
             transition: all .3s linear;
             opacity: 0;
-            transform: translateY(-300%);
+            transform: translateY(-500%);
         }
     }
 }
