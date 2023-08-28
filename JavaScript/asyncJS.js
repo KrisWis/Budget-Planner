@@ -563,6 +563,7 @@ const fs = require('node:fs');
 
 // Thenable этот тот же Promise, например, потому что он имеет метод then в виде Promise.prototype.then(). Но это не полноценный Promise.
 const fs = require('node:fs');
+const metasync = require("metasync");
 // Пример Thenable.
 class Thenable {
     constructor() {
@@ -677,6 +678,114 @@ promiseToCallbackLast(promise);
 
 
 /* АСИНХРОННЫЕ КОЛЛЕКТОРЫ ДАННЫХ - https://www.youtube.com/watch?v=tgodt1JL6II&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=9 */
+
+
+/* Синтаксический сахар — это способ написания кода, чтобы сделать его более понятным для программиста.
+Иногда сахар нужен для того, чтобы сделать код короче, оставив ту же самую логику. 
+При этом на работу программы такое оформление вообще не влияет — при запуске компьютер упрощает код, выбрасывает сахар и исполняет суть программы. */
+
+/* Коллекторы данных это сборщики данных. */
+const dc = metasync
+    .collect(3) // Передаём, что хотим 3 части данных.
+    .collect(['key1', 'key2', 'key3']) // Передаём, какие ключи данных мы хотим получить.
+    .distinct() // .distinct() делает так, что данные нельзя перезаписывать.
+    .done((err, result) => {
+        test.error(err);
+        test.StrictSame(result, expectedResult);
+        test.end();
+    })
+    .timeout(1000); // Как только пройдёт секунда, это значит, что мы не успели собрать нужные данные и сразу произойдёт err в .done().
+/* Таким образом передаём коллектору данные. Сначала передаётся ключ, под которым будут находится данные, потом ошибка и потом сами данные. */
+dc.collect('key1', null, 1);
+dc.collect('key2', null, 2);
+dc.collect('key3', null, 3);
+// Также есть метод pick(), в который необязательно передавать ошибку.
+dc.pick('key1', 1);
+// Также есть метод take(), в который можно передать функцию, которая выполнится. Все значения, которые идут после данных будут параметрами функции.
+dc.take('key1', func, 1, params);
+
+// Пример класса коллектора.
+class Collector {
+    constructor(expected) {
+        this.expectKeys = Array.isArray(expected) ? new Set(expected) : null; // Ожидаемые ключи
+        this.expected = this.expectKeys ? expected.length : expected; // Количество ожидаемых ключей
+        this.keys = new Set(); // Собранные ключи
+        this.count = 0; // Количество собранных ключей
+        this.timer = null; // Таймер
+        this.doneCallback = () => { }; // Функция done()
+        this.finished = false; // Завершён ли коллектор
+        this.data = {}; // Сами данные
+    }
+
+    collect(key, err, value) {
+        if (this.finished) return this;
+        if (err) {
+            this.finalize(err, this.data);
+            return this;
+        }
+        if (!this.keys.has(key)) {
+            this.count++;
+        }
+        this.data[key] = value;
+        this.keys.add(key);
+        if (this.expected === this.count) {
+            this.finalize(null, this.data);
+        }
+        return this;
+    }
+
+    pick(key, value) {
+        this.collect(key, null, value);
+        return this;
+    }
+
+    fail(key, err) {
+        this.collect(key, err);
+        return this;
+    }
+
+    take(key, fn, ...args) {
+        fn(...args, (err, data) => {
+            this.collect(key, err, data);
+        });
+        return this;
+    }
+
+    timeout(msec) {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        if (msec > 0) {
+            this.timer = setTimeout(() => {
+                const err = new Error('Collector timed out');
+                this.finalize(err, this.data);
+            }, msec);
+        }
+        return this;
+    }
+
+    done(callback) {
+        this.doneCallback = callback;
+        return this;
+    }
+
+    finalize(err, data) {
+        if (this.finished) return this;
+        if (this.doneCallback) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+            this.finished = true;
+            this.doneCallback(err, data);
+        }
+        return this;
+    }
+}
+
+
+/* ПРОБЛЕМА АСИНХРОННОГО СТЕКТРЕЙСА В JAVASCRIPT - https://www.youtube.com/watch?v=pfiHTx3j87Y&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=11 */
 
 
 
