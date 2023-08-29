@@ -788,6 +788,30 @@ class Collector {
 /* ПРОБЛЕМА АСИНХРОННОГО СТЕКТРЕЙСА В JAVASCRIPT - https://www.youtube.com/watch?v=pfiHTx3j87Y&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=11 */
 
 
+/* Стектрейс - это то, что пишется в консоли после выполнения программы. Т.е ошибки, выводы и тд. */
+/* При асинхронности, в стектрейсе часто очень не понятно, где именно вызвалась ошибка.
+Чаще всего это происходит именно при добавлении setTimeout(). */
+
+/* throw генерирует определяемое пользователем исключение. 
+Выполнение текущей функции остановится (последующие инструкции throw выполняться не будут), и управление будет передано первому catch блоку в стеке вызовов. 
+Если среди вызывающих функций не существует catch блока, программа завершит работу. */
+async function getRectArea(width, height) {
+    if (isNaN(width) || isNaN(height)) {
+        await pause(5); // Также, есть функция pause() для паузы в асинхронных функциях.
+        throw new Error('Parameter is not a number!');
+    }
+}
+try {
+    getRectArea(3, 'A');
+} catch (e) {
+    console.error(e);
+    // Expected output: Error: Parameter is not a number!
+}
+
+
+/* ГЕНЕРАТОРЫ И АСИНХРОННЫЕ ГЕНЕРАТОРЫ В JAVASCRIPT - https://www.youtube.com/watch?v=kvNm9D32s8s&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=12 */
+
+
 
 
 
