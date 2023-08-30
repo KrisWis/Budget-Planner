@@ -812,6 +812,92 @@ try {
 /* ГЕНЕРАТОРЫ И АСИНХРОННЫЕ ГЕНЕРАТОРЫ В JAVASCRIPT - https://www.youtube.com/watch?v=kvNm9D32s8s&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=12 */
 
 
+/* Генераторы – новый вид функций в современном JavaScript. 
+Они отличаются от обычных тем, что могут приостанавливать своё выполнение, возвращать промежуточный результат и далее возобновлять его позже, 
+в произвольный момент времени. Чтобы создать функцию-генератор, нужно использовать ключевое слово "function*". */
+function* genFn(x) {
+    return x * 2;
+}
+
+// Чтобы создать метод-генератор в классе, нужно использовать символ "*".
+class Multiplier {
+    constructor(k) {
+        this.value = k;
+    }
+
+    * genMethod(a) { // Метод-генератор
+        this.value = a * this.value;
+        return a * this.value;
+    }
+}
+
+// В объекте, метод-генератор создаётся точно также.
+const m2 = {
+    value: 2,
+    * genMethod(a) { // Метод-генератор
+        this.value = a * this.value;
+        return a * this.value;
+    }
+}
+
+// Пример функции-генератора
+function* counter(begin, end, delta = 1) {
+    let value = begin;
+    while (end > value) { // Создаём цикл
+        value += delta;
+        if (value > end) return; // Функция завершается
+        yield value; // На каждой итерации с помощью слова yield возвращается value. Его можно получить в будущем с помошью функции next().
+    }
+}
+const c = counter(0, 30, 12); // Создаём объект функции генератора.
+// Объекты данного типа имеют конструкцию типа "{value: 12, done: false}".
+const val1 = c.next(); // Получим {value: 12, done: false}, как первое возвращённое значение, с помощью yield.
+const val2 = c.next(); // Получим {value: 24, done: false}, как второе возвращённое значение, с помощью yield.
+const val3 = c.next(); // Получим {value: undefined, done: true}, т.к сработало "if (value > end) return".
+const val4 = c.next(); // Также получим {value: undefined, done: true}.
+
+function* counter(begin, end, delta) {
+    let value = begin;
+    while (end > value) {
+        value += delta;
+        const back = yield value; // Присваиваем в константу переданное значение в next().
+        if (back) value += back;
+        console.log({ back });
+    }
+}
+const c3 = counter(0, 30, 12);
+const val12 = c3.next(); // Ничего не передаем, поэтому в back будет undefined.
+const val22 = c3.next(); // Ничего не передаем, поэтому в back будет undefined.
+const val32 = c3.next(150); // Передаём 150, поэтому и в back будет 150.
+const val42 = c3.next(); // Ничего не передаем, поэтому в back будет undefined.
+
+function* genFn() {
+    yield* [10, 20, 30]; // yield* используется для того, чтобы переданный массив начал итерироваться.
+    //yield* new Set([10, 20, 30]);
+}
+const c4 = genFn();
+const val14 = c.next(); // Так как, мы используем yield*, то тут будет 10, а не сам массив.
+const val24 = c.next(); // Так как, мы используем yield*, то тут будет 20, а не сам массив.
+const val34 = c.next(); // Так как, мы используем yield*, то тут будет 30, а не сам массив.
+const val44 = c.next(); // Вернёт undefined, так как значений больше не осталось.
+
+/* Чтобы создать асинхронный генератор, нужно просто добавить ключевое слово "async". */
+async function* AsyncGenFn(x) {
+    return x * 2;
+}
+// Асинхронный генератор нужно использовать следующим образом, используя await и асинхронную функцию, как обёртку.
+(async () => {
+    const c42 = genFn();
+    const val142 = await c.next();
+    const val242 = await c.next();
+    const val342 = await c.next();
+    const val442 = await c.next();
+})();
+
+
+/* ИТЕРАТОРЫ И АСИНХРОННЫЕ ИТЕРАТОРЫ В JAVASCRIPT - https://www.youtube.com/watch?v=rBGFlWpVpGs&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=13 */
+
+
 
 
 
