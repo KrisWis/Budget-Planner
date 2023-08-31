@@ -898,6 +898,47 @@ async function* AsyncGenFn(x) {
 /* ИТЕРАТОРЫ И АСИНХРОННЫЕ ИТЕРАТОРЫ В JAVASCRIPT - https://www.youtube.com/watch?v=rBGFlWpVpGs&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=13 */
 
 
+/* Итератор — это объект, который умеет обращаться к элементам коллекции по одному за раз, при этом отслеживая своё текущее положение внутри этой последовательности. 
+Иными словами итератор — это такой механизм, который позволяет перемещаться (итерироваться) по элементам коллекции в определённом порядке и делает их доступными. 
+В JavaScript итератор — это объект, который возвращает следующий элемент последовательности, через метод next (). */
+// Пример итератора.
+const Iterator = {
+    counter: 0,
+    next() {
+        return {
+            value: this.counter++,
+            done: this.counter > 3
+        };
+    }
+};
+const step1 = Iterator.next();
+const step2 = Iterator.next();
+const step3 = Iterator.next();
+const step4 = Iterator.next();
+console.log({ step1, step2, step3, step4 });
+
+// Пример асинхронного итератора.
+const asyncIterator = {
+    counter: 0,
+    async next() {
+        return { // Вернёт промис.
+            value: this.counter++,
+            done: this.counter > 3
+        };
+    }
+};
+const asyncStep1 = asyncIterator.next();
+const asyncStep2 = asyncIterator.next();
+const asyncStep3 = asyncIterator.next();
+const asyncStep4 = asyncIterator.next();
+console.log({ asyncStep1, asyncStep2, asyncStep3, asyncStep4 });
+
+// Spread-оператор (...) не работает с асинхронными итераторами.
+
+
+/* ОТМЕНА АСИНХРОННЫХ ОПЕРАЦИЙ, CANCELLABLE CALLBACK AND PROMISE В JAVASCRIPT - https://www.youtube.com/watch?v=T8fXlnqI4Ws&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=14 */
+
+
 
 
 

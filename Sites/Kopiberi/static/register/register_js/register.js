@@ -39,7 +39,7 @@ function recaptchaChecking() {
     recaptchaCheck = true;
 };
 
-let checkData = function () {
+let checkData = async function () {
 
     let error = false;
 
@@ -92,7 +92,33 @@ let checkData = function () {
     }
 
     if (error === false) {
-        console.log("Вы зарегистрированы!")
+        const bcrypt = require('bcrypt');
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(myPlaintextPassword, salt);
+        let data = { name: login__name.value, email: login__email.value, password: hash }
+        let responseRequest = await fetch('api/create-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            comments_arr = await responseRequest.json();
+            if (comments_arr.length > 0) {
+                comments__none.classList.add("inactive")
+                comments_arr.forEach(comment => {
+                    comments.insertAdjacentHTML(`beforeend`,
+                        comment
+                    );
+                });
+
+                delete_comment();
+            }
+        } else {
+            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        }
         // Код для отправки данных на бекенд для регистрации.
     }
 }
