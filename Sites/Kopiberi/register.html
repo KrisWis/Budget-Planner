@@ -79,14 +79,37 @@
         </div>
         <div>
           <h3>Пароль</h3>
-          <input class="login__password" id="login__password" type="password">
+          <div class="password">
+            <input class="login__password" id="login__password" type="password">
+            <svg class="close password__eye" viewBox="0 0 100 100">
+              <path id="top-eye-part" d="M10,50 Q50,-10 90,50" fill="none" stroke-width="5"></path>
+              <path id="bottom-eye-part" d="M10,50 Q50,110 90,50" fill="none" stroke-width="5"></path>
+              <circle cx="50" cy="50" r="10" fill="black"></circle>
+            </svg>
+          </div>
           <p class="password__check" id="password__check">Введите пароль!</p>
           <p class="password__check_length" id="password__check_length">Пароль должен содержать больше 8 символов!</p>
           <p class="password__check_data" id="password__check_data">Пароль должен содержать цифры и заглавные буквы!</p>
         </div>
         <div>
           <h3>Подтвердите Пароль</h3>
-          <input class="login__confirm_password" id="login__confirm_password" type="password">
+          <div class="password">
+            <input class="login__confirm_password" id="login__confirm_password" type="password">
+            <!-- ViewBox имеет четыре значения, которые разделяются пробелами или запятыми. 
+            x – минимальная координата x;
+            y – минимальная координата y;
+            w – ширина в координатах пользователя/пикселях;
+            h – высота в координатах пользователя/пикселях. -->
+            <svg class="close password__eye" viewBox="0 0 100 100">
+              <!-- d определяет путь, который нужно нарисовать. Команды чувствительны к регистру. 
+                Команда в верхнем регистре задает абсолютные координаты, в то время как команда в нижнем регистре задает координаты относительно текущего положения. 
+                M - перемещение текущую точку на координаты x, y;
+                Q - квадратичная кривая бизье. -->
+              <path id="top-eye-part" d="M10,50 Q50,-10 90,50" fill="none" stroke-width="5"></path>
+              <path id="bottom-eye-part" d="M10,50 Q50,110 90,50" fill="none" stroke-width="5"></path>
+              <circle cx="50" cy="50" r="10" fill="black"></circle>
+            </svg>
+          </div>
           <p class="confirm_password__check" id="confirm_password__check">Пароль введён неправильно!</p>
         </div>
         <div class="login__referal_code">
@@ -114,32 +137,32 @@
         <div class="agree__buttons">
           <div>
             <input type="checkbox" class="agree__checkbox" name="offer__checkbox" value="yes" id="offer__checkbox">
-            <label for="offer__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты дарения</a></label>
+            <label for="offer__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты дарения</a></label>
             <p class="checkbox__check" id="offer__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="access__checkbox" value="yes" id="access__checkbox">
-            <label for="access__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты предоставления доступа</a></label>
+            <label for="access__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты предоставления доступа</a></label>
             <p class="checkbox__check" id="access__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="buying__checkbox" value="yes" id="agree__checkbox">
-            <label for="buying__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями оферты услуги автоплатеж</a></label>
+            <label for="buying__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты услуги автоплатеж</a></label>
             <p class="checkbox__check" id="agree__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="privacy__checkbox" value="yes" id="privacy__checkbox">
-            <label for="privacy__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями положения о конфеденциальности</a></label>
+            <label for="privacy__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями положения о конфеденциальности</a></label>
             <p class="checkbox__check" id="privacy__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="agreement__checkbox" value="yes" id="agreement__checkbox">
-            <label for="agreement__checkbox"><a href="/comments.db" download target="_blank">Я согласен с условиями пользовательского соглашения</a></label>
+            <label for="agreement__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями пользовательского соглашения</a></label>
             <p class="checkbox__check" id="agreement__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="rules__checkbox" value="yes" id="rules__checkbox">
-            <label for="rules__checkbox"><a href="/comments.db" download target="_blank">Я согласен с правилами сервиса</a></label>
+            <label for="rules__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с правилами сервиса</a></label>
             <p class="checkbox__check" id="rules__checkbox__check">Примите соглашение!</p>
           </div>
         </div>

@@ -344,7 +344,7 @@ main .login .agree__checkbox:checked + label::after {
   border-radius: 50px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   position: absolute;
-  left: 15.7%;
+  left: 15.6%;
   cursor: pointer;
 }
 main .login .reg__button {
@@ -359,6 +359,40 @@ main .login .reg__button {
   font-weight: 600;
   margin-top: 3%;
 }
+main .login .password {
+  /* Анимация глаза сделана таким образом, что стили закрытого глаза заданы в css, а открытого в html, в атрибуте d, viewBox и тд. */
+}
+main .login .password svg {
+  width: 3vmin;
+  height: 3vmin;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  top: 10px;
+  left: 5px;
+}
+main .login .password svg path {
+  transition: all 0.25s 0.25s ease, all 0.25s ease;
+  transform-origin: center center;
+  stroke: #6441a5;
+}
+main .login .password svg circle {
+  transition: all 0.25s ease, all 0.25s 0.25s ease;
+  transform-origin: center center;
+  fill: #6441a5;
+}
+main .login .password svg.close circle {
+  transition: all 0.25s 0.25s ease, all 0.25s ease;
+  transform: scale(0);
+}
+main .login .password svg.close #top-eye-part {
+  transition: all 0.25s ease, all 0.25s 0.25s ease;
+  /* d определяет путь, который нужно нарисовать. Команды чувствительны к регистру. 
+  Команда в верхнем регистре задает абсолютные координаты, в то время как команда в нижнем регистре задает координаты относительно текущего положения. 
+  M - перемещение текущую точку на координаты x, y;
+  Q - квадратичная кривая бизье. */
+  d: path("M10,50 Q50,110 90,50");
+}
 
 .get_code__modal-wrapper {
   position: fixed;
@@ -369,19 +403,21 @@ main .login .reg__button {
   align-items: flex-start;
   background: rgba(0, 0, 0, 0.7);
   z-index: 3;
+  cursor: none;
 }
 
 .get_code__modal-wrapper {
   display: flex;
   opacity: 0;
-  width: 15%;
-  height: 5%;
-  bottom: 50%;
-  left: 40%;
+  width: 18%;
+  height: 7%;
   font-size: 16px;
   align-items: center;
   justify-content: center;
   transition: all 1s linear;
+  position: fixed;
+  top: 30%;
+  left: 40%;
 }
 .get_code__modal-wrapper i {
   color: green;

@@ -8,8 +8,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import random
-import pathlib
-from pathlib import Path
+import secrets
+from fastapi import Response
+import bcrypt
 
 conn = sqlite3.connect("comments.db")
 cur = conn.cursor()
@@ -17,6 +18,13 @@ cur.execute(
     """CREATE TABLE IF NOT EXISTS comments(
     id INT,
     comment TEXT);"""
+)
+cur.execute(
+    """CREATE TABLE IF NOT EXISTS users(
+    name TEXT,
+    email TEXT,
+    password TEXT,
+    token TEXT);"""
 )
 
 app = FastAPI()
@@ -218,5 +226,27 @@ async def send_letter(user: SendLetterRequest):
     # Закройте соединение с сервером
     server.quit()
 
-    # После "return" - то, что получит пользователь (т.е., сайт/фронт) в ответ на запрос.
     return {"code": code}
+
+
+class CreateUserRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+
+
+@app.post("/api/register-user")
+async def register_user(user: CreateUserRequest, response: Response):
+    token = secrets.token_bytes(16)
+    # Генерируем соль (salt)
+    salt = bcrypt.gensalt()
+    # Хешируем пароль с солью
+    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), salt)
+    cur.execute(
+        f"INSERT INTO users ('name', 'email', 'password', 'token') VALUES(?, ?, ?, ?)",
+        (user.name, user.email, hashed_password, token),
+    )
+    conn.commit()
+    # Устанавливаем cookie с токенами.
+    response.set_cookie("access-token", token)
+    return {"OK": True}

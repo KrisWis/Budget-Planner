@@ -939,6 +939,289 @@ console.log({ asyncStep1, asyncStep2, asyncStep3, asyncStep4 });
 /* ОТМЕНА АСИНХРОННЫХ ОПЕРАЦИЙ, CANCELLABLE CALLBACK AND PROMISE В JAVASCRIPT - https://www.youtube.com/watch?v=T8fXlnqI4Ws&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=14 */
 
 
+// Чаще всего, при отмене операции, отменяется не сама операция, а просто не придёт результат операции.
+
+// Функция cancelable для колбеков.
+const cancelable = (fn) => {
+    const wrapper = (...args) => {
+        if (fn) return fn(...args);
+    };
+    wrapper.cancel = () => fn = null;
+    return wrapper;
+};
+
+// Функция cancelable для Промисов.
+class Cancelable extends Promise {
+    constructor(executor) {
+        super((resolve, reject) => {
+            executor((val) => {
+                if (this.canceled) {
+                    reject(new Error('Cancelled'));
+                    return;
+                }
+                resolve(val);
+            }, reject);
+        });
+        this.canceled = false;
+    }
+
+    cancel() {
+        this.canceled = true;
+    }
+}
+
+// Также, можно сделать такой cancelable, используя замыкание.
+const cancelable2 = (promise) => {
+    let cancelled = false;
+    return {
+        promise: promise.then((val) => {
+            if (cancelled) return Promise.reject(new Error('Canceled'));
+            return val;
+        }),
+        cancel: () => {
+            cancelled = true;
+        }
+    };
+};
+// Интересное использование cancelable.
+{
+    const { cancel, promise } = cancelable2(new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('second');
+        }, 10);
+    }));
+
+    cancel();
+    promise.then(console.log).catch(console.log);
+}
+
+
+/* АСИНХРОННАЯ КОМПОЗИЦИЯ ФУНКЦИЙ НА JAVASCRIPT - https://www.youtube.com/watch?v=3ZCrMlMpOrM&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=15 */
+
+
+// Синхронная композиция функций
+const compose = (f1, f2) => (x) => f2(f1(x));
+
+const inc = (x) => x + 1;
+const twice = (x) => x * 2;
+
+const f = compose(inc, twice);
+
+// Композиция колбеков.
+const compose2 = (f1, f2) => (x, callback) => {
+    f1(x, (err, res) => {
+        if (err) {
+            callback(err);
+            return;
+        }
+        f2(res, callback);
+    });
+};
+
+const inc2 = (x, callback) => callback(null, x + 1);
+const twice2 = (x, callback) => callback(null, x * 2);
+
+const f4 = compose2(inc2, twice2);
+
+// Асинхронная композиция функций
+const compose3 = (f1, f2) => async (x) => await f2(await f1(x));
+
+const inc3 = async (x) => x + 1;
+const twice3 = async (x) => x * 2;
+
+const f5 = compose3(inc3, twice3);
+
+(async () => {
+    const res = await f(7);
+})
+
+// Асинхронная композиция функций, с помощью рекурсии
+const compose4 = (...fns) => (x, callback) => {
+    const fn = fns.shift();
+    if (fns.length === 0) {
+        fn(x, callback);
+        return;
+    }
+    fn(x, (err, res) => {
+        if (err) {
+            callback(err);
+            return;
+        }
+        const f = compose4(...fns);
+        f(res, callback);
+    });
+};
+// Либо же можно такую реализацию, используя замыкание
+const compose5 = (...fns) => async (x) => {
+    let res = x;
+    for (const fn of fns) {
+        res = await fn(res);
+    }
+    return res;
+};
+
+const inc4 = (x, callback) => callback(null, x + 1);
+const twice4 = (x, callback) => callback(null, x * 2);
+const square4 = (x, callback) => callback(null, x * x);
+
+const f6 = compose4(inc4, twice4, square4, inc4); // 257
+
+// Композиция с помощью промисов
+const compose6 = (...fns) => (x) => {
+    const fn = fns.shift();
+    if (fns.length === 0) return fn(x);
+    return fn(x).then((res) => compose6(...fns)(res));
+};
+
+const inc6 = (x) => Promise.resolve(x + 1);
+const twice6 = (x) => Promise.resolve(x * 2);
+const square6 = (x) => Promise.resolve(x * x);
+
+const f7 = compose6(inc6, twice6, square6, inc6);
+
+f7(7).then(console.log);
+
+// Такое контракт также совместимен с композицией с помощью промисов
+const inc7 = async (x) => x + 1;
+const twice7 = async (x) => x * 2;
+const square7 = async (x) => x * x;
+
+const f8 = compose6(inc7, twice7, square7, inc);
+
+(async () => {
+    const res = await f8(7);
+})();
+
+// Композиция с помощью reduce
+const compose7 = (...fns) => (x) => fns
+    /* reduce() выполняет предоставленную пользователем функцию обратного вызова "reducer" для каждого элемента массива по порядку,
+    передавая возвращаемое значение из вычисления для предыдущего элемента. 
+    Конечным результатом выполнения редуктора для всех элементов массива является единственное значение. */
+    .reduce((acc, f) => acc.then(f), Promise.resolve(x));
+
+const inc9 = async (x) => x + 1;
+const twice9 = async (x) => x * 2; ``
+const square9 = async (x) => x * x;
+
+const f9 = compose7(inc9, twice9, square9, inc9);
+
+(async () => {
+    const res = await f9(7);
+})();
+
+
+/* THENABLE И ЛЕГКОВЕСНЫЙ AWAIT В JAVASCRIPT - https://www.youtube.com/watch?v=3ZCrMlMpOrM&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=16 */
+
+
+// Пример реализации объекта Thenable
+const getNumbers = () => ({
+    numbers: [1, 2, 3],
+    then(onFulfilled, onRejected) {
+        const num = this.numbers.shift();
+        if (num) {
+            onFulfilled(num); // Функции просто передаётся нужный объект и дальше его можно распечатать.
+        } else {
+            onRejected(new Error('I have no numbers for you')); // Функции передаётся ошибка, которому потом можно распечатать.
+        }
+    }
+});
+
+(async () => {
+    const next = getNumbers();
+    for (let i = 0; i < 5; i++) { // Первые 3 вызова функции будут с нужными цифрами из массива numbers, а остальные 2 с ошибкой.
+        try {
+            /* Нам необязательно писать (), чтобы вызвать функцию then. Она автоматически вызывается при каждом присваивании экземпляра объекта Thenable. */
+            const res = await next;
+            console.dir({ res });
+        } catch (err) {
+            console.dir({ err: err.message });
+        }
+    }
+})();
+
+// Подобная реализация будет возвращать только 1, а не проходится по массиву нормально, как Thenable.
+const getNumbersPromise = () => {
+    const numbers = [1, 2, 3];
+    return new Promise((resolve, reject) => {
+        const num = numbers.shift();
+        if (num) {
+            resolve(num);
+        } else {
+            reject(new Error('I have no numbers for you'));
+        }
+    });
+};
+
+// А такая реализация уже будет работать нормально, также как и Thenable.
+const getNumbersPromiseNormal = () => {
+    const numbers = [1, 2, 3];
+    return () => new Promise((resolve, reject) => {
+        const num = numbers.shift();
+        if (num) {
+            resolve(num);
+        } else {
+            reject(new Error('I have no numbers for you'));
+        }
+    });
+};
+
+(async () => {
+    const getNext = getNumbers();
+    for (let i = 0; i < 5; i++) {
+        try {
+            // Но вызывать её нужно таким способом.
+            const res = await getNext();
+            console.dir({ res });
+        } catch (err) {
+            console.dir({ err: err.message });
+        }
+    }
+})();
+
+// Также у объекта Thenable можно вызывать метод .then().
+const getNext = getNumbers();
+for (let i = 0; i < 5; i++) {
+    getNext().then(
+        (res) => console.dir({ res }),
+        (err) => console.dir({ err: err.message })
+    );
+}
+
+const fs = require('node:fs');
+// Реализация объекта Thenable, как класса.
+class Thenable {
+    constructor() {
+        this.next = null;
+    }
+
+    then(onSuccess) {
+        this.onSuccess = onSuccess;
+        const next = new Thenable(); // Каждый раз будет создаваться новый объект Thenable.
+        this.next = next;
+        return next;
+    }
+
+    resolve(value) {
+        const onSuccess = this.onSuccess;
+        if (onSuccess) {
+            const next = onSuccess(value);
+            if (next) {
+                if (next.then) {
+                    next.then((value) => {
+                        this.next.resolve(value);
+                    });
+                } else {
+                    this.next.resolve(next);
+                }
+            }
+        }
+    }
+}
+
+
+/* КОНКУРЕНТНАЯ АСИНХРОННАЯ ОЧЕРЕДЬ НА JAVASCRIPT - https://www.youtube.com/watch?v=Lg46AH8wFvg&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=17 */
+
+
 
 
 
@@ -2031,3 +2314,357 @@ let result2 = await promise; // если ещё нужно
 4. Затем для поиска по ключу вызываем методы непосредственно у хранилища объектов.
     Для поиска по любому полю объекта создайте индекс.
 5. Если данные не помещаются в памяти, то используйте курсор. */
+
+
+/* PROXY И REFLECT - https://learn.javascript.ru/proxy */
+
+
+/* Объект Proxy «оборачивается» вокруг другого объекта и может перехватывать 
+(и, при желании, самостоятельно обрабатывать) разные действия с ним, например чтение/запись свойств и другие. 
+Создаётся с помощью класса Proxy. 
+target – это объект, для которого нужно сделать прокси, может быть чем угодно, включая функции.
+handler – конфигурация прокси: объект с «ловушками» («traps»): методами, которые перехватывают разные операции, 
+например, ловушка get – для чтения свойства из target, ловушка set – для записи свойства в target и так далее. 
+При операциях над proxy, если в handler имеется соответствующая «ловушка», то она срабатывает, 
+и прокси имеет возможность по-своему обработать её, иначе операция будет совершена над оригинальным объектом target. */
+let proxy = new Proxy(target, handler);
+
+/* Так как нет ловушек, то все операции на proxy применяются к оригинальному объекту target.
+Запись свойства proxy.test= устанавливает значение на target.
+Чтение свойства proxy.test возвращает значение из target.
+Итерация по proxy возвращает значения из target.
+Как мы видим, без ловушек proxy является прозрачной обёрткой над target. 
+Все виды ловушек перечислены тут - https://learn.javascript.ru/proxy. */
+let target = {};
+let proxy2 = new Proxy(target, {}); // пустой handler
+proxy2.test = 5; // записываем в прокси (1)
+alert(target.test); // 5, свойство появилось в target!
+alert(proxy2.test); // 5, мы также можем прочитать его из прокси (2)
+for (let key in proxy2) alert(key); // test, итерация работает (3)
+
+/* Чтобы перехватить операцию чтения, handler должен иметь метод get(target, property, receiver).
+Он срабатывает при попытке прочитать свойство объекта, с аргументами:
+target – это оригинальный объект, который передавался первым аргументом в конструктор new Proxy,
+property – имя свойства,
+receiver – если свойство объекта является геттером, то receiver – это объект, который будет использован как this при его вызове. 
+Обычно это сам объект прокси (или наследующий от него объект). */
+/* Давайте применим ловушку get, чтобы реализовать «значения по умолчанию» для свойств объекта.
+Например, сделаем числовой массив, так чтобы при чтении из него несуществующего элемента возвращался 0.
+Обычно при чтении из массива несуществующего свойства возвращается undefined, 
+но мы обернём обычный массив в прокси, который перехватывает операцию чтения свойства из массива и возвращает 0, если такого элемента нет: */
+let numbers = [0, 1, 2];
+numbers = new Proxy(numbers, {
+    get(target, prop) {
+        if (prop in target) {
+            return target[prop];
+        } else {
+            return 0; // значение по умолчанию
+        }
+    }
+});
+alert(numbers[1]); // 1
+alert(numbers[123]); // 0 (нет такого элемента)
+
+/* Прокси должен заменить собой оригинальный объект повсюду. 
+Никто не должен ссылаться на оригинальный объект после того, как он был проксирован. Иначе очень легко запутаться. */
+dictionary = new Proxy(dictionary, {});
+
+/* Допустим, мы хотим сделать массив исключительно для чисел. Если в него добавляется значение иного типа, то это должно приводить к ошибке.
+Ловушка set срабатывает, когда происходит запись свойства. 
+target – это оригинальный объект, который передавался первым аргументом в конструктор new Proxy,
+property – имя свойства,
+value – значение свойства,
+receiver – аналогично ловушке get, этот аргумент имеет значение, только если свойство – сеттер.
+Ловушка set должна вернуть true, если запись прошла успешно, и false в противном случае (будет сгенерирована ошибка TypeError). */
+let numbers2 = [];
+numbers2 = new Proxy(numbers2, { // (*)
+    set(target, prop, val) { // для перехвата записи свойства
+        if (typeof val == 'number') {
+            target[prop] = val;
+            /* Как сказано ранее, нужно соблюдать инварианты.
+            Для set реализация ловушки должна возвращать true в случае успешной записи свойства.
+            Если забыть это сделать или возвратить любое ложное значение, это приведёт к ошибке TypeError. */
+            return true;
+        } else {
+            return false;
+        }
+    }
+});
+numbers2.push(1); // добавилось успешно
+numbers2.push(2); // добавилось успешно
+alert("Длина: " + numbers2.length); // 2
+numbers2.push("тест"); // TypeError (ловушка set на прокси вернула false)
+alert("Интерпретатор никогда не доходит до этой строки (из-за ошибки в строке выше)");
+
+/* Object.keys, цикл for..in и большинство других методов, которые работают со списком свойств объекта, 
+используют внутренний метод [[OwnPropertyKeys]] (перехватываемый ловушкой ownKeys) для их получения.
+Такие методы различаются в деталях:
+Object.getOwnPropertyNames(obj) возвращает не-символьные ключи.
+Object.getOwnPropertySymbols(obj) возвращает символьные ключи.
+Object.keys/values() возвращает не-символьные ключи/значения с флагом enumerable.
+for..in перебирает не-символьные ключи с флагом enumerable, а также ключи прототипов.
+…Но все они начинают с этого списка.
+В примере ниже мы используем ловушку ownKeys, чтобы цикл for..in по объекту, 
+равно как Object.keys и Object.values пропускали свойства, начинающиеся с подчёркивания _: */
+let user2 = {
+    name: "Вася",
+    age: 30,
+    _password: "***"
+};
+user2 = new Proxy(user2, {
+    ownKeys(target) {
+        return Object.keys(target).filter(key => !key.startsWith('_'));
+    }
+});
+// ownKeys исключил _password
+for (let key in user2) alert(key); // name, затем: age
+// аналогичный эффект для этих методов:
+alert(Object.keys(user2)); // name,age
+alert(Object.values(user2)); // Вася,30
+
+/* Впрочем, если мы попробуем возвратить ключ, которого в объекте на самом деле нет, то Object.keys его не выдаст: */
+let user3 = {};
+user3 = new Proxy(user3, {
+    ownKeys(target) {
+        return ['a', 'b', 'c'];
+    }
+});
+alert(Object.keys(user3)); // <пусто>
+
+/* Предисловие: Помимо значения value, свойства объекта имеют три специальных атрибута (так называемые «флаги»).
+writable – если true, свойство можно изменить, иначе оно только для чтения.
+enumerable – если true, свойство перечисляется в циклах, в противном случае циклы его игнорируют.
+configurable – если true, свойство можно удалить, а эти атрибуты можно изменять, иначе этого делать нельзя. 
+Мы ещё не встречали эти атрибуты, потому что обычно они скрыты. 
+Когда мы создаём свойство «обычным способом», все они имеют значение true. Но мы можем изменить их в любое время. */
+/* Метод Object.getOwnPropertyDescriptor позволяет получить полную информацию о свойстве.
+obj - Объект, из которого мы получаем информацию.
+propertyName - Имя свойства.
+Возвращаемое значение – это объект, так называемый «дескриптор свойства»: он содержит значение свойства и все его флаги.
+Он выглядит примерно так:
+{
+  "value": "John",
+  "writable": true,
+  "enumerable": true,
+  "configurable": true
+} */
+let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
+
+/* Чтобы изменить флаги, мы можем использовать метод Object.defineProperty.
+obj, propertyName - Объект и его свойство, для которого нужно применить дескриптор.
+descriptor - Применяемый дескриптор.
+Если свойство существует, defineProperty обновит его флаги. 
+В противном случае метод создаёт новое свойство с указанным значением и флагами; если какой-либо флаг не указан явно, ему присваивается значение false. */
+Object.defineProperty(obj, propertyName, descriptor)
+
+/* Существует метод Object.defineProperties(obj, descriptors), который позволяет определять множество свойств сразу. */
+Object.defineProperties(user, {
+    name: { value: "John", writable: false },
+    surname: { value: "Smith", writable: false },
+    // ...
+});
+
+/* Чтобы получить все дескрипторы свойств сразу, можно воспользоваться методом Object.getOwnPropertyDescriptors(obj).
+Вместе с Object.defineProperties этот метод можно использовать для клонирования объекта вместе с его флагами: */
+let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+
+/* Дескрипторы свойств работают на уровне конкретных свойств.
+Но ещё есть методы, которые ограничивают доступ ко всему объекту:
+Object.preventExtensions(obj) - Запрещает добавлять новые свойства в объект.
+Object.seal(obj) - Запрещает добавлять/удалять свойства. Устанавливает configurable: false для всех существующих свойств.
+Object.freeze(obj) - Запрещает добавлять/удалять/изменять свойства. Устанавливает configurable: false, writable: false для всех существующих свойств.
+А также есть методы для их проверки:
+Object.isExtensible(obj) - Возвращает false, если добавление свойств запрещено, иначе true.
+Object.isSealed(obj) - Возвращает true, если добавление/удаление свойств запрещено и для всех существующих свойств установлено configurable: false.
+Object.isFrozen(obj) - Возвращает true, если добавление/удаление/изменение свойств запрещено, 
+и для всех текущих свойств установлено configurable: false, writable: false.
+На практике эти методы используются редко. */
+
+/* Object.keys возвращает только свойства с флагом enumerable. 
+Для того, чтобы определить, есть ли этот флаг, он для каждого свойства вызывает внутренний метод [[GetOwnProperty]], который получает его дескриптор. 
+А в данном случае свойство отсутствует, его дескриптор пуст, флага enumerable нет, поэтому оно пропускается.
+Чтобы Object.keys возвращал свойство, нужно либо чтобы свойство в объекте физически было, причём с флагом enumerable, 
+либо перехватить вызовы [[GetOwnProperty]] (это делает ловушка getOwnPropertyDescriptor), и там вернуть дескриптор с enumerable: true. */
+let user4 = {};
+user4 = new Proxy(user4, {
+    ownKeys(target) { // вызывается 1 раз для получения списка свойств
+        return ['a', 'b', 'c'];
+    },
+    getOwnPropertyDescriptor(target, prop) { // вызывается для каждого свойства
+        return {
+            enumerable: true,
+            configurable: true
+            /* ...другие флаги, возможно, "value: ..." */
+        };
+    }
+});
+alert(Object.keys(user4)); // a, b, c
+
+/* Ловушка has(target, property) перехватывает вызовы in.
+target – это оригинальный объект, который передавался первым аргументом в конструктор new Proxy,
+property – имя свойства. */
+let range = {
+    start: 1,
+    end: 10
+};
+range = new Proxy(range, {
+    has(target, prop) {
+        return prop >= target.start && prop <= target.end
+    }
+});
+alert(5 in range); // true
+alert(50 in range); // false
+
+/* Ловушка apply(target, thisArg, args) активируется при вызове прокси как функции:
+target – это оригинальный объект (как мы помним, функция – это объект в языке JavaScript),
+thisArg – это контекст this.
+args – список аргументов. 
+Но наша функция-обёртка не перенаправляет операции чтения/записи свойства и другие. 
+После обёртывания доступ к свойствам оригинальной функции, таким как name, length, и другим, будет потерян.
+Прокси куда более мощные в этом смысле, поскольку они перенаправляют всё к оригинальному объекту. */
+function delay(f, ms) {
+    return new Proxy(f, {
+        apply(target, thisArg, args) {
+            setTimeout(() => target.apply(thisArg, args), ms);
+        }
+    });
+}
+function sayHi(user) {
+    alert(`Привет, ${user}!`);
+}
+sayHi = delay(sayHi, 3000);
+alert(sayHi.length); // 1 (*) прокси перенаправляет чтение свойства length на исходную функцию
+sayHi("Вася"); // Привет, Вася! (через 3 секунды)
+
+/* Reflect – встроенный объект, упрощающий создание прокси.
+Ранее мы говорили о том, что внутренние методы, такие как [[Get]], [[Set]] и другие, существуют только в спецификации, что к ним нельзя обратиться напрямую.
+Объект Reflect делает это возможным. Его методы – минимальные обёртки вокруг внутренних методов. */
+let user5 = {};
+Reflect.set(user5, 'name', 'Вася');
+alert(user5.name); // Вася
+
+/* В частности, Reflect позволяет вызвать операторы (new, delete…) как функции (Reflect.construct, Reflect.deleteProperty, …). 
+Это интересная возможность, но здесь нам важно другое.
+Для каждого внутреннего метода, перехватываемого Proxy, есть соответствующий метод в Reflect, который имеет такое же имя и те же аргументы, что и у ловушки Proxy.
+Поэтому мы можем использовать Reflect, чтобы перенаправить операцию на исходный объект. 
+То есть, всё очень просто – если ловушка хочет перенаправить вызов на объект, то достаточно вызвать Reflect.<метод> с теми же аргументами.
+В большинстве случаев мы можем сделать всё то же самое и без Reflect, например, 
+чтение свойства Reflect.get(target, prop, receiver) можно заменить на target[prop]. Но некоторые нюансы легко упустить. */
+let user6 = {
+    name: "Вася",
+};
+user6 = new Proxy(user6, {
+    get(target, prop, receiver) {
+        alert(`GET ${prop}`);
+        return Reflect.get(target, prop, receiver); // (1)
+    },
+    set(target, prop, val, receiver) {
+        alert(`SET ${prop}=${val}`);
+        return Reflect.set(target, prop, val, receiver); // (2)
+    }
+});
+let name2 = user6.name; // выводит "GET name"
+user6.name = "Петя"; // выводит "SET name=Петя"
+
+/* 1. При чтении admin.name, так как в объекте admin нет свойства name, оно ищется в прототипе.
+2. Прототипом является прокси userProxy.
+3. При чтении из прокси свойства name срабатывает ловушка get и возвращает его из исходного объекта как target[prop] в строке (*).
+4. Вызов target[prop], если prop – это геттер, запускает его код в контексте this=target. 
+Поэтому результатом является this._name из исходного объекта target, то есть из user.
+Именно для исправления таких ситуаций нужен receiver, третий аргумент ловушки get. 
+В нём хранится ссылка на правильный контекст this, который нужно передать геттеру. В данном случае это admin.
+Это может сделать Reflect.get. Всё будет работать верно, если использовать его. */
+let user7 = {
+    _name: "Гость",
+    get name() {
+        return this._name;
+    }
+};
+let userProxy = new Proxy(user7, {
+    get(target, prop, receiver) { // receiver = admin
+        return Reflect.get(target, prop, receiver); // (*)
+    }
+});
+let admin = {
+    __proto__: userProxy,
+    _name: "Админ"
+};
+alert(admin.name); // Админ
+
+/* Многие встроенные объекты, например Map, Set, Date, Promise и другие используют так называемые «внутренние слоты».
+Это как свойства, но только для внутреннего использования в самой спецификациии. Например, Map хранит элементы во внутреннем слоте [[MapData]]. 
+Встроенные методы обращаются к слотам напрямую, не через [[Get]]/[[Set]]. Таким образом, прокси не может перехватить их. 
+Если встроенный объект проксируется, то в прокси не будет этих «внутренних слотов», так что попытка вызвать на таком прокси встроенный метод приведёт к ошибке. */
+let map = new Map();
+let proxy2 = new Proxy(map, {});
+proxy2.set('test', 1); // будет ошибка
+
+/* Сейчас всё сработает, потому что get привязывает свойства-функции, такие как map.set, к оригинальному объекту map. 
+Таким образом, когда реализация метода set попытается получить доступ к внутреннему слоту this.[[MapData]], то всё пройдёт благополучно. */
+let map2 = new Map();
+let proxy3 = new Proxy(map2, {
+    get(target, prop, receiver) {
+        let value = Reflect.get(...arguments); // Вместо Reflect.get(target, prop, receiver)
+        return typeof value == 'function' ? value.bind(target) : value;
+    }
+});
+proxy3.set('test', 1);
+alert(proxy3.get('test')); // 1 (работает!)
+
+/* Нечто похожее происходит и с приватными полями классов.
+Например, метод getName() осуществляет доступ к приватному полю #name, после проксирования он перестаёт работать. 
+Причина всё та же: приватные поля реализованы с использованием внутренних слотов. JavaScript не использует [[Get]]/[[Set]] при доступе к ним.
+В вызове getName() значением this является проксированный user, в котором нет внутреннего слота с приватными полями.
+Решением, как и в предыдущем случае, является привязка контекста к методу. 
+Однако, такое решение имеет ряд недостатков, о которых уже говорилось: 
+методу передаётся оригинальный объект, который может быть передан куда-то ещё, и это может поломать всю функциональность проксирования. */
+class User {
+    #name = "Гость";
+
+    getName() {
+        return this.#name;
+    }
+}
+let user6 = new User();
+user6 = new Proxy(user6, {
+    get(target, prop, receiver) {
+        let value = Reflect.get(...arguments); // Вместо Reflect.get(target, prop, receiver)
+        return typeof value == 'function' ? value.bind(target) : value;
+    }
+});
+alert(user6.getName()); // Гость
+
+/* Прокси способны перехватывать много операторов, например new (ловушка construct), in (ловушка has), delete (ловушка deleteProperty) и так далее.
+Но нет способа перехватить проверку на строгое равенство. Объект строго равен только самому себе, и никаким другим значениям.
+Так что все операции и встроенные классы, которые используют строгую проверку объектов на равенство, отличат прокси от изначального объекта. 
+Прозрачной замены в данном случае не произойдёт. */
+
+/* Отключаемый (revocable) прокси – это прокси, который может быть отключён вызовом специальной функции.
+Допустим, у нас есть какой-то ресурс, и мы бы хотели иметь возможность закрыть к нему доступ в любой момент.
+Для того, чтобы решить поставленную задачу, мы можем использовать отключаемый прокси, без ловушек. 
+Такой прокси будет передавать все операции на проксируемый объект, и у нас будет возможность в любой момент отключить это. 
+Вызов возвращает объект с proxy и функцией revoke, которая отключает его. */
+let object = {
+    data: "Важные данные"
+};
+let { proxy4, revoke } = Proxy.revocable(object, {});
+// передаём прокси куда-нибудь вместо оригинального объекта...
+alert(proxy4.data); // Важные данные
+/* Вызов revoke() удаляет все внутренние ссылки на оригинальный объект из прокси, так что между ними больше нет связи, 
+и оригинальный объект теперь может быть очищен сборщиком мусора. */
+revoke();
+// прокси больше не работает (отключён)
+alert(proxy4.data); // Ошибка
+
+/* Мы можем хранить функцию revoke в WeakMap, чтобы легко найти её по объекту прокси.
+Про WeakMap - https://learn.javascript.ru/weakmap-weakset.
+Преимущество такого подхода в том, что мы не должны таскать функцию revoke повсюду. Мы получаем её при необходимости из revokes по объекту прокси.
+Мы использовали WeakMap вместо Map, чтобы не блокировать сборку мусора. Если прокси объект становится недостижимым (то есть на него больше нет ссылок), 
+то WeakMap позволяет сборщику мусора удалить его из памяти вместе с соответствующей функцией revoke, которая в этом случае больше не нужна. */
+let revokes = new WeakMap();
+let { proxy5, revoke2 } = Proxy.revocable(object, {});
+revokes.set(proxy5, revoke2);
+// ..позже в коде..
+revoke = revokes.get(proxy5);
+revoke();
+alert(proxy5.data); // Ошибка (прокси отключён)

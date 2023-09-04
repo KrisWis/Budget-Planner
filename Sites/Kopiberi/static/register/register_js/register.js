@@ -1,34 +1,34 @@
 /* Проверка ввода данных */
-let login__name = document.getElementById("login__name");
-let login__email = document.getElementById("login__email");
-let login__password = document.getElementById("login__password");
-let login__confirm_password = document.getElementById("login__confirm_password");
-let login__confirmation_code = document.getElementById("login__confirmation_code");
+const login__name = document.getElementById("login__name");
+const login__email = document.getElementById("login__email");
+const login__password = document.getElementById("login__password");
+const login__confirm_password = document.getElementById("login__confirm_password");
+const login__confirmation_code = document.getElementById("login__confirmation_code");
 
-let offer__checkbox = document.getElementById("offer__checkbox");
-let access__checkbox = document.getElementById("access__checkbox");
-let agree__checkbox = document.getElementById("agree__checkbox");
-let privacy__checkbox = document.getElementById("privacy__checkbox");
-let agreement__checkbox = document.getElementById("agreement__checkbox");
-let rules__checkbox = document.getElementById("rules__checkbox");
+const offer__checkbox = document.getElementById("offer__checkbox");
+const access__checkbox = document.getElementById("access__checkbox");
+const agree__checkbox = document.getElementById("agree__checkbox");
+const privacy__checkbox = document.getElementById("privacy__checkbox");
+const agreement__checkbox = document.getElementById("agreement__checkbox");
+const rules__checkbox = document.getElementById("rules__checkbox");
 
-let offer__checkbox__check = document.getElementById("offer__checkbox__check");
-let access__checkbox__check = document.getElementById("access__checkbox__check");
-let agree__checkbox__check = document.getElementById("agree__checkbox__check");
-let privacy__checkbox__check = document.getElementById("privacy__checkbox__check");
-let agreement__checkbox__check = document.getElementById("agreement__checkbox__check");
-let rules__checkbox__check = document.getElementById("rules__checkbox__check");
-let recaptcha__check = document.getElementById("recaptcha__check");
-let password__check_length = document.getElementById("password__check_length");
-let password__check_data = document.getElementById("password__check_data");
-let password__check = document.getElementById("password__check");
-let confirm_password__check = document.getElementById("confirm_password__check");
-let confirmation_code__check = document.getElementById("confirmation_code__check");
-let name__check = document.getElementById("name__check");
-let email__check = document.getElementById("email__check");
-let confirmation_code__rightly = document.getElementById("confirmation_code__rightly");
+const offer__checkbox__check = document.getElementById("offer__checkbox__check");
+const access__checkbox__check = document.getElementById("access__checkbox__check");
+const agree__checkbox__check = document.getElementById("agree__checkbox__check");
+const privacy__checkbox__check = document.getElementById("privacy__checkbox__check");
+const agreement__checkbox__check = document.getElementById("agreement__checkbox__check");
+const rules__checkbox__check = document.getElementById("rules__checkbox__check");
+const recaptcha__check = document.getElementById("recaptcha__check");
+const password__check_length = document.getElementById("password__check_length");
+const password__check_data = document.getElementById("password__check_data");
+const password__check = document.getElementById("password__check");
+const confirm_password__check = document.getElementById("confirm_password__check");
+const confirmation_code__check = document.getElementById("confirmation_code__check");
+const name__check = document.getElementById("name__check");
+const email__check = document.getElementById("email__check");
+const confirmation_code__rightly = document.getElementById("confirmation_code__rightly");
 
-let reg__button = document.getElementById("reg__button");
+const reg__button = document.getElementById("reg__button");
 
 let checkboxes = [offer__checkbox, access__checkbox, agree__checkbox, privacy__checkbox, agreement__checkbox, rules__checkbox];
 let checkboxes__check = [offer__checkbox__check, access__checkbox__check, agree__checkbox__check, privacy__checkbox__check, agreement__checkbox__check, rules__checkbox__check];
@@ -56,14 +56,20 @@ let checkData = async function () {
         password__check.classList.add("password__check--active");
         error = true;
     }
+
     if (login__confirm_password.value !== login__password.value) {
         confirm_password__check.classList.add("confirm_password__check--active");
         error = true;
     }
+
     if (!login__confirmation_code.value) {
         confirmation_code__check.classList.add("confirmation_code__check--active");
         error = true;
+    } else if (login__confirmation_code.value != code) {
+        confirmation_code__rightly.classList.add("confirmation_code__rightly--active");
+        error = true;
     }
+
     if (!login__name.value) {
         name__check.classList.add("name__check--active");
         error = true;
@@ -79,11 +85,6 @@ let checkData = async function () {
         error = true;
     }
 
-    if (login__confirmation_code.value != code) {
-        confirmation_code__rightly.classList.add("confirmation_code__rightly--active");
-        error = true;
-    }
-
     for (const element of checkboxes) {
         if (!element.checked) {
             checkboxes__check[checkboxes.indexOf(element)].classList.add("checkbox__check--active");
@@ -92,30 +93,16 @@ let checkData = async function () {
     }
 
     if (error === false) {
-        const bcrypt = require('bcrypt');
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(myPlaintextPassword, salt);
-        let data = { name: login__name.value, email: login__email.value, password: hash }
-        let responseRequest = await fetch('api/create-user', {
+        let responseRequest = await fetch('api/register-user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ name: login__name.value, email: login__email.value, password: login__password.value })
         });
 
         if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-            comments_arr = await responseRequest.json();
-            if (comments_arr.length > 0) {
-                comments__none.classList.add("inactive")
-                comments_arr.forEach(comment => {
-                    comments.insertAdjacentHTML(`beforeend`,
-                        comment
-                    );
-                });
 
-                delete_comment();
-            }
         } else {
             console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
         }
@@ -159,32 +146,47 @@ checkboxes.forEach(function (element) {
 eventsObj.addEvent(reg__button, "click", checkData);
 
 /* Отправка кода на почту */
-let get_code = document.getElementById("get_code");
+const get_code = document.getElementById("get_code");
 let code = 0;
 let sendCode = async function () {
-    $("body").css("cursor", "progress");
+    if (this == get_code) {
+        $("body").css("cursor", "progress");
 
-    let user_email = login__email.value;
-    let username = login__name.value;
-    let responseRequest = await fetch('api/send-letter', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: user_email, username: username })
-    })
+        let user_email = login__email.value;
+        let username = login__name.value;
+        let responseRequest = await fetch('api/send-letter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: user_email, username: username })
+        })
 
-    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-        code = await responseRequest.json();
-        code = code["code"];
-        let get_code__modal_wrapper = document.getElementById("get_code__modal-wrapper");
-        get_code__modal_wrapper.classList.add('get_code__modal-wrapper--active');
-        setTimeout(() => {
-            get_code__modal_wrapper.classList.remove('get_code__modal-wrapper--active');
-        }, 1000);
-        $("body").css("cursor", "default");
-    } else {
-        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            code = await responseRequest.json();
+            code = code["code"];
+            const get_code__modal_wrapper = document.getElementById("get_code__modal-wrapper");
+            get_code__modal_wrapper.classList.add('get_code__modal-wrapper--active');
+            setTimeout(() => {
+                get_code__modal_wrapper.classList.remove('get_code__modal-wrapper--active');
+            }, 1000);
+            $("body").css("cursor", "default");
+        } else {
+            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        }
     }
 }
 eventsObj.addEvent(get_code, "click", sendCode);
+
+/* Функционал скрытия пароля */
+const eyes = document.querySelectorAll(".password .password__eye");
+const passwords = [login__password, login__confirm_password];
+
+for (let index = 0; index < eyes.length; index++) {
+    eyes[index].addEventListener("click", function () {
+        this.classList.toggle("close");
+        setTimeout(() => {
+            passwords[index].type = passwords[index].type === "password" ? "text" : "password";
+        }, 125);
+    });
+}
