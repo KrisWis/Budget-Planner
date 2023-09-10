@@ -1,3 +1,49 @@
+let open = function () {
+
+    for (el of arguments) {
+        el.classList.toggle('open');
+        el.classList.toggle('close');
+    }
+};
+
+function setCookie(name, value, options = {}) {
+
+    options = {
+        path: '/',
+        // при необходимости добавьте другие значения по умолчанию
+        ...options
+    };
+
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+    }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+}
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function deleteCookie(name) {
+    setCookie(name, "", {
+        'max-age': -1
+    })
+}
+
 (function () {
     // Уменьшение текста при наведении на поиск.
     header__navigation = document.getElementById("header__navigation");
@@ -12,14 +58,6 @@
     /* Отзывчивая навигация */
     let navicon = document.getElementById("navicon");
     let navicon__container = document.getElementById("navicon__container");
-
-    let open = function () {
-
-        for (el of arguments) {
-            el.classList.toggle('open');
-            el.classList.toggle('close');
-        }
-    }
 
     eventsObj.addEvent(navicon, "click", function () { open(navicon__container) });
 

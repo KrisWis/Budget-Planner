@@ -68,19 +68,26 @@
       <div class="login">
         <div class="email">
           <h3>Эл. Почта</h3>
-          <input placeholder="Введите email" class="email__input" type="email">
+          <input placeholder="Введите email" class="email__input" id="login__email" type="email">
         </div>
-        <div class="password">
+        <div>
           <h3>Пароль</h3>
-          <input placeholder="Введите пароль" class="password__input" type="password">
+          <div class="password">
+            <input placeholder="Введите пароль" class="password__input" id="login__password" type="password">
+            <svg class="close password__eye" id="password__eye" viewBox="0 0 100 100">
+              <path id="top-eye-part" d="M10,50 Q50,-10 90,50" fill="none" stroke-width="5"></path>
+              <path id="bottom-eye-part" d="M10,50 Q50,110 90,50" fill="none" stroke-width="5"></path>
+              <circle cx="50" cy="50" r="10" fill="black"></circle>
+            </svg>
+          </div>
         </div>
         <div class="login__remember">
           <input type="checkbox" class="remember__checkbox" name="remember__checkbox" value="yes">
           <label for="remember__checkbox">Запомнить</label>
         </div>
         <div class="login__buttons">
-          <a href="/login">
-            <button class="login__button">Войти</button>
+          <a>
+            <button class="login__button" id="login__button">Войти</button>
           </a>
           <a href="/register">
             <button class="reg__button">Регистрация</button>
@@ -156,4 +163,5 @@
   <script src="static/js/jQuery/jquery-3.7.0.min.js"></script>
   <script src="static/js/eventsObj.js"></script>
   <script src="static/js/general.js"></script>
+  <script src="static/profile/profile_js/profile.js"></script>
 </body>

@@ -40,7 +40,6 @@ function recaptchaChecking() {
 };
 
 let checkData = async function () {
-
     let error = false;
 
     if (login__password.value) {
@@ -98,11 +97,18 @@ let checkData = async function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: login__name.value, email: login__email.value, password: login__password.value })
+            body: JSON.stringify({ name: login__name.value, email: login__email.value, password: login__password.value, photo: document.getElementById('profile__photo').src })
         });
 
         if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-
+            const success_reg__modal_wrapper = document.getElementById("success_reg__modal-wrapper");
+            success_reg__modal_wrapper.classList.add('success_reg__modal-wrapper--active');
+            setTimeout(() => {
+                success_reg__modal_wrapper.classList.remove('success_reg__modal-wrapper--active');
+            }, 500);
+            setTimeout(() => {
+                window.location.href = '/profile';
+            }, 1000)
         } else {
             console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
         }
@@ -189,4 +195,21 @@ for (let index = 0; index < eyes.length; index++) {
             passwords[index].type = passwords[index].type === "password" ? "text" : "password";
         }, 125);
     });
+}
+
+/* Загрузка изображения формы */
+let result;
+function download__form_image(input) {
+    let photo__wrapper = document.getElementById('photo__wrapper');
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        photo__wrapper.textContent = "";
+        let img = document.createElement("img");
+        result = reader.result;
+        img.src = result;
+        img.id = 'profile__photo'
+        photo__wrapper.appendChild(img);
+    }
 }

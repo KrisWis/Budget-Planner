@@ -62,11 +62,21 @@
   </header> 
 
   <main>
+    <div class="success_reg__modal-wrapper" id="success_reg__modal-wrapper">
+      <p>Аккаунт успешно зарегистрирован! <i class="fa fa-check" aria-hidden="true"></i></p>
+      <div class="success_reg__modal_overlay"></div>
+    </div>
     <div class="reg">
       <h2>Войти или
       <span>зарегистрироваться</span>
       </h2>
       <div class="login">
+        <div class="image__input">
+          <div class="comments_form__photo">
+            <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">Ваше изображение профиля</label>
+            <input type="file" class="comments_form__upload_photo" id="comments_form__upload_photo" onchange="download__form_image(this)"> 
+          </div>
+        </div>
         <div>
           <h3>Имя</h3>
           <input class="login__name" id="login__name" placeholder="Иннокентий" type="name">

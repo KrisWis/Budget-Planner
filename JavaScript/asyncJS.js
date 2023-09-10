@@ -1222,6 +1222,335 @@ class Thenable {
 /* КОНКУРЕНТНАЯ АСИНХРОННАЯ ОЧЕРЕДЬ НА JAVASCRIPT - https://www.youtube.com/watch?v=Lg46AH8wFvg&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=17 */
 
 
+/* Очереди решают проблему, когда в программу слишком большая информация поступает и очереди делают так, чтобы эта программа не перегружалась. */
+
+// Пример конкурентной очереди
+class Queue {
+    constructor(concurrency) {
+        this.paused = false;
+        this.concurrency = concurrency;
+        this.count = 0;
+        this.waiting = [];
+        this.onProcess = null;
+        this.onDone = null;
+        this.onSuccess = null;
+        this.onFailure = null;
+        this.onDrain = null;
+        this.waitTimeout = Infinity;
+        this.processTimeout = Infinity;
+        this.priorityMode = false;
+        this.destination = null;
+    }
+
+    static channels(concurrency) {
+        return new Queue(concurrency);
+    }
+
+    wait(msec) { // Функция того, сколько можно ожидать таск
+        this.waitTimeout = msec;
+        return this;
+    }
+
+    timeout(msec) { // Функция того, что если таск не успел выполниться за время, то он отменяется
+        this.processTimeout = msec;
+        return this;
+    }
+
+    add(task, priority = 0) {
+        if (!this.paused) {
+            const hasChannel = this.count < this.concurrency;
+            if (hasChannel) {
+                this.next(task);
+                return;
+            }
+        }
+        this.waiting.push({ task, start: Date.now(), priority });
+        if (this.priorityMode) {
+            this.waiting.sort((a, b) => b.priority - a.priority); // Сортируем по приоритету
+        }
+    }
+
+    next(task) { // Запускаем следующий таск
+        this.count++;
+        let timer = null;
+        let finished = false;
+        const { processTimeout, onProcess } = this;
+        const finish = (err, res) => {
+            if (finished) return;
+            finished = true;
+            if (timer) clearTimeout(timer);
+            this.count--;
+            this.finish(err, res);
+            if (!this.paused && this.waiting.length > 0) this.takeNext();
+        };
+        if (processTimeout !== Infinity) {
+            const err = new Error('Process timed out');
+            timer = setTimeout(finish, processTimeout, err, task);
+        }
+        onProcess(task, finish);
+    }
+
+    takeNext() { // Береём следующий таск
+        const { waiting, waitTimeout } = this;
+        const { task, start } = waiting.shift();
+        if (waitTimeout !== Infinity) {
+            const delay = Date.now() - start;
+            if (delay > waitTimeout) {
+                const err = new Error('Waiting timed out');
+                this.finish(err, task);
+                if (waiting.length > 0) {
+                    setTimeout(() => {
+                        if (!this.paused && waiting.length > 0) this.takeNext();
+                    }, 0);
+                }
+                return;
+            }
+        }
+        const hasChannel = this.count < this.concurrency;
+        if (hasChannel) this.next(task);
+        return;
+    }
+
+    finish(err, res) {
+        const { onFailure, onSuccess, onDone, onDrain } = this;
+        if (err) {
+            if (onFailure) onFailure(err, res);
+        } else {
+            if (onSuccess) onSuccess(res);
+            if (this.destination) this.destination.add(res);
+        }
+        if (onDone) onDone(err, res);
+        if (this.count === 0 && onDrain) onDrain();
+    }
+
+    process(listener) {
+        this.onProcess = listener;
+        return this;
+    }
+
+    done(listener) {
+        this.onDone = listener;
+        return this;
+    }
+
+    success(listener) {
+        this.onSuccess = listener;
+        return this;
+    }
+
+    failure(listener) {
+        this.onFailure = listener;
+        return this;
+    }
+
+    drain(listener) {
+        this.onDrain = listener;
+        return this;
+    }
+
+    pause() {
+        this.paused = true;
+        return this;
+    }
+
+    resume() {
+        if (this.waiting.length > 0) {
+            const channels = this.concurrency - this.count;
+            for (let i = 0; i < channels; i++) {
+                this.takeNext();
+            }
+        }
+        this.paused = false;
+        return this;
+    }
+
+    priority(flag = true) {
+        this.priorityMode = flag;
+        return this;
+    }
+
+    pipe(destination) {
+        this.destination = destination;
+        return this;
+    }
+}
+
+// Применение
+
+const job = (task, next) => {
+    setTimeout(next, task.interval, null, task);
+};
+
+const destination = Queue.channels(2)
+    .wait(5000)
+    .process((task, next) => next(null, { ...task, processed: true }))
+    .done((err, task) => console.log({ task }));
+
+const queue = Queue.channels(3)
+    .wait(4000) // Ставим сколько млс можно ждать таск
+    .timeout(5000) // За сколько таск должен выполниться
+    .process(job)
+    .pipe(destination)
+    .priority() // Переключаем очередь на работу с приоритетами
+    .success((task) => console.log(`Success: ${task.name}`))
+    .failure((err, task) => console.log(`Failure: ${err} ${task.name}`))
+    .pause();
+
+for (let i = 0; i < 10; i++) {
+    queue.add({ name: `Task${i}`, interval: i * 1000 });
+}
+
+console.log('Start paused');
+
+setTimeout(() => {
+    console.log('Resume');
+    queue.resume();
+}, 3000);
+
+setTimeout(() => {
+    console.log('Pause');
+    queue.pause();
+}, 4000);
+
+setTimeout(() => {
+    console.log('Resume');
+    queue.resume();
+}, 5000);
+
+
+/* ПАТТЕРН REVEALING CONSTRUCTOR - ОТКРЫТЫЙ КОНСТРУКТОР - https://www.youtube.com/watch?v=leR5sXRkuJI&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=18 */
+
+
+/* Паттерн проектирования — это повторяемая архитектурная конструкция, 
+представляющая собой решение проблемы проектирования в рамках некоторого часто возникающего контекста. 
+Паттерны проектирования представляют собой обобщение опыта профессиональных разработчиков ПО. 
+Паттерн проектирования можно рассматривать как некий шаблон, в соответствии с которым пишут программы. */
+
+/* Основная идея открытого конструктора, что функция попадает в конструктор и инициализирует инстансы объектов. */
+/* Здесь мы видим, что Promise конструктор принимает единственную функцию в качестве своего единственного параметра (называемого “функцией-исполнителем”). 
+Затем он немедленно вызывает эту функцию с двумя аргументами, resolve и reject. 
+Эти аргументы обладают способностью манипулировать внутренним состоянием вновь созданного Promise экземпляра p. 
+Я называю это шаблоном раскрывающего конструктора, потому что Promise конструктор раскрывает свои внутренние возможности, 
+но только коду, который создает рассматриваемое обещание. Возможность разрешить или отклонить обещание раскрывается только для конструирующего кода и, 
+что крайне важно, не раскрывается никому, использующему обещание. */
+var p = new Promise(function (resolve, reject) {
+    // Use `resolve` to resolve `p`.
+    // Use `reject` to reject `p`.
+});
+
+/* Обещание принимает функцию в качестве аргумента конструктора, функцию-исполнитель. 
+Эта функция вызывается внутренней реализацией конструктора Promise и используется для того, 
+чтобы позволить конструирующему коду манипулировать только ограниченной частью внутреннего состояния promise. 
+Он также служит механизмом для предоставления доступа к методам resolve и reject для конструирующего кода (кода, который создает объект с помощью new operator).
+
+Дополнительным преимуществом является то, что только код построения имеет доступ к resolve и reject. 
+Вновь созданный promise объект можно безопасно передавать по кругу - никакой другой код не сможет вызвать resolve or reject и изменить внутреннее состояние promise.
+
+Вкратце, этот шаблон включает:
+Передача функции в качестве аргумента-конструктора, которая будет вызвана во внутренней реализации класса constructor
+Предоставление внутренних методов для конструирующего кода (например, resolve и reject). 
+Это возможно, потому что во время вызова функции-исполнителя передаются соответствующие внутренние методы. */
+const promise6 = new Promise((resolve, reject) => { })
+
+
+/* FUTURE: АСИНХРОННОСТЬ НА ФЬЮЧЕРАХ БЕЗ СОСТОЯНИЯ - https://www.youtube.com/watch?v=22ONv3AGXdk&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=19 */
+
+
+/* Future построены на паттерне открытого конструктора.
+Фьючеры это как промисы, но если промисы сразу выводят свои результаты, 
+то фьютчеры можно задать в одном куске программы, а вызвать в другом. 
+Главное отличие фьютчеров от промисов, это то, что у фьютчеров нету состояний, типа <pending> и тд. 
+Но это также значит, что фьютчер не имеет кеширования и каждый раз вычисляет значение по новой. 
+Также, если не вызывать .fork, то фьютчер вызываться не будет вообще. */
+class Future {
+    constructor(executor) {
+        this.executor = executor;
+    }
+
+    static of(value) {
+        return new Future((resolve) => resolve(value)); // Возвращаем новый экземпляр фьютчера.
+    }
+
+    chain(fn) {
+        // Возвращает новый фьютчер, который вызывает свой объект .fork, в который сначала передаётся successed, а потом failed.
+        return new Future((resolve, reject) => this.fork(
+            (value) => fn(value).fork(resolve, reject),
+            (error) => reject(error),
+        ));
+    }
+
+    map(fn) {
+        // Возвращаем новый фьютчер используя метод .of и паттерн открытый конструктор.
+        return this.chain((value) => Future.of(fn(value)));
+    }
+
+    fork(successed, failed) {
+        this.executor(successed, failed);
+    }
+
+    promise() { // Метод для переделывания фьютчера в промис
+        return new Promise((resolve, reject) => {
+            this.fork(
+                (value) => resolve(value),
+                (error) => reject(error),
+            );
+        });
+    }
+}
+
+
+// .of не начнёт работать, пока кто то не использует .fork. В .of приходит значение из map().
+Future.of(6) // Когда .fork дойдёт до сюда, то возьмёт значение и функции опять пойдут вниз к .fork.
+    .map((x) => {
+        console.log('future1 started');
+        return x;
+    })
+    .map((x) => ++x)
+    .map((x) => x ** 3)
+    .fork( // .fork вызовиться сначала у третьего .map, потом у второго и только потом у первого.
+        (value) => {
+            console.log('future result', value);
+        },
+        (error) => {
+            console.log('future failed', error.message);
+        }
+    );
+// Именно из-за того, что у фьютчера исполнение сначала идёт вперед, потом назад, потом опять вперед он считается ленивым.
+
+// Один и тот же фьютчер можно использовать для разных вычислений.
+{
+    const source = (r) => r(source.value);
+    source.value = 2;
+
+    const f1 = new Future(source)
+        .map((x) => ++x)
+        .map((x) => x ** 3)
+        .map((x) => x * 2);
+
+    f1.fork((x) => console.log('fork1', x));
+    source.value = 3;
+    f1.fork((x) => console.log('fork2', x));
+    source.value = 4;
+    f1.fork((x) => console.log('fork3', x));
+    source.value = 5;
+    f1.fork((x) => console.log('fork4', x));
+}
+
+// Функция futurify, которая может преобразовывать контракт в контракт фьютчера.
+const futurify = (fn) => (...args) => new Future((resolve, reject) => {
+    fn(...args, (err, data) => {
+        if (err) reject(err);
+        else resolve(data);
+    });
+});
+
+const readFile3 = (name, callback) => fs.readFile(name, 'utf8', callback);
+const futureFile = futurify(readFile3);
+
+
+/* DEFERRED: АСИНХРОННОСТЬ НА ДИФЕРАХ С СОСТОЯНИЕМ - https://www.youtube.com/watch?v=a2fVA1o-ovM&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=20 */
+
+
 
 
 

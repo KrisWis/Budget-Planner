@@ -245,7 +245,7 @@ nav {
 /* Main */
 
 main {
-    height: 180vh;
+    height: 200vh;
     color: #fff;
     padding: 15%;
 
@@ -314,6 +314,45 @@ main {
         .recaptcha__check--active,
         .confirmation_code__rightly--active {
             content-visibility: auto;
+        }
+
+        .image__input {
+            display: flex;
+            align-items: center;
+            gap: 3%;
+            color: black;
+
+            .error {
+                color: red;
+            }
+
+            .photo__wrapper {
+                width: 90px;
+                height: 90px;
+                background-color: whitesmoke;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                position: relative;
+                border-radius: 50%;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .comments_form__upload_photo {
+                opacity: 0;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .comments_form__photo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 50%;
+            }
         }
 
         input {
@@ -431,7 +470,10 @@ main {
     }
 }
 
-.get_code__modal-wrapper {
+/* Модальные окна */
+
+.get_code__modal-wrapper,
+.success_reg__modal-wrapper {
     position: fixed;
     display: none;
     width: 100%;
@@ -443,10 +485,11 @@ main {
     cursor: none;
 }
 
-.get_code__modal-wrapper {
+.get_code__modal-wrapper,
+.success_reg__modal-wrapper {
     display: flex;
     opacity: 0;
-    width: 18%;
+    width: 25%;
     height: 7%;
     font-size: 16px;
     align-items: center;
@@ -462,11 +505,13 @@ main {
     }
 }
 
-.get_code__modal-wrapper--active {
+.get_code__modal-wrapper--active,
+.success_reg__modal-wrapper--active {
     opacity: 1;
 }
 
-.get_code__modal_overlay {
+.get_code__modal_overlay,
+.success_reg__modal_overlay {
     position: absolute;
     width: 100%;
     height: 100%;

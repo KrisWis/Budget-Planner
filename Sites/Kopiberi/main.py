@@ -12,7 +12,7 @@ import secrets
 from fastapi import Response
 import bcrypt
 
-conn = sqlite3.connect("comments.db")
+conn = sqlite3.connect("users.db")
 cur = conn.cursor()
 cur.execute(
     """CREATE TABLE IF NOT EXISTS comments(
@@ -24,6 +24,7 @@ cur.execute(
     name TEXT,
     email TEXT,
     password TEXT,
+    photo TEXT,
     token TEXT);"""
 )
 
@@ -59,6 +60,7 @@ class CreateCommentRequest(BaseModel):
 
 
 # Это - API-запрос, который не должен быть доступен обычному юзеру, поэтому используем post.
+# Запрос для создания комментария
 @app.post("/api/create-comment")
 async def create_comment(comment: CreateCommentRequest):
     cur.execute(
@@ -74,6 +76,7 @@ async def create_comment(comment: CreateCommentRequest):
     return {"OK": True}
 
 
+# Запрос для получения комментариев
 @app.get("/api/get-comments")
 async def get_comments():
     # Тут мы должны получить список всех комментариев, а потом вернуть его.
@@ -86,6 +89,7 @@ class DeleteCommentRequest(BaseModel):
     id: int
 
 
+# Запрос для удаления комментария
 @app.delete("/api/delete-comment")
 async def delete_comment(comment: DeleteCommentRequest):
     # Удаляем комментарий
@@ -100,6 +104,7 @@ class SendLetterRequest(BaseModel):
     username: str
 
 
+# Запрос для отправки письма на почту
 @app.post("/api/send-letter")
 async def send_letter(user: SendLetterRequest):
     sender_email = "jennecrasov@yandex.ru"  # Адрес отправителя
@@ -233,20 +238,62 @@ class CreateUserRequest(BaseModel):
     name: str
     email: str
     password: str
+    photo: str
 
 
+# Запрос для регистрации нового пользователя
 @app.post("/api/register-user")
-async def register_user(user: CreateUserRequest, response: Response):
+async def register_user(user: CreateUserRequest):
     token = secrets.token_bytes(16)
     # Генерируем соль (salt)
     salt = bcrypt.gensalt()
     # Хешируем пароль с солью
     hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), salt)
     cur.execute(
-        f"INSERT INTO users ('name', 'email', 'password', 'token') VALUES(?, ?, ?, ?)",
-        (user.name, user.email, hashed_password, token),
+        f"INSERT INTO users ('name', 'email', 'password', 'photo', 'token') VALUES(?, ?, ?, ?, ?)",
+        (user.name, user.email, hashed_password, user.photo, token),
     )
     conn.commit()
-    # Устанавливаем cookie с токенами.
-    response.set_cookie("access-token", token)
     return {"OK": True}
+
+
+class LoginUserRequest(BaseModel):
+    email: str
+    password: str
+
+
+# Запрос для входа юзера на сайт
+@app.post("/api/login-user")
+async def login_user(user: LoginUserRequest, response: Response):
+    hashed_db_password = cur.execute(
+        f"SELECT password FROM users WHERE email = ?", (user.email,)
+    ).fetchone()[0]
+    token = cur.execute(
+        f"SELECT token FROM users WHERE email = ?", (user.email,)
+    ).fetchone()[0]
+    if bcrypt.checkpw(user.password.encode("utf-8"), hashed_db_password):
+        # Устанавливаем cookie с токенами.
+        response.set_cookie("access-token", token)
+        return {"OK": True}
+
+    return {"OK": False}
+
+
+class GetUserRequest(BaseModel):
+    token: str
+
+
+# Запрос для получения данных юзера
+@app.post("/api/get-user")
+async def get_user(user: GetUserRequest):
+    user.token = bytes(
+        user.token[2:-1].replace("\\\\", "\\").encode("utf-8").decode("unicode_escape"),
+        "latin1",
+    )[1:-1]
+    user_photo = cur.execute(
+        f"SELECT photo FROM users WHERE token = ?", (user.token,)
+    ).fetchone()[0]
+    user_name = cur.execute(
+        f"SELECT name FROM users WHERE token = ?", (user.token,)
+    ).fetchone()[0]
+    return {"user_photo": user_photo, "name": user_name}

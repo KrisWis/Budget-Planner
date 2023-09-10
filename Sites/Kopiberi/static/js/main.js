@@ -148,8 +148,8 @@ let openForm = function (id) {
 }
 
 forms__ids = [];
-for (el of thanks__comments) {
-  eventsObj.addEvent(el, "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
+for (let index = 0; index < thanks__comments.length; index++) {
+  eventsObj.addEvent(thanks__comments[index], "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
 }
 
 /* Загрузка изображения формы */
@@ -167,3 +167,44 @@ function download__form_image(input) {
     photo__wrapper.appendChild(img);
   }
 }
+
+/* Получение фотографии пользователя, если у него есть аккаунт */
+
+(async function () {
+  if (getCookie("access-token")) {
+    let responseRequest = await fetch('api/get-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token: getCookie("access-token") })
+    });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+      let response = await responseRequest.json();
+      user_photo = response["user_photo"];
+      user_name = response["user_name"];
+      document.getElementById("profile").classList.add("hide");
+      login_profile.classList.remove("hide");
+      document.getElementById("login_profile__img").src = user_photo;
+      document.getElementById("login_profile__name").textContent = user_name;
+    } else {
+      console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
+  }
+})();
+
+/* Открытие профильного меню */
+let login_profile = document.getElementById("login_profile");
+let login_profile__container = document.getElementById("login_profile__container");
+
+eventsObj.addEvent(login_profile, "click", function () { open(login_profile__container) });
+
+/* Выход из аккаунта пользователем */
+let leaveAccount = async function () {
+  deleteCookie("access-token");
+  window.location.href = '/profile';
+}
+
+let leave_account = document.getElementById("leave_account");
+eventsObj.addEvent(leave_account, "click", leaveAccount);

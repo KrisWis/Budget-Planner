@@ -222,7 +222,7 @@ nav .nav__socials .search button {
 
 /* Main */
 main {
-  height: 180vh;
+  height: 200vh;
   color: #fff;
   padding: 15%;
 }
@@ -286,6 +286,42 @@ main .login .checkbox__check--active,
 main .login .recaptcha__check--active,
 main .login .confirmation_code__rightly--active {
   content-visibility: auto;
+}
+main .login .image__input {
+  display: flex;
+  align-items: center;
+  gap: 3%;
+  color: black;
+}
+main .login .image__input .error {
+  color: red;
+}
+main .login .image__input .photo__wrapper {
+  width: 90px;
+  height: 90px;
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  font-size: 12px;
+  text-align: center;
+}
+main .login .image__input .comments_form__upload_photo {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+main .login .image__input .comments_form__photo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 50%;
 }
 main .login input {
   width: 55%;
@@ -394,7 +430,9 @@ main .login .password svg.close #top-eye-part {
   d: path("M10,50 Q50,110 90,50");
 }
 
-.get_code__modal-wrapper {
+/* Модальные окна */
+.get_code__modal-wrapper,
+.success_reg__modal-wrapper {
   position: fixed;
   display: none;
   width: 100%;
@@ -406,10 +444,11 @@ main .login .password svg.close #top-eye-part {
   cursor: none;
 }
 
-.get_code__modal-wrapper {
+.get_code__modal-wrapper,
+.success_reg__modal-wrapper {
   display: flex;
   opacity: 0;
-  width: 18%;
+  width: 25%;
   height: 7%;
   font-size: 16px;
   align-items: center;
@@ -419,16 +458,19 @@ main .login .password svg.close #top-eye-part {
   top: 30%;
   left: 40%;
 }
-.get_code__modal-wrapper i {
+.get_code__modal-wrapper i,
+.success_reg__modal-wrapper i {
   color: green;
   font-size: 18px;
 }
 
-.get_code__modal-wrapper--active {
+.get_code__modal-wrapper--active,
+.success_reg__modal-wrapper--active {
   opacity: 1;
 }
 
-.get_code__modal_overlay {
+.get_code__modal_overlay,
+.success_reg__modal_overlay {
   position: absolute;
   width: 100%;
   height: 100%;

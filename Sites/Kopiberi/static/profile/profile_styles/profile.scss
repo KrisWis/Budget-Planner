@@ -259,6 +259,47 @@ main {
   }
 
   .login {
+
+    .password {
+
+      /* Анимация глаза сделана таким образом, что стили закрытого глаза заданы в css, а открытого в html, в атрибуте d, viewBox и тд. */
+      svg {
+        width: 3vmin;
+        height: 3vmin;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        position: relative;
+        top: 10px;
+        left: 5px;
+      }
+
+      svg path {
+        transition: all 0.25s 0.25s ease, all 0.25s ease;
+        transform-origin: center center;
+        stroke: #6441a5;
+      }
+
+      svg circle {
+        transition: all 0.25s ease, all 0.25s 0.25s ease;
+        transform-origin: center center;
+        fill: #6441a5;
+      }
+
+      svg.close circle {
+        transition: all 0.25s 0.25s ease, all 0.25s ease;
+        transform: scale(0);
+      }
+
+      svg.close #top-eye-part {
+        transition: all 0.25s ease, all 0.25s 0.25s ease;
+        /* d определяет путь, который нужно нарисовать. Команды чувствительны к регистру. 
+          Команда в верхнем регистре задает абсолютные координаты, в то время как команда в нижнем регистре задает координаты относительно текущего положения. 
+          M - перемещение текущую точку на координаты x, y;
+          Q - квадратичная кривая бизье. */
+        d: path("M10,50 Q50,110 90,50");
+      }
+    }
+
     h3 {
       font-weight: 100;
       margin-top: 2%;
