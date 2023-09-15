@@ -198,7 +198,19 @@ function download__form_image(input) {
 let login_profile = document.getElementById("login_profile");
 let login_profile__container = document.getElementById("login_profile__container");
 
-eventsObj.addEvent(login_profile, "click", function () { open(login_profile__container) });
+eventsObj.addEvent(login_profile, "mouseover", function (e) {
+  if (e.target != login_profile__container && e.target != document.getElementById("login_profile__name") && e.target != document.getElementById("leave_account")) {
+    login_profile__container.classList.add('open');
+    login_profile__container.classList.remove('close');
+  }
+});
+eventsObj.addEvent(login_profile, "mouseout", function (e) {
+  if (e.target != login_profile__container && e.target != document.getElementById("login_profile__name") && e.target != document.getElementById("leave_account")) {
+    login_profile__container.classList.remove('open');
+    login_profile__container.classList.add('close');
+  }
+});
+eventsObj.addEvent(login_profile, "click", function () { window.location.href = '/profile'; });
 
 /* Выход из аккаунта пользователем */
 let leaveAccount = async function () {

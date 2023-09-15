@@ -260,6 +260,7 @@ async def register_user(user: CreateUserRequest):
 class LoginUserRequest(BaseModel):
     email: str
     password: str
+    remember: bool
 
 
 # Запрос для входа юзера на сайт
@@ -273,7 +274,10 @@ async def login_user(user: LoginUserRequest, response: Response):
     ).fetchone()[0]
     if bcrypt.checkpw(user.password.encode("utf-8"), hashed_db_password):
         # Устанавливаем cookie с токенами.
-        response.set_cookie("access-token", token)
+        if user.remember:
+            response.set_cookie("access-token", token, max_age=30 * 24 * 60 * 60)
+        else:
+            response.set_cookie("access-token", token)
         return {"OK": True}
 
     return {"OK": False}

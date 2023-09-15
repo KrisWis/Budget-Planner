@@ -4,12 +4,13 @@ const login__email = document.getElementById("login__email");
 const login__password = document.getElementById("login__password");
 
 let loginUser = async function () {
+    let remember__checkbox = document.getElementById("remember__checkbox");
     let responseRequest = await fetch('api/login-user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: login__email.value, password: login__password.value })
+        body: JSON.stringify({ email: login__email.value, password: login__password.value, remember: remember__checkbox.checked })
     });
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299

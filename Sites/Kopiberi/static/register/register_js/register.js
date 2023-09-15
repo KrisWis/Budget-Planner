@@ -205,11 +205,12 @@ function download__form_image(input) {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-        photo__wrapper.textContent = "";
-        let img = document.createElement("img");
+        let profile__photo = document.createElement("img");
         result = reader.result;
-        img.src = result;
-        img.id = 'profile__photo'
-        photo__wrapper.appendChild(img);
+        profile__photo.src = result;
+        let profile__overlay = document.createElement("div");
+        profile__overlay.classList.add("profile__overlay");
+        photo__wrapper.appendChild(profile__photo);
+        photo__wrapper.appendChild(profile__overlay);
     }
 }

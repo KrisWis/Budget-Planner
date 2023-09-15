@@ -1551,6 +1551,123 @@ const futureFile = futurify(readFile3);
 /* DEFERRED: АСИНХРОННОСТЬ НА ДИФЕРАХ С СОСТОЯНИЕМ - https://www.youtube.com/watch?v=a2fVA1o-ovM&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=20 */
 
 
+/* Диферы чем то похожи на фьютчеры. 
+Они могут использоваться в функциях с колбеками и асинхронные операции внутри функций могут подписаться на изменения в дифере. 
+Идея промисов появилась как раз после создания дифферов. */
+const { EventEmitter } = require('node:events'); // Получаем eventEmitter
+
+// Константы для состояний
+const DEFERRED_PENDING = 0;
+const DEFERRED_RESOLVED = 1;
+const DEFERRED_REJECTED = 2;
+
+class Deferred extends EventEmitter {
+    constructor(onDone = null, onFail = null) {
+        super();
+        this.value = undefined;
+        // Навешиваем события с помощью eventEmitter
+        if (onDone) this.on('done', onDone);
+        if (onFail) this.on('fail', onFail);
+        this.status = DEFERRED_PENDING;
+    }
+
+    // Функции для состояний
+    isPending() {
+        return this.status === DEFERRED_PENDING;
+    }
+
+    isResolved() {
+        return this.status === DEFERRED_RESOLVED;
+    }
+
+    isRejected() {
+        return this.status === DEFERRED_REJECTED;
+    }
+
+    // Навешиваем событие для успешного исхода
+    done(callback) {
+        this.on('done', callback);
+        if (this.isResolved()) callback(this.value);
+        return this;
+    }
+
+    // Навешиваем событие для неудачного исхода
+    fail(callback) {
+        this.on('fail', callback);
+        if (this.isRejected()) callback(this.value);
+        return this;
+    }
+
+    // Функция для того, чтобы вызывать функцию для удачного исхода
+    resolve(value) {
+        this.value = value;
+        this.emit('done', value);
+        return this;
+    }
+
+    // Функция для того, чтобы вызывать функцию для неудачного исхода
+    reject(value) {
+        this.value = value;
+        this.emit('fail', value);
+        return this;
+    }
+
+    // Функция для обращения дифера в промис
+    promise() {
+        return new Promise((resolve, reject) => {
+            this.on('done', (value) => resolve(value));
+            this.on('fail', (error) => reject(error));
+        });
+    }
+}
+
+// Применение
+
+const persons = {
+    10: 'Marcus Aurelius',
+    11: 'Mao Zedong',
+    12: 'Rene Descartes',
+};
+
+const getPerson = (id) => {
+    const result = new Deferred(); // Делаем экземпляр дифера
+    // Через секунду вызываем resolve и reject
+    setTimeout(() => {
+        const name = persons[id];
+        if (name) result.resolve({ id, name });
+        else result.reject(new Error('Person is not found'));
+    }, 1000);
+    return result;
+};
+
+// Навешиваем события
+const d1 = getPerson(10);
+d1.on('done', (value) => console.log('Resolved d1', value));
+d1.on('fail', (error) => console.log('Rejected d1', error.message));
+
+// Подобие использование промисов
+(async () => {
+    try {
+        const value = await getPerson(10).promise();
+        console.log('Resolved p1', value);
+    } catch (e) {
+        console.log('Rejected p1', e.message);
+    }
+})();
+
+
+/* МОДЕЛЬ АКТОРОВ ДЛЯ ПАРАЛЛЕЛЬНЫХ ВЫЧИСЛЕНИЙ - https://www.youtube.com/watch?v=xp5MVKEqxY4&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=21 */
+
+
+/* Акторы - это независимые программные компоненты, которые не делают вызывов друг другу, могут только обмениваться сообщениями. 
+Их всегда несколько штук и например, первый - запускает все акторы, второй - отправляет что то другому, 
+третий - принимает от второго и отправляет что то третьему, а четвёртый уже делает финальные действия. 
+Проще говоря, это некая цепочка действий, которые находяться в разных файлах и вычисляют всё параллельно. */
+
+
+/* ПАТТЕРН НАБЛЮДАТЕЛЬ (OBSERVER + OBSERVABLE) - https://www.youtube.com/watch?v=_bFXuLcXoXg&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=22 */
+
+
 
 
 

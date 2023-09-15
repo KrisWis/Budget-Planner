@@ -1321,13 +1321,13 @@ footer .footer__policy:hover::after {
 }
 
 .open {
-  transition: all 0.3s linear;
+  transition: all 0.25s linear;
   opacity: 0.9;
   transform: translateY(0);
 }
 
 .close {
-  transition: all 0.3s linear;
+  transition: all 0.25s linear;
   opacity: 0;
   transform: translateY(250%);
 }
