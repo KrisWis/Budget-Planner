@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="static/register/register_styles/register.css">
   <script src="https://www.google.com/recaptcha/api.js"></script>
-  <title>Kopiberi | Register</title>
+  <title>Kopiberi | Регистрация</title>
 </head>
 <body>
   <!-- Header -->
@@ -60,7 +60,6 @@
       </div>
     </nav>
   </header> 
-
   <main>
     <div class="success_reg__modal-wrapper" id="success_reg__modal-wrapper">
       <p>Аккаунт успешно зарегистрирован! <i class="fa fa-check" aria-hidden="true"></i></p>
@@ -86,6 +85,7 @@
           <h3>E-Mail</h3>
           <input class="login__email" id="login__email" placeholder="example@email.ru" type="email">
           <p class="email__check" id="email__check">Введите свой email!</p>
+          <p class="email_equal__check" id="email_equal__check">Такой email уже существует!</p>
         </div>
         <div>
           <h3>Пароль</h3>
@@ -120,7 +120,7 @@
               <circle cx="50" cy="50" r="10" fill="black"></circle>
             </svg>
           </div>
-          <p class="confirm_password__check" id="confirm_password__check">Пароль введён неправильно!</p>
+          <p class="confirm_password__check" id="confirm_password__check">Пароли не совпадают!</p>
         </div>
         <div class="login__referal_code">
           <h3>Реферальный код</h3>
@@ -147,32 +147,32 @@
         <div class="agree__buttons">
           <div>
             <input type="checkbox" class="agree__checkbox" name="offer__checkbox" value="yes" id="offer__checkbox">
-            <label for="offer__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты дарения</a></label>
+            <label for="offer__checkbox"><a href='/root/users.db' download>Я согласен с условиями оферты дарения</a></label>
             <p class="checkbox__check" id="offer__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="access__checkbox" value="yes" id="access__checkbox">
-            <label for="access__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты предоставления доступа</a></label>
+            <label for="access__checkbox"><a href='/root/users.db' download>Я согласен с условиями оферты предоставления доступа</a></label>
             <p class="checkbox__check" id="access__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="buying__checkbox" value="yes" id="agree__checkbox">
-            <label for="buying__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями оферты услуги автоплатеж</a></label>
+            <label for="buying__checkbox"><a href='/root/users.db' download>Я согласен с условиями оферты услуги автоплатеж</a></label>
             <p class="checkbox__check" id="agree__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="privacy__checkbox" value="yes" id="privacy__checkbox">
-            <label for="privacy__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями положения о конфеденциальности</a></label>
+            <label for="privacy__checkbox"><a href='/root/users.db' download>Я согласен с условиями положения о конфеденциальности</a></label>
             <p class="checkbox__check" id="privacy__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="agreement__checkbox" value="yes" id="agreement__checkbox">
-            <label for="agreement__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с условиями пользовательского соглашения</a></label>
+            <label for="agreement__checkbox"><a href='/root/users.db' download>Я согласен с условиями пользовательского соглашения</a></label>
             <p class="checkbox__check" id="agreement__checkbox__check">Примите соглашение!</p>
           </div>
           <div>
             <input type="checkbox" class="agree__checkbox" name="rules__checkbox" value="yes" id="rules__checkbox">
-            <label for="rules__checkbox"><a href="static/register/register_styles/register.css" download target="_blank">Я согласен с правилами сервиса</a></label>
+            <label for="rules__checkbox"><a href='/root/users.db' download>Я согласен с правилами сервиса</a></label>
             <p class="checkbox__check" id="rules__checkbox__check">Примите соглашение!</p>
           </div>
         </div>

@@ -197,18 +197,21 @@ function download__form_image(input) {
 /* Открытие профильного меню */
 let login_profile = document.getElementById("login_profile");
 let login_profile__container = document.getElementById("login_profile__container");
+let isMouseHover = false;
 
-eventsObj.addEvent(login_profile, "mouseover", function (e) {
-  if (e.target != login_profile__container && e.target != document.getElementById("login_profile__name") && e.target != document.getElementById("leave_account")) {
-    login_profile__container.classList.add('open');
-    login_profile__container.classList.remove('close');
-  }
+eventsObj.addEvent(login_profile, "mouseover", function () {
+  isMouseHover = true;
+  login_profile__container.classList.add('open');
+  login_profile__container.classList.remove('close');
 });
-eventsObj.addEvent(login_profile, "mouseout", function (e) {
-  if (e.target != login_profile__container && e.target != document.getElementById("login_profile__name") && e.target != document.getElementById("leave_account")) {
-    login_profile__container.classList.remove('open');
-    login_profile__container.classList.add('close');
-  }
+eventsObj.addEvent(login_profile, "mouseout", function () {
+  isMouseHover = false;
+  setTimeout(() => {
+    if (isMouseHover == false) {
+      login_profile__container.classList.remove('open');
+      login_profile__container.classList.add('close');
+    }
+  }, 300)
 });
 eventsObj.addEvent(login_profile, "click", function () { window.location.href = '/profile'; });
 
@@ -220,3 +223,24 @@ let leaveAccount = async function () {
 
 let leave_account = document.getElementById("leave_account");
 eventsObj.addEvent(leave_account, "click", leaveAccount);
+
+/* Удаление аккаунта пользователя */
+let deleteAccount = async function () {
+  let responseRequest = await fetch('api/delete-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token: getCookie("access-token") })
+  });
+  deleteCookie("access-token");
+
+  if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+    window.location.href = '/profile';
+  } else {
+    console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+  }
+}
+
+let delete_account = document.getElementById("delete_account");
+eventsObj.addEvent(delete_account, "click", deleteAccount);

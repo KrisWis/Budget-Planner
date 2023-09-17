@@ -26,6 +26,7 @@ const confirm_password__check = document.getElementById("confirm_password__check
 const confirmation_code__check = document.getElementById("confirmation_code__check");
 const name__check = document.getElementById("name__check");
 const email__check = document.getElementById("email__check");
+const email_equal__check = document.getElementById("email_equal__check");
 const confirmation_code__rightly = document.getElementById("confirmation_code__rightly");
 
 const reg__button = document.getElementById("reg__button");
@@ -79,6 +80,24 @@ let checkData = async function () {
         error = true;
     }
 
+    let responseRequest = await fetch('api/check-email', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: login__email.value })
+    });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        response = await responseRequest.json();
+        if (response["Email_new"] == false) {
+            email_equal__check.classList.add("email_equal__check--active");
+            error = true;
+        }
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
+
     if (!recaptchaCheck) {
         recaptcha__check.classList.add("recaptcha__check--active");
         error = true;
@@ -112,10 +131,10 @@ let checkData = async function () {
         } else {
             console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
         }
-        // Код для отправки данных на бекенд для регистрации.
     }
 }
 
+/* Функционал того, чтобы ошибки убирались, когда пользователь начинает вводить что-то в текстовые поля. */
 let checkInputs = function () {
     if (this === login__password) {
         password__check.classList.remove("password__check--active");
@@ -134,6 +153,7 @@ let checkInputs = function () {
 
     } else if (this === login__email) {
         email__check.classList.remove("email__check--active");
+        email_equal__check.classList.remove("email_equal__check--active");
     }
 }
 
@@ -141,6 +161,7 @@ for (const element of [login__name, login__email, login__password, login__confir
     eventsObj.addEvent(element, 'input', checkInputs)
 }
 
+/* Функционал того, чтобы ошибки убирались, когда пользователь нажал на чекбоксы. */
 checkboxes.forEach(function (element) {
     eventsObj.addEvent(element, 'change', function () {
         if (this.checked) {
@@ -153,32 +174,36 @@ eventsObj.addEvent(reg__button, "click", checkData);
 
 /* Отправка кода на почту */
 const get_code = document.getElementById("get_code");
-let code = 0;
+let code;
 let sendCode = async function () {
     if (this == get_code) {
-        $("body").css("cursor", "progress");
+        if (login__email.value) {
+            $("body").css("cursor", "progress");
 
-        let user_email = login__email.value;
-        let username = login__name.value;
-        let responseRequest = await fetch('api/send-letter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: user_email, username: username })
-        })
+            let user_email = login__email.value;
+            let username = login__name.value;
+            let responseRequest = await fetch('api/send-letter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: user_email, username: username })
+            })
 
-        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-            code = await responseRequest.json();
-            code = code["code"];
-            const get_code__modal_wrapper = document.getElementById("get_code__modal-wrapper");
-            get_code__modal_wrapper.classList.add('get_code__modal-wrapper--active');
-            setTimeout(() => {
-                get_code__modal_wrapper.classList.remove('get_code__modal-wrapper--active');
-            }, 1000);
-            $("body").css("cursor", "default");
+            if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+                code = await responseRequest.json();
+                code = code["code"];
+                const get_code__modal_wrapper = document.getElementById("get_code__modal-wrapper");
+                get_code__modal_wrapper.classList.add('get_code__modal-wrapper--active');
+                setTimeout(() => {
+                    get_code__modal_wrapper.classList.remove('get_code__modal-wrapper--active');
+                }, 1000);
+                $("body").css("cursor", "default");
+            } else {
+                console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+            }
         } else {
-            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+            email__check.classList.add("email__check--active");
         }
     }
 }
@@ -208,6 +233,7 @@ function download__form_image(input) {
         let profile__photo = document.createElement("img");
         result = reader.result;
         profile__photo.src = result;
+        profile__photo.id = "profile__photo";
         let profile__overlay = document.createElement("div");
         profile__overlay.classList.add("profile__overlay");
         photo__wrapper.appendChild(profile__photo);

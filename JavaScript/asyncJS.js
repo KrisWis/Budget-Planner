@@ -1668,7 +1668,156 @@ d1.on('fail', (error) => console.log('Rejected d1', error.message));
 /* ПАТТЕРН НАБЛЮДАТЕЛЬ (OBSERVER + OBSERVABLE) - https://www.youtube.com/watch?v=_bFXuLcXoXg&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=22 */
 
 
+/* Идея паттерна довольно проста - у нас есть 2 программные абстракции и одна порождает события (observer), а другая наблюдает за ними (observable).
+Observer хранит в себе колбек, а observable хранит в себе ссылку на объект observer. */
+class Observable {
+    constructor(subscribe) {
+        this.observers = []; // Храним обсёрверы
+        /* Операторы - это методы observable, которые будут порождать новый observable, преобразуя поток событий. */
+        this.operators = []; // Храним операторы
+        if (subscribe) setTimeout(subscribe, 0, this); // Если есть подписка, то подписываемся асинхронно, с помощью timeout.
+    }
 
+    subscribe(observer) { // Подписываемся на обсёрвер
+        this.observers.push(observer);
+        return this;
+    }
+
+    pipe(...args) { // Передаём операторы
+        this.operators.push(...args); // И записываем их в массив
+        const destination = new Observable(); // Создаём новый observable
+        this.subscribe((data) => destination.next(data)); // Подписываемся и передаём данные в новый поток
+        return destination; // Возвращаем новый поток
+    }
+
+    next(data) { // Функция для передачи данных обсерверам
+        if (this.observers.length === 0) return; // Если обсёрверов нету, то ничего не делаем
+        for (const operator of this.operators) { // Проходимся по операторам, которые преобразуют поток
+            if (operator.name === 'filter') {
+                if (!operator.fn(data)) return;
+            }
+            if (operator.name === 'map') {
+                data = operator.fn(data);
+            }
+        }
+        for (const observer of this.observers) { // Вызываем каждый обсёрвер
+            observer(data);
+        }
+    }
+}
+
+const filter = (predicate) => ({ name: 'filter', fn: predicate });
+const map3 = (callback) => ({ name: 'map', fn: callback });
+
+// Применение
+
+const randomChar = () => String // Функция для генерации рандомных букв
+    .fromCharCode(Math.floor((Math.random() * 25) + 97));
+
+const source = new Observable((subscriber) => { // Создаём Observable
+    setInterval(() => {
+        const char = randomChar();
+        subscriber.next(char); // Подписываемся
+    }, 200);
+});
+
+const destination2 = source.pipe( // Создаём новый поток observable, уже немного другой с операторами
+    filter((char) => !'aeiou'.includes(char)),
+    map3((char) => char.toUpperCase())
+);
+
+let count = 0;
+
+const observer = (char) => { // Создаём сам обсёрвер, который выводит до 50 символов.
+    process.stdout.write(char);
+    count++;
+    if (count > 50) {
+        process.stdout.write('\n');
+        process.exit(0);
+    }
+};
+
+destination2.subscribe(observer); // Подписываем уже изменённый поток на этот обсёрвер.
+
+
+/* АСИНХРОННОСТЬ НА RXJS И ПОТОКИ СОБЫТИЙ - https://www.youtube.com/watch?v=0kcpMAl-wfE&list=PLHhi8ymDMrQZ0MpTsmi54OkjTbo0cjU1T&index=23 */
+
+
+/* Асинхронность на RxJS отличается от обычной асинхронности только синтаксисом. */
+/* Observer и observable у rxJS такой же как у нас. */
+const { Observable } = require('rxjs');
+const observable = new Observable((subscriber) => {
+    setInterval(() => {
+        const char = randomChar();
+        subscriber.next(char);
+    }, 200);
+});
+const observer3 = (char) => {
+    process.stdout.write(char);
+    count++;
+    if (count > 50) {
+        process.stdout.write('\n');
+        process.exit(0);
+    }
+};
+observable.subscribe(observer3);
+
+// Следующий пример можно использовать на фронте, в самом HTML файле и клавиши будут хорошо обрабатываться.
+// Берём нужные нам операторы и Observable
+const { operators, fromEvent } = rxjs;
+const { map5, filter5, take4, reduce4 } = operators;
+const { debounceTime2, throttleTime } = operators;
+
+const keyboard = fromEvent(document, 'keydown'); // Забираем событие нажатия на клавиатуру
+
+keyboard.subscribe(data => { // Подписываемся на событие, передавая данные
+    const { key, keyCode, altKey, metaKey, shiftKey, ctrlKey } = data; // Берём данные - какая кнопка нажата, код кнопки тд
+    print('keyboard', { key, keyCode, altKey, metaKey, shiftKey, ctrlKey });
+});
+
+// Под какой цифрой находится какая стрелочка
+const arrows = {
+    37: '🡄',
+    38: '🡅',
+    39: '🡆',
+    40: '🡇',
+};
+
+const arrowCodes = Object.keys(arrows).map(key => parseInt(key)); // Берём только коды стрелочек
+
+const cursors = keyboard.pipe(
+    filter(event => arrowCodes.includes(event.keyCode)),
+    map(event => event.keyCode),
+    map(key => arrows[key]),
+    //throttleTime(1000),
+    debounceTime(2000), /* Когда будет словлено событие, то программа будет ждать 2 секунды, 
+    и если за это время не придёт ещё событие, то вызовется последнее словленное событие. */
+);
+
+cursors.subscribe(cursor => { // Подписываемся на поток событий нажатия на курсоры
+    print('cursor', cursor);
+});
+
+const keypress = keyboard.pipe( // Если нажата именно символ (т.к длина равна 1)
+    map(event => event.key),
+    filter(key => key.length === 1),
+);
+
+keypress.subscribe(key => { // Подписываемся на новый поток
+    print('keypress', key);
+});
+
+const take5 = keypress.pipe(
+    take(5), // Ждём пока будет нажато 5 символов
+    reduce((acc, char) => acc + char) // И склеиваем их в одну строку
+);
+
+take5.subscribe(s => {
+    print('take5', s);
+});
+
+/* Проще говоря, rxJS даёт нам возможность делать множество потоков с помощью паттерна Observable и Observer.
+И каждый из этих потоков работают паралелльно и каждый выполняет свою работу. */
 
 
 /* ЗАПРОСЫ НА СЕРВЕР - https://learn.javascript.ru/fetch */
