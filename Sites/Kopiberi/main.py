@@ -331,12 +331,17 @@ class sendLetterForRecoveryPassword(BaseModel):
 
 # Запрос для отправки письма на почту для восстановления пароля
 @app.post("/api/send-letter-for-recovery-password")
-async def send_letter_for_recovery_password(user: sendLetterForRecoveryPassword):
+async def send_letter_for_recovery_password(
+    user: sendLetterForRecoveryPassword, response: Response
+):
     if (user.email,) in cur.execute(f"SELECT email FROM users").fetchall():
         sender_email = "jennecrasov@yandex.ru"  # Адрес отправителя
         receiver_email = user.email  # Адрес получателя
         password = os.environ["EMAIL_PASSWORD"]  # Пароль для вашей почты
         token = secrets.token_bytes(16)
+        cur.execute("UPDATE users SET token = ? WHERE email = ?", (token, user.email))
+        conn.commit()
+        response.set_cookie("access-token", token)
 
         # Создайте объект MIMEMultipart
         message = MIMEMultipart("alternative")
@@ -462,15 +467,19 @@ async def send_letter_for_recovery_password(user: sendLetterForRecoveryPassword)
 
 
 class CheckPasswordRequest(BaseModel):
-    email: str
+    token: str
     password: str
 
 
 # Запрос для проверки нового и старого пароля
 @app.post("/reset-password/api/check-password")
 async def check_password(user: CheckPasswordRequest):
+    user.token = bytes(
+        user.token[2:-1].replace("\\\\", "\\").encode("utf-8").decode("unicode_escape"),
+        "latin1",
+    )[1:-1]
     hashed_db_password = cur.execute(
-        f"SELECT password FROM users WHERE email = ?", (user.email,)
+        f"SELECT password FROM users WHERE token = ?", (user.token,)
     ).fetchone()[0]
     if bcrypt.checkpw(user.password.encode("utf-8"), hashed_db_password):
         return {"Passwords_equal": True}
@@ -479,22 +488,28 @@ async def check_password(user: CheckPasswordRequest):
 
 
 class UpdateUserPasswordRequest(BaseModel):
-    email: str
+    token: str
     password: str
 
 
 # Запрос для проверки нового и старого пароля
 @app.post("/reset-password/api/update-user-password")
 async def update_user_password(user: UpdateUserPasswordRequest):
-    # Генерируем соль (salt)
-    salt = bcrypt.gensalt()
-    # Хешируем пароль с солью
-    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), salt)
-    cur.execute(
-        "UPDATE users SET password = ? WHERE email = ?", (hashed_password, user.email)
-    )
-    conn.commit()
-    return {"OK": True}
+    user.token = bytes(
+        user.token[2:-1].replace("\\\\", "\\").encode("utf-8").decode("unicode_escape"),
+        "latin1",
+    )[1:-1]
+    if (user.token,) in cur.execute(f"SELECT token FROM users").fetchall():
+        # Генерируем соль (salt)
+        salt = bcrypt.gensalt()
+        # Хешируем пароль с солью
+        hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), salt)
+        cur.execute(
+            "UPDATE users SET password = ? WHERE token = ?",
+            (hashed_password, user.token),
+        )
+        conn.commit()
+        return {"OK": True}
 
 
 class DeleteUserRequest(BaseModel):

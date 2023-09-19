@@ -276,7 +276,6 @@ main {
 
       /* Анимация глаза сделана таким образом, что стили закрытого глаза заданы в css, а открытого в html, в атрибуте d, viewBox и тд. */
       svg {
-        width: 3vmin;
         height: 3vmin;
         border-radius: 0.5rem;
         cursor: pointer;
@@ -582,15 +581,15 @@ footer {
       width: 100%;
 
       h2 {
-        text-align: center;
-
-        span {
-          display: inline;
-        }
+        margin-left: 15%;
       }
 
       .login {
         margin-left: 15%;
+
+        .login__buttons a button {
+          width: 15vw;
+        }
 
         .password h3 {
           font-size: 24px;
@@ -601,7 +600,6 @@ footer {
 
   main .login {
 
-    h3,
     input {
       display: inline-block;
     }
@@ -630,6 +628,17 @@ footer {
 
   nav .nav__socials .search input::placeholder {
     font-size: 10px;
+  }
+
+  /* Main */
+  main {
+    .login_reg {
+      .login {
+        .login__buttons a button {
+          width: 30vw;
+        }
+      }
+    }
   }
 
   /* Footer */
@@ -664,10 +673,7 @@ footer {
     }
   }
 
-  /* Логирование */
-  main {
-    padding-top: 70%;
-  }
+  /* Main */
 
   main .login .login__buttons button {
     width: 35%;
@@ -677,9 +683,23 @@ footer {
     left: 13.5%;
   }
 
-  main .login_reg .login {
-    margin-left: 10%;
-    width: 80%;
+  main {
+
+    .login .password svg {
+      height: 8vmin;
+    }
+
+    .login_reg {
+      h2 {
+        font-size: 20px;
+        margin-left: 10%;
+      }
+
+      .login {
+        margin-left: 10%;
+        width: 80%;
+      }
+    }
   }
 
   footer {
@@ -729,9 +749,8 @@ footer {
     }
   }
 
-  /* Логирование */
-  main .login .login__buttons button {
-    width: 50%;
+  main .login_reg .login .login__buttons a button {
+    width: 35vw;
   }
 
   /* Footer */

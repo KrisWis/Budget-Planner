@@ -671,41 +671,9 @@ footer .footer__policy:hover::after {
   nav .icons {
     gap: 30%;
   }
-  /* Логирование */
+  /* Main */
   main .login .reg__button {
-    width: 20%;
-  }
-  /* Логирование */
-  main {
-    display: flex;
-    padding: 1%;
-    padding-top: 25%;
-    justify-content: center;
-  }
-  main .reg {
-    width: 100%;
-  }
-  main .reg h2 {
-    text-align: center;
-  }
-  main .reg h2 span {
-    display: inline;
-  }
-  main .reg .login {
-    margin-left: 15%;
-  }
-  main .reg .login .password h3 {
-    font-size: 24px;
-  }
-  main .login h3,
-  main .login input {
-    display: inline-block;
-  }
-  main .login .reg__button {
-    width: 25%;
-  }
-  main .login .agree__checkbox:checked + label::after {
-    left: 17.5%;
+    width: 50%;
   }
   /* Footer navigation */
   footer .footer__nav {
@@ -722,6 +690,32 @@ footer .footer__policy:hover::after {
   }
   nav .nav__socials .search input::placeholder {
     font-size: 10px;
+  }
+  /* Main */
+  main .login h3 {
+    font-size: 12px;
+  }
+  main .login input {
+    width: 90%;
+  }
+  main .login .get_code {
+    margin-left: 0;
+    width: 300px;
+  }
+  main .login .agree__checkbox + label {
+    display: block;
+    white-space: nowrap;
+  }
+  main .login .agree__checkbox + label a {
+    font-size: 10px;
+    position: relative;
+    bottom: 15px;
+    left: 10px;
+    white-space: nowrap;
+  }
+  main .login .password svg {
+    top: 0;
+    left: 0;
   }
   /* Footer */
   footer .footer__nav {
@@ -746,18 +740,18 @@ footer .footer__policy:hover::after {
   nav .icons {
     gap: 10%;
   }
-  /* Логирование */
+  /* Main */
   main {
-    padding-top: 70%;
+    padding: 0;
+    height: 150vh;
   }
-  main .login .reg__button {
-    width: 35%;
+  main .login .agree__checkbox + label a {
+    font-size: 9px;
   }
   main .login .agree__checkbox:checked + label::after {
     left: 13.5%;
   }
   main .reg .login {
-    margin-left: 10%;
     width: 80%;
   }
   footer {

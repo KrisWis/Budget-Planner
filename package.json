@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "watch": "babel JavaScript/EcmaScript6 -d JavaScript --presets env -w"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "htmlhint": "^1.1.4",
     "webpack-cli": "^5.1.4"
   },

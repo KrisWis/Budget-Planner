@@ -750,53 +750,9 @@ footer {
         }
     }
 
-    /* Логирование */
+    /* Main */
     main .login .reg__button {
-        width: 20%;
-    }
-
-    /* Логирование */
-    main {
-        display: flex;
-        padding: 1%;
-        padding-top: 25%;
-        justify-content: center;
-
-        .reg {
-            width: 100%;
-
-            h2 {
-                text-align: center;
-
-                span {
-                    display: inline;
-                }
-            }
-
-            .login {
-                margin-left: 15%;
-
-                .password h3 {
-                    font-size: 24px;
-                }
-            }
-        }
-    }
-
-    main .login {
-
-        h3,
-        input {
-            display: inline-block;
-        }
-
-        .reg__button {
-            width: 25%;
-        }
-
-        .agree__checkbox:checked+label::after {
-            left: 17.5%;
-        }
+        width: 50%;
     }
 
     /* Footer navigation */
@@ -814,6 +770,38 @@ footer {
 
     nav .nav__socials .search input::placeholder {
         font-size: 10px;
+    }
+
+    /* Main */
+    main .login h3 {
+        font-size: 12px;
+    }
+
+    main .login input {
+        width: 90%;
+    }
+
+    main .login .get_code {
+        margin-left: 0;
+        width: 300px;
+    }
+
+    main .login .agree__checkbox+label {
+        display: block;
+        white-space: nowrap;
+
+        a {
+            font-size: 10px;
+            position: relative;
+            bottom: 15px;
+            left: 10px;
+            white-space: nowrap;
+        }
+    }
+
+    main .login .password svg {
+        top: 0;
+        left: 0;
     }
 
     /* Footer */
@@ -848,13 +836,16 @@ footer {
         }
     }
 
-    /* Логирование */
+    /* Main */
     main {
-        padding-top: 70%;
+        padding: 0;
+        height: 150vh;
     }
 
-    main .login .reg__button {
-        width: 35%;
+    main .login .agree__checkbox+label {
+        a {
+            font-size: 9px;
+        }
     }
 
     main .login .agree__checkbox:checked+label::after {
@@ -862,7 +853,6 @@ footer {
     }
 
     main .reg .login {
-        margin-left: 10%;
         width: 80%;
     }
 

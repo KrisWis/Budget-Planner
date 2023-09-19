@@ -1385,7 +1385,7 @@ footer .footer__policy:hover::after {
 @media (max-width: 1200px) {
   /* Header */
   header {
-    padding-left: 20%;
+    padding-right: 10%;
   }
   /* Navigation */
   nav .logo {
@@ -1523,10 +1523,14 @@ footer .footer__policy:hover::after {
     /* KopiStories */
   }
   main .first_col {
+    margin-left: 0;
     /* Special Offers */
   }
+  main .first_col .photos {
+    width: 70%;
+  }
   main .first_col .special_offers {
-    width: 60%;
+    width: 75%;
   }
   main .first_col .special_offers .special_offer__text button {
     font-size: 12px;
@@ -1600,6 +1604,29 @@ footer .footer__policy:hover::after {
     padding-left: 0;
   }
   /* KopiStories */
+  main .donaters_section {
+    height: 30%;
+  }
+  main .donat {
+    width: 100%;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  main .donat .donat__money .donat__thanks p {
+    font-size: 12px;
+  }
+  main .donat .donat__header {
+    margin-bottom: 5%;
+  }
+  main .donats__form .donats__textarea::-moz-placeholder, main .donats__form .comments__textarea::-moz-placeholder, main .comments__form .donats__textarea::-moz-placeholder, main .comments__form .comments__textarea::-moz-placeholder {
+    font-size: 10px;
+  }
+  main .donats__form .donats__textarea::placeholder,
+  main .donats__form .comments__textarea::placeholder,
+  main .comments__form .donats__textarea::placeholder,
+  main .comments__form .comments__textarea::placeholder {
+    font-size: 10px;
+  }
   main .kopistories {
     margin-left: 5%;
   }

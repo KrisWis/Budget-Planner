@@ -22,6 +22,7 @@ let sendEmail = async function () {
                     recovery_password__modal_wrapper.classList.add('recovery_password__modal-wrapper--active');
                     setTimeout(() => {
                         recovery_password__modal_wrapper.classList.remove('recovery_password__modal-wrapper--active');
+                        window.location.href = '/profile';
                     }, 1000);
                     $("body").css("cursor", "default");
                 } else {

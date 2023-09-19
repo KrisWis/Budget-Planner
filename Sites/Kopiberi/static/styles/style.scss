@@ -1500,7 +1500,7 @@ footer {
 
   /* Header */
   header {
-    padding-left: 20%;
+    padding-right: 10%;
   }
 
   /* Navigation */
@@ -1674,10 +1674,15 @@ footer {
     padding: 3%;
 
     .first_col {
+      margin-left: 0;
+
+      .photos {
+        width: 70%;
+      }
 
       /* Special Offers */
       .special_offers {
-        width: 60%;
+        width: 75%;
 
         .special_offer__text button {
           font-size: 12px;
@@ -1791,7 +1796,40 @@ footer {
   }
 
   /* KopiStories */
+
   main {
+
+    .donaters_section {
+      height: 30%;
+    }
+
+    .donat {
+      width: 100%;
+      padding: 0;
+      flex-wrap: wrap;
+
+      .donat__money .donat__thanks p {
+        font-size: 12px;
+      }
+
+      .donat__header {
+        margin-bottom: 5%;
+      }
+    }
+
+    .donats__form,
+    .comments__form {
+
+
+      .donats__textarea,
+      .comments__textarea {
+
+        &::placeholder {
+          font-size: 10px;
+        }
+      }
+    }
+
     .kopistories {
       margin-left: 5%;
 

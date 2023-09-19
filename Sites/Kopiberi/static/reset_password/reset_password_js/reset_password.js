@@ -15,6 +15,7 @@ for (let index = 0; index < eyes.length; index++) {
 const reset_password__button = document.getElementById("reset_password__button");
 let checkData = async function () {
     let error = false;
+    token = getCookie("access-token");
 
     if (login__password.value) {
         if (login__password.value.length < 8) {
@@ -25,13 +26,12 @@ let checkData = async function () {
             password__check_data.classList.add("password__check_data--active");
             error = true;
         }
-
         let responseRequest = await fetch('api/check-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: login__email.value, password: login__password.value })
+            body: JSON.stringify({ token: token, password: login__password.value })
         });
 
         if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
@@ -54,18 +54,14 @@ let checkData = async function () {
         error = true;
     }
 
-    if (!login__email.value) {
-        email__check.classList.add("email__check--active");
-        error = true;
-    }
-
     if (error == false) {
+
         let responseRequest = await fetch('api/update-user-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email: login__email.value, password: login__password.value })
+            body: JSON.stringify({ token: token, password: login__password.value })
         });
 
         if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
@@ -88,11 +84,9 @@ let checkInputs = function () {
 
     } else if (this === login__confirm_password) {
         confirm_password__check.classList.remove("confirm_password__check--active");
-    } else if (this === login__email) {
-        email__check.classList.remove("email__check--active");
     }
 }
 
-for (const element of [login__email, login__password, login__confirm_password]) {
+for (const element of [login__password, login__confirm_password]) {
     eventsObj.addEvent(element, 'input', checkInputs)
 }
