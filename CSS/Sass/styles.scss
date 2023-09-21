@@ -49,7 +49,9 @@ nav {
     list-style: none;
   }
 
-  li { display: inline-block; }
+  li {
+    display: inline-block;
+  }
 
   a {
     display: block;
@@ -64,9 +66,11 @@ nav ul {
   padding: 0;
   list-style: none;
 }
+
 nav li {
   display: inline-block;
 }
+
 nav a {
   display: block;
   padding: 6px 12px;
@@ -97,13 +101,14 @@ html,
 body,
 ul,
 ol {
-  margin:  0;
+  margin: 0;
   padding: 0;
 }
 
 // Основной SASS файл (base.scss).
 /* Чтобы импортировать файл, нужно использовать директиву @import и в кавычках написать название файла без расширения. */
 @import 'first';
+
 body {
   font: 100% Helvetica, sans-serif;
   background-color: #efefef;
@@ -115,9 +120,10 @@ html,
 body,
 ul,
 ol {
-  margin:  0;
+  margin: 0;
   padding: 0;
 }
+
 body {
   font: 100% Helvetica, sans-serif;
   background-color: #efefef;
@@ -140,19 +146,20 @@ body {
   -ms-transform: $property;
   transform: $property;
 }
+
 /* Чтобы объявить миксин нужно использовать директиву @include и дальше передать имя миксина (в нашем случае это - transform). 
 А дальше в скобках передаём значение, на которое замениться переменная $property. */
-.box { 
-    @include transform(rotate(30deg))
+.box {
+  @include transform(rotate(30deg))
 }
 
 /* Вот как будет выглядеть класс box, когда мы скомпилируем SCSS файл в CSS. */
 .box {
-    -webkit-transform: rotate(30deg);
-    -ms-transform: rotate(30deg);
-    transform: rotate(30deg);
-  }
-  
+  -webkit-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  transform: rotate(30deg);
+}
+
 
 /* РАСШИРЕНИЕ/НАСЛЕДОВАНИЕ. */
 
@@ -168,61 +175,64 @@ body {
 /* Чтобы использовать наследование нужно перед селектором поставить %.
 Класс-шаблон %message-shared будет использован, т.к используется с помощью @extend, дальше в коде.  */
 %message-shared {
-    border: 1px solid #ccc;
-    padding: 10px;
-    color: #333;
-  }
-  
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
 // Класс-шаблон %equal-heights не будет использован в коде, т.к нигде не вызывается с помощью @extend.
 %equal-heights {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Класс message будет иметь все те же свойства, что и %message-shared, т.е наследует все его свойства. */
 .message {
-    @extend %message-shared;
+  @extend %message-shared;
 }
 
 /* Класс success будет иметь все те же свойства, что и %message-shared, но также будет иметь зеленую обводку. */
 .success {
-    @extend %message-shared;
-    border-color: green;
+  @extend %message-shared;
+  border-color: green;
 }
 
 /* Класс error будет иметь все те же свойства, что и %message-shared, но также будет иметь красную обводку. */
 .error {
-    @extend %message-shared;
-    border-color: red;
+  @extend %message-shared;
+  border-color: red;
 }
 
 /* Класс warning будет иметь все те же свойства, что и %message-shared, но также будет иметь жёлтую обводку. */
 .warning {
-    @extend %message-shared;
-    border-color: yellow;
+  @extend %message-shared;
+  border-color: yellow;
 }
 
 /* Вот как это будет выглядеть при компиляции в CSS.*/
 /* Классы message, success, error, warning имеют свойства, которые были объявлены в %message-shared. */
-.message, .success, .error, .warning {
-    border: 1px solid #ccc;
-    padding: 10px;
-    color: #333;
-  }
-  
+.message,
+.success,
+.error,
+.warning {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #333;
+}
+
 /* Но success, error, warning также имеют собственные свойства. */
 .success {
-    border-color: green;
+  border-color: green;
 }
 
 .error {
-    border-color: red;
+  border-color: red;
 }
 
 .warning {
-    border-color: yellow;
+  border-color: yellow;
 }
-  
+
 
 /* МАТЕМАТИЧЕСКИЕ ОПЕРАТОРЫ. */
 

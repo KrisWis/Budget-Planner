@@ -32,6 +32,15 @@
     <div class="kopistory__modal_overlay"></div>
   </div>
 
+  <!-- Cookie modal -->
+  <div class="cookie_modal" id="cookie_modal">
+    <p>Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей (данные об IP-адресе, местоположении и др.) для обеспечения работоспособности и улучшения качества обслуживания. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.</p>
+    <div class="cookie_buttons">
+      <button class="cookie_close" id="cookie_close">Согласиться</button>
+      <a class="cookie_policy" href="https://yandex.ru/legal/cookies_policy/" target="_blank">Политика конфиденциальности</a>
+    </div>
+  </div>
+
   <!-- Header -->
   <header>
     <nav>
@@ -263,11 +272,14 @@
           <h3>Ваш комментарий</h3>
           <div class="image__input">
             <div class="comments_form__photo">
-              <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">Ваше изображение профиля</label>
+              <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">
+                <p id="photo__wrapper__text">Войдите в аккаунт для фото</p>
+                <img id="comments__author__img">
+              </label>
               <input type="file" class="comments_form__upload_photo" id="comments_form__upload_photo" onchange="download__form_image(this)"> 
             </div>
           </div>
-          <textarea placeholder="Введите ваше имя.." rows="5" cols="15" name="comment" id="comments__textarea--author" class="comments__textarea author__textarea"></textarea>
+          <h3 class="comments__author" id="comments__author">Войдите в аккаунт для имени</h3>
           <textarea placeholder="Введите текст комментария.." rows="10" cols="30" name="comment" class="comments__textarea" id="comments__textarea"></textarea>
 
           <div class="comments__buttons">

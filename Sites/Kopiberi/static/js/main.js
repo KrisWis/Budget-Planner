@@ -152,22 +152,6 @@ for (let index = 0; index < thanks__comments.length; index++) {
   eventsObj.addEvent(thanks__comments[index], "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
 }
 
-/* Загрузка изображения формы */
-let result;
-function download__form_image(input) {
-  let photo__wrapper = document.getElementById('photo__wrapper');
-  let file = input.files[0];
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function () {
-    photo__wrapper.textContent = "";
-    let img = document.createElement("img");
-    result = reader.result;
-    img.src = result;
-    photo__wrapper.appendChild(img);
-  }
-}
-
 /* Получение фотографии пользователя, если у него есть аккаунт */
 
 (async function () {
@@ -188,9 +172,17 @@ function download__form_image(input) {
       login_profile.classList.remove("hide");
       document.getElementById("login_profile__img").src = user_photo;
       document.getElementById("login_profile__name").textContent = user_name;
+      document.getElementById("photo__wrapper__text").textContent = "";
+      document.getElementById("comments__author__img").src = user_photo;
+      document.getElementById("comments__author__img").classList.add("comments_form__img")
+      comments__author.textContent = user_name;
     } else {
       console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
+  } else {
+    eventsObj.addEvent(photo__wrapper, "click", function () { window.location.href = '/profile'; });
+    comments__author.classList.add("comments__author__unreg");
+    eventsObj.addEvent(comments__author, "click", function () { window.location.href = '/profile'; });
   }
 })();
 
@@ -244,3 +236,18 @@ let deleteAccount = async function () {
 
 let delete_account = document.getElementById("delete_account");
 eventsObj.addEvent(delete_account, "click", deleteAccount);
+
+/* Всплывашка для подтверждения использования куки */
+const cookie_modal = document.getElementById("cookie_modal");
+(async function () {
+  if (!getCookie("cookie_authorisation")) {
+    cookie_modal.classList.add("cookie_modal--open");
+  }
+})();
+
+/* Закрытие всплывающего окна для подтверждения куки */
+const cookie_close = document.getElementById("cookie_close");
+eventsObj.addEvent(cookie_close, "click", function () {
+  cookie_modal.classList.remove("cookie_modal--open");
+  setCookie("cookie_authorisation", true, { 'max-age': 30000000 })
+});
