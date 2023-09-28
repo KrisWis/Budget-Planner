@@ -1,2 +1,5 @@
-Sites/Kopiberi/static/register/register_js/register.js
-Sites/Kopiberi/static/register/register_js/register.js
+Sites\Kopiberi\users.db
+Sites\Kopiberi\.env
+package.json
+package-lock.json
+.htmlhintrc

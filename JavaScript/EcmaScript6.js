@@ -53,6 +53,126 @@ function res(arg, ...rest) {
 res(1, 2, 4, 5, 6, 2, "1"); // Первый аргумент запишется в arg, а все последующие в ...rest.
 
 
-/* ШАБЛОННАЯ СТРОКА (TEMPLATE STRING) - https://www.youtube.com/watch?v=5l_3YabRaGc&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=5 */
+/* ШАБЛОННАЯ СТРОКА - https://www.youtube.com/watch?v=5l_3YabRaGc&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=5 */
+
+
+// Динамичная строка выглядит следующим образом.
+`${dynamic_string}`;
+// Динамичные строки могут быть написаны в нескольких строках кода.
+let name = "Jack";
+`Привет,
+${name}`;
+/* Также, есть такая вещь как тегирование, когда перед шаблонной строкой вводишь имя функции,
+а в эту функцию должен передавать массив литералов (слова/символы, разделённые пробелом в строке и сама шаблонная строка). */
+console.log(toUpperCase`Hello, ${name}!`);
+function toUpperCase(litArr, value) {
+    /* Передаём "Hello, " + "Jack" + "!". */
+    return litArr[0] + value.toUpperCase() + litArr[1]
+}
+
+
+/* СТРЕЛОЧНЫЕ ФУНКЦИИ - https://www.youtube.com/watch?v=PGnNVW5n-3g&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=6 */
+
+
+function test(name = "Jack") { } // Пример дефолтных значений у параметров функции.
+const greet = (name, age) => `Hello, ${name}, your age is ${age}` // Пример стрелочной функции.
+const func = () => { // Пример стрелочной функции без аргументов.
+    return 1 + 1;
+}
+const func2 = a => a * 2; // Пример стрелочной функции в одну строку.
+(() => { })(); // Анонимная самовызывающаяся стрелочная функция.
+/* С стрелочными функциями нельзя использовать оператор new. 
+У них нету псевдомассива arguments. И к ним нельзя применять bind, apply, call.
+this у неё будет равно объекту, к которому она принадлежит, как метод. */
+
+
+/* ЦИКЛ FOR...OF - https://www.youtube.com/watch?v=axEG1v0KnrY&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=7 */
+
+
+const names = ['John', 'Liza', 'Anton'];
+for (let name in names) { // Если перебрать массив через in, то выведуться не имена, а их порядковые номера.
+    console.log(name);
+}
+
+for (let name of names) { // Если перебрать массив через of, то выведуться именно сами имена.
+    console.log(name);
+}
+
+// in проходиться по индексам, а of по самим значениям.
+
+
+/* ОБЪЕКТЫ - https://www.youtube.com/watch?v=Xxaw11ezP7E&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=8 */
+
+
+// В ES6, если имя ключа равно имени переменной, то значение переменной автоматически присвоиться к этому ключу.
+let name2 = "John";
+let age = 2;
+let sex = "mool";
+let person = {
+    name2,
+    age,
+    sex,
+    greet() {
+        console.log(1);
+    },
+    get password() { // Пример геттера
+        return this.name2 + this.age;
+    }
+}
+
+person.password; // Применение геттера
+
+
+/* КЛАССЫ - https://www.youtube.com/watch?v=BASquaxab_w&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=9 */
+
+
+class Task {
+    constructor() {
+        Task.counter += 1; // Используем статистическое свойство
+    }
+
+    // Названия функций и свойств не должны совпадать.
+    completed() {
+        this._completed = true;
+    }
+}
+// Чтобы задать статистическое свойство, нужно использовать следующий синтаксис:
+Task.counter = 0; // Но статистические свойства можно объявлять только перед объявлением экзепляров класса.
+
+
+/* НАСЛЕДОВАНИЕ - https://www.youtube.com/watch?v=y_j7RigHZMI&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=10 */
+
+
+// Пример использования наследования.
+class SubTask extends Taks {
+    constructor() {
+        this.example = 0; // С помощью this можно объявить свойство и не передавая его в конструктор.
+    }
+
+    completed() {
+        // Чтобы вызвать функцию с тем же названием, что и в дочернем, но из родительского класса нужно использовать super.
+        super.completed();
+        console.log("Функционал этого completed()")
+    }
+}
+// Пример использования class expression.
+let newTask = class Subtask { }
+
+
+/* ДЕСТРУКТУРИРУЮЩЕЕ ПРИСВАИВАНИЕ МАССИВОВ - https://www.youtube.com/watch?v=hwCOzuKzb2g&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=11 */
+
+
+const people = ['Jack', 'Leo', 'Max'];
+// Если переменных больше, чем элементов в массиве, то такая переменная будет равна undefined. Но можно задать ей значение по умолчанию.
+let [jack, leo, max, what = 'what'] = people; // Пример деструктурирующего присваивания массива.
+console.log(jack, leo, max); // К каждой переменной присвоился определённый элемент массива.
+let [el3, [el1, el2]] = [3, [1, 2]]; // Пример деструктурирующего присваивания массива с вложенным массивом.
+// Пример деструктурирующего присваивания массива в функцию.
+function test2([a, b]) { };
+test2[1, 20];
+
+
+/* ДЕСТРУКТУРИРУЮЩЕЕ ПРИСВАИВАНИЕ ОБЪЕКТОВ - https://www.youtube.com/watch?v=9ZsSNKo3cQ8&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=12 */
+
 
 

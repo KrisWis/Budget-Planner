@@ -724,8 +724,6 @@ main {
     h3 {
       white-space: nowrap;
     }
-
-
   }
 
   .comment__other {
@@ -754,6 +752,63 @@ main {
   .comment__date {
     color: #ffffff43;
     font-size: 14px;
+  }
+}
+
+.comment__message {
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+
+  .comment__answer {
+    @extend %link_hover_effect;
+    cursor: pointer;
+  }
+}
+
+.comment__answer_comment {
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 15px;
+    background-color: $price_color;
+    box-shadow: 1px 1px 15px $price_color;
+  }
+
+  .comment__header {
+
+    .comment__author {
+      position: relative;
+      right: 20%;
+    }
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 3px;
+      background-color: $price_color;
+      box-shadow: 1px 1px 15px $price_color;
+      position: relative;
+      bottom: 25px;
+    }
+  }
+}
+
+.comments__header {
+
+  .answer_cancel {
+    display: inline-block;
+    cursor: pointer;
+    @extend %link_hover_effect;
+    margin: 1% 0;
+
+    &::after {
+      background-color: red;
+      box-shadow: 1px 1px 15px red;
+    }
   }
 }
 
@@ -1467,7 +1522,7 @@ footer {
 }
 
 .hide {
-  display: none
+  display: none !important;
 }
 
 

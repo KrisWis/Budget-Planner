@@ -22,8 +22,10 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
             clearTimeout(errorTimer);
         }, false);
     }
+
     if (!getCookie("access-token")) {
         errorFunc(textarea, "Войдите в аккаунт, чтобы оставить комментарий!", "Введите текст..", true);
+
     } else {
         let comment__text = textarea.value;
         let comment__name = comments__author.textContent;
@@ -44,24 +46,50 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
                     comment__id = comment__id + Math.floor(Math.random() * 101);
                 }
             }
-
-            let comment__request =
-                `<div class="comment" id="comment__${comment__id}">
-            <div class="comment__header">
-                <div class="comment__author">
-                    <img src="${comment__image}" alt="Изображение комментатора">
-                    <h3>${comment__name}</h3>
-                </div>
-                <div class="comment__other">
-                    <time class="comment__date">${today}</time>
-                    <i id="comment__delete--${comment__id}*${eval(getCookie('access-token'))}" class="fa fa-trash comment__delete reg" aria-hidden="true"></i>
-                </div>
-            </div>
-            <p class="comment__text">${comment__text}</p>
-        </div>`;
-            comments.insertAdjacentHTML(`beforeend`,
-                comment__request
-            );
+            let comment__request;
+            if (answer_id) {
+                let answer = document.getElementById(`comment__${comment__id - 1}`);
+                answer.style.marginLeft = Number(answer.style.marginLeft.slice(0, -1)) + 2 + "%";
+                comment__request =
+                    `<div class="comment__answer_comment" id="comment__${comment__id}" style="margin-left: ${answer.style.marginLeft};">
+                        <div class="comment__header">
+                            <div class="comment__author">
+                                <img src="${comment__image}" alt="Изображение комментатора">
+                                <h3>${comment__name}</h3>
+                            </div>
+                            <div class="comment__other">
+                                <time class="comment__date">${today}</time>
+                                <i id="comment__delete--${comment__id}*${eval(getCookie('access-token'))}" class="fa fa-trash comment__delete reg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="comment__message"> 
+                            <p class="comment__text">${comment__text}</p>
+                            <p class="comment__answer" id="comment__answer__${comment__id}">Ответить</p>
+                        </div>
+                    </div>`;
+                answered__comment.insertAdjacentHTML(`beforeend`, comment__request);
+            } else {
+                comment__request =
+                    `<div class="comment" id="comment__${comment__id}">
+                        <div class="comment__header">
+                            <div class="comment__author">
+                                <img src="${comment__image}" alt="Изображение комментатора">
+                                <h3>${comment__name}</h3>
+                            </div>
+                            <div class="comment__other">
+                                <time class="comment__date">${today}</time>
+                                <i id="comment__delete--${comment__id}*${eval(getCookie('access-token'))}" class="fa fa-trash comment__delete reg" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="comment__message"> 
+                            <p class="comment__text">${comment__text}</p>
+                            <p class="comment__answer" id="comment__answer__${comment__id}">Ответить</p>
+                        </div>
+                    </div>`;
+                comments.insertAdjacentHTML(`beforeend`,
+                    comment__request
+                );
+            }
             comments.scrollTop = comments.scrollHeight;
             textarea.value = "";
             comments__none.classList.add("inactive");
@@ -74,13 +102,21 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
             });
             delete_comment();
 
+            /* Функциональность кнопки ответа на комментарий */
+            const comment__answers = document.querySelectorAll(".comment__answer");
+            const your__comment = document.getElementById("your__comment");
+            for (let answer of comment__answers) {
+                eventsObj.addEvent(answer, "click", function () {
+                    your__comment.textContent = `Ответ на комментарий пользователя "${document.querySelector(`#comment__${answer.id.split("__")[2]} .comment__author h3`).textContent}"`
+                    answered__comment = document.getElementById(`comment__${answer.id.split("__")[2]}`);
+                    answer_id = answer.id.split("__")[2];
+                    answer_cancel.classList.remove("hide");
+                });
+            }
+
         } else {
             if (comment__text.length == 0) {
                 errorFunc(textarea, "Вы не можете отправить пустой текст!", "Введите текст..");
-            }
-            if (result === undefined) {
-                let photo__wrapper = document.getElementById("photo__wrapper");
-                errorFunc(photo__wrapper, "Загрузите фотографию!", "Ваше изображение профиля", true);
             }
         }
     }
@@ -119,6 +155,60 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
 }());
 
 // Удаление комментария
+async function delete_comment_func(comment__id) {
+    let answer_comments = document.querySelectorAll(`#comment__${comment__id} .comment__answer_comment`);
+    let responseRequest = await fetch('api/delete-comment', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: comment__id })
+    });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        let comment = document.getElementById(`comment__${comment__id}`);
+        let preview_comment = document.getElementById(`comment__${comment__id - 1}`);
+        if (comment) {
+            if (preview_comment) {
+                let count = 1;
+                while (!preview_comment.contains(comment)) {
+                    preview_comment = document.getElementById(`comment__${comment__id - count}`);
+                    count += 1;
+                    if (!preview_comment) {
+                        comments.removeChild(comment);
+                        break
+                    }
+                }
+                if (preview_comment.contains(comment)) { preview_comment.removeChild(comment) };
+            } else {
+                comments.removeChild(comment);
+            }
+        }
+
+        let responseRequest = await fetch('api/get-comments', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            comments_arr = await responseRequest.json();
+            if (comments_arr.length == 0) {
+                comments__none.classList.remove("inactive")
+            }
+        }
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
+
+    if (answer_comments.length) {
+        for (comment of answer_comments) {
+            delete_comment_func(comment.outerHTML.match(/id="([^"]+)"/)[1].split("__")[1]); // Берём id комментария, а потом число в его id.
+        }
+    }
+}
+
 function delete_comment() {
     setTimeout(() => {
 
@@ -126,38 +216,32 @@ function delete_comment() {
 
         for (let el of comments__delete) {
             eventsObj.addEvent(el, "click", async function () {
-                let comment__id = el.id.match(regex)[1];
-                let responseRequest = await fetch('api/delete-comment', {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ id: comment__id })
-                });
-
-                if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-                    let comment = document.getElementById(`comment__${comment__id}`);
-                    if (comment) {
-                        comments.removeChild(comment);
-                        let responseRequest = await fetch('api/get-comments', {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-
-                        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-                            comments_arr = await responseRequest.json();
-                            if (comments_arr.length == 0) {
-                                comments__none.classList.remove("inactive")
-                            }
-                        }
-                    }
-
-                } else {
-                    console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
-                }
+                await delete_comment_func(el.id.match(regex)[1]);
             });
         }
     }, 1000);
 }
+
+/* Функциональность кнопки ответа на комментарий */
+let answer_id;
+let answered__comment;
+const answer_cancel = document.getElementById("answer_cancel");
+setTimeout(() => {
+    const comment__answers = document.querySelectorAll(".comment__answer");
+    const your__comment = document.getElementById("your__comment");
+    for (let answer of comment__answers) {
+        eventsObj.addEvent(answer, "click", function () {
+            your__comment.textContent = `Ответ на комментарий пользователя "${document.querySelector(`#comment__${answer.id.split("__")[2]} .comment__author h3`).textContent}"`
+            answered__comment = document.getElementById(`comment__${answer.id.split("__")[2]}`);
+            answer_id = answer.id.split("__")[2];
+            answer_cancel.classList.remove("hide");
+        });
+    }
+}, 2000)
+
+/* Функциональность отмены ответа на комментарий */
+eventsObj.addEvent(answer_cancel, "click", function () {
+    your__comment.textContent = "Ваш комментарий";
+    answer_id = false;
+    answer_cancel.classList.add("hide");
+})

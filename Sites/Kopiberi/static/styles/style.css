@@ -49,7 +49,7 @@ button {
   border: none;
 }
 
-footer .footer__policy::after, .cookie_modal .cookie_buttons .cookie_policy::after, .navigation a::after, .navicon__container a::after {
+footer .footer__policy::after, .cookie_modal .cookie_buttons .cookie_policy::after, .comments__header .answer_cancel::after, .comment__message .comment__answer::after, .navigation a::after, .navicon__container a::after {
   content: "";
   display: block;
   width: 0%;
@@ -60,7 +60,7 @@ footer .footer__policy::after, .cookie_modal .cookie_buttons .cookie_policy::aft
   transition: all 0.2s linear;
   margin: 0 auto;
 }
-footer .footer__policy:hover::after, .cookie_modal .cookie_buttons .cookie_policy:hover::after, .navigation a:hover::after, .navicon__container a:hover::after {
+footer .footer__policy:hover::after, .cookie_modal .cookie_buttons .cookie_policy:hover::after, .comments__header .answer_cancel:hover::after, .comment__message .comment__answer:hover::after, .navigation a:hover::after, .navicon__container a:hover::after {
   width: 100%;
 }
 
@@ -690,6 +690,48 @@ main {
 .comment__header .comment__date {
   color: rgba(255, 255, 255, 0.262745098);
   font-size: 14px;
+}
+
+.comment__message {
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+}
+.comment__message .comment__answer {
+  cursor: pointer;
+}
+
+.comment__answer_comment::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 15px;
+  background-color: #00F0FF;
+  box-shadow: 1px 1px 15px #00F0FF;
+}
+.comment__answer_comment .comment__header .comment__author {
+  position: relative;
+  right: 20%;
+}
+.comment__answer_comment .comment__header::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 3px;
+  background-color: #00F0FF;
+  box-shadow: 1px 1px 15px #00F0FF;
+  position: relative;
+  bottom: 25px;
+}
+
+.comments__header .answer_cancel {
+  display: inline-block;
+  cursor: pointer;
+  margin: 1% 0;
+}
+.comments__header .answer_cancel::after {
+  background-color: red;
+  box-shadow: 1px 1px 15px red;
 }
 
 .donat__text,
@@ -1356,7 +1398,7 @@ footer .footer__policy {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 /* Responsive Design */
