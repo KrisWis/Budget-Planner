@@ -15,34 +15,35 @@
   <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="static/register/register_styles/register.css">
   <script src="https://www.google.com/recaptcha/api.js"></script>
-  <title>Kopiberi | Регистрация</title>
+  <title content="Название сайта">Kopiberi | Регистрация</title>
 </head>
-<body>
+<body itemscope itemtype="https://schema.org/WebPage">
   <!-- Header -->
-  <header>
-    <nav>
-      <div class="logo">
-        <img src="static/images/icon.png" alt="Логотип">
-        <h1>Kopiberi</h1>
+  <header itemscope itemtype="https://schema.org/WPHeader">
+    <nav itemscope itemtype="https://schema.org/SiteNavigationElement">
+      <div class="logo" itemscope itemtype="https://schema.org/Brand">
+        <img itemscope itemprop="https://schema.org/logo" src="static/images/icon.png" alt="Логотип">
+        <h1 itemprop="name" content="Название сайта">Kopiberi</h1>
       </div>
-      <div class="navigation" id="header__navigation">
-        <a href="#">Главная</a>
-        <a href="#">О нас</a>
-        <a href="#">Копилки</a>
-        <a href="#">Начать копить</a>
-        <a href="#">Контакты</a>
-        <a href="#">Правила и оферты</a>
+      <div class="navigation" id="header__navigation" itemprop="name">
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">О нас</a>
+        <a href="#" itemprop="url">Копилки</a>
+        <a href="#" itemprop="url">Начать копить</a>
+        <a href="#" itemprop="url">Контакты</a>
+        <a href="#" itemprop="url">Правила и оферты</a>
       </div>
       <div class="icons">
         <div id="navicon" class="navicon">
           <i class="fa fa-navicon" aria-hidden="true"></i>
           <div id="navicon__container" class="navicon__container close">
-            <a href="#">Главная</a>
-            <a href="#">О нас</a>
-            <a href="#">Копилки</a>
-            <a href="#">Начать копить</a>
-            <a href="#">Контакты</a>
-            <a href="#">Правила и оферты</a>
+            <a href="#" itemprop="url">Главная</a>
+            <a href="#" itemprop="url">О нас</a>
+            <a href="#" itemprop="url">Копилки</a>
+            <a href="#" itemprop="url">Начать копить</a>
+            <a href="#" itemprop="url">Контакты</a>
+            <a href="#" itemprop="url">Правила и оферты</a>
           </div>
         </div>
         <div class="nav__socials" id="nav__socials">
@@ -60,7 +61,8 @@
       </div>
     </nav>
   </header> 
-  <main>
+
+  <main itemscope itemtype="https://schema.org/RegisterAction">
     <div class="success_reg__modal-wrapper" id="success_reg__modal-wrapper">
       <p>Аккаунт успешно зарегистрирован! <i class="fa fa-check" aria-hidden="true"></i></p>
       <div class="success_reg__modal_overlay"></div>
@@ -71,13 +73,13 @@
       </h2>
       <div class="login">
         <div class="image__input">
-          <div class="comments_form__photo">
-            <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">Ваше изображение профиля</label>
+          <div class="comments_form__photo" itemscope itemtype="http://schema.org/ImageObject">
+            <label itemprop="image" class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">Ваше изображение профиля</label>
             <input type="file" class="comments_form__upload_photo" id="comments_form__upload_photo" onchange="download__form_image(this)"> 
           </div>
         </div>
         <div>
-          <h3>Имя</h3>
+          <h3 itemprop="name">Имя</h3>
           <input class="login__name" id="login__name" placeholder="Иннокентий" type="name">
           <p class="name__check" id="name__check">Введите своё имя!</p>
         </div>
@@ -133,9 +135,9 @@
           <p class="confirmation_code__rightly" id="confirmation_code__rightly">Неверный код!</p>
         </div>
 
-        <button class="get_code" id="get_code">
+        <button class="get_code" id="get_code" itemscope itemtype="https://schema.org/DeliveryEvent">
           Получить код
-          <div class="get_code__modal-wrapper" id="get_code__modal-wrapper">
+          <div itemprop="accessCode" class="get_code__modal-wrapper" id="get_code__modal-wrapper">
             <p>Код отправлен вам на почту! <i class="fa fa-check" aria-hidden="true"></i></p>
             <div class="get_code__modal_overlay"></div>
           </div>
@@ -182,66 +184,68 @@
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer itemscope itemtype="https://schema.org/WPFooter">
     <!-- Footer navigation -->
     <div class="footer__nav">
-      <div class="logo">
-        <img src="static/images/icon.png" alt="Логотип">
-        <h1>Kopiberi</h1>
+      <div class="logo" itemscope itemtype="https://schema.org/Brand">
+        <img itemscope itemprop="https://schema.org/logo" src="static/images/icon.png" alt="Логотип">
+        <h1 itemprop="name" content="Название сайта">Kopiberi</h1>
       </div>
-      <div class="navigation">
-        <a href="#">Главная</a>
-        <a href="#">О нас</a>
-        <a href="#">Копилки</a>
-        <a href="#">Начать копить</a>
-        <a href="#">Контакты</a>
-        <a href="#">Правила и оферты</a>
+      <div class="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">О нас</a>
+        <a href="#" itemprop="url">Копилки</a>
+        <a href="#" itemprop="url">Начать копить</a>
+        <a href="#" itemprop="url">Контакты</a>
+        <a href="#" itemprop="url">Правила и оферты</a>
       </div>
       <div class="icons">
         <div id="footer__navicon" class="navicon">
           <i class="fa fa-navicon" aria-hidden="true"></i>
-          <div id="footer__navicon__container" class="navicon__container close">
-            <a href="#">Главная</a>
-            <a href="#">О нас</a>
-            <a href="#">Копилки</a>
-            <a href="#">Начать копить</a>
-            <a href="#">Контакты</a>
-            <a href="#">Правила и оферты</a>
+          <div id="footer__navicon__container" class="navicon__container close" itemscope itemtype="https://schema.org/SiteNavigationElement">
+            <a href="#" itemprop="url">Главная</a>
+            <a href="#" itemprop="url">Главная</a>
+            <a href="#" itemprop="url">О нас</a>
+            <a href="#" itemprop="url">Копилки</a>
+            <a href="#" itemprop="url">Начать копить</a>
+            <a href="#" itemprop="url">Контакты</a>
+            <a href="#" itemprop="url">Правила и оферты</a>
           </div>
         </div>
-        <a href="https://vk.com/id402004410">
+        <a href="https://vk.com/id402004410" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-vk" aria-hidden="true"></i>
         </a>
-        <a href="https://github.com/KrisWis">
+        <a href="https://github.com/KrisWis" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-github" aria-hidden="true"></i>
         </a>
-        <a href="https://kwork.ru/user/evgeniy_wis">
+        <a href="https://kwork.ru/user/evgeniy_wis" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-suitcase" aria-hidden="true"></i>
         </a>
       </div>
     </div>
 
     <!-- Footer contacts -->
-    <div class="footer__contacts">
+    <div class="footer__contacts" itemscope itemtype="http://schema.org/PostalAddress">
       <div class="footer__geo">
         <i class="fa fa-map-marker" aria-hidden="true"></i>
-        <p>Санкт-Петербург, пр. Ветеранов 166, лит. А</p>
+        <p itemprop="streetAddress">Санкт-Петербург, пр. Ветеранов 166, лит. А</p>
       </div>
 
-      <div class="footer__phone">
+      <div class="footer__phone" itemprop="telephone">
         <i class="fa fa-phone" aria-hidden="true"></i>
-        <p>+7 (812) 744-77-12</p>
+        <p href="tel:+78127447712">+7 (812) 744-77-12</p>
       </div>
 
       <div class="footer__mail">
         <i class="fa fa-mail-forward" aria-hidden="true"></i>
-        <p>info@kopiberi.ru</p>
+        <p itemprop="email">info@kopiberi.ru</p>
       </div>
     </div>
 
     <!-- Privacy policy -->
     <a href="#" class="footer__policy">Политика конциденциальности</a>
-  </footer> 
+  </footer>
 
   <script src="static/js/jQuery/jquery-3.7.0.min.js"></script>
   <script src="static/js/eventsObj.js"></script>

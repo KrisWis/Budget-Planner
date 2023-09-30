@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +13,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="static/styles/style.css">
-  <title>Kopiberi</title>
+  <title content="Название сайта">Kopiberi</title>
 </head>
-<body>
+<!-- itemscope — указывает, что в блоке (<div>...</div>) задается элемент (сущность); 
+itemtype — указывает на тип сущности. 
+Укажем поисковым роботам, что это тело веб-страницы. -->
+<body itemscope itemtype="https://schema.org/WebPage">
   <!-- Modal wrapper -->
   <div class="kopistory__modal-wrapper" id="kopistory__modal_wrapper">
     <div class="kopistory__modal-window">
@@ -33,7 +35,7 @@
   </div>
 
   <!-- Cookie modal -->
-  <div class="cookie_modal" id="cookie_modal">
+  <div class="cookie_modal" id="cookie_modal" itemscope interactionType="http://schema.org/UserInteraction">
     <p>Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей (данные об IP-адресе, местоположении и др.) для обеспечения работоспособности и улучшения качества обслуживания. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.</p>
     <div class="cookie_buttons">
       <button class="cookie_close" id="cookie_close">Согласиться</button>
@@ -41,31 +43,36 @@
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <nav>
-      <div class="logo">
-        <img src="static/images/icon.png" alt="Логотип">
-        <h1>Kopiberi</h1>
+  <!-- Header 
+  Расшифровывается как Web Page Header — не путайте. -->
+  <header itemscope itemtype="https://schema.org/WPHeader">
+    <!-- На многих сайтах должно быть навигационное меню, иначе пользователю будет крайне сложно перемещаться по страницам сайта. 
+    Исключение составляют разве что лендинги. Но даже на лендингах для перемещения между секциями, иногда делают меню. 
+    Для меню предусмотрен тип разметки — SiteNavigationElement. -->
+    <nav itemscope itemtype="https://schema.org/SiteNavigationElement">
+      <div class="logo" itemscope itemtype="https://schema.org/Brand">
+        <img itemscope itemprop="https://schema.org/logo" src="static/images/icon.png" alt="Логотип">
+        <h1 itemprop="name" content="Название сайта">Kopiberi</h1>
       </div>
-      <div class="navigation" id="header__navigation">
-        <a href="#">Главная</a>
-        <a href="#">О нас</a>
-        <a href="#">Копилки</a>
-        <a href="#">Начать копить</a>
-        <a href="#">Контакты</a>
-        <a href="#">Правила и оферты</a>
+      <!-- В отличии от предыдущих объектов, в навигации применяются свойства name и url для атрибута itemprop. -->
+      <div class="navigation" id="header__navigation" itemprop="name">
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">О нас</a>
+        <a href="#" itemprop="url">Копилки</a>
+        <a href="#" itemprop="url">Начать копить</a>
+        <a href="#" itemprop="url">Контакты</a>
+        <a href="#" itemprop="url">Правила и оферты</a>
       </div>
       <div class="icons">
         <div id="navicon" class="navicon">
           <i class="fa fa-navicon" aria-hidden="true"></i>
           <div id="navicon__container" class="navicon__container close">
-            <a href="#">Главная</a>
-            <a href="#">О нас</a>
-            <a href="#">Копилки</a>
-            <a href="#">Начать копить</a>
-            <a href="#">Контакты</a>
-            <a href="#">Правила и оферты</a>
+            <a href="#" itemprop="url">Главная</a>
+            <a href="#" itemprop="url">О нас</a>
+            <a href="#" itemprop="url">Копилки</a>
+            <a href="#" itemprop="url">Начать копить</a>
+            <a href="#" itemprop="url">Контакты</a>
+            <a href="#" itemprop="url">Правила и оферты</a>
           </div>
         </div>
         <div class="nav__socials" id="nav__socials">
@@ -78,7 +85,7 @@
           <a href="/profile" id="profile">
             <i class="fa fa-user" aria-hidden="true"></i>
           </a>
-          <div class="login_profile hide" id="login_profile">
+          <div class="login_profile hide" id="login_profile" itemscope itemtype="https://schema.org/ProfilePage">
             <img alt="Изображение пользователя" class="login_profile__img" id="login_profile__img">
             <div id="login_profile__container" class="login_profile__container close">
               <a href="#" id="login_profile__name"></a>
@@ -97,12 +104,12 @@
     <!-- First col -->
     <section class="first_col">
       <!-- Photos -->
-      <div class="photos">
-        <div class="photos__main_photo">
+      <div class="photos" itemscope itemtype="http://schema.org/ImageObject">
+        <div class="photos__main_photo" itemprop="image">
           <i class="fa fa-arrow-right" aria-hidden="true"></i>
           <img src="static/images/photos_image.png" alt="Дом мечты">
         </div>
-        <div class="photos__mini">
+        <div class="photos__mini" itemprop="image">
           <img src="static/images/photos_image.png" alt="Дом мечты">
           <img src="static/images/photos_image.png" alt="Дом мечты">
           <div class="images__more">+2</div>
@@ -110,7 +117,7 @@
       </div>
 
       <!-- Special offers -->
-      <div class="special_offers">
+      <div class="special_offers" itemscope itemtype="https://schema.org/SpecialAnnouncement">
         <div class="special_offers__container">
           <h2>Специальные предложения</h2>
           <div class="special_offer">
@@ -127,14 +134,16 @@
     </section>
     <!-- End of First col -->
 
-    <!-- Second col -->
-    <section class="second_col">
+    <!-- Second col 
+    Добавляем микроразметку для статьи -->
+    <section class="second_col" itemscope itemtype="http://schema.org/Article">
       <article class="post">
 
         <div class="post__user_info">
-          <div class="user_bio">
-            <img src="static/images/post_image.png" alt="Автор поста">
-            <h3>Ольга</h3>
+          <div class="user_bio" itemprop="publisher" itemscope itemtype="https://schema.org/Person">
+            <img thumbnail="static/images/post_image.png" src="static/images/post_image.png" alt="Автор поста">
+            <!-- Теперь добавляем в микроразметку автора: -->
+            <h3 itemprop="name">Ольга</h3>
           </div>
           <div class="user_socials">
             <a href="#">
@@ -147,13 +156,15 @@
         </div>
 
         <div class="post__tags">
-          <p>Категория - Для дома и дачи</p>
-          <p>№ 31464</p>
+          <p itemscope itemtype="https://schema.org/BreadcrumbList">Категория - Для дома и дачи</p>
+          <p address="№ 31464">№ 31464</p>
         </div>
 
         <div class="post__text">
-          <h2>Дом мечты в котором хотелось бы жить</h2>
-          <div class="post__desc">
+          <!-- Сначала размечаем название статьи. -->
+          <h2 itemprop="headline">Дом мечты в котором хотелось бы жить</h2>
+          <!-- Теперь сделаем разметку текста — в тег div добавляем атрибут: -->
+          <div class="post__desc" itemprop="articleBody">
             <p>Мечтаю переехать в дом со своей собакой. Верю, что все возможно</p>
             <div class="desc__info">
               <p>Осталось дней: <i class="fa fa-500px" aria-hidden="true"></i></p>
@@ -169,7 +180,7 @@
         </div>
       </article>
 
-      <section id="donaters_section" class="donaters_section">
+      <section id="donaters_section" class="donaters_section" itemscope itemtype="https://schema.org/TradeAction">
         <div class="donats">
           <div class="donat">
             <div class="donat__header">
@@ -194,7 +205,7 @@
                 </div>
                 <p>Поблагодарить</p>
               </div>
-              <p id="donater__money--1">+ 22 000$</p>
+              <p id="donater__money--1" itemprop="price">+ 22 000$</p>
             </div>
           </div>
 
@@ -221,7 +232,7 @@
                 </div>
                 <p>Поблагодарить</p>
               </div>
-              <p id="donater__money--2">+ 18 000$</p>
+              <p id="donater__money--2" itemprop="price">+ 18 000$</p>
             </div>
           </div>
         </div>
@@ -352,60 +363,61 @@
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer itemscope itemtype="https://schema.org/WPFooter">
     <!-- Footer navigation -->
     <div class="footer__nav">
       <div class="logo">
         <img src="static/images/icon.png" alt="Логотип">
         <h1>Kopiberi</h1>
       </div>
-      <div class="navigation">
-        <a href="#">Главная</a>
-        <a href="#">О нас</a>
-        <a href="#">Копилки</a>
-        <a href="#">Начать копить</a>
-        <a href="#">Контакты</a>
-        <a href="#">Правила и оферты</a>
+      <div class="navigation" itemscope itemtype="https://schema.org/SiteNavigationElement">
+        <a href="#" itemprop="url">Главная</a>
+        <a href="#" itemprop="url">О нас</a>
+        <a href="#" itemprop="url">Копилки</a>
+        <a href="#" itemprop="url">Начать копить</a>
+        <a href="#" itemprop="url">Контакты</a>
+        <a href="#" itemprop="url">Правила и оферты</a>
       </div>
       <div class="icons">
         <div id="footer__navicon" class="navicon">
           <i class="fa fa-navicon" aria-hidden="true"></i>
-          <div id="footer__navicon__container" class="navicon__container close">
-            <a href="#">Главная</a>
-            <a href="#">О нас</a>
-            <a href="#">Копилки</a>
-            <a href="#">Начать копить</a>
-            <a href="#">Контакты</a>
-            <a href="#">Правила и оферты</a>
+          <div id="footer__navicon__container" class="navicon__container close" itemscope itemtype="https://schema.org/SiteNavigationElement">
+            <a href="#" itemprop="url">Главная</a>
+            <a href="#" itemprop="url">О нас</a>
+            <a href="#" itemprop="url">Копилки</a>
+            <a href="#" itemprop="url">Начать копить</a>
+            <a href="#" itemprop="url">Контакты</a>
+            <a href="#" itemprop="url">Правила и оферты</a>
           </div>
         </div>
-        <a href="https://vk.com/id402004410">
+        <a href="https://vk.com/id402004410" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-vk" aria-hidden="true"></i>
         </a>
-        <a href="https://github.com/KrisWis">
+        <a href="https://github.com/KrisWis" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-github" aria-hidden="true"></i>
         </a>
-        <a href="https://kwork.ru/user/evgeniy_wis">
+        <a href="https://kwork.ru/user/evgeniy_wis" itemscope itemtype="https://schema.org/ContactPage">
           <i class="fa fa-suitcase" aria-hidden="true"></i>
         </a>
       </div>
     </div>
 
-    <!-- Footer contacts -->
-    <div class="footer__contacts">
+    <!-- Footer contacts 
+    В подвале можно указать разметку для некоторых реквизитов компании: -->
+    <div class="footer__contacts" itemscope itemtype="http://schema.org/PostalAddress">
       <div class="footer__geo">
         <i class="fa fa-map-marker" aria-hidden="true"></i>
-        <p>Санкт-Петербург, пр. Ветеранов 166, лит. А</p>
+        <p itemprop="streetAddress">Санкт-Петербург, пр. Ветеранов 166, лит. А</p>
       </div>
 
-      <div class="footer__phone">
+      <div class="footer__phone" itemprop="telephone">
         <i class="fa fa-phone" aria-hidden="true"></i>
-        <p>+7 (812) 744-77-12</p>
+        <a href="tel:+78127447712">+7 (812) 744-77-12</ф>
       </div>
 
       <div class="footer__mail">
         <i class="fa fa-mail-forward" aria-hidden="true"></i>
-        <p>info@kopiberi.ru</p>
+        <p itemprop="email">info@kopiberi.ru</p>
       </div>
     </div>
 

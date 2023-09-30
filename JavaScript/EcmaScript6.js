@@ -175,4 +175,50 @@ test2[1, 20];
 /* ДЕСТРУКТУРИРУЮЩЕЕ ПРИСВАИВАНИЕ ОБЪЕКТОВ - https://www.youtube.com/watch?v=9ZsSNKo3cQ8&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=12 */
 
 
+let person2 = {
+    name: "jack",
+    age: 2,
+    address: {
+        city: "Moscow"
+    }
+};
+let { name4, age4 = 8 } = person2; // Пример деструктурирующего присваивания объектов.
+let { name: PersonName, age: PersonAge } = person2; // Тут мы свойствам в объекте присваиваем определённые переменные.
+let { address: { city = "Peter" } } = person; // Заходим в свойство address и берём оттуда свойство city, присваивая ему дефолтное значение.
+// Пример деструктурирующего присваивания объекта для функции.
+function test3({ a, b }) { };
+test3[person];
+
+
+/* СИМВОЛЫ - https://www.youtube.com/watch?v=XTrXDgc7oHo&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=13 */
+
+
+/* Символы это новый тип данных.
+Они нужны для создания уникальных ключей внутри объектов, когда объекты действительно большие. 
+Либо используются при создании библиотеки для уникальных имён и не допущения конфликта имён снаружи библиотеки. */
+let symbol = Symbol('mySimbol');
+console.log(symbol); // Выведет Symbol('mySimbol').
+let symbol2 = Symbol('mySimbol')
+console.log(symbol === symbol2); // Выведет false, т.к все символы уникальны.
+
+// Для того, чтобы символы с одинаковым значениям были равны, есть метод for.
+let symbol3 = Symbol.for('mySimbol');
+console.log(symbol3); // Также выведет Symbol('mySimbol').
+let symbol4 = Symbol.for('mySimbol')
+console.log(symbol3 === symbol4); // Выведет true, т.к символы объявлены с помощью метода for.
+
+/* Все созданные символы с помощью for добавляются в некий глобальный реестр. 
+Символы, не созданные с помощью for, в глобальный реестр не попадают. */
+let symbolName = Symbol.keyFor(symbol3); // Получаем значение, которое хранит symbol3.
+console.log(symbolName); // Выведет "mySimbol".
+
+let person3 = {
+    [Symbol.for("password")]: "21weqwere342"
+}
+// Функция для того, чтобы вывести все символы в объекте.
+console.log(Object.getOwnPropertySymbols(person3)); // Выведет [Symbol(password)]
+
+
+/* ПРОМИСЫ - https://www.youtube.com/watch?v=XD1MKx7eIuQ&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=14 */
+
 

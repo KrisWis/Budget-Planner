@@ -51,9 +51,9 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
                 let answer = document.getElementById(`comment__${comment__id - 1}`);
                 answer.style.marginLeft = Number(answer.style.marginLeft.slice(0, -1)) + 2 + "%";
                 comment__request =
-                    `<div class="comment__answer_comment" id="comment__${comment__id}" style="margin-left: ${answer.style.marginLeft};">
+                    `<div class="comment__answer_comment" id="comment__${comment__id}" style="margin-left: ${answer.style.marginLeft};" itemprop itemtype="https://schema.org/Comment">
                         <div class="comment__header">
-                            <div class="comment__author">
+                            <div class="comment__author" itemprop="author">
                                 <img src="${comment__image}" alt="Изображение комментатора">
                                 <h3>${comment__name}</h3>
                             </div>
@@ -70,9 +70,9 @@ eventsObj.addEvent(comments__submit, "click", async function (e) {
                 answered__comment.insertAdjacentHTML(`beforeend`, comment__request);
             } else {
                 comment__request =
-                    `<div class="comment" id="comment__${comment__id}">
+                    `<div class="comment" id="comment__${comment__id}" itemprop itemtype="https://schema.org/Comment">
                         <div class="comment__header">
-                            <div class="comment__author">
+                            <div class="comment__author" itemprop="author">
                                 <img src="${comment__image}" alt="Изображение комментатора">
                                 <h3>${comment__name}</h3>
                             </div>
