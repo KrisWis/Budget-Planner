@@ -222,3 +222,161 @@ console.log(Object.getOwnPropertySymbols(person3)); // Выведет [Symbol(pa
 /* ПРОМИСЫ - https://www.youtube.com/watch?v=XD1MKx7eIuQ&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=14 */
 
 
+// Промисы нужны для последовательного выполнения асинхронного кода.
+const promise = new Promise((resolve, reject) => {
+    throw new Error("error"); // Создание ошибки с помощью throw, которая отлавливается catch.
+}); // Пример создания промиса.
+// Пример использования промиса.
+promise.then(data => data) // Если у нас цепочка .then, то каждый .then должен возвращать какое-либо значение.
+    .then(data => data)
+    .catch(() => console.log("error"));
+// Метод fetch() отправляет промис и с ним можно использовать .then и .catch.
+
+
+/* ASYNC/AWAIT - https://www.youtube.com/watch?v=b17RVAqp5QA&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=15 */
+
+
+const fetchData = () => Promise.resolve({
+    data: ["Jack", "Max", 'Leo']
+});
+
+// Код на .then, используя промис.
+const getNamesData = () => {
+    fetchData()
+        .then(data => {
+            console.log(data);
+            return 'done';
+        })
+}
+/* Тот же код на async/await. Код на async/await будет возвращать промис.
+А также код на async/await использует структуру try/catch для обработки ошибок, а не reject/resolve. */
+const getNamesData2 = async () => {
+    console.log(await fetchData());
+    return 'done';
+}
+
+
+/* ИТЕРАТОРЫ - https://www.youtube.com/watch?v=HToDur7Gkkw&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=16 */
+
+
+// Итерируемые объекты - это те объекты, которые можно перебрать в цикле.
+
+// Чтобы перебрать объект нужно вызвать объект Symbol.iterator, который преобразует объект в итерируемый.
+let GenerateNumbers = {
+    start: 1,
+    end: 10
+}
+
+GenerateNumbers[Symbol.iterator] = function () {
+    // Записываем значения начала и конца цикла
+    let current = this.start;
+    let last = this.end;
+
+    return {
+        next() { // Вызывается при каждом итерировании
+            if (current <= last) { // Если ещё не конец цикла
+                return { // Возвращаем, что цикл не завершён и прибавляем значение.
+                    done: false,
+                    value: current++
+                }
+            } else {
+                return { // Возвращаем, что цикл завершён.
+                    done: true,
+                }
+            }
+        }
+    }
+}
+
+/* Теперь можно пройтись циклом по объекту.
+Цикл сам автоматически вызывает Symbol.iterator, 
+после чего вызывает next() до получения объекта со свойством done, равным true. */
+for (let number of GenerateNumbers) {
+    console.log(number);
+}
+
+
+/* ГЕНЕРАТОРЫ - https://www.youtube.com/watch?v=ejdhriCfF8s&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=17 */
+
+
+// Генераторы, это функции, которые могут в любой момент прекратить выполнение и выполнять промежуточный результат.
+function* generate() { // Пример функции-генератора. Это итерируемые объекты.
+    // Из-за метода throw, мы можем отлавивать ошибки в самом генераторе с помощью try/catch.
+    try {
+        console.log("first");
+        yield 1; // Если указать после yield значение, то оно запишется в свойство value у next().
+        let res = (yield) * 2; // В next() можно передавать значения и манипулировать с ними. yield, в таком случае, нужно обернуть в круглые скобки.
+        console.log(res);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+let iterator = generate(); // Записываем генератор в переменную.
+// Объекты next() имеют структуру, которую мы описывали ранее.
+// Первый next() только запускает генератор, поэтому передавать в него значения нет смысла.
+iterator.next(); // Выведет "first".
+iterator.return(); // return() останавливает генератор и вызвать next() больше нельзя. В "done" стоит true.
+iterator.throw(new Error("error")); // Метод throw() нужен для создания ошибки в генераторе и прекращения его работы.
+iterator.next(2); // Выведет 4.
+
+let object2 = {
+    *generator() { } // Пример метода-генератора.
+}
+
+
+/* SET & MAP - https://www.youtube.com/watch?v=eiERfNjeeUc&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=18 */
+
+
+// Map - это коллекция для хранения записей вида ключ-значение. Ввиде ключей, она может принимить любой объект.
+let map = new Map();
+// Используем сокращённый синтаксис добавления.
+map
+    .set("str", "string") // Записываем в map строку-ключ и строку-значение.
+    .set(1, 5) // Записываем в map цифру-ключ и цифру-значение.
+    .set(true, 'boolean'); // Записываем в map bool-ключ и строку-значение.
+
+// C помощью get() можно получить значение по ключу.
+map.get(1); // Выведет 5
+map.size; // Выведет размер map, равный 3.
+
+// Пример создания map другим способом.
+let map2 = new Map([
+    ['str', 'string']
+    [1, 5]
+    [true, 'boolean']
+]);
+// Проверка на то, есть в map переданный ключ.
+map2.has(1); // Выведет true.
+map2.delete(1); // Удаляем ключ-значение 1:5.
+map2.clear(); // Полностью очищаем map.
+map.keys(); // Возвращает итерируемый объект ключей.
+map.values(); // Возвращает итерируемый объект значений.
+map.entries(); // Возвращает итерируемый объект пар ключ-значение.
+
+// Set - это такая же коллекция, как и map, но она удаляет дубликаты и хранит только уникальные ключ-значения.
+let set = new Set();
+let jack2 = { name: 'jack' };
+let leo2 = { name: 'leo' };
+// Добавление объектов происходит с помощью метода add().
+set
+    .add(jack2)
+    .add(leo2)
+    .add({ name: 'jack' }) // Не добавиться, т.к это дубликат.
+set.forEach(user => console.log(user)); // Проходимся циклом по множеству и выводим каждый объект ключ-значение.
+// Но найти элемент по ключу в множестве не получиться.
+
+set.delete(jack2); // Удаление элемента. Если объект там был - вернёт true, если нет - то false.
+set.has(leo2); // Возвращаем true, если объект там есть и false, если нет.
+set.clear(); // Очищаем множество.
+
+/* Коллекции WeakMap и WeakSet отличаются от Map и Set только тем, что они не припятствуют сборщику мусора удалять свои элементы.
+Т.е если объект присутствует только в weakMap или только в weakSet и больше нигде не используется, то он удаляется из памяти.
+Используя weakMap и weakSet мы храним только вспомогательные данные, которые должны существовать только пока существует объект. */
+let weackMap = new WeakMap();
+let weakSet = new WeakSet();
+
+
+/* МОДУЛИ - https://www.youtube.com/watch?v=q_tHi37EMic&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=19 */
+
+

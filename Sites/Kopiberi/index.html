@@ -266,10 +266,45 @@ itemtype — указывает на тип сущности.
             </div>
           </div>
           
-          <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea close" id="donats__form__textarea"></textarea><br>
+          <!-- Форма для комментария -->
+          <div class="donate_comments_form close" id="donate_comments_form">
+            <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea" id="donats__form__textarea"></textarea>
           
-          <div class="donats__buttons close" id="donats__form__buttons">
-            <input class="donats__submit" type="submit">
+            <div class="donats__buttons" id="donats__form__buttons">
+              <input class="donats__submit" type="submit">
+            </div>
+          </div>
+
+          <!-- Форма для фото -->
+          <div class="donate_photo_form close" id="donate_photos_form">
+            
+            <div class="donate__photo" id="donate__photo">
+              <label itemprop="image" class="donate_photo__wrapper" id="donate_photo__wrapper" for="donate_photo__upload_photo">
+                <svg class="donate_photo__svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16"> <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/> <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/> </svg>
+                <img alt="Изображение доната" id="donate__img" class="donate__img">
+              </label>
+              <input type="file" class="donate_photo__upload_photo" id="donate_photo__upload_photo" onchange="download__PhotoForm_image(this)"> 
+            </div>
+          
+            <div class="donats__buttons" id="donats__form__buttons">
+              <input class="donats__submit" type="submit">
+            </div>
+          </div>
+
+          <!-- Форма для голосовых сообщений -->
+          <div class="donate_voiceMessages_form close" id="donate_voiceMessages_form">
+  
+            <div class="donate__voiceMessage" id="donate__voiceMessage">
+              <label itemprop="image" class="donate_voiceMessage__wrapper" id="donate_voiceMessage__wrapper" for="donate_voiceMessage__upload_voiceMessage">
+                <i class="fa fa-microphone donate_voiceMessage__microphone open" id="donate_voiceMessage__microphone" aria-hidden="true"></i>
+              </label>
+
+              <!-- <input type="file" class="donate_voiceMessage__upload_voiceMessage" id="donate_voiceMessage__upload_voiceMessage"> -->
+            </div>
+          
+            <div class="donats__buttons" id="donats__form__buttons">
+              <input class="donats__submit" type="submit">
+            </div>
           </div>
         </form>
       </section>

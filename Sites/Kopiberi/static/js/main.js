@@ -46,14 +46,16 @@ let link_button = document.getElementById("link_button");
 let link_icon = document.getElementById("link_icon");
 let link__modal_wrapper = document.getElementById("link__modal-wrapper");
 
-let changeToLinked = function () {
-  new ClipboardJS('#link_button'); // Объект для копирования в буфер обмена.
-  link_button.setAttribute("data-clipboard-text", document.URL) // Атрибут, в который передаём то, что скопируется в буфер обмена.
-  link_icon.classList.toggle('link__active');
-  link__modal_wrapper.classList.add('link__modal-wrapper--active');
-  setTimeout(() => {
-    link__modal_wrapper.classList.remove('link__modal-wrapper--active');
-  }, 1000);
+let changeToLinked = function (e) {
+  if (e.target == link_button || e.target == link_icon) {
+    new ClipboardJS('#link_button'); // Объект для копирования в буфер обмена.
+    link_button.setAttribute("data-clipboard-text", document.URL) // Атрибут, в который передаём то, что скопируется в буфер обмена.
+    link_icon.classList.toggle('link__active');
+    link__modal_wrapper.classList.add('link__modal-wrapper--active');
+    setTimeout(() => {
+      link__modal_wrapper.classList.remove('link__modal-wrapper--active');
+    }, 1000);
+  }
 }
 
 eventsObj.addEvent(link_button, "click", changeToLinked);
@@ -110,7 +112,7 @@ for (let index = 0; index < thanks__circles.length; index++) {
   eventsObj.addEvent(thanks__circles[index], "click", function () { open(donat__thanks_ways[index], thanks_ways__triangles[index]) });
 }
 
-/* Открытие формы */
+// Открытие формы доната
 let thanks__comments = document.querySelectorAll(".thanks__comment");
 let thanks__cameras = document.querySelectorAll(".thanks__camera");
 let thanks__microphones = document.querySelectorAll(".thanks__microphone");
@@ -122,19 +124,31 @@ let form__image = document.getElementById("form__image");
 let form__name = document.getElementById("form__name");
 let form__date = document.getElementById("form__date");
 let form__money = document.getElementById("form__money");
+let donate_comments_form = document.getElementById("donate_comments_form");
+let forms__ids = [];
+let donate_photos_form = document.getElementById("donate_photos_form");
+let donate_voiceMessages_form = document.getElementById("donate_voiceMessages_form");
 
-let openForm = function (id) {
+let openDonateForm = function (id) {
   arguments__arr = Array.prototype.slice.call(arguments);
   arguments__arr.shift();
 
   for (el of arguments__arr) {
-    if (el.classList.contains("open") && forms__ids[forms__ids.length - 1] != id) {
-
+    if (el.classList.contains("open")) {
       setTimeout(function () {
-        el.classList.toggle('open');
-        el.classList.toggle('close');
-      }, 500)
+        el.style.display = "none";
+      })
+
+      if (forms__ids[forms__ids.length - 1] != id) {
+
+        setTimeout(function () {
+          el.classList.toggle('open');
+          el.classList.toggle('close');
+        }, 500)
+      }
     }
+
+    el.style.display = "flex";
     el.classList.toggle('open');
     el.classList.toggle('close');
     setTimeout(function () {
@@ -147,10 +161,74 @@ let openForm = function (id) {
   forms__ids.push(id);
 }
 
-forms__ids = [];
+// Открытие формы донатного комментария
 for (let index = 0; index < thanks__comments.length; index++) {
-  eventsObj.addEvent(thanks__comments[index], "click", function () { openForm(index + 1, donats__form, donat, donat__textarea, donat__buttons) });
+  eventsObj.addEvent(thanks__comments[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_comments_form) });
 }
+
+// Открытие формы донатной фотографии
+for (let index = 0; index < thanks__cameras.length; index++) {
+  eventsObj.addEvent(thanks__cameras[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_photos_form) });
+}
+
+/* Загрузка изображения формы донатной фотографии */
+let result;
+function download__PhotoForm_image(input) {
+  let file = input.files[0];
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    let donate__img = document.getElementById("donate__img");
+    result = reader.result;
+    donate__img.src = result;
+    donate__img.style.display = "block";
+  }
+}
+
+// Открытие формы донатного голосового сообщения
+for (let index = 0; index < thanks__microphones.length; index++) {
+  eventsObj.addEvent(thanks__microphones[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_voiceMessages_form) });
+}
+
+// Запись голоса для донатного голосового сообщения
+const donate__voiceMessage = document.getElementById("donate__voiceMessage")
+const donate_voiceMessage__microphone = document.getElementById("donate_voiceMessage__microphone");
+const donate_voiceMessage__soundcloud = document.getElementById("donate_voiceMessage__soundcloud");
+const donate_voiceMessage__wrapper = document.getElementById("donate_voiceMessage__wrapper");
+
+navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    const mediaRecorder = new MediaRecorder(stream);
+    let voice = [];
+
+    function ChangeToStop() {
+      mediaRecorder.stop();
+      eventsObj.removeEvent(donate_voiceMessage__wrapper, "click", ChangeToStop);
+      setTimeout(() => {
+        eventsObj.addEvent(donate__voiceMessage, "click", ChangeToStart);
+      }, 500);
+    }
+
+    function ChangeToStart() {
+      mediaRecorder.start();
+      eventsObj.removeEvent(donate__voiceMessage, "click", ChangeToStart);
+      setTimeout(() => {
+        eventsObj.addEvent(donate_voiceMessage__wrapper, "click", ChangeToStop);
+      }, 500);
+    }
+
+    eventsObj.addEvent(donate__voiceMessage, "click", ChangeToStart);
+
+    mediaRecorder.addEventListener("dataavailable", function (event) {
+      voice.push(event.data);
+    });
+
+    mediaRecorder.addEventListener("stop", function () {
+      const voiceBlob = new Blob(voice, {
+        type: 'audio/wav'
+      });
+    });
+  });
 
 /* Получение фотографии пользователя, если у него есть аккаунт */
 
