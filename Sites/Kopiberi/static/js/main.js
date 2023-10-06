@@ -230,8 +230,229 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     });
   });
 
-/* Получение фотографии пользователя, если у него есть аккаунт */
+/* Загрузка донатного голосового сообщения */
+let donate_voiceMessage__upload_voiceMessage = document.getElementById("donate_voiceMessage__upload_voiceMessage");
+eventsObj.addEvent(donate__voiceMessage, "dblclick", function () {
+  donate_voiceMessage__upload_voiceMessage.type = "file";
+  eventsObj.addEvent(donate_voiceMessage__upload_voiceMessage, "change", download__VoiceMessage.bind(null, donate_voiceMessage__upload_voiceMessage));
+})
 
+let donate__voiceMessage__instruction__p = document.querySelectorAll(".donate__voiceMessage--instruction p");
+let donate_voiceMessage__wrapper__p = document.querySelectorAll(".donate_voiceMessage__wrapper p");
+let donate_voiceMessages__exit = document.getElementById("donate_voiceMessages--exit");
+function download__VoiceMessage(input) {
+  $("body").css("cursor", "progress");
+  let file = input.files[0];
+  if (file) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      playTrack(file);
+      donate_voiceMessage__upload_voiceMessage.type = "";
+
+      for (el of donate__voiceMessage__instruction__p) {
+        el.style.opacity = 1;
+        donate_voiceMessages__exit.style.opacity = 1;
+      }
+
+      for (el of donate_voiceMessage__wrapper__p) {
+        el.style.opacity = 0;
+      }
+
+      $("body").css("cursor", "default");
+    }
+  } else {
+    donate_voiceMessage__upload_voiceMessage.type = "";
+  }
+}
+
+/* Функция проигрывания голосового сообщения */
+let audios = []; // Массив для хранения всех аудио файлов
+let C = document.querySelector("canvas"),
+  canvas_context = C.getContext("2d");
+
+// Вешаем события для обработки запросов с клавиатуры.
+function keyboardListener(e) {
+  e.preventDefault(); // Убираем функциональность по-умолчанию.
+  // необходимость использования try/catch обусловлена странным поведением Chrome, связанным с вычислением громкости звука
+  // попробуйте убрать try/catch и выводить в консоль громкость звука (console.log(audio.volume)) после каждого изменения
+  // при приближении к 0 и 1 (согласно спецификации значение громкости звука варьируется от 0 до 1) получаем странные значения, которые нивелируют проверки типа if(audio.volume>0 && audio.volume<1)
+  // использование в проверках "неточных" значений вроде 0.1 и 0.9 решает проблему исключений, но приводит к некорректному изменению громкости звука
+  // исключения работе плеера не мешают, но раздражают
+  try {
+    // Каждая кнопка имеет свой код и по нему мы определяем на какую именно кнопку нажал пользователь.
+    if (e.keyCode == 32) { // пробел
+      audio.paused ? audio.play() : audio.pause(); // Если аудио на паузе, то делаем пуск, в ином случае паузу.
+    } else if (e.keyCode == 13) { // enter
+      audio.pause(); // Останавливаем аудио
+    } else if (e.keyCode == 39) { // стрелка вправо
+      audio.currentTime += 5; // Увеличиваем текущее время воспроизведения на 5 секунд
+    } else if (e.keyCode == 37) { // стрелка влево
+      audio.currentTime -= 5; // Уменьшаем текущее время воспроизведения на 5 секунд
+    } else if (e.keyCode == 40) { // стрелка вниз
+      audio.volume -= 0.1; // Убавляем громкость звука на 10%
+    } else if (e.keyCode == 38) { // стрелка вверх
+      audio.volume += 0.1; // Увеличиваем громкость звука на 10%
+    } else if (e.keyCode == 27) { // Esc
+
+      // Выключаем холст
+      C.style.display = "none";
+
+      // очищаем холст
+      canvas_context.clearRect(0, 0, C.width, C.height);
+
+      for (let audio of audios) { // Останавливаем все аудио файлы
+        audio.pause();
+      }
+
+      donate_voiceMessage__upload_voiceMessage.type = "";
+
+      for (el of donate__voiceMessage__instruction__p) {
+        el.style.opacity = 0;
+        donate_voiceMessages__exit.style.opacity = 0;
+      }
+
+      for (el of donate_voiceMessage__wrapper__p) {
+        el.style.opacity = 1;
+      }
+    }
+  } catch { // Если юзер нажал что-то другое, то ничего не делаем
+    return;
+  }
+}
+
+document.addEventListener("keydown", keyboardListener);
+function playTrack(file) {
+
+  for (let audio of audios) { // Останавливаем все аудио файлы
+    audio.pause();
+  }
+
+  // Объявляем переменные для холста:
+  let W = (C.width = 250),
+    H = (C.height = 250),
+    centerX = W / 2,
+    centerY = H / 2,
+    radius,
+    // эту переменную мы будем использовать для определения текущего прогресса
+    piece,
+    // количество колонок (палочек, которые становяться больше или меньше, когда музыка играет)
+    bars = 200,
+    x,
+    y,
+    xEnd,
+    yEnd,
+    // ширина колонки
+    barWidth = 2,
+    // высота колонки
+    barHeight,
+    // цвет колонки
+    lineColor;
+
+  // Включаем холст
+  C.style.display = "block";
+
+  // Работа с аудио
+  audio = new Audio();
+  audios.push(audio); // Добавляем аудио файл в массив
+  // аудио контекст представляет собой объект, состоящий из аудио модулей
+  // он управляет созданием узлов и выполняет обработку (декодирование) аудио данных
+  context = new AudioContext();
+  // анализатор представляет собой узел, содержащий актуальную (т.е. постоянно обновляющуюся) информацию о частотах и времени воспроизведения
+  // он используется для анализа и визуализации аудио данных
+  analyser = context.createAnalyser();
+
+  // метод URL.createObjectURL() создает DOMString, содержащий URL с указанием на объект, заданный как параметр
+  // он позволяет загружать файлы из любого места на жестком диске
+  // время жизни URL - сессия браузера
+  audio.src = URL.createObjectURL(file);
+  // определяем источник звука
+  source = context.createMediaElementSource(audio);
+  // подключаем к источнику звука анализатор
+  source.connect(analyser);
+  // подключаем к анализатору "выход" звука - акустическая система устройства
+  analyser.connect(context.destination);
+
+  // получаем так называемый байтовый массив без знака на основе длины буфера
+  // данный массив содержит информацию о частотах
+  frequencyArray = new Uint8Array(analyser.frequencyBinCount);
+
+  // запускаем воспроизведение
+  audio.play();
+
+  // включаем повтор воспроизведения
+  audio.loop = true;
+
+  // Вызываем функцию для начала анимации
+  startAnimation();
+
+  function startAnimation() {
+
+    // Определяем текущий прогресс (текущее время воспроизведения / продолжительность трека)
+    piece = audio.currentTime / audio.duration;
+
+    // устанавливаем радиус круга
+    // мы будем использовать два радиуса: один для прогресса, другой для визуализации частот
+    radius = 55;
+
+    // очищаем холст
+    canvas_context.clearRect(0, 0, W, H);
+
+    // рисуем круговой прогресс
+    canvas_context.beginPath(); // Начинаем новый путь
+    /* arc() добавляет дугу к пути. Определяем координаты центра дуги, радиус, 
+    угол начала дуги и угол конца дуги умножая текущий прогресс на 2 и число ПИ. */
+    canvas_context.arc(centerX, centerY, radius, 0, Math.PI * (2 * piece));
+    canvas_context.lineWidth = 20; // Задаём толщину линий в пикселах.
+    canvas_context.stroke(); // Рисуем фигуру, изначально чёрным цветом.
+
+    // копируем данные о частотах в frequencyArray. getByteFrequencyData копирует данные о частоте в frequencyArray.
+    analyser.getByteFrequencyData(frequencyArray);
+
+    // увеличиваем радиус
+    radius = 64;
+
+    /* переводим количество колонок в радианы. 
+    Радианы - это углы, соответствующие дуге, длина которой равна её радиусу. Радианы используется для измерения углов. */
+    rads = (Math.PI * 2) / bars;
+
+    // Делаем итерацию по количеству колонок
+    for (let i = 0; i < bars; i++) {
+      // Определяем высоту колонки, беря частоту из массива и умножая её на число. Чем больше число, тем выше колонки.
+      barHeight = frequencyArray[i] * 0.2;
+
+      // двигаемся от 0 по часовой стрелке
+      /* Метод Math.cos() возвращает числовое значение от -1 до 1, которое представляет косинус угла.
+      Метод Math.sin() возвращает числовое значение от -1 до 1, которое представляет синус переданного (в радианах) угла. */
+      x = centerX + Math.cos(rads * i) * radius;
+      y = centerY + Math.sin(rads * i) * radius;
+      // Значения конечных координат отличаются от обычных только тем, что к ним прибавлена высота колонки.
+      xEnd = centerX + Math.cos(rads * i) * (radius + barHeight);
+      yEnd = centerY + Math.sin(rads * i) * (radius + barHeight);
+
+      // Запускаем функцию рисования колонки, передавая координаты, конечные координаты, ширину колонки и частоту.
+      drawBar(x, y, xEnd, yEnd, barWidth, frequencyArray[i]);
+    }
+
+    // зацикливаем анимацию
+    requestAnimationFrame(startAnimation);
+  }
+
+  function drawBar(xStart, yStart, xEnd, yEnd, width, frequency) {
+    // Определяем цвет колонок, используя частоты.
+    lineColor = `rgb(${130 + frequency / 5}, ${75 + frequency / 3.5}, ${180 + frequency / 5})`;
+
+    // рисуем линии
+    canvas_context.strokeStyle = lineColor; // Определяем цвет
+    canvas_context.lineWidth = width; // Ширина колонки
+    canvas_context.beginPath(); // Начинаем новый путь рисования
+    canvas_context.moveTo(xStart, yStart); // Двигаемся к координатам, как к началу точки
+    canvas_context.lineTo(xEnd, yEnd); // Рисуем линию до конечных координат
+    canvas_context.stroke(); // Отображаем результат
+  }
+}
+
+/* Получение фотографии пользователя, если у него есть аккаунт */
 (async function () {
   if (getCookie("access-token")) {
     let responseRequest = await fetch('api/get-user', {

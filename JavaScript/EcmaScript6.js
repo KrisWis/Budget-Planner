@@ -380,3 +380,29 @@ let weakSet = new WeakSet();
 /* МОДУЛИ - https://www.youtube.com/watch?v=q_tHi37EMic&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=19 */
 
 
+// Экспорт - вывоз, импорт - ввоз.
+// С помощью ключевого слова export осуществляется экспорт переменных, классов и функций.
+export let aboba = 0; // Экспорт с объявлением.
+export { jack, leo }; // Экспорт переменных.
+export { func, Task } // Экспорт функции и класса. После экспорта класса или функций не ставиться ;
+export { jack as jacky, leo as leonard }; // Тут мы говорим, чтобы переменная jack экспортировалась с именем jacky, а leo с именем leonard.
+
+// Также, в модуле можно объявить 1 объект, который будеть экспортироваться по-умолчанию, используя слово default.
+export default class User {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+import User from "EcmaScript6.js"; // И в другом файле, его можно импортировать.
+
+/* С помощью ключевого слова import осуществляется импорт экспортированных переменных, классов и функций.
+Импортируются переменные one и two из файла tips.js. */
+import { one, two } from "tips/js";
+console.log(one, two);
+// Тут мы говорим, чтобы экспортированная переменная one импортировалась с именем num1, а two с именем num2.
+import { one as num1, two as num2 } from "tips/js";
+console.log(num1, num2);
+// Тут мы говорим, чтобы все ЭКСПОРТИРОВАННЫЕ переменные, классы, функции и тд импортировались из файла tips.js ввиде переменной с именем tips.
+import * as tips from "tips.js";
+console.log(tips);
