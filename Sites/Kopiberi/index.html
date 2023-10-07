@@ -305,9 +305,10 @@ itemtype — указывает на тип сущности.
   
               <div class="donate__voiceMessage" id="donate__voiceMessage">
                 <label itemprop="image" class="donate_voiceMessage__wrapper" id="donate_voiceMessage__wrapper" for="donate_voiceMessage__upload_voiceMessage">
-                  <p>Клик - запись</p>
+                  <p>Пробел - запись</p>
+                  <p class="donate__voiceMessage--record_instruction" id="donate__voiceMessage--record_instruction">Пробел: пуск/пауза</p>
                   <i class="fa fa-microphone donate_voiceMessage__microphone open" id="donate_voiceMessage__microphone" aria-hidden="true"></i>
-                  <p>Несколько кликов - добавление</p>
+                  <p>Клик - добавление</p>
                 </label>
                 <input accept=".mp3" class="donate_voiceMessage__upload_voiceMessage" id="donate_voiceMessage__upload_voiceMessage">
                 <canvas id="donate__voiceMessage--canvas" class="donate__voiceMessage--canvas"></canvas>
@@ -321,6 +322,11 @@ itemtype — указывает на тип сущности.
                   <span>Изменение аудио файла</span>
                 </p>
               </div>
+            </div>
+
+            <div class="donate_voiceMessage--audio_track" id="donate_voiceMessage--audio_track">
+              <p class="audio_track--time" id="audio_track--time"></p>
+              <canvas class="audio_track--canvas" id="audio_track--canvas"></canvas>
             </div>
 
             <p class="donate_voiceMessages--exit" id="donate_voiceMessages--exit">Esc - выход</p>

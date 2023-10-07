@@ -195,34 +195,121 @@ const donate__voiceMessage = document.getElementById("donate__voiceMessage")
 const donate_voiceMessage__microphone = document.getElementById("donate_voiceMessage__microphone");
 const donate_voiceMessage__soundcloud = document.getElementById("donate_voiceMessage__soundcloud");
 const donate_voiceMessage__wrapper = document.getElementById("donate_voiceMessage__wrapper");
+const audio_track__time = document.getElementById("audio_track--time");
+const audio_track__canvas = document.getElementById("audio_track--canvas");
+const donate_voiceMessage__audio_track = document.getElementById("donate_voiceMessage--audio_track");
+const donate__voiceMessage__record_instruction = document.getElementById("donate__voiceMessage--record_instruction");
+let audio_track__canvas__context = audio_track__canvas.getContext("2d");
+let record_time_interval_ID;
+let record_time_blinks_interval_ID;
+let record_time = 0;
+let mediaRecorder;
+
+// Функция для обработки событий при записи
+function RecordEventListener(e) {
+  e.preventDefault(); // Убираем функциональность по-умолчанию.
+  try {
+    if (e.keyCode == 27) {
+
+      // Выключаем холст
+      //audio_track__canvas.style.display = "none";
+
+      // очищаем холст
+      //audio_track__canvas__context.clearRect(0, 0, C.width, C.height);
+
+      // Убираем всё, связанное с записью
+      clearInterval(record_time_interval_ID);
+      clearInterval(record_time_blinks_interval_ID);
+      // Останавливаем запись
+      mediaRecorder.stop();
+      donate__voiceMessage.classList.remove("record");
+      record_time = 0;
+
+      // Меняем стили
+      for (el of donate_voiceMessage__wrapper__p) {
+        el.style.opacity = 1;
+      }
+      donate_voiceMessages__exit.style.opacity = 0;
+      donate_voiceMessage__audio_track.style.opacity = 0;
+      setTimeout(() => {
+        donate_voiceMessage__audio_track.style.display = "none";
+      }, 200);
+      donate__voiceMessage__record_instruction.classList.remove("visible");
+
+      eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
+    } else if (e.keyCode == 32) { // пробел
+      // Если запись активна, то нажатие её останавливает, если не активна, то запускает.
+      (donate__voiceMessage.classList.contains("record")) ? ChangeToStop() : ChangeToStart();
+    }
+  } catch {
+    return
+  }
+};
+
+// Функция запуска
+function ChangeToStart() {
+  // Включаем запись
+  if (mediaRecorder.state != "inactive") {
+    mediaRecorder.start();
+  }
+
+  // Включаем таймер
+  audio_track__time.classList.remove("stop");
+  record_time_interval_ID = setInterval(() => {
+    record_time += 1;
+    audio_track__time.textContent = `${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}`;
+  }, 1000);
+  clearInterval(record_time_blinks_interval_ID);
+
+  // Убираем событие добавления с клавиатуры
+  document.removeEventListener("keydown", keyboardListener);
+
+  // Изменяем стили
+  donate__voiceMessage.classList.add("record");
+
+  for (el of donate_voiceMessage__wrapper__p) {
+    el.style.opacity = 0;
+  }
+
+  donate__voiceMessage__record_instruction.classList.add("visible");
+  donate_voiceMessages__exit.style.opacity = 1;
+  audio_track__time.style.opacity = 1;
+  donate_voiceMessage__audio_track.style.opacity = 1;
+  setTimeout(() => {
+    donate_voiceMessage__audio_track.style.display = "flex";
+  }, 300);
+
+  // Добавляем события
+  eventsObj.removeEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
+}
+
+// Функция паузы
+function ChangeToStop() {
+  // Останавливаем запись
+  mediaRecorder.stop();
+  donate__voiceMessage.classList.remove("record");
+
+  // Блинкующий таймер
+  record_time_blinks_interval_ID = setInterval(() => {
+    audio_track__time.classList.toggle("stop");
+  }, 1000);
+  clearInterval(record_time_interval_ID);
+}
 
 navigator.mediaDevices.getUserMedia({ audio: true })
   .then(stream => {
-    const mediaRecorder = new MediaRecorder(stream);
     let voice = [];
+    mediaRecorder = new MediaRecorder(stream);
 
-    function ChangeToStop() {
-      mediaRecorder.stop();
-      eventsObj.removeEvent(donate_voiceMessage__wrapper, "click", ChangeToStop);
-      setTimeout(() => {
-        eventsObj.addEvent(donate__voiceMessage, "click", ChangeToStart);
-      }, 500);
-    }
+    // Вешаем события записи
+    document.addEventListener("keydown", RecordEventListener);
 
-    function ChangeToStart() {
-      mediaRecorder.start();
-      eventsObj.removeEvent(donate__voiceMessage, "click", ChangeToStart);
-      setTimeout(() => {
-        eventsObj.addEvent(donate_voiceMessage__wrapper, "click", ChangeToStop);
-      }, 500);
-    }
-
-    eventsObj.addEvent(donate__voiceMessage, "click", ChangeToStart);
-
+    // Когда запись больше не записывается
     mediaRecorder.addEventListener("dataavailable", function (event) {
-      voice.push(event.data);
+
     });
 
+    // Когда запись остановлена
     mediaRecorder.addEventListener("stop", function () {
       const voiceBlob = new Blob(voice, {
         type: 'audio/wav'
@@ -232,10 +319,15 @@ navigator.mediaDevices.getUserMedia({ audio: true })
 
 /* Загрузка донатного голосового сообщения */
 let donate_voiceMessage__upload_voiceMessage = document.getElementById("donate_voiceMessage__upload_voiceMessage");
-eventsObj.addEvent(donate__voiceMessage, "dblclick", function () {
+function dblclick_voiceMessage_event() {
   donate_voiceMessage__upload_voiceMessage.type = "file";
   eventsObj.addEvent(donate_voiceMessage__upload_voiceMessage, "change", download__VoiceMessage.bind(null, donate_voiceMessage__upload_voiceMessage));
-})
+  setTimeout(() => {
+    donate_voiceMessage__upload_voiceMessage.type = "";
+  }, 5000);
+}
+
+eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
 
 let donate__voiceMessage__instruction__p = document.querySelectorAll(".donate__voiceMessage--instruction p");
 let donate_voiceMessage__wrapper__p = document.querySelectorAll(".donate_voiceMessage__wrapper p");
@@ -252,8 +344,8 @@ function download__VoiceMessage(input) {
 
       for (el of donate__voiceMessage__instruction__p) {
         el.style.opacity = 1;
-        donate_voiceMessages__exit.style.opacity = 1;
       }
+      donate_voiceMessages__exit.style.opacity = 1;
 
       for (el of donate_voiceMessage__wrapper__p) {
         el.style.opacity = 0;
@@ -268,7 +360,7 @@ function download__VoiceMessage(input) {
 
 /* Функция проигрывания голосового сообщения */
 let audios = []; // Массив для хранения всех аудио файлов
-let C = document.querySelector("canvas"),
+let C = document.getElementById("donate__voiceMessage--canvas"),
   canvas_context = C.getContext("2d");
 
 // Вешаем события для обработки запросов с клавиатуры.
@@ -315,18 +407,25 @@ function keyboardListener(e) {
       for (el of donate_voiceMessage__wrapper__p) {
         el.style.opacity = 1;
       }
+
+      // Вешаем события записи
+      document.addEventListener("keydown", RecordEventListener);
     }
   } catch { // Если юзер нажал что-то другое, то ничего не делаем
     return;
   }
 }
 
-document.addEventListener("keydown", keyboardListener);
 function playTrack(file) {
 
   for (let audio of audios) { // Останавливаем все аудио файлы
     audio.pause();
   }
+
+  document.addEventListener("keydown", keyboardListener);
+
+  // Убираем событие записи с клавиатуры
+  document.removeEventListener("keydown", RecordEventListener);
 
   // Объявляем переменные для холста:
   let W = (C.width = 250),

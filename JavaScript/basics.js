@@ -1512,3 +1512,72 @@ transition.ready.then(() => {
 Паттерны деляться на 3 группы: структурные, порождающие и поведенческие. 
 Паттерны можно произвести на любой язык программирования. 
 Никогда не нужно подстраивать свой код под паттерн. */
+
+
+/* SiNGLETON - https://www.youtube.com/watch?v=GrYs0qDQEp0&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
+
+
+/* Этот паттерн нужен каждый раз, когда в системе есть объект в единственном экземпляре 
+и к которому должен быть доступ из разных частей программы. */
+
+// Объекты в JS никогда не будут равны друг другу, даже если они имеют одинаковое содержимое.
+
+// Каждый раз, когда мы создаём объект с помощью литерала, он будет singleton, т.к он в одном экземпляре.
+const singleton = 1;
+
+// Создаём класс, который использует singleton
+let instance; // Объявляем глобальную переменную
+class Counter {
+
+  constructor() {
+    if (!instance) instance = this; // Если instance нет, то создаём его. 
+    instance.count = 0;
+    return instance; // Если он есть, то возвращаем его. Таким образом, он всегда будет у нас в одном экзепляре.
+  }
+
+  getCount() {
+    return instance.count;
+  }
+
+  increaseCount() {
+    return instance.count++;
+  }
+}
+
+// В данном классе, мы используем не глобальную переменную, а статическое свойство класса.
+class Counter2 {
+
+  constructor() {
+    if (typeof Counter2.instance === 'object') {
+      return Counter2.instance;
+    }
+    this.count = 0;
+    Counter2.instance = this;
+    return this;
+  }
+
+  getCount() {
+    return this.count;
+  }
+
+  increaseCount() {
+    return this.count++;
+  }
+}
+
+// Делаем 2 экзепляра класса (неважно, Counter или Counter2`)
+const myCount1 = new Counter();
+const myCount2 = new Counter();
+// Увеличиваем число на 1
+myCount1.increaseCount();
+myCount2.increaseCount();
+// В обоих выведеться 2, т.к хоть у нас и 2 разных объекта, но ссылаются они на один и тот же объект instance.
+console.log(myCount1.getCount());
+console.log(myCount2.getCount());
+
+// Проще говоря, singleton гарантирует, что у класса есть только 1 экзепляр, как в примере выше.
+
+
+/* FACTORY METHOD - https://www.youtube.com/watch?v=wmla1hxxvQI&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
+
+
