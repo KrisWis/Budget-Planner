@@ -2,7 +2,10 @@
 
 /* ТИПЫ ДАННЫХ - https://www.youtube.com/watch?v=n0sPFaLsNeI&list=PLY4rE9dstrJymG1GyPLgOKsJNq9r-p6pX */
 
-"use strict"; // Когда "use strict" находится в начале скрипта, весь сценарий работает в «современном» режиме.
+"use strict";
+const { prototype } = require("clipboard");
+
+// Когда "use strict" находится в начале скрипта, весь сценарий работает в «современном» режиме.
 
 
 /* document - это объект, который позволяет управлять DOM-деревом. 
@@ -1514,7 +1517,7 @@ transition.ready.then(() => {
 Никогда не нужно подстраивать свой код под паттерн. */
 
 
-/* SiNGLETON - https://www.youtube.com/watch?v=GrYs0qDQEp0&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
+/* SiNGLETON (ОДИНОЧКА) - https://www.youtube.com/watch?v=GrYs0qDQEp0&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
 
 
 /* Этот паттерн нужен каждый раз, когда в системе есть объект в единственном экземпляре 
@@ -1578,6 +1581,457 @@ console.log(myCount2.getCount());
 // Проще говоря, singleton гарантирует, что у класса есть только 1 экзепляр, как в примере выше.
 
 
-/* FACTORY METHOD - https://www.youtube.com/watch?v=wmla1hxxvQI&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
+/* FACTORY METHOD (ФАБРИЧНЫЙ МЕТОД) - https://www.youtube.com/watch?v=wmla1hxxvQI&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=3 */
+
+
+// Этот паттерн подразумевает под собой создание класса, который будет помогать нам создать объекты на основе входных данных.
+// Он нужен для того, когда у нас есть много одинаковых по структуре объектов, но разных по входным данным.
+
+// Пример класса-конструктора для фабрики
+class Bmw {
+  constructor(model, price, speed) {
+    this.model = model;
+    this.price = price;
+    this.speed = speed;
+  }
+}
+
+// Делаем над классом конструктором надстройку из Фабрики, которая оптимизирует процесс создания.
+class BmwFactory {
+  create(type) {
+    if (type === 'X5') {
+      return new Bmw(type, 100, 300)
+    } else if (type === 'X6') {
+      return new Bmw(type, 1000, 3000)
+    }
+  }
+}
+
+// Легко создаём новые объекты.
+const factory = new BmwFactory;
+const x5 = factory.create("X5");
+const x6 = factory.create("X6");
+
+
+/* ABSTRACT FACTORY (АБСТРАКТНАЯ ФАБРИКА) - https://www.youtube.com/watch?v=LDA4riuzgiw&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=4 */
+
+
+// Абстрактная фабрика создаём фабрики, исходя из введённых данных.
+function bmwProducer(kind) {
+  return kind === 'sport' ? sportCarFactory : familyCarFactory;
+}
+
+function sportCarFactory() {
+  return new Z4();
+}
+
+function familyCarFactory() {
+  return new I3();
+}
+
+class Z4 {
+  info() {
+    return "Z4 is a Sport car!";
+  }
+}
+
+class I3 {
+  info() {
+    return "i3 is a Family car!";
+  }
+}
+
+// Проще говоря, абстрактная фабрика это надстройка над обычными фабрики, которая создаёт объекты со схожей структурой, но разными данными.
+
+
+/* PROTOTYPE (ПРОТОТИП) - https://www.youtube.com/watch?v=nDth2LO5ra4&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=5 */
+
+
+// Главная функция прототипа это клонирование объекта, как в методе produce.
+class TeslaCar {
+
+  constructor(model, price, interior, autopilot) {
+    this.model = model;
+    this.price = price;
+    this.interior = interior;
+    this.autopilot = autopilot;
+  }
+
+  produce() {
+    return new TeslaCar(this.model, this.price, this.interior, this.autopilot);
+  }
+}
+
+// Создаём прототип
+const prototypeCar = new TeslaCar(1, 43, 'rere', 'q');
+// Клонируем машины
+const car1 = prototypeCar.produce();
+const car2 = prototypeCar.produce();
+// Изменяем свойство у клона
+car1.interior = 'new';
+
+// Прототип помогает создавать клонов на основании уже существующей структуры.
+
+
+/* BUILDER (СТРОИТЕЛЬ) - https://www.youtube.com/watch?v=P36gibfPaXs&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=6 */
+
+
+// Сам класс создания дефолтной машины.
+class Car {
+
+  constructor() {
+    this.autoPilot = false;
+    this.parktronic = false;
+    this.signaling = false;
+  }
+}
+
+class CarBuilder {
+  constructor() { // Определяем машину
+    this.car = new Car();
+  }
+
+  // Методы для переопределения свойств. Каждое свойство возвращает this, чтобы их можно было вызывать по цепочке.
+  addAutoPilot(autoPilot) {
+    this.car.autoPilot = autoPilot;
+    return this;
+  }
+
+  addParktronic(parktronic) {
+    this.car.parktronic = parktronic;
+    return this;
+  }
+
+  addSignaling(signaling) {
+    this.car.signaling = signaling;
+    return this;
+  }
+
+  // Хоть свойства и нету в Car(), но мы всё равно можем его добавить
+  updateEngine(engine) {
+    this.car.engine = engine;
+    return this;
+  }
+
+  // Создание обновленной машины
+  build() {
+    return this.car;
+  }
+}
+
+// Создаём машину
+const myCar = new CarBuilder()
+  .addAutoPilot(true)
+  .addParktronic(true)
+  .addSignaling(true)
+  .updateEngine("V8")
+  .build()
+
+// Проще говоря, builder позволяет удобно создавать конфигурации объектов.
+
+
+/* DECORATOR (ДЕКОРАТОР) - https://www.youtube.com/watch?v=gXvKHKQB2DI&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=7 */
+
+
+// Базовый абстрактный класс машины
+class Car {
+
+  constructor() {
+    this.price = 10000;
+    this.model = 'Car'
+  }
+
+  getPrice() {
+    return this.price;
+  }
+
+  getDescription() {
+    return this.model
+  }
+}
+
+// Конкретный класс конкретной машины, наследующей от базового класса.
+class Tesla extends Car {
+
+  constructor() {
+    super();
+    this.price = 25000;
+    this.model = 'Tesla';
+  }
+}
+
+// Следующие 2 класса - примеры декораторов. Они принимают объект экзепляра класса (машину) и добавляет к ней различные новые свойства и функции.
+class Autopilot {
+  constructor(car) {
+    this.car = car;
+  }
+
+  getPrice() {
+    return this.car.getPrice() + 5000;
+  }
+
+  getDescription() {
+    return `${this.car.getDescription()} with autopilot`;
+  }
+}
+
+class Parktronic {
+  constructor(car) {
+    this.car = car;
+  }
+
+  getPrice() {
+    return this.car.getPrice() + 3000;
+  }
+
+  getDescription() {
+    return `${this.car.getDescription()} with parktronic`;
+  }
+}
+
+// Создаём базовую теслу
+let tesla = new Tesla();
+// Декорируем теслу и добавляем к ней новые свойства этих классов.
+tesla = new Autopilot(tesla);
+tesla = new Parktronic(tesla);
+
+// Декораторы помогают добавлять новые возможности нашим объектам и расширять их функционал.
+
+
+/* FACADE (ФАСАД) - https://www.youtube.com/watch?v=AWXBbIK-KMo&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=8 */
+
+
+// Фасад собирает сложные структуры, объединяет их и выдаёт простой способ использования.
+
+// Пример обычного класса, в котором много операций.
+class Сonveyor {
+
+  setBody() {
+    console.log('Body set!');
+  }
+
+  getEngine() {
+    console.log('Dismantle Engine!');
+  }
+
+  setEngine() {
+    console.log('Engine set!');
+  }
+
+  setInterior() {
+    console.log('Exterior added!');
+  }
+
+  changeInterior() {
+    console.log('Update interior!');
+  }
+
+  setExterior() {
+    console.log('Added interior!');
+  }
+
+  setWheels() {
+    console.log('Wheels!');
+  }
+
+  addElectronics() {
+    console.log('Added electronics!');
+  }
+
+  paint() {
+    console.log('Car painted!');
+  }
+}
+
+// Класс фасада
+class СonveyorFacade {
+  constructor(car) {
+    this.car = car;
+  }
+
+  // Одна функций для сборки машины. Один метод, за которым может и скрываются сложные структуры, но нас это не интересует.
+  assembleCar() {
+    this.car.setBody();
+    this.car.setEngine();
+    this.car.setInterior();
+    this.car.setExterior();
+    this.car.setWheels();
+    this.car.addElectronics();
+    this.car.paint();
+  }
+}
+
+// Если нам нужно что то добавить в фасад, то можно просто добавить ещё один метод с вызовами функций из изначального класса.
+
+
+/* PROXY (ЗАМЕСТИТЕЛЬ) - https://www.youtube.com/watch?v=9GvBg7pTOUY&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=9 */
+
+
+// Просто класс для открытия и закрытия дверей.
+class CarAccess {
+  open() {
+    console.log('Opening car door')
+  }
+
+  close() {
+    console.log('Closing the car door')
+  }
+};
+
+// Прокси-класс, который имеет тот же интерфейс что и обычный класс, но другой функционал, поэтому и является заместителем.
+class SecuritySystem {
+  constructor(door) {
+    this.door = door;
+  }
+
+  open(password) {
+    if (this.authenticate(password)) {
+      this.door.open();
+    } else {
+      console.log('Access denied!');
+    }
+  }
+
+  authenticate(password) {
+    return password === 'Ilon';
+  }
+
+  close() {
+    this.door.close()
+  }
+};
+
+// Оборачиваем доступ к машине в систему безопасности.
+let door = new SecuritySystem(new CarAccess());
+
+/* Прокси есть несколько. Например, вирутальный - он загружает тяжелый объект, только при сильной необходимости в нём.
+Логирующий - хранение истории обращений. Мы рассмотрели защищающий. Кеширующий - частичное кеширование результатов запросов клиента и управление ими. */
+// Проще говоря, прокси - это прослойка между запросами и оригинальными объектами. 
+
+
+/* ADAPTER (АДАПТЕР) - https://www.youtube.com/watch?v=w6O9Kr41frc&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=10 */
+
+
+// Создаём 2 класса с разными названиями у функций.
+class Engine2 {
+  simpleInterface() { console.log('Engine 2.0 - tr-tr-tr') }
+}
+
+class EngineV8 {
+  complecatedInterface() { console.log('Engine V8! - wroom wroom!') }
+}
+
+// Делаем адаптер для класса EngineV8. И так как, теперь он имеет такую же функцию, как и класс Engine2, то он спокойно может встать на его место.
+// Если бы не оборачивали EngineV8 в адаптер, то не смогли бы его использовать, т.к его функция имеет другое название и это вызвало бы ошибку.
+class EngineV8Adapter {
+  constructor(engine) {
+    this.engine = engine;
+  }
+
+  simpleInterface() {
+    this.engine.complecatedInterface();
+  }
+}
+
+// Класс для просто вызова функции.
+class Auto {
+  startEngine(engine) {
+    engine.simpleInterface()
+  }
+}
+
+// Проще говоря, адаптер оборачивает новый объект с другой структурой и подгоняет его под нашу стандартизированную структуру.
+// Адаптерами можно назвать и callbackify, promisify и тд.
+
+
+/* COMPOSITE (КОМПОНОВЩИК) - https://www.youtube.com/watch?v=H-CwPjUB5Rw&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=11 */
+
+
+/* Этот паттерн позволяет сгруппировать множество объектов в древовидную структуру и работать с ними, как с одним объектом.
+Эта структура не вызывает свой метод, а передаёт вызов всем вложенным компонентам. */
+
+// Обычный базовый стартовый класс. Он нужен, чтобы создавать объекты с единым интерфейсом взаимодействия.
+class Equipment {
+  getPrice() {
+    return this.price || 0;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  setPrice(price) {
+    this.price = price;
+  }
+}
+
+// Следующие 3 класса это набор однотипных объектов.
+class Engine extends Equipment {
+  constructor() {
+    super();
+    this.setName('Engine');
+    this.setPrice(800);
+  }
+}
+
+class Body extends Equipment {
+  constructor() {
+    super();
+    this.setName('Body');
+    this.setPrice(3000);
+  }
+}
+
+class Tools extends Equipment {
+  constructor() {
+    super();
+    this.setName('Tools');
+    this.setPrice(4000);
+  }
+}
+
+// Класс, который имеет функцию для добавления какой либо запчасти и возвращения общей цены всех запчастей.
+class Composite extends Equipment {
+  constructor() {
+    super();
+    this.equipments = [];
+  }
+
+  add(equipment) {
+    this.equipments.push(equipment);
+  }
+
+  getPrice() {
+    return this.equipments
+      .map(equipment => equipment.getPrice())
+      .reduce((a, b) => a + b);
+  }
+}
+
+// Делаем из класса компоновщика новый класс.
+class Audi extends Composite {
+  constructor() {
+    super();
+    this.setName('Audi');
+  }
+}
+
+// Делаем экземпляр класса.
+const audi = new Audi();
+// Добавляем все запчасти.
+audi.add(new Engine());
+audi.add(new Body());
+audi.add(new Tools());
+// Выводим имя и цену.
+console.log(`${audi.getName()} price is ${audi.getPrice()}`);
+
+// Проще говоря, компоновщик имеет общий интерфейс для взаимодействия с компонентами, и использует их методы для достижения своих целей.
+
+
+/* BRIDGE (МОСТ) - https://www.youtube.com/watch?v=pNVuMif0bc0&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=12 */
 
 

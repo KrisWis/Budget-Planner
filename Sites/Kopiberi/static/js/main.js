@@ -1,3 +1,4 @@
+
 /* Донатеры и комментарии */
 let text_donaters = document.getElementById("text_donaters");
 let text_comments = document.getElementById("text_comments");
@@ -125,6 +126,7 @@ let form__name = document.getElementById("form__name");
 let form__date = document.getElementById("form__date");
 let form__money = document.getElementById("form__money");
 let donate_comments_form = document.getElementById("donate_comments_form");
+let forms = [];
 let forms__ids = [];
 let donate_photos_form = document.getElementById("donate_photos_form");
 let donate_voiceMessages_form = document.getElementById("donate_voiceMessages_form");
@@ -132,33 +134,36 @@ let donate_voiceMessages_form = document.getElementById("donate_voiceMessages_fo
 let openDonateForm = function (id) {
   arguments__arr = Array.prototype.slice.call(arguments);
   arguments__arr.shift();
+  donate_comments_form.style.display = "none";
+  donate_photos_form.style.display = "none";
+  donate_voiceMessages_form.style.display = "none";
+  forms__ids.push(id);
 
   for (el of arguments__arr) {
-    if (el.classList.contains("open")) {
-      setTimeout(function () {
-        el.style.display = "none";
-      })
-
-      if (forms__ids[forms__ids.length - 1] != id) {
-
-        setTimeout(function () {
-          el.classList.toggle('open');
-          el.classList.toggle('close');
-        }, 500)
-      }
-    }
-
     el.style.display = "flex";
     el.classList.toggle('open');
     el.classList.toggle('close');
-    setTimeout(function () {
-      form__image.src = document.getElementById(`donater__image--${id}`).src;
-      form__name.textContent = document.getElementById(`donater__name--${id}`).textContent;
-      form__date.textContent = document.getElementById(`donater__date--${id}`).textContent;
-      form__money.textContent = document.getElementById(`donater__money--${id}`).textContent;
-    }, 200)
   }
-  forms__ids.push(id);
+  setTimeout(function () {
+    form__image.src = document.getElementById(`donater__image--${id}`).src;
+    form__name.textContent = document.getElementById(`donater__name--${id}`).textContent;
+    form__date.textContent = document.getElementById(`donater__date--${id}`).textContent;
+    form__money.textContent = document.getElementById(`donater__money--${id}`).textContent;
+    setTimeout(() => {
+      for (el of arguments__arr) {
+        if (forms[forms.length - 1] == arguments__arr[arguments__arr.length - 1] && forms__ids[forms__ids.length - 2] == id) {
+          continue;
+        }
+        el.classList.add("open");
+        el.classList.remove("close");
+      }
+
+      setTimeout(() => {
+        forms.push(arguments__arr[arguments__arr.length - 1]);
+      }, 300);
+    }, 200);
+  }, 200)
+
 }
 
 // Открытие формы донатного комментария
@@ -169,6 +174,11 @@ for (let index = 0; index < thanks__comments.length; index++) {
 // Открытие формы донатной фотографии
 for (let index = 0; index < thanks__cameras.length; index++) {
   eventsObj.addEvent(thanks__cameras[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_photos_form) });
+}
+
+// Открытие формы донатного голосового сообщения
+for (let index = 0; index < thanks__microphones.length; index++) {
+  eventsObj.addEvent(thanks__microphones[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_voiceMessages_form) });
 }
 
 /* Загрузка изображения формы донатной фотографии */
@@ -185,10 +195,6 @@ function download__PhotoForm_image(input) {
   }
 }
 
-// Открытие формы донатного голосового сообщения
-for (let index = 0; index < thanks__microphones.length; index++) {
-  eventsObj.addEvent(thanks__microphones[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_voiceMessages_form) });
-}
 
 // Запись голоса для донатного голосового сообщения
 const donate__voiceMessage = document.getElementById("donate__voiceMessage")
@@ -196,14 +202,12 @@ const donate_voiceMessage__microphone = document.getElementById("donate_voiceMes
 const donate_voiceMessage__soundcloud = document.getElementById("donate_voiceMessage__soundcloud");
 const donate_voiceMessage__wrapper = document.getElementById("donate_voiceMessage__wrapper");
 const audio_track__time = document.getElementById("audio_track--time");
-const audio_track__canvas = document.getElementById("audio_track--canvas");
 const donate_voiceMessage__audio_track = document.getElementById("donate_voiceMessage--audio_track");
 const donate__voiceMessage__record_instruction = document.getElementById("donate__voiceMessage--record_instruction");
-let audio_track__canvas__context = audio_track__canvas.getContext("2d");
+let audio_track__bars = document.getElementById("audio_track__bars");
 let record_time_interval_ID;
 let record_time_blinks_interval_ID;
 let record_time = 0;
-let mediaRecorder;
 
 // Функция для обработки событий при записи
 function RecordEventListener(e) {
@@ -211,19 +215,10 @@ function RecordEventListener(e) {
   try {
     if (e.keyCode == 27) {
 
-      // Выключаем холст
-      //audio_track__canvas.style.display = "none";
-
-      // очищаем холст
-      //audio_track__canvas__context.clearRect(0, 0, C.width, C.height);
-
       // Убираем всё, связанное с записью
       clearInterval(record_time_interval_ID);
       clearInterval(record_time_blinks_interval_ID);
-      // Останавливаем запись
-      mediaRecorder.stop();
       donate__voiceMessage.classList.remove("record");
-      record_time = 0;
 
       // Меняем стили
       for (el of donate_voiceMessage__wrapper__p) {
@@ -236,6 +231,21 @@ function RecordEventListener(e) {
       }, 200);
       donate__voiceMessage__record_instruction.classList.remove("visible");
 
+      // Остановка столбиков записи
+      let bars = document.querySelectorAll(".audio_bar");
+      for (let bar of bars) {
+        audio_track__bars.removeChild(bar);
+      }
+
+      // Остановка таймеров
+      for (let timer of timers) {
+        clearTimeout(timer);
+      }
+
+      // Обнуляем таймер
+      record_time = 0;
+      audio_track__time.textContent = `${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}`;
+
       eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
     } else if (e.keyCode == 32) { // пробел
       // Если запись активна, то нажатие её останавливает, если не активна, то запускает.
@@ -246,11 +256,26 @@ function RecordEventListener(e) {
   }
 };
 
+// Вешаем события записи
+document.addEventListener("keydown", RecordEventListener);
+
+// Таймеры
+let timers = [];
+
 // Функция запуска
 function ChangeToStart() {
-  // Включаем запись
-  if (mediaRecorder.state != "inactive") {
-    mediaRecorder.start();
+
+  // Возобновление столбиков записи
+  let bars = document.querySelectorAll(".audio_bar");
+  for (let bar of bars) {
+    bar.classList.remove("paused");
+  }
+
+  // Возобновление таймеров
+  if (timers.length) {
+    for (let timer of timers) {
+      timer.resume()
+    }
   }
 
   // Включаем таймер
@@ -279,14 +304,75 @@ function ChangeToStart() {
     donate_voiceMessage__audio_track.style.display = "flex";
   }, 300);
 
-  // Добавляем события
+  context = new AudioContext();
+
+  // Создаём анализатор
+  analyser = context.createAnalyser();
+
+  // Запрашиваем доступ к микрофону
+  navigator.mediaDevices.getUserMedia({
+    audio: true
+  }).then(stream => {
+    src = context.createMediaStreamSource(stream);
+    src.connect(analyser);
+  })
+
+  let audio_bars = [];
+
+  // Функция для своего таймера с паузой
+  let Timer = function (callback, delay) {
+    let timerId, start, remaining = delay;
+
+    this.pause = function () {
+      window.clearTimeout(timerId);
+      timerId = null;
+      remaining -= Date.now() - start;
+    };
+
+    this.resume = function () {
+      if (timerId) {
+        return;
+      }
+      start = Date.now();
+      timerId = window.setTimeout(callback, remaining);
+    };
+
+    this.resume();
+  };
+
+  setInterval(() => {
+    if (donate__voiceMessage.classList.contains("record")) {
+      // Создаём массив для частот
+      frequencyArray = new Uint8Array(1);
+      audio_bar = document.createElement('div');
+      audio_bars.push(audio_bar);
+      audio_bar.className = 'audio_bar';
+      audio_track__bars.appendChild(audio_bar);
+      analyser.getByteFrequencyData(frequencyArray);
+      height = frequencyArray[0];
+      audio_bar.style.height = 0.3 * height + 1 + 'px';
+      setTimeout(() => {
+        audio_bar.style.opacity = 1;
+      }, 100);
+
+      timers.push(new Timer(() => {
+        if (audio_bars.length) {
+          audio_bars[0].style.opacity = 0;
+          setTimeout(() => {
+            audio_track__bars.removeChild(audio_bars.shift());
+          }, 300);
+        }
+      }, 9100));
+    }
+  }, 1000);
+
+
+  // Удаляем событие добавление
   eventsObj.removeEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
 }
 
 // Функция паузы
 function ChangeToStop() {
-  // Останавливаем запись
-  mediaRecorder.stop();
   donate__voiceMessage.classList.remove("record");
 
   // Блинкующий таймер
@@ -294,28 +380,18 @@ function ChangeToStop() {
     audio_track__time.classList.toggle("stop");
   }, 1000);
   clearInterval(record_time_interval_ID);
+
+  // Остановка столбиков записи
+  let bars = document.querySelectorAll(".audio_bar");
+  for (let bar of bars) {
+    bar.classList.add("paused");
+  }
+
+  // Остановка таймеров
+  for (let timer of timers) {
+    timer.pause()
+  }
 }
-
-navigator.mediaDevices.getUserMedia({ audio: true })
-  .then(stream => {
-    let voice = [];
-    mediaRecorder = new MediaRecorder(stream);
-
-    // Вешаем события записи
-    document.addEventListener("keydown", RecordEventListener);
-
-    // Когда запись больше не записывается
-    mediaRecorder.addEventListener("dataavailable", function (event) {
-
-    });
-
-    // Когда запись остановлена
-    mediaRecorder.addEventListener("stop", function () {
-      const voiceBlob = new Blob(voice, {
-        type: 'audio/wav'
-      });
-    });
-  });
 
 /* Загрузка донатного голосового сообщения */
 let donate_voiceMessage__upload_voiceMessage = document.getElementById("donate_voiceMessage__upload_voiceMessage");

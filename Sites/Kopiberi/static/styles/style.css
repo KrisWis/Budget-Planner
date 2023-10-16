@@ -1004,6 +1004,38 @@ main {
   margin-top: 5%;
   transition: 0.3s all linear;
 }
+.donate_photo_form .donate_voiceMessage--audio_track .audio_track__bars,
+.donate_voiceMessages_form .donate_voiceMessage--audio_track .audio_track__bars {
+  display: flex;
+  overflow-x: hidden;
+  width: 220px;
+  height: 100%;
+  align-items: center;
+}
+.donate_photo_form .donate_voiceMessage--audio_track .audio_track__bars .audio_bar,
+.donate_voiceMessages_form .donate_voiceMessage--audio_track .audio_track__bars .audio_bar {
+  background: linear-gradient(#B224EF, #7579FF);
+  width: 21px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  transform: translateX(230px);
+  transition: opacity 0.3s linear;
+  animation: audio_bar_animation 11s linear;
+  opacity: 0;
+}
+.donate_photo_form .donate_voiceMessage--audio_track .audio_track__bars .paused,
+.donate_voiceMessages_form .donate_voiceMessage--audio_track .audio_track__bars .paused {
+  animation-play-state: paused;
+}
+@keyframes audio_bar_animation {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
 .donate_photo_form .donate_voiceMessage--audio_track .audio_track--time,
 .donate_voiceMessages_form .donate_voiceMessage--audio_track .audio_track--time {
   margin-left: 5%;
@@ -1079,7 +1111,6 @@ main {
   align-items: center;
   justify-content: center;
   font-size: 30px;
-  margin-left: 50%;
 }
 .donate_photo_form .donate__photo .donate_photo__wrapper,
 .donate_photo_form .donate__photo .donate_voiceMessage__wrapper,
@@ -1098,6 +1129,17 @@ main {
   cursor: pointer;
   font-size: 70px;
   text-align: center;
+}
+.donate_photo_form .donate__photo .donate_photo__wrapper svg,
+.donate_photo_form .donate__photo .donate_voiceMessage__wrapper svg,
+.donate_photo_form .donate__voiceMessage .donate_photo__wrapper svg,
+.donate_photo_form .donate__voiceMessage .donate_voiceMessage__wrapper svg,
+.donate_voiceMessages_form .donate__photo .donate_photo__wrapper svg,
+.donate_voiceMessages_form .donate__photo .donate_voiceMessage__wrapper svg,
+.donate_voiceMessages_form .donate__voiceMessage .donate_photo__wrapper svg,
+.donate_voiceMessages_form .donate__voiceMessage .donate_voiceMessage__wrapper svg {
+  width: 60%;
+  height: 60%;
 }
 .donate_photo_form .donate__photo .donate_photo__wrapper p,
 .donate_photo_form .donate__photo .donate_voiceMessage__wrapper p,
