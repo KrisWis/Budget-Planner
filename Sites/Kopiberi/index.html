@@ -141,9 +141,9 @@ itemtype — указывает на тип сущности.
 
         <div class="post__user_info">
           <div class="user_bio" itemprop="publisher" itemscope itemtype="https://schema.org/Person">
-            <img thumbnail="static/images/post_image.png" src="static/images/post_image.png" alt="Автор поста">
+            <img thumbnail="static/images/post_image.png" src="static/images/post_image.png" id="post__user_img" alt="Автор поста">
             <!-- Теперь добавляем в микроразметку автора: -->
-            <h3 itemprop="name">Ольга</h3>
+            <h3 itemprop="name" id="post__user_name">Ольга</h3>
           </div>
           <div class="user_socials">
             <a href="#">
@@ -271,7 +271,7 @@ itemtype — указывает на тип сущности.
             <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea" id="donats__form__textarea"></textarea>
           
             <div class="donats__buttons" id="donats__form__buttons">
-              <input class="donats__submit" type="submit">
+              <input class="donats__submit" type="submit" id="comment__form__submit">
             </div>
           </div>
 
@@ -287,7 +287,7 @@ itemtype — указывает на тип сущности.
             </div>
           
             <div class="donats__buttons" id="donats__form__buttons">
-              <input class="donats__submit" type="submit">
+              <input class="donats__submit" type="submit" id="photo__form__buttons">
             </div>
           </div>
 
@@ -332,7 +332,7 @@ itemtype — указывает на тип сущности.
             <p class="donate_voiceMessages--exit" id="donate_voiceMessages--exit">Esc - выход</p>
 
             <div class="donats__buttons" id="donats__form__buttons">
-              <input class="donats__submit" type="submit">
+              <input class="donats__submit" type="submit" id="voice__form__buttons">
             </div>
           </div>
         </form>

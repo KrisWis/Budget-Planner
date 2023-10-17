@@ -19,11 +19,19 @@ dotenv.load_dotenv()  # Загружаем файл .env
 
 conn = sqlite3.connect("users.db")
 cur = conn.cursor()
+# Бд для комментариев
 cur.execute(
     """CREATE TABLE IF NOT EXISTS comments(
     id INT,
     comment TEXT);"""
 )
+# Бд для донатов
+cur.execute(
+    """CREATE TABLE IF NOT EXISTS donate_answers(
+    id INT,
+    donate_answer TEXT);"""
+)
+# Бд для юзеров
 cur.execute(
     """CREATE TABLE IF NOT EXISTS users(
     name TEXT,
@@ -580,3 +588,27 @@ async def check_email(user: CheckEmailRequest):
         return {"Email_new": False}
 
     return {"Email_new": False}
+
+
+class CreateDonateAnswerRequest(BaseModel):
+    donate_answer: str
+
+
+# Запрос для создания ответа на донат
+@app.post("/api/create-donate-answer")
+async def create_donate_answer(donate_answer: CreateDonateAnswerRequest):
+    if CheckSqlInjections(donate_answer.donate_answer):
+        cur.execute(
+            f"INSERT INTO comments ('comment', 'id') VALUES(?, ?)",
+            (
+                donate_answer.donate_answer,
+                len(cur.execute(f"SELECT donate_answer FROM donate_answers").fetchall())
+                + 1,
+            ),
+        )
+        conn.commit()
+
+        # После "return" - то, что получит пользователь (т.е., сайт/фронт) в ответ на запрос.
+        return {"OK": True}
+
+    return {"OK": False}

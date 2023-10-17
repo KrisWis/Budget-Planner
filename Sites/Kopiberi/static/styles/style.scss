@@ -595,6 +595,39 @@ main {
   padding-left: 5%;
   border-radius: 10px;
   margin-top: 10%;
+  position: relative;
+
+  .donat__answer_comment {
+    position: absolute;
+    top: 110%;
+    margin-bottom: 20%;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 15px;
+      background-color: $price_color;
+      box-shadow: 1px 1px 15px $price_color;
+    }
+
+    .comment__header {
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 3px;
+        background-color: $price_color;
+        box-shadow: 1px 1px 15px $price_color;
+        position: relative;
+        bottom: 25px;
+      }
+    }
+
+    .comment__date {
+      margin-left: 800%;
+    }
+  }
 
   .donat__money {
     display: flex;

@@ -2035,3 +2035,67 @@ console.log(`${audi.getName()} price is ${audi.getPrice()}`);
 /* BRIDGE (МОСТ) - https://www.youtube.com/watch?v=pNVuMif0bc0&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=12 */
 
 
+// Абстракция - это обёртка, которая не выполняет работу, а делигирует её одному из объектов реализации.
+// Реализация - это объект, в котором описана сама реализация объекта.
+
+// Класс для модели машины
+class Model {
+  constructor(color) {
+    this.color = color;
+  }
+};
+
+// Класс для цвета машины
+class Color {
+  constructor(type) {
+    this.type = type;
+  }
+  get() {
+    return this.type;
+  }
+};
+
+// Делаем класс чёрного цвета, который наследуется из класса Color. Работает только с цветами.
+class BlackColor extends Color {
+  constructor() {
+    super("dark-black");
+  }
+}
+
+// Делаем класс серебристого цвета, который наследуется из класса Color. Работает только с цветами.
+class SilbrigColor extends Color {
+  constructor() {
+    super("Silbermetallic");
+  }
+}
+
+// Делаем класс для ауди, который наследуется из класса Model. Работает только с моделями.
+class Audi extends Model {
+  constructor(color) {
+    super(color); // Получаем цвет тоже, но сам класс с цветом не работает. Происходит делигирование на класс Color.
+  }
+
+  paint() {
+    return `Auto: Audi, Color: ${this.color.get()}`;
+  }
+};
+
+// Делаем класс для бмв, который наследуется из класса Model. Работает только с моделями.
+class Bmw extends Model {
+  constructor(color) {
+    super(color); // Получаем цвет тоже, но сам класс с цветом не работает. Происходит делигирование на класс Color.
+  }
+
+  paint() {
+    return `Auto: Bmw, Color: ${this.color.get()}`;
+  }
+};
+
+// Мост делает так, что классы изменяются независимо друг от друга, но связь между ними есть.
+// Он разделяет неприкающихся функциональностей в одном классе.
+const blackBmw = new Bmw(new BlackColor()); // Создаём бмв чёрного цвета.
+
+
+/* FLYWEIGHT (ЛЕГКОВЕС) - https://www.youtube.com/watch?v=hlxRecs_r3Y&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=13 */
+
+

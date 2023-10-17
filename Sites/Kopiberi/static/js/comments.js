@@ -2,7 +2,6 @@
 const comments__submit = document.getElementById("comments__submit");
 let comments = document.getElementById("comments");
 const textarea = document.getElementById("comments__textarea");
-const comments__author__img = document.getElementById("comments__author__img");
 const comments__none = document.getElementById("comments__none");
 const comments__author = document.getElementById("comments__author");
 let regex = /--(.*?)\*/;

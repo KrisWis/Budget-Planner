@@ -211,7 +211,6 @@ let record_time = 0;
 
 // Функция для обработки событий при записи
 function RecordEventListener(e) {
-  e.preventDefault(); // Убираем функциональность по-умолчанию.
   try {
     if (e.keyCode == 27) {
 
@@ -248,6 +247,7 @@ function RecordEventListener(e) {
 
       eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
     } else if (e.keyCode == 32) { // пробел
+      e.preventDefault(); // Убираем функциональность по-умолчанию.
       // Если запись активна, то нажатие её останавливает, если не активна, то запускает.
       (donate__voiceMessage.classList.contains("record")) ? ChangeToStop() : ChangeToStart();
     }
@@ -450,6 +450,7 @@ function keyboardListener(e) {
   try {
     // Каждая кнопка имеет свой код и по нему мы определяем на какую именно кнопку нажал пользователь.
     if (e.keyCode == 32) { // пробел
+      e.preventDefault(); // Убираем функциональность по-умолчанию.
       audio.paused ? audio.play() : audio.pause(); // Если аудио на паузе, то делаем пуск, в ином случае паузу.
     } else if (e.keyCode == 13) { // enter
       audio.pause(); // Останавливаем аудио
@@ -628,6 +629,7 @@ function playTrack(file) {
 }
 
 /* Получение фотографии пользователя, если у него есть аккаунт */
+const comments__author__img = document.getElementById("comments__author__img");
 (async function () {
   if (getCookie("access-token")) {
     let responseRequest = await fetch('api/get-user', {
@@ -647,8 +649,8 @@ function playTrack(file) {
       document.getElementById("login_profile__img").src = user_photo;
       document.getElementById("login_profile__name").textContent = user_name;
       document.getElementById("photo__wrapper__text").textContent = "";
-      document.getElementById("comments__author__img").src = user_photo;
-      document.getElementById("comments__author__img").classList.add("comments_form__img")
+      comments__author__img.src = user_photo;
+      comments__author__img.classList.add("comments_form__img")
       comments__author.textContent = user_name;
     } else {
       console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
@@ -724,4 +726,73 @@ const cookie_close = document.getElementById("cookie_close");
 eventsObj.addEvent(cookie_close, "click", function () {
   cookie_modal.classList.remove("cookie_modal--open");
   setCookie("cookie_authorisation", true, { 'max-age': 30000000 })
+});
+
+/* Отправка текстового ответа на донат */
+const comment__form__submit = document.getElementById("comment__form__submit");
+const post__user_name = document.getElementById("post__user_name");
+const post__user_img = document.getElementById("post__user_img");
+eventsObj.addEvent(comment__form__submit, "click", async function (e) {
+  e.preventDefault();
+
+  // Проверка на то, есть ли уже ответ.
+  let donats = document.getElementsByClassName("donat");
+  let donat_id = forms__ids[forms__ids.length - 1] - 1;
+  let answered__donat = donats[donat_id];
+  if (!answered__donat.querySelector(".donat__answer_comment")) {
+    function errorFunc(object, error__text, default__text, change__text = false) {
+      object.setAttribute("placeholder", error__text);
+      if (change__text) { object.textContent = error__text; object.value = error__text }
+      object.classList.add("error");
+      let errorTimer = setTimeout(function () {
+        object.classList.remove("error");
+        object.setAttribute("placeholder", default__text);
+        if (change__text) { object.textContent = default__text; object.value = error__text }
+      }, 3000);
+      comments__submit.addEventListener("click", function () {
+        clearTimeout(errorTimer);
+      }, false);
+    }
+
+    let comment__text = donats__form__textarea.value;
+    let comment__name = post__user_name.textContent;
+    if (comment__text.length > 0 && post__user_img.src) {
+      let comment__image = post__user_img.src;
+      let today = new Date();
+      today = String(today.getMonth() + 1).padStart(2, '0') + '.' + String(today.getDate()).padStart(2, '0') + '.' + String(today.getFullYear()).slice(-2);
+      donate_answer__request =
+        `<div class="donat__answer_comment" itemprop itemtype="https://schema.org/Comment">
+                        <div class="comment__header">
+                            <div class="comment__author" itemprop="author">
+                                <img src="${comment__image}" alt="Изображение комментатора">
+                                <h3>${comment__name}</h3>
+                            </div>
+                            <div class="comment__other">
+                                <time class="comment__date">${today}</time>
+                            </div>
+                        </div>
+                        <div class="comment__message"> 
+                            <p class="comment__text">${comment__text}</p>
+                        </div>
+                    </div>`;
+      let next_donat = donats[forms__ids[forms__ids.length - 1]];
+      next_donat.style.marginTop = 20 + "%";
+      answered__donat.insertAdjacentHTML(`beforeend`, donate_answer__request);
+      comments.scrollTop = comments.scrollHeight;
+      donats__form__textarea.value = "";
+      comments__none.classList.add("inactive");
+      await fetch('api/create-donate-answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ donate_answer: donate_answer__request })
+      });
+
+    } else {
+      if (comment__text.length == 0) {
+        errorFunc(donats__form__textarea, "Вы не можете отправить пустой текст!", "Введите текст..");
+      }
+    }
+  }
 });
