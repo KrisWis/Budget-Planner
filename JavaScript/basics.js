@@ -2099,3 +2099,80 @@ const blackBmw = new Bmw(new BlackColor()); // Создаём бмв чёрно�
 /* FLYWEIGHT (ЛЕГКОВЕС) - https://www.youtube.com/watch?v=hlxRecs_r3Y&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=13 */
 
 
+// Легковес - это некое кеширование данных. Например, если есть много классов с одним свойством, можно сделать легковес для кеширования.
+// Он неизменяемый, т.е он должен получить все данные через конструктор и не должен иметь публичных полей и сеттеров.
+// С легковесами легко работать с помощью фабрик. Она будет принимать всё внутреннее состояние легковеса.
+
+// Класс легковеса, который будет кешироваться.
+class Auto {
+  constructor(model) {
+    this.model = model;
+  }
+}
+
+class AutoFactory {
+  constructor() {
+    this.models = {}; // Словарь для всех уникальных моделей.
+  }
+
+  create(name) {
+    let model = this.models[name]; // Присваиваем определённую модель по имени
+    if (model) return model; // Если она есть, то возвращаем её.
+    this.models[name] = new Auto(name); // Если нет, то создаём её.
+    return this.models[name]; // Возвращаем объект.
+  }
+};
+
+const factory2 = new AutoFactory();
+factory2.create("audi");
+factory2.create("audi"); // Не создаться второй раз.
+
+
+/* MEDIATOR (ПОСРЕДНИК) - https://www.youtube.com/watch?v=tWZfcmmGf1w&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=14 */
+
+
+// Посредник делает взаимосвязь между элементами. 
+// В качестве медиатора будет выступать класс OfficialDealer.
+class OfficialDealer {
+  constructor() {
+    this.customers = []; // Делаем массив клиентов.
+  }
+
+  orderAuto(customer, auto, info) {
+    const name = customer.getName(); // customer будет экземпляром класса Customer и мы вызываем у него метод getName().
+    console.log(`Order name: ${name}. Order auto is ${auto}`);
+    console.log(`Additional info: ${info}`);
+    this.addToCustomersList(name); // Добавляем его в список клиектов.
+  }
+
+  addToCustomersList(name) {
+    this.customers.push(name);
+  }
+
+  getCustomerList() {
+    return this.customers;
+  }
+};
+
+// Класс клиента
+class Customer {
+  constructor(name, dealerMediator) {
+    this.name = name;
+    this.dealerMediator = dealerMediator; // Передаём медиатор
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  makeOrder(auto, info) {
+    this.dealerMediator.orderAuto(this, auto, info) // Вызываем метод медиатора, который мы передали.
+  }
+};
+
+// Проще говоря, медиатор нужен для того, чтобы уменьшить связность классов между собой и он устанавливает все необходимые связи внутри себя.
+
+
+/* ITERATOR (ИТЕРАТОР) - https://www.youtube.com/watch?v=bjH4NHItd3U&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=15 */
+
+

@@ -284,10 +284,11 @@ itemtype — указывает на тип сущности.
                 <img alt="Изображение доната" id="donate__img" class="donate__img">
               </label>
               <input type="file" class="donate_photo__upload_photo" id="donate_photo__upload_photo" onchange="download__PhotoForm_image(this)"> 
+              <p id="donate__photo__error" class="donate__photo__error">Загрузите фото!</p>
             </div>
           
             <div class="donats__buttons" id="donats__form__buttons">
-              <input class="donats__submit" type="submit" id="photo__form__buttons">
+              <input class="donats__submit" type="submit" id="photo__form__submit">
             </div>
           </div>
 
@@ -332,7 +333,7 @@ itemtype — указывает на тип сущности.
             <p class="donate_voiceMessages--exit" id="donate_voiceMessages--exit">Esc - выход</p>
 
             <div class="donats__buttons" id="donats__form__buttons">
-              <input class="donats__submit" type="submit" id="voice__form__buttons">
+              <input class="donats__submit" type="submit" id="voiceMessage__form__submit">
             </div>
           </div>
         </form>

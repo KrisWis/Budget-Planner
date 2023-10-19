@@ -183,15 +183,31 @@ for (let index = 0; index < thanks__microphones.length; index++) {
 
 /* Загрузка изображения формы донатной фотографии */
 let result;
+let donate__photo = document.getElementById("donate__photo");
+let donate_photo__wrapper = document.getElementById("donate_photo__wrapper");
 function download__PhotoForm_image(input) {
   let file = input.files[0];
   let reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = function () {
-    let donate__img = document.getElementById("donate__img");
-    result = reader.result;
-    donate__img.src = result;
-    donate__img.style.display = "block";
+    let previous_overlay = document.querySelector(".donate_photo__overlay");
+    let donate_photo__overlay = document.createElement("div");
+    donate_photo__overlay.classList.add("donate_photo__overlay");
+    donate_photo__wrapper.appendChild(donate_photo__overlay);
+    document.querySelector(".donate_photo__svg").style.display = "none";
+    donate__photo__error.style.display = "none";
+    setTimeout(() => {
+      if (previous_overlay) {
+        donate_photo__wrapper.removeChild(document.querySelector(".donate_photo__overlay"))
+      }
+    }, 2000);
+    setTimeout(() => {
+      let donate__img = document.getElementById("donate__img");
+      result = reader.result;
+      donate__img.src = result;
+      donate__img.style.display = "block";
+      donate__photo.classList.add("loading");
+    }, 1000);
   }
 }
 
@@ -732,27 +748,33 @@ eventsObj.addEvent(cookie_close, "click", function () {
 const comment__form__submit = document.getElementById("comment__form__submit");
 const post__user_name = document.getElementById("post__user_name");
 const post__user_img = document.getElementById("post__user_img");
+let donats = document.getElementsByClassName("donat");
+let donat_id;
+let answered__donat;
+
+// Функция ошибки
+function errorFunc(object, error__text, default__text, change__text = false) {
+  object.setAttribute("placeholder", error__text);
+  if (change__text) { object.textContent = error__text; object.value = error__text }
+  object.classList.add("error");
+  let errorTimer = setTimeout(function () {
+    object.classList.remove("error");
+    object.setAttribute("placeholder", default__text);
+    if (change__text) { object.textContent = default__text; object.value = error__text }
+  }, 3000);
+  comments__submit.addEventListener("click", function () {
+    clearTimeout(errorTimer);
+  }, false);
+}
+// Добавление события
 eventsObj.addEvent(comment__form__submit, "click", async function (e) {
   e.preventDefault();
 
+  donat_id = forms__ids[forms__ids.length - 1] - 1;
+  answered__donat = donats[donat_id];
+
   // Проверка на то, есть ли уже ответ.
-  let donats = document.getElementsByClassName("donat");
-  let donat_id = forms__ids[forms__ids.length - 1] - 1;
-  let answered__donat = donats[donat_id];
   if (!answered__donat.querySelector(".donat__answer_comment")) {
-    function errorFunc(object, error__text, default__text, change__text = false) {
-      object.setAttribute("placeholder", error__text);
-      if (change__text) { object.textContent = error__text; object.value = error__text }
-      object.classList.add("error");
-      let errorTimer = setTimeout(function () {
-        object.classList.remove("error");
-        object.setAttribute("placeholder", default__text);
-        if (change__text) { object.textContent = default__text; object.value = error__text }
-      }, 3000);
-      comments__submit.addEventListener("click", function () {
-        clearTimeout(errorTimer);
-      }, false);
-    }
 
     let comment__text = donats__form__textarea.value;
     let comment__name = post__user_name.textContent;
@@ -792,6 +814,63 @@ eventsObj.addEvent(comment__form__submit, "click", async function (e) {
     } else {
       if (comment__text.length == 0) {
         errorFunc(donats__form__textarea, "Вы не можете отправить пустой текст!", "Введите текст..");
+      }
+    }
+  }
+});
+
+/* Отправка фото на донат */
+const photo__form__submit = document.getElementById("photo__form__submit");
+const donate__photo__error = document.getElementById("donate__photo__error");
+eventsObj.addEvent(photo__form__submit, "click", async function (e) {
+  e.preventDefault();
+
+  // Проверка на то, есть ли уже ответ.
+  donat_id = forms__ids[forms__ids.length - 1] - 1;
+  answered__donat = donats[donat_id];
+  if (!answered__donat.querySelector(".donat__answer_photo")) {
+
+    let comment__img = donate__img.src;
+    let comment__name = post__user_name.textContent;
+    if (comment__img && post__user_img.src) {
+      let comment__image = post__user_img.src;
+      let today = new Date();
+      today = String(today.getMonth() + 1).padStart(2, '0') + '.' + String(today.getDate()).padStart(2, '0') + '.' + String(today.getFullYear()).slice(-2);
+      donate_answer__request =
+        `<div class="donat__answer_comment donat__answer_photo" itemprop itemtype="https://schema.org/Comment">
+                        <div class="comment__header">
+                            <div class="comment__author" itemprop="author">
+                                <img src="${comment__image}" alt="Изображение комментатора">
+                                <h3>${comment__name}</h3>
+                            </div>
+                            <div class="comment__other">
+                                <time class="comment__date">${today}</time>
+                            </div>
+                        </div>
+                        <div class="comment__message"> 
+                            <img alt="Изображение доната" class="comment__photo" src="${comment__img}">
+                        </div>
+                    </div>`;
+      let next_donat = donats[forms__ids[forms__ids.length - 1]];
+      next_donat.style.marginTop = 65 + "%";
+      answered__donat.insertAdjacentHTML(`beforeend`, donate_answer__request);
+      comments.scrollTop = comments.scrollHeight;
+      donats__form__textarea.value = "";
+      comments__none.classList.add("inactive");
+      await fetch('api/create-donate-answer-photo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ donate_answer_photo: donate_answer__request })
+      });
+
+    } else {
+      if (!comment__img) {
+        donate__photo__error.style.display = "inline-block";
+        setTimeout(() => {
+          donate__photo__error.style.display = "none";
+        }, 2000);
       }
     }
   }
