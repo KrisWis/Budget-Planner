@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
@@ -24,12 +24,6 @@ cur.execute(
     """CREATE TABLE IF NOT EXISTS comments(
     id INT,
     comment TEXT);"""
-)
-# Бд для донатов
-cur.execute(
-    """CREATE TABLE IF NOT EXISTS donate_answers(
-    id INT,
-    donate_answer TEXT);"""
 )
 # Бд для юзеров
 cur.execute(
@@ -590,25 +584,11 @@ async def check_email(user: CheckEmailRequest):
     return {"Email_new": False}
 
 
-class CreateDonateAnswerRequest(BaseModel):
-    donate_answer: str
+# class sendVoiceMessageRequest(BaseModel):
+#     VoiceBlob: bytes
 
 
-# Запрос для создания ответа на донат
-@app.post("/api/create-donate-answer")
-async def create_donate_answer(donate_answer: CreateDonateAnswerRequest):
-    if CheckSqlInjections(donate_answer.donate_answer):
-        cur.execute(
-            f"INSERT INTO comments ('comment', 'id') VALUES(?, ?)",
-            (
-                donate_answer.donate_answer,
-                len(cur.execute(f"SELECT donate_answer FROM donate_answers").fetchall())
-                + 1,
-            ),
-        )
-        conn.commit()
-
-        # После "return" - то, что получит пользователь (т.е., сайт/фронт) в ответ на запрос.
-        return {"OK": True}
-
-    return {"OK": False}
+# # Запрос для проверки повторимости почты
+# @app.post("/api/send-voiceMessage")
+# async def send_voiceMessage(voiceMessage: Form("")):
+#     print(voiceMessage)

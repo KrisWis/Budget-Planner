@@ -2176,3 +2176,144 @@ class Customer {
 /* ITERATOR (ИТЕРАТОР) - https://www.youtube.com/watch?v=bjH4NHItd3U&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=15 */
 
 
+// Класс итератора для массивов
+class ArrayIterator {
+  constructor(el) {
+    this.index = 0;
+    this.elements = el;
+  }
+
+  next() { // Метод получения следующего элемента
+    return this.elements[this.index++];
+  }
+
+  hasNext() { // Метод проверки, есть ли следующий элемент
+    return this.index < this.elements.length;
+  }
+};
+
+// Класс итератора для объектов
+class ObjectIterator {
+  constructor(el) {
+    this.index = 0;
+    this.keys = Object.keys(el), // Единственное отличие итератора объекта от итератора массива
+      this.elements = el;
+  }
+
+  next() { // Метод получения следующего элемента
+    return this.elements[this.keys[this.index++]];
+  }
+
+  hasNext() { // Метод проверки, есть ли следующий элемент
+    return this.index < this.keys.length;
+  }
+};
+
+// Итератор перебирает коллекцию, но не изменяет ничего в ней.
+
+
+/* CHAIN OF RESPONSIBILITY (ЦЕПОЧКА ОБЯЗАННОСТЕЙ) - https://www.youtube.com/watch?v=stpzkOFoWdY&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=16 */
+
+
+// Класс цепочки ответственности
+class Account {
+  pay(orderPrice) { // Принимает платежную систему
+    if (this.canPay(orderPrice)) { // Если этой платежной системой можно платить
+      console.log(`Paid ${orderPrice} using ${this.name}`);
+    } else if (this.incomer) { // Если платежная система не может оплатить, проверяем есть ли приемник (следующая система оплаты в цепочке)
+      console.log(`Cannot pay using ${this.name}`);
+      this.incomer.pay(orderPrice)
+    } else { // Если систем оплат больше нет, то выводим фейл.
+      console.log('Unfortunately, not enough money');
+    }
+  }
+
+  canPay(amount) { // Метод, проверяющий можно ли оплатить с помощью выбранной платежной системой
+    return this.balance >= amount;
+  }
+
+  setNext(account) { // Метод, который устанавливает "приемника"
+    this.incomer = account; // В свойство incomer записываем переданное значение
+  }
+};
+
+// Создаём классы платёжных систем
+class Master extends Account {
+  constructor(balance) {
+    super();
+    this.name = 'Master Card';
+    this.balance = balance;
+  }
+};
+
+class Paypal extends Account {
+  constructor(balance) {
+    super();
+    this.name = 'Paypal';
+    this.balance = balance;
+  }
+};
+
+class Qiwi extends Account {
+  constructor(balance) {
+    super();
+    this.name = 'Qiwi';
+    this.balance = balance;
+  }
+};
+
+// Определяем платежки
+const master = new Master(100);
+const paypal = new Master(200);
+const qiwi = new Master(500);
+
+// Создаём цепочку ответственности, где первой будет master, дальше paypal и дальше qiwi.
+master.setNext(paypal);
+master.setNext(qiwi);
+
+// Делаем оплату (оплата пройдёт только у киви)
+master.pay(500);
+
+// Проще говоря, цепочка ответственностей помогает создать цепочку для обработки любых данных. Если данные не смогут пройти на одном уровне, то перейдут на следующий.
+
+
+/* STRATEGY (СТРАТЕГИЯ) - https://www.youtube.com/watch?v=te-teUr0N_w&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=17 */
+
+
+/* Стратегия выделяет семейства схожих алгоритмов в классах и помещает их в отдельный класс. */
+
+// Объявляем стратегии
+function baseStrategy(amount) {
+  return amount;
+};
+
+function premiumStrategy(amount) {
+  return amount * 0.85;
+};
+
+function platinumStrategy(amount) {
+  return amount * 0.65;
+};
+
+// Главный класс
+class AutoCart {
+  constructor(strategy) { // Передаём сюда стратегию
+    this.strategy = strategy;
+    this.amount = 0;
+  }
+
+  checkout() {
+    return this.strategy(this.amount); // В зависимости от того, какая передана стратегия - делаем расчёт исходя из этой стратегии.
+  }
+
+  setAmount(amount) {
+    this.amount = amount;
+  }
+};
+
+// Проще говоря, стратегия объединяет сложные алгоритмы в классы, а затем в зависимости от условия использует той или иной класс.
+
+
+/* MEMENTO (СНИМОК) - https://www.youtube.com/watch?v=kAY-ozumlr4&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=18 */
+
+

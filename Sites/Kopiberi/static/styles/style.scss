@@ -623,10 +623,10 @@ main {
         bottom: 25px;
       }
     }
+  }
 
-    .comment__date {
-      margin-left: 800%;
-    }
+  .comment__date {
+    margin-left: 800%;
   }
 
   .donat__money {
@@ -1302,6 +1302,7 @@ main {
     cursor: pointer;
     border: none;
     position: relative;
+    left: 45%;
 
     .donate__voiceMessage--canvas {
       display: none;
@@ -1342,7 +1343,7 @@ main {
 .donat__answer_photo {
 
   .comment__date {
-    margin-left: 750% !important;
+    margin-left: 750%;
   }
 
   .comment__header {
@@ -1355,6 +1356,82 @@ main {
     position: relative;
     left: 5%;
     margin-top: 5%;
+  }
+}
+
+// Ответ голосовым сообщением на донат
+.donat__answer_voiceMessage {
+  .comment__voiceMessage {
+    display: flex;
+    color: #fff;
+    justify-content: space-between;
+    margin-left: 10%;
+
+    .comment__date {
+      margin-left: 700%;
+    }
+
+    .comment_header {
+      justify-content: flex-start;
+    }
+
+    .donate_voiceMessage {
+      height: 40px;
+      width: 200px;
+      border-radius: 10px;
+      position: relative;
+      background-color: #0D102C;
+      display: flex;
+      align-items: center;
+      margin-top: 5%;
+      transition: .3s all linear;
+
+      .play_audio_track {
+        margin-left: 5%;
+        cursor: pointer;
+
+        &:hover {
+          i {
+            transition: 0.3s linear all;
+            color: #B224EF;
+          }
+        }
+      }
+
+      .audio_track__bars {
+        display: flex;
+        width: 220px;
+        height: 100%;
+        align-items: center;
+
+        .voiceMessage__audio_bar {
+          display: inline-block;
+          background: linear-gradient(#B224EF, #7579FF);
+          width: 5px;
+          transition: opacity .3s linear;
+          height: 1px;
+        }
+      }
+
+      .audio_track--time {
+        position: relative;
+        top: 25%;
+        font-size: 10px;
+      }
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 103%;
+        height: 105%;
+        position: absolute;
+        top: -1px;
+        left: -5px;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #B224EF, #7579FF);
+      }
+    }
   }
 }
 
