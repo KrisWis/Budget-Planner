@@ -1,5 +1,14 @@
 
 
+
+
+
+/* СТАНДАРТЫ ECMASCRIPT6 */
+
+
+
+
+
 /* ПОДКЛЮЧАЕМ BABEL - https://www.youtube.com/watch?v=x_zq1DpaLAU&list=PLNkWIWHIRwMGLJXugVvdK7i8UagGQNaXD&index=2  */
 
 
@@ -406,3 +415,17 @@ console.log(num1, num2);
 // Тут мы говорим, чтобы все ЭКСПОРТИРОВАННЫЕ переменные, классы, функции и тд импортировались из файла tips.js ввиде переменной с именем tips.
 import * as tips from "tips.js";
 console.log(tips);
+
+
+
+
+
+/* СТАНДАРТЫ ECMASCRIPT7-ECMASCRIPT9 */
+
+
+
+
+
+/* МЕТОДЫ ОБЪЕКТОВ - https://www.youtube.com/watch?v=zXaXzC5U_8c&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=2 */
+
+

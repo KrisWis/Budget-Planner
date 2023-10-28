@@ -2317,3 +2317,293 @@ class AutoCart {
 /* MEMENTO (СНИМОК) - https://www.youtube.com/watch?v=kAY-ozumlr4&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=18 */
 
 
+// Memento помогает сохранять и восстанавливать предыдущие состояния объекта, даже после его изменения.
+// Класс снимка
+class Memento {
+  constructor(value) {
+    this.value = value;
+  }
+};
+
+const creator = { // Объект для создания и восстановления снимков.
+  save: val => new Memento(val), // Функция для сохранения значения, передаём в класс снимка.
+  restore: memento => memento.value, /* В этот метод передаём структуру данных, в которой храняться все состояния 
+  и обращаемся к её элементу (восстанавливаем предыдущее сохранённое значение). */
+};
+
+// Класс для хранения состояний.
+class Caretaker {
+  constructor() {
+    this.values = []; // Все состояния
+  }
+
+  addMemento(memento) { // метод для добавления состояния
+    this.values.push(memento);
+  }
+
+  getMemento(index) { // Метод для вывода снимка по переданному индексу
+    return this.values[index];
+  }
+};
+
+
+/* TEMPLATE METHOD (ШАБЛОННЫЙ МЕТОД) - https://www.youtube.com/watch?v=kFDEyshivVc&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=19 */
+
+
+// Шаблонный метод определяет базовые шаги исполнения алгоритма и выполнение каждого из этих шагов делигирует на методы.
+// Пример класса шаблона, который имеет в себе определённую последовательность вызова методов.
+class Builder {
+  build() { // Метод для определения порядка вызова методов.
+    this.addEngine();
+    this.installChassis();
+    this.addElectronic();
+    this.collectAccessories();
+  }
+};
+
+// Если нам нужно как то изменить методы, то можно наследоваться от класса-шаблона и переопределять методы. Но порядок вызова останеться тот же.
+class TeslaBuilder extends Builder {
+  addEngine() {
+    console.log('Add Electronic Engine');
+  }
+
+  installChassis() {
+    console.log('Install Tesla chassis');
+  }
+
+  addElectronic() {
+    console.log('Add special electronic');
+  }
+
+  collectAccessories() {
+    console.log('Collect Accessories');
+  }
+}
+
+class BmwBuilder extends Builder {
+  addEngine() {
+    console.log('Add BMW Engine');
+  }
+
+  installChassis() {
+    console.log('Install BMW chassis');
+  }
+
+  addElectronic() {
+    console.log('Add electronic');
+  }
+
+  collectAccessories() {
+    console.log('Collect Accessories');
+  }
+}
+
+// Проще говоря, шаблонный метод определяет шаблонное выполнение алгоритмов, имеющих одинаковый интерфейс, но различные внутренности.
+
+
+/* VISITOR (ПОСЕТИТЕЛЬ) - https://www.youtube.com/watch?v=dyg13zxD9xw&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=20 */
+
+
+// Посетитель добавляет новую функциональность классу, не изменяя его код. Применяется, когда нужно добавить какую то новую логику, но не менять классы.
+class Auto { // Общий класс для однотипных классов
+  accept(visitor) { // Метод для добавления посетителя
+    visitor(this); // Вызываем функцию посетителя. this - это, то на какой экзепляр класса был вызван метод (в нашем примере, это - tesla2).
+  }
+}
+
+// 3 однотипных класса
+class Tesla extends Auto {
+  info() {
+    return 'It is a Tesla car!';
+  }
+}
+
+class Bmw extends Auto {
+  info() {
+    return 'It is a BMW car!';
+  }
+}
+
+class Audi extends Auto {
+  info() {
+    return 'It is an Audi car!';
+  }
+}
+
+// Пример класса типа Visitor. Это просто класс, который принимает экзепляр другого класса, проверяет, что это за класс и вызывает соответствующую функцию.
+function exportVisitor(auto) {
+  if (auto instanceof Tesla)
+    auto.export = console.log(`Exported data: ${auto.info()}`);
+  if (auto instanceof Bmw)
+    auto.export = console.log(`Exported data: ${auto.info()}`);
+  if (auto instanceof Audi)
+    auto.export = console.log(`Exported data: ${auto.info()}`);
+};
+
+const tesla2 = new Tesla();
+console.log(tesla2.accept(exportVisitor)); // Передаём туда наш класс с функциями и тем самым, добавляем в tesla новый функционал.
+
+
+/* COMMAND (КОМАНДА) - https://www.youtube.com/watch?v=jWsyfeOkv9Q&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=21 */
+
+
+// Создадим класс водителя, куда нам нужно передавать команду
+class Driver {
+  constructor(command) {
+    this.command = command;
+  }
+
+  execute() {
+    this.command.execute(); // Вызываем команду
+  }
+};
+
+// Класс, описывающий состояние и поведение двигателя
+class Engine {
+  constructor() {
+    this.state = false;
+  }
+
+  on() {
+    this.state = true;
+  }
+
+  off() {
+    this.state = false;
+  }
+};
+
+// 2 класса, которые принимают двигатель и включают/выключают его.
+// Запуск/остановка двигателя не делигируется в класс Engine, а исполняется внутри команд.
+class OnStartCommand {
+  constructor(engine) {
+    this.engine = engine;
+  }
+
+  execute() {
+    this.engine.on();
+  }
+};
+
+class onSwitchOffCommand {
+  constructor(engine) {
+    this.engine = engine;
+  }
+
+  execute() {
+    this.engine.off();
+  }
+};
+
+const engine2 = new Engine(); // Создаём двигатель
+const onStartCommand = new OnStartCommand(engine2); // Создаём команду для запуска двигателя, в которую передаём этот двигатель
+const driver = new Driver(onStartCommand); // В класс водителя передаём команду для запуска
+driver.execute(); // Вызов переданной команды
+
+// Т.е паттерн команда, как бы инкапсулирует различные действия программы и он является прослойкой между одной и другой логикой.
+
+
+/* OBSERVER (НАБЛЮДАТЕЛЬ) - https://www.youtube.com/watch?v=LgfWY2bDAtA&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=22 */
+
+
+// Класс, за изменениями которого следят обсёрверы.
+class AutoNews {
+
+  constructor() {
+    this.news = '';
+    this.actions = []; // Массив подписчиков
+  }
+
+  setNews(text) { // Создание новости
+    this.news = text;
+    this.notifyAll();
+  }
+
+  notifyAll() { // Метод, который пробегается по всем подписчикам и запускает у каждого метод inform() в параметры которого передаётся this.
+    return this.actions.forEach(subs => subs.inform(this));
+  }
+
+  register(observer) { // Метод для добавления подписчика
+    this.actions.push(observer);
+  }
+
+  unregister(observer) { // Метод для удаления подписчика
+    this.actions = this.actions.filter(el => !(el instanceof observer));
+  }
+};
+
+// Классы предполагаемых подписчиков, каждый со своим методом inform().
+class Jack {
+  inform(message) {
+    console.log(`Jack has been informed about: ${message.news}`);
+  }
+};
+
+class Max {
+  inform(message) {
+    console.log(`Max has been informed about: ${message.news}`);
+  }
+};
+
+const autoNews = new AutoNews(); // Создаём класс, на который будут подписываться наблюдатели.
+// Подписываем наблюдателей
+autoNews.register(new Jack());
+autoNews.register(new Max());
+// Делаем новость, которая отошлёться всем подписчикам
+autoNews.setNews("News!");
+
+// Проще говоря, наблюдатель - это механизм создания слежения одного объекта за изменениями другого и реагирования на эти изменения.
+
+
+/* STATE (СОСТОЯНИЕ) - https://www.youtube.com/watch?v=W_11rR4UFNw&list=PLNkWIWHIRwMGzgvuPRFkDrpAygvdKJIE4&index=23 */
+
+
+// Базовый класс
+class OrderStatus {
+  constructor(name, nextStatus) { // Передаём текущий статус заказа и его следующий шаг
+    this.name = name;
+    this.nextStatus = nextStatus;
+  }
+
+  next() { // Этот метод перемещает нас на следующий щаг
+    return new this.nextStatus();
+  }
+}
+
+// Следующие 3 класса - это состояния, которые являются отдельными шагами заказа. Каждый передаёт в super() свой статус и то, какой шаг идёт после него
+class WaitingForPayment extends OrderStatus {
+  constructor() {
+    super('waitingForPayment', Shipping);
+  }
+}
+
+class Shipping extends OrderStatus {
+  constructor() {
+    super('shipping', Delivered);
+  }
+}
+
+class Delivered extends OrderStatus {
+  constructor() {
+    super('delivered', Delivered);
+  }
+}
+
+// Определяем класс самого заказа
+class Order {
+  constructor() {
+    this.state = new WaitingForPayment(); // Определяем начальное состояние
+  }
+
+  nextState() { // Метод для переключения состояний
+    this.state = this.state.next();
+  };
+
+  // Можно также сделать метод с проверкой того, какое сейчас состояние и в зависимости от этого делать определённые действия
+}
+
+// Пример работы
+const order = new Order();
+order.nextState();
+
+// Проще говоря, состояние помогает изменять поведение класса в зависимости от его состояния.

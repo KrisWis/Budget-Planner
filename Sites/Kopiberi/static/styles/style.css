@@ -1051,10 +1051,6 @@ main {
   animation: audio_bar_animation 11s linear;
   opacity: 0;
 }
-.donate_photo_form .donate_voiceMessage--audio_track .audio_track__bars .paused,
-.donate_voiceMessages_form .donate_voiceMessage--audio_track .audio_track__bars .paused {
-  animation-play-state: paused;
-}
 @keyframes audio_bar_animation {
   0% {
     transform: translateX(200px);
@@ -1324,22 +1320,49 @@ main {
   transition: 0.3s linear all;
   color: #B224EF;
 }
-.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .audio_track__bars {
+.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .voiceMessage_audio_track__bars {
   display: flex;
   width: 220px;
   height: 100%;
   align-items: center;
+  position: absolute;
+  left: 15%;
+  cursor: pointer;
+  pointer-events: none;
 }
-.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .audio_track__bars .voiceMessage__audio_bar {
+.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .voiceMessage_audio_track__bars .voiceMessage__audio_bar {
   display: inline-block;
   background: linear-gradient(#B224EF, #7579FF);
   width: 5px;
   transition: opacity 0.3s linear;
   height: 1px;
+  pointer-events: all;
+}
+.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .voiceMessage_playback_audio_track__bars {
+  position: absolute;
+  left: 15%;
+  width: 100%;
+  height: 100%;
+  -webkit-clip-path: inset(0 100% 0 0);
+          clip-path: inset(0 100% 0 0);
+  cursor: pointer;
+}
+@keyframes playback_anim {
+  0% {
+    -webkit-clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+  }
+}
+.donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .voiceMessage_playback_audio_track__bars .voiceMessage__audio_bar {
+  background: darkviolet;
 }
 .donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .audio_track--time {
   position: relative;
-  top: 25%;
+  top: 35%;
   font-size: 10px;
 }
 .donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage::before {
@@ -1539,6 +1562,10 @@ main {
     font-size: 25px;
   }
 }
+.paused {
+  animation-play-state: paused !important;
+}
+
 /* Модальное окно*/
 .kopistory__modal-wrapper,
 .link__modal-wrapper {

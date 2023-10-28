@@ -582,13 +582,3 @@ async def check_email(user: CheckEmailRequest):
         return {"Email_new": False}
 
     return {"Email_new": False}
-
-
-# class sendVoiceMessageRequest(BaseModel):
-#     VoiceBlob: bytes
-
-
-# # Запрос для проверки повторимости почты
-# @app.post("/api/send-voiceMessage")
-# async def send_voiceMessage(voiceMessage: Form("")):
-#     print(voiceMessage)

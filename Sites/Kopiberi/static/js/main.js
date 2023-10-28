@@ -286,6 +286,7 @@ let mediaRecorderIntervalStopID;
 let mediaRecorderForFile;
 let RequestID;
 let IntervalID;
+let Voicefile;
 
 // Функция запуска
 function ChangeToStart() {
@@ -342,6 +343,15 @@ function ChangeToStart() {
   }).then(stream => {
     mediaRecorderForFile = new MediaRecorder(stream);
     mediaRecorderForFile.start();
+    // Создаём объект голосового сообщения и отправляем на сервер
+    mediaRecorderForFile.addEventListener("dataavailable", function (event) {
+      voice.push(event.data);
+      const voiceBlob = new Blob(voice, {
+        type: 'audio/wav'
+      });
+      Voicefile = new File([voiceBlob], "voiceBlob");
+    });
+
     mediaRecorder = new MediaRecorder(stream);
 
     mediaRecorderIntervalStartID = setInterval(() => {
@@ -908,89 +918,10 @@ eventsObj.addEvent(photo__form__submit, "click", async function (e) {
   }
 });
 
-// let AverageFrequencyArray = [];
-// // Функция для создания аудио дорожки голосового сообщения
-// function create_audio_VoiceMessage_track(file) {
-
-//   for (let audio of audios) { // Останавливаем все аудио файлы
-//     audio.pause();
-//   }
-
-//   document.addEventListener("keydown", keyboardListener);
-
-//   // Убираем событие записи с клавиатуры
-//   document.removeEventListener("keydown", RecordEventListener);
-
-//   // Работа с аудио
-//   audio = new Audio();
-//   // аудио контекст представляет собой объект, состоящий из аудио модулей
-//   // он управляет созданием узлов и выполняет обработку (декодирование) аудио данных
-//   context = new AudioContext();
-//   // анализатор представляет собой узел, содержащий актуальную (т.е. постоянно обновляющуюся) информацию о частотах и времени воспроизведения
-//   // он используется для анализа и визуализации аудио данных
-//   analyser = context.createAnalyser();
-
-//   // метод URL.createObjectURL() создает DOMString, содержащий URL с указанием на объект, заданный как параметр
-//   // он позволяет загружать файлы из любого места на жестком диске
-//   // время жизни URL - сессия браузера
-//   audio.src = URL.createObjectURL(file);
-//   // определяем источник звука
-//   source = context.createMediaElementSource(audio);
-//   // подключаем к источнику звука анализатор
-//   source.connect(analyser);
-//   // подключаем к анализатору "выход" звука - акустическая система устройства
-//   analyser.connect(context.destination);
-
-//   // получаем так называемый байтовый массив без знака на основе длины буфера
-//   // данный массив содержит информацию о частотах
-//   frequencyArray = new Uint8Array(analyser.frequencyBinCount);
-
-//   audio.play();
-//   audio.loop = true;
-
-//   startAnimation()
-
-//   function startAnimation() {
-//     // копируем данные о частотах в frequencyArray. getByteFrequencyData копирует данные о частоте в frequencyArray.
-//     analyser.getByteFrequencyData(frequencyArray);
-//     RequestID = requestAnimationFrame(startAnimation)
-//   }
-
-//   // Функция для нахождения среднего арифмитического массива частот.
-//   const getAverageFrequency = (numbers) => {
-//     let sum = 0; // объявляем переменную, в которой будет храниться сумма всех чисел массива
-//     for (let i = 0; i < numbers.length; i += 1) { // инициализируем цикл
-//       sum += numbers[i]; // на каждой итерации прибавляем к сумме значение текущего элемента массива
-//     }
-//     return Math.floor(sum / numbers.length); // возвращаем округлённое среднее арифметическое
-//   };
-
-//   IntervalID = setInterval(() => {
-//     AverageFrequencyArray.push(getAverageFrequency(frequencyArray));
-//     console.log(AverageFrequencyArray)
-//   }, 1000);
-
-//   setTimeout(() => {
-//     cancelAnimationFrame(RequestID)
-//     clearInterval(IntervalID)
-//   }, record_time * 1000);
-// }
-
 /* Отправка голосового сообщения на донат */
-let play_audio_tracks;
 const voiceMessage__form__submit = document.getElementById("voiceMessage__form__submit");
 eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
   e.preventDefault();
-
-  // Создаём объект голосового сообщения и отправляем на сервер
-  // mediaRecorderForFile.addEventListener("dataavailable", function (event) {
-  //   voice.push(event.data);
-  //   const voiceBlob = new Blob(voice, {
-  //     type: 'audio/wav'
-  //   });
-  //   let Voicefile = new File([voiceBlob], "voiceBlob");
-  //   create_audio_VoiceMessage_track(Voicefile);
-  // });
 
   ChangeToStop()
 
@@ -1018,8 +949,8 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
     if (AverageFrequencyArray.length < 30) { // Если длина массива частот меньше того, сколько у нас столбиков, то приравниваем эти величины.
       for (let index = 0; index < AverageFrequencyArray.length; index++) {
         if (AverageFrequencyArray.length < 30) {
-          AverageFrequencyArray[index] = AverageFrequencyArray[index] / 2;
-          AverageFrequencyArray.push(AverageFrequencyArray[index] / 2)
+          AverageFrequencyArray[index] = AverageFrequencyArray[index] / 1.5;
+          AverageFrequencyArray.push(AverageFrequencyArray[index] / 1.5)
         } else {
           break
         }
@@ -1049,68 +980,161 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
               </div>
           </div>
           <div class="comment__voiceMessage"> 
-              <div class="donate_voiceMessage">
+              <div class="donate_voiceMessage" id="donate_voiceMessage--${donat_id}">
                 <div class="play_audio_track">
-                  <i class="fa fa-play" aria-hidden="true"></i>
+                  <i class="fa fa-play" id="play_audio_track--${donat_id}" aria-hidden="true"></i>
                 </div>
                 <p class="audio_track--time">${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}</p>
-                <div class="audio_track__bars">
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
-                  <div class="voiceMessage__audio_bar"></div>
+                <div class="voiceMessage_audio_track__bars">
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--1"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--2"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--3"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--4"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--5"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--6"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--7"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--8"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--9"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--10"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--11"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--12"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--13"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--14"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--15"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--16"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--17"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--18"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--19"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--20"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--21"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--22"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--23"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--24"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--25"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--26"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--27"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--28"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--29"></div>
+                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--30"></div>
                 </div>
               </div>
           </div>
       </div>`;
-    let next_donat = donats[forms__ids[forms__ids.length - 1]];
+    next_donat = donats[forms__ids[forms__ids.length - 1]];
     next_donat.style.marginTop = 30 + "%";
     answered__donat.insertAdjacentHTML(`beforeend`, donate_answer__request);
     comments.scrollTop = comments.scrollHeight;
-    // Инициализируем кнопки воспроизведения
-    play_audio_tracks = document.querySelectorAll(".play_audio_track");
-    // Воспроизведение голосового сообщения
-    for (let index = 0; index < play_audio_tracks.length; index++) {
-      eventsObj.addEvent(play_audio_tracks[index], "click", function () {
-        let audio_track_time = document.querySelectorAll(".audio_track--time")[index];
-        play_time = 0;
-        play_time_interval_ID = setInterval(() => {
-          if (play_time <= record_time) {
-            audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
-            play_time += 1;
-          }
-        }, 1000);
-      });
-    }
+
     // Делаем столбики высотой под уровни частот
     for (let index = 0; index < AverageFrequencyArray.length; index++) {
       document.querySelectorAll(".voiceMessage__audio_bar")[index].style.height = (AverageFrequencyArray[index] * 0.3) + 1 + 'px'
     }
+
+    // Создаём альтернативную полоску для воспроизведения
+    voiceMessage_audio_track__bars = document.querySelector(`#donate_voiceMessage--${donat_id} .voiceMessage_audio_track__bars`);
+    playback_audio_track__bars = voiceMessage_audio_track__bars.cloneNode(true);
+    playback_audio_track__bars.classList.add("voiceMessage_playback_audio_track__bars");
+    playback_audio_track__bars.id = `voiceMessage_playback_audio_track__bars--${donat_id}`;
+    document.querySelector(`#donate_voiceMessage--${donat_id}`).appendChild(playback_audio_track__bars);
+    for (let bar of Array.from(document.querySelectorAll(".voiceMessage__audio_bar")).slice(30, 60)) {
+      bar.id = `voiceMessage__audio_bar--${Number(bar.id.split("--")[1]) + 30}`;
+    }
+
+    // Инициализируем переменные
+    play_audio_track = document.querySelector(`#play_audio_track--${donat_id}`);
+    audio = new Audio();
+    // аудио контекст представляет собой объект, состоящий из аудио модулей
+    // он управляет созданием узлов и выполняет обработку (декодирование) аудио данных
+    context = new AudioContext();
+    // анализатор представляет собой узел, содержащий актуальную (т.е. постоянно обновляющуюся) информацию о частотах и времени воспроизведения
+    // он используется для анализа и визуализации аудио данных
+    analyser = context.createAnalyser();
+    // определяем источник звука
+    source = context.createMediaElementSource(audio);
+    // подключаем к источнику звука анализатор
+    source.connect(analyser);
+    // подключаем к анализатору "выход" звука - акустическая система устройства
+    analyser.connect(context.destination);
+    audio.load();
+    // Инициализируем переменные
+    play_time = 0;
+    audio_current_time = 0;
+    play_time_IntervalID = "";
+    play_button = document.querySelector(`#donate_voiceMessage--${donat_id} .fa`);
+    audio_track_time = document.querySelector(`#donate_voiceMessage--${donat_id} .audio_track--time`);
+
+    // Воспроизведение голосового сообщения
+    function playback_voiceMessage(donat_id) {
+      // метод URL.createObjectURL() создает DOMString, содержащий URL с указанием на объект, заданный как параметр
+      // он позволяет загружать файлы из любого места на жестком диске
+      // время жизни URL - сессия браузера
+      audio.src = URL.createObjectURL(Voicefile);
+
+      // Запускаем воспроизведение
+      playback_audio_track__bars.style.animation = `playback_anim ${record_time * 1.8}s linear`; // Запускаем анимацию воспроизведения
+      play_button.classList.remove("fa-play");
+      play_button.classList.add("fa-pause");
+
+      // Все анимации воспроизведения
+      playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
+      audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
+      if (play_time_IntervalID == "") {
+        play_time_IntervalID = setInterval(() => {
+          if (play_button.classList.contains("fa-pause")) {
+            if (play_time <= record_time) {
+              audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
+              play_time += 1;
+            } else {
+              // Возвращаем всё к изначальному состоянию.
+              playback_audio_track__bars.style.animation = "none";
+              play_button.classList.remove("fa-pause");
+              play_button.classList.add("fa-play");
+              clearInterval(play_time_IntervalID);
+              play_time = 0;
+              audio_current_time = 0;
+              play_time_IntervalID = "";
+              audio_track__time.textContent = "0:00";
+            }
+          }
+        }, 1000);
+      }
+
+      playback_audio_track__bars.classList.remove("paused"); // Отпускаем с паузы воспроизведение
+      if (audio.paused) {
+        audio.play();
+        audio.currentTime = audio_current_time;
+      }
+    }
+
+    // Пауза голосового сообщения
+    function pause_voiceMessage(donat_id) {
+      playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
+      playback_audio_track__bars.classList.add("paused"); // Ставим на паузу воспроизведение
+      play_button.classList.remove("fa-pause");
+      play_button.classList.add("fa-play");
+      if (!audio.paused) {
+        audio.pause();
+        audio_current_time = audio.currentTime;
+      }
+    }
+
+    // Вешаем события воспроизведения
+    eventsObj.addEvent(play_audio_track, "click", function () {
+      if (play_button.classList.contains("fa-play")) {
+        playback_voiceMessage(donat_id);
+      } else {
+        pause_voiceMessage(donat_id);
+      }
+    });
+
+    // Вешаем событие для перемотки и делаем функционал
+    let audio_track_bars_array = Array.from(document.querySelectorAll(".voiceMessage__audio_bar"));
+    eventsObj.addEvent(voiceMessage_audio_track__bars, "click", function (e) {
+      reroll_time = record_time / (30 / audio_track_bars_array.indexOf(e.target));
+      play_time = Math.floor(reroll_time);
+      audio.currentTime = reroll_time;
+      audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
+      playback_audio_track__bars.style.clipPath = `inset(0 ${100 - reroll_time / (record_time / 100)}% 0 0)`;
+    })
   }
 });

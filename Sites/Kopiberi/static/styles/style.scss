@@ -1123,13 +1123,6 @@ main {
         opacity: 0;
       }
 
-      .paused {
-        -webkit-animation-play-state: paused;
-        -moz-animation-play-state: paused;
-        -o-animation-play-state: paused;
-        animation-play-state: paused;
-      }
-
       @keyframes audio_bar_animation {
         0% {
           transform: translateX(200px);
@@ -1398,11 +1391,15 @@ main {
         }
       }
 
-      .audio_track__bars {
+      .voiceMessage_audio_track__bars {
         display: flex;
         width: 220px;
         height: 100%;
         align-items: center;
+        position: absolute;
+        left: 15%;
+        cursor: pointer;
+        pointer-events: none;
 
         .voiceMessage__audio_bar {
           display: inline-block;
@@ -1410,12 +1407,36 @@ main {
           width: 5px;
           transition: opacity .3s linear;
           height: 1px;
+          pointer-events: all;
+        }
+      }
+
+      .voiceMessage_playback_audio_track__bars {
+        position: absolute;
+        left: 15%;
+        width: 100%;
+        height: 100%;
+        clip-path: inset(0 100% 0 0);
+        cursor: pointer;
+
+        @keyframes playback_anim {
+          0% {
+            clip-path: inset(0 100% 0 0);
+          }
+
+          100% {
+            clip-path: inset(0 0 0 0);
+          }
+        }
+
+        .voiceMessage__audio_bar {
+          background: darkviolet;
         }
       }
 
       .audio_track--time {
         position: relative;
-        top: 25%;
+        top: 35%;
         font-size: 10px;
       }
 
@@ -1647,6 +1668,13 @@ main {
     color: white;
     font-size: 25px;
   }
+}
+
+.paused {
+  -webkit-animation-play-state: paused !important;
+  -moz-animation-play-state: paused !important;
+  -o-animation-play-state: paused !important;
+  animation-play-state: paused !important;
 }
 
 /* Модальное окно*/
