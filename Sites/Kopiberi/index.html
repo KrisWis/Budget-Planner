@@ -35,7 +35,7 @@ itemtype — указывает на тип сущности.
   </div>
 
   <!-- Cookie modal -->
-  <div class="cookie_modal" id="cookie_modal" itemscope interactionType="http://schema.org/UserInteraction">
+  <div class="cookie_modal" id="cookie_modal" itemscope>
     <p>Этот сайт использует файлы cookies и сервисы сбора технических данных посетителей (данные об IP-адресе, местоположении и др.) для обеспечения работоспособности и улучшения качества обслуживания. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.</p>
     <div class="cookie_buttons">
       <button class="cookie_close" id="cookie_close">Согласиться</button>
@@ -86,7 +86,7 @@ itemtype — указывает на тип сущности.
             <i class="fa fa-user" aria-hidden="true"></i>
           </a>
           <div class="login_profile hide" id="login_profile" itemscope itemtype="https://schema.org/ProfilePage">
-            <img alt="Изображение пользователя" class="login_profile__img" id="login_profile__img">
+            <img src="" alt="Изображение пользователя" class="login_profile__img" id="login_profile__img">
             <div id="login_profile__container" class="login_profile__container close">
               <a href="#" id="login_profile__name"></a>
               <a href="#" id="leave_account">Выйти из аккаунта</a>
@@ -141,7 +141,7 @@ itemtype — указывает на тип сущности.
 
         <div class="post__user_info">
           <div class="user_bio" itemprop="publisher" itemscope itemtype="https://schema.org/Person">
-            <img thumbnail="static/images/post_image.png" src="static/images/post_image.png" id="post__user_img" alt="Автор поста">
+            <img src="static/images/post_image.png" id="post__user_img" alt="Автор поста">
             <!-- Теперь добавляем в микроразметку автора: -->
             <h3 itemprop="name" id="post__user_name">Ольга</h3>
           </div>
@@ -157,7 +157,7 @@ itemtype — указывает на тип сущности.
 
         <div class="post__tags">
           <p itemscope itemtype="https://schema.org/BreadcrumbList">Категория - Для дома и дачи</p>
-          <p address="№ 31464">№ 31464</p>
+          <p>№ 31464</p>
         </div>
 
         <div class="post__text">
@@ -188,7 +188,7 @@ itemtype — указывает на тип сущности.
                 <img id="donater__image--1" src="static/images/comments_image1.png" alt="Комментатор">
                 <div class="donat__info">
                   <h3 id="donater__name--1">Татьяна</h3>
-                  <time id="donater__date--1" class="donat__date">22.06.22</time>
+                  <p id="donater__date--1" class="donat__date">22.06.22</p>
                 </div>
               </div>
             </div>
@@ -215,7 +215,7 @@ itemtype — указывает на тип сущности.
                 <img id="donater__image--2" src="static/images/comments_image2.png" alt="Комментатор">
                 <div class="donat__info">
                   <h3 id="donater__name--2">Николай</h3>
-                  <time id="donater__date--2" class="donat__date">22.06.23</time>
+                  <p id="donater__date--2" class="donat__date">22.06.23</p>
                 </div>
               </div>
             </div>
@@ -242,10 +242,10 @@ itemtype — указывает на тип сущности.
           <div class="donat close" id="donats__form__donat">
             <div class="donat__header">
               <div class="donat__author">
-                <img id="form__image" alt="Комментатор">
+                <img src="" id="form__image" alt="Комментатор">
                 <div class="donat__info">
                   <h3 id="form__name"></h3>
-                  <time id="form__date" class="donat__date"></time>
+                  <p id="form__date" class="donat__date"></p>
                 </div>
               </div>
             </div>
@@ -270,7 +270,7 @@ itemtype — указывает на тип сущности.
           <div class="donate_comments_form close" id="donate_comments_form">
             <textarea placeholder="Введите текст.." rows="10" cols="30" name="donat" class="donats__textarea" id="donats__form__textarea"></textarea>
           
-            <div class="donats__buttons" id="donats__form__buttons">
+            <div class="donats__buttons">
               <input class="donats__submit" type="submit" id="comment__form__submit">
             </div>
           </div>
@@ -280,14 +280,14 @@ itemtype — указывает на тип сущности.
             
             <div class="donate__photo" id="donate__photo">
               <label itemprop="image" class="donate_photo__wrapper" id="donate_photo__wrapper" for="donate_photo__upload_photo">
-                <svg class="donate_photo__svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16"> <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/> <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/> </svg>
-                <img alt="Изображение доната" id="donate__img" class="donate__img">
+                <svg class="donate_photo__svg bi bi-camera" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"> <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/> <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/> </svg>
+                <img src="" alt="Изображение доната" id="donate__img" class="donate__img">
               </label>
               <input type="file" class="donate_photo__upload_photo" id="donate_photo__upload_photo" onchange="download__PhotoForm_image(this)"> 
               <p id="donate__photo__error" class="donate__photo__error">Загрузите фото!</p>
             </div>
           
-            <div class="donats__buttons" id="donats__form__buttons">
+            <div class="donats__buttons">
               <input class="donats__submit" type="submit" id="photo__form__submit">
             </div>
           </div>
@@ -332,7 +332,7 @@ itemtype — указывает на тип сущности.
 
             <p class="donate_voiceMessages--exit" id="donate_voiceMessages--exit">Esc - выход</p>
 
-            <div class="donats__buttons" id="donats__form__buttons">
+            <div class="donats__buttons">
               <input class="donats__submit" type="submit" id="voiceMessage__form__submit">
             </div>
           </div>
@@ -353,7 +353,7 @@ itemtype — указывает на тип сущности.
             <div class="comments_form__photo">
               <label class="photo__wrapper" id="photo__wrapper" for="comments_form__upload_photo">
                 <p id="photo__wrapper__text">Войдите в аккаунт для фото</p>
-                <img id="comments__author__img">
+                <img src="" id="comments__author__img" alt="Фото для аккаунта">
               </label>
               <input type="file" class="comments_form__upload_photo" id="comments_form__upload_photo" onchange="download__form_image(this)"> 
             </div>
@@ -417,10 +417,10 @@ itemtype — указывает на тип сущности.
         </div>
 
         <div id="kopistory__switchers" class="kopistory__switchers">
-          <span id="kopistory__switcher" class="kopistory_switcher__active"></span>
-          <span id="kopistory__switcher"></span>
-          <span id="kopistory__switcher"></span>
-          <span id="kopistory__switcher"></span>
+          <span class="kopistory_switcher__active"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
       </div>
@@ -477,7 +477,7 @@ itemtype — указывает на тип сущности.
 
       <div class="footer__phone" itemprop="telephone">
         <i class="fa fa-phone" aria-hidden="true"></i>
-        <a href="tel:+78127447712">+7 (812) 744-77-12</ф>
+        <a href="tel:+78127447712">+7 (812) 744-77-12</a>
       </div>
 
       <div class="footer__mail">

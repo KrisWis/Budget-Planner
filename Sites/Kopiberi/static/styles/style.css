@@ -148,7 +148,7 @@ nav .nav__socials .search button {
   padding: 70%;
   margin-top: 30%;
   background: linear-gradient(to right, rgb(85, 3, 120), black);
-  transition: all 0.2s all;
+  transition: all 0.2s linear;
   position: absolute;
   opacity: 0;
   top: 130%;
@@ -1016,7 +1016,6 @@ main {
   z-index: 1;
   bottom: 1px;
   font-size: 14px !important;
-  white-space: wrap;
 }
 .donate_photo_form .donate_voiceMessage--audio_track,
 .donate_voiceMessages_form .donate_voiceMessage--audio_track {
@@ -1175,7 +1174,6 @@ main {
 .donate_voiceMessages_form .donate__voiceMessage .donate_photo__wrapper p,
 .donate_voiceMessages_form .donate__voiceMessage .donate_voiceMessage__wrapper p {
   font-size: 10px;
-  white-space: wrap;
 }
 .donate_photo_form .donate__photo .donate_photo__wrapper .donate__img,
 .donate_photo_form .donate__photo .donate_voiceMessage__wrapper .donate__img,
@@ -1343,19 +1341,7 @@ main {
   left: 15%;
   width: 100%;
   height: 100%;
-  -webkit-clip-path: inset(0 100% 0 0);
-          clip-path: inset(0 100% 0 0);
   cursor: pointer;
-}
-@keyframes playback_anim {
-  0% {
-    -webkit-clip-path: inset(0 100% 0 0);
-            clip-path: inset(0 100% 0 0);
-  }
-  100% {
-    -webkit-clip-path: inset(0 0 0 0);
-            clip-path: inset(0 0 0 0);
-  }
 }
 .donat__answer_voiceMessage .comment__voiceMessage .donate_voiceMessage .voiceMessage_playback_audio_track__bars .voiceMessage__audio_bar {
   background: darkviolet;
@@ -1610,6 +1596,7 @@ main {
   width: 100%;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
 }
 
 .kopistory__modal-window {
@@ -1768,7 +1755,7 @@ footer .footer__policy {
   padding: 40%;
   margin-top: 110%;
   background: linear-gradient(to right, rgb(85, 3, 120), black);
-  transition: all 0.2s all;
+  transition: all 0.2s linear;
   position: absolute;
   opacity: 0;
   border-radius: 10px;

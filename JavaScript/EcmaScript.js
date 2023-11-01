@@ -429,3 +429,235 @@ console.log(tips);
 /* МЕТОДЫ ОБЪЕКТОВ - https://www.youtube.com/watch?v=zXaXzC5U_8c&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=2 */
 
 
+// entries() возвращает массив СОБСТВЕННЫХ (без наследования) перечисляемых свойств объекта в формате ключ-значение. 
+const user2 = {
+    firstName: "Yauhen",
+    lastName: "Kavalchuk",
+};
+
+Object.entries(user2); // [ [ 'firstName', "Yauhen" ], [ 'lastName', "Kavalchuk" ] ];
+
+
+// Если entries() применяется к массиву, то на место ключей встанут индексы.
+const name3 = ['Y', 'a', 'u', 'h', 'e', 'n'];
+
+Object.entries(name3); // [ [ '0', 'Y' ], [ '1', 'a' ], [ '2', 'u' ], [ '3', 'h' ], [ '4', 'e' ], [ '5', 'n' ] ];
+
+
+// Свойство, ключом которого является Символ будет проигнорировано entries().
+const admin = {
+    [Symbol('password')]: '123pass',
+    name: 'Yauhen',
+};
+
+Object.entries(admin); // [ [ 'name', 'Yauhen' ] ];
+
+
+// Метод fromEntries() преобразует массив массивов пар ключ-значение в объект.
+const arr = [['one', 1], ['two', 2], ['three', 3]];
+
+Object.fromEntries(arr); // { one: 1, two: 2, three: 3 }
+
+
+// Метод values() возвращает массив всех собственных значений объекта.
+const user = {
+    firstName: "Yauhen",
+    lastName: "Kavalchuk",
+};
+
+Object.values(user); // [ "Yauhen", "Kavalchuk" ];
+
+
+/* OBJECT.GETOWNPROPERTYDESCRIPTORS() - https://www.youtube.com/watch?v=laAjQoMbnPY&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=3 */
+
+
+// Этот метод возвращает все сведения для всех свойств заданного объекта.
+// Базовый объект со свойствами, геттерами и сеттерами
+const person5 = {
+    name: 'Max',
+    age: 30,
+    set personName(name) {
+        this.name = name;
+    },
+    get password() {
+        return `${this.name}${this.age}`;
+    },
+};
+
+console.log(person5); // {name: "Max", age: 30} - выводит свойства объекта, а геттеры и сеттеры нет
+console.log(person5.password); // "Max30"
+
+// Пример работы Object.getOwnPropertyDescriptors(). Он был создан для нормального клонирования объекта.
+console.log(Object.getOwnPropertyDescriptors(person5));
+/*
+  age: {value: 30, writable: true, enumerable: true, configurable: true}
+    name: {value: "Max", writable: true, enumerable: true, configurable: true}
+    password: {get: ƒ, set: undefined, enumerable: true, configurable: true}
+    personName: {get: undefined, set: ƒ, enumerable: true, configurable: true}
+*/
+
+// Клонирование объекта, используя метод assign(), геттеры и сеттеры превращаются в обычные свойства
+const admin5 = Object.assign({}, person5);
+console.log(admin5); // {name: "Max", age: 30, personName: undefined, password: "Max30"}
+console.log(Object.getOwnPropertyDescriptors(admin6));
+/*
+    age: {value: 30, writable: true, enumerable: true, configurable: true}
+    name: {value: "Max", writable: true, enumerable: true, configurable: true}
+    password: {value: "Max30", writable: true, enumerable: true, configurable: true}
+    personName: {value: undefined, writable: true, enumerable: true, configurable: true}
+*/
+
+// Клонирование объекта, используя .getOwnPropertyDescriptors() и .defineProperties используется для клонирования всех дескрипторов person5 в {}.
+const superAdmin6 = Object.defineProperties({}, Object.getOwnPropertyDescriptors(person5));
+console.log(Object.getOwnPropertyDescriptors(superAdmin6));
+/*
+    age: {value: 30, writable: true, enumerable: true, configurable: true}
+    name: {value: "Max", writable: true, enumerable: true, configurable: true}
+    password: {get: ƒ, set: undefined, enumerable: true, configurable: true}
+    personName: {get: undefined, set: ƒ, enumerable: true, configurable: true}
+*/
+
+
+/* TRAILING COMMAS & EXPONENTIATION OPERATOR - https://www.youtube.com/watch?v=gmVLp3ZVYZk&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=4 */
+
+
+// Раньше для возведения в степень нужно было использовать Math.pow():
+Math.pow(7, 2) // 49
+
+// Теперь можно использовать специальный оператор **:
+7 ** 2 // 49
+
+// Теперь можно ставить запятую у последнего свойства у объекта и у функции можно ставить точку с запятой у последнего свойства.
+const user5 = {
+    firstName: "Yauhen",
+    lastName: "Kavalchuk",
+    age: 30,
+};
+
+function Person(
+    name,
+    age,
+    city,
+) {
+    this.name = name;
+    this.age = age;
+    this.city = city;
+};
+
+
+/* АСИНХРОННЫЕ ФУНКЦИИ - https://www.youtube.com/watch?v=JtnIU6HemK8&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=5 */
+
+
+// Асинхронные функции дали возможность выполнять асинхронный код синхронно.
+
+// Базовая асинхронная функция
+const fetchText = () => new Promise(resolve => { setTimeout(() => resolve('ES8'), 2000); });
+const showText = async () => {
+    const fetchedText = await fetchText();
+    console.log(`This is a feature of ${fetchedText}`);
+};
+showText(); // This is a feature of ES8
+
+
+// Если сделать прошлый пример с помощью синхронной функции, то она не будет ждать выполнения асинхронного fetchText() и сразу сделает console.log().
+showText = () => {
+    const fetchedText = fetchText();
+    console.log(`This is feature a of ${fetchedText}`);
+};
+
+showText(); // This is a feature of [object Promise]
+
+
+// Асинхронная функция всегда возвращает промис:
+showText = async () => {
+    const fetchedText = await fetchText();
+    return `This is feature a of ${fetchedText}`;
+};
+// Поэтому можем обратиться к функции через .then().
+showText().then(data => console.log(data)); // This is a feature of ES8
+
+
+// В следующем примере, мы делаем 2 асинхронных функции с задёржкой 2 секунды и получим результат только через 4 секунды.
+const fetchDescrText = () => new Promise(resolve => { setTimeout(() => resolve('This is a feature of'), 2000); });
+const fetchEsText = () => new Promise(resolve => { setTimeout(() => resolve('ES8'), 2000); });
+showText = async () => {
+    const fetchedDescrText = await fetchDescrText();
+    const fetchedEsText = await fetchEsText();
+    return `${fetchedDescrText} ${fetchedEsText}`;
+};
+showText().then(data => console.log(data)); // This is a feature of ES8
+
+
+// Пример параллельного вызова функций с помощью Promise.all(). 
+showText = async () => {
+    const [fetchedDescrText, fetchedEsText] = await Promise.all([fetchDescrText(), fetchEsText()]);
+    return `${fetchedDescrText} ${fetchedEsText}`;
+};
+
+// Выведется через 2 секунды, т.к Promise.all() вызывает функции паралелльно.
+showText().then(data => console.log(data)); // This is a feature of ES8
+
+
+/* АСИНХРОННАЯ ОБРАБОТКА ОШИБОК - https://www.youtube.com/watch?v=VglJ0Wic2i8&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=6 */
+
+
+// Обработка ошибок с try/catch:
+showText = async () => {
+    try {
+        const fetchedText = await fetchText();
+        console.log(`This is a feature of ${fetchedText}`);
+    } catch (e) {
+        console.log(e);
+    }
+};
+showText();
+
+
+// Аргумент ошибки теперь необязательно передавать в catch
+showText = async () => {
+    try {
+        const fetchedText = await fetchText();
+        console.log(`This is a feature of ${fetchedText}`);
+    } catch {
+        console.log('Something going wrong...');
+    }
+};
+showText();
+
+
+// Пример обработки ошибок с помощью catch в await конструкциях, т.к любое выражение, помеченное await возвращает промис
+showText = async () => {
+    const fetchedText = await fetchText().catch(e => console.log(e));
+    console.log(`This is a feature of ${fetchedText}`);
+};
+showText();
+
+
+// Пример обработки ошибок при вызове асинхронной функции
+showText = async () => {
+    const fetchedText = await fetchText();
+    console.log(`This is a feature of ${fetchedText}`);
+};
+showText()
+    .then(console.log('Everything is OK!'))
+    .catch(e => console.log(e));
+
+
+// Пример использования полной конструкции try/catch/finally. Finally сработает в любом случае.
+showText = async () => {
+    try {
+        showSpiner = true;
+        const fetchedText = await fetchText();
+        console.log(`This is a feature of ${fetchedText}`);
+    } catch {
+        console.log('Something going wrong...');
+    } finally {
+        showSpiner = false;
+    }
+}
+showText();
+
+
+/* АСИНХРОННЫЕ ИТЕРАТОРЫ - https://www.youtube.com/watch?v=58_qeGUBS2k&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=8 */
+
+

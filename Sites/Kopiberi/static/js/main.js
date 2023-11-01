@@ -1,3 +1,4 @@
+/*jshint esversion: 10 */
 
 /* Донатеры и комментарии */
 let text_donaters = document.getElementById("text_donaters");
@@ -25,7 +26,7 @@ let changeToActive = function () {
   }
 
   this.classList.toggle('text__active');
-}
+};
 
 eventsObj.addEvent(text_donaters, "click", changeToActive);
 eventsObj.addEvent(text_comments, "click", changeToActive);
@@ -36,7 +37,7 @@ let favourite_icon = document.getElementById("favourite_icon");
 
 let changeToFavourite = function () {
   this.classList.toggle('favourite__active');
-}
+};
 
 let changeToFavouriteBind = changeToFavourite.bind(favourite_icon);
 
@@ -49,15 +50,15 @@ let link__modal_wrapper = document.getElementById("link__modal-wrapper");
 
 let changeToLinked = function (e) {
   if (e.target == link_button || e.target == link_icon) {
-    new ClipboardJS('#link_button'); // Объект для копирования в буфер обмена.
-    link_button.setAttribute("data-clipboard-text", document.URL) // Атрибут, в который передаём то, что скопируется в буфер обмена.
+    ClipboardJS('#link_button'); // Объект для копирования в буфер обмена.
+    link_button.setAttribute("data-clipboard-text", document.URL); // Атрибут, в который передаём то, что скопируется в буфер обмена.
     link_icon.classList.toggle('link__active');
     link__modal_wrapper.classList.add('link__modal-wrapper--active');
     setTimeout(() => {
       link__modal_wrapper.classList.remove('link__modal-wrapper--active');
     }, 1000);
   }
-}
+};
 
 eventsObj.addEvent(link_button, "click", changeToLinked);
 
@@ -67,7 +68,7 @@ let kopistories__hint_text = document.getElementById("kopistories__hint_text");
 
 let showHint = function () {
   this.classList.toggle("kopistories__hint_text--active");
-}
+};
 
 let showHintBind = showHint.bind(kopistories__hint_text);
 
@@ -80,7 +81,7 @@ kopistory__switchers.forEach(function (entry) {
     document.querySelector(".kopistory_switcher__active").classList.remove("kopistory_switcher__active");
     this.classList.toggle("kopistory_switcher__active");
   });
-})
+});
 
 /* Открытие КОПИстори */
 let kopistory__lock = document.getElementById("kopistory__lock");
@@ -90,7 +91,7 @@ let kopistory__modal_wrapper = document.getElementById("kopistory__modal_wrapper
 let OpenKopistory = function () {
 
   kopistory__modal_wrapper.classList.add('kopistory__modal_wrapper--active');
-}
+};
 
 eventsObj.addEvent(kopistory__lock, "click", OpenKopistory);
 
@@ -100,7 +101,7 @@ let kopistory__modal_wrapper__close = document.getElementById("kopistory__modal_
 let CloseKopistory = function () {
 
   kopistory__modal_wrapper.classList.remove('kopistory__modal_wrapper--active');
-}
+};
 
 eventsObj.addEvent(kopistory__modal_wrapper__close, "click", CloseKopistory);
 
@@ -110,7 +111,7 @@ let donat__thanks_ways = document.querySelectorAll(".donat__thanks_ways");
 let thanks_ways__triangles = document.querySelectorAll(".thanks_ways__triangle");
 
 for (let index = 0; index < thanks__circles.length; index++) {
-  eventsObj.addEvent(thanks__circles[index], "click", function () { open(donat__thanks_ways[index], thanks_ways__triangles[index]) });
+  eventsObj.addEvent(thanks__circles[index], "click", function () { open(donat__thanks_ways[index], thanks_ways__triangles[index]); });
 }
 
 // Открытие формы доната
@@ -120,7 +121,6 @@ let thanks__microphones = document.querySelectorAll(".thanks__microphone");
 let donats__form = document.getElementById("donats__form");
 let donat = document.getElementById("donats__form__donat");
 let donat__textarea = document.getElementById("donats__form__textarea");
-let donat__buttons = document.getElementById("donats__form__buttons");
 let form__image = document.getElementById("form__image");
 let form__name = document.getElementById("form__name");
 let form__date = document.getElementById("form__date");
@@ -132,14 +132,14 @@ let donate_photos_form = document.getElementById("donate_photos_form");
 let donate_voiceMessages_form = document.getElementById("donate_voiceMessages_form");
 
 let openDonateForm = function (id) {
-  arguments__arr = Array.prototype.slice.call(arguments);
+  let arguments__arr = Array.prototype.slice.call(arguments);
   arguments__arr.shift();
   donate_comments_form.style.display = "none";
   donate_photos_form.style.display = "none";
   donate_voiceMessages_form.style.display = "none";
   forms__ids.push(id);
 
-  for (el of arguments__arr) {
+  for (let el of arguments__arr) {
     el.style.display = "flex";
     el.classList.toggle('open');
     el.classList.toggle('close');
@@ -150,7 +150,7 @@ let openDonateForm = function (id) {
     form__date.textContent = document.getElementById(`donater__date--${id}`).textContent;
     form__money.textContent = document.getElementById(`donater__money--${id}`).textContent;
     setTimeout(() => {
-      for (el of arguments__arr) {
+      for (let el of arguments__arr) {
         if (forms[forms.length - 1] == arguments__arr[arguments__arr.length - 1] && forms__ids[forms__ids.length - 2] == id) {
           continue;
         }
@@ -162,23 +162,27 @@ let openDonateForm = function (id) {
         forms.push(arguments__arr[arguments__arr.length - 1]);
       }, 300);
     }, 200);
-  }, 200)
+  }, 200);
 
-}
+};
 
 // Открытие формы донатного комментария
 for (let index = 0; index < thanks__comments.length; index++) {
-  eventsObj.addEvent(thanks__comments[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_comments_form) });
+  eventsObj.addEvent(thanks__comments[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_comments_form); });
 }
 
 // Открытие формы донатной фотографии
 for (let index = 0; index < thanks__cameras.length; index++) {
-  eventsObj.addEvent(thanks__cameras[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_photos_form) });
+  eventsObj.addEvent(thanks__cameras[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_photos_form); });
 }
 
 // Открытие формы донатного голосового сообщения
 for (let index = 0; index < thanks__microphones.length; index++) {
-  eventsObj.addEvent(thanks__microphones[index], "click", function () { openDonateForm(index + 1, donats__form, donat, donate_voiceMessages_form) });
+  eventsObj.addEvent(thanks__microphones[index], "click", function () {
+    openDonateForm(index + 1, donats__form, donat, donate_voiceMessages_form);
+    // Вешаем события записи
+    document.addEventListener("keydown", RecordEventListener);
+  });
 }
 
 /* Загрузка изображения формы донатной фотографии */
@@ -198,7 +202,7 @@ function download__PhotoForm_image(input) {
     donate__photo__error.style.display = "none";
     setTimeout(() => {
       if (previous_overlay) {
-        donate_photo__wrapper.removeChild(document.querySelector(".donate_photo__overlay"))
+        donate_photo__wrapper.removeChild(document.querySelector(".donate_photo__overlay"));
       }
     }, 2000);
     setTimeout(() => {
@@ -208,12 +212,12 @@ function download__PhotoForm_image(input) {
       donate__img.style.display = "block";
       donate__photo.classList.add("loading");
     }, 1000);
-  }
+  };
 }
 
 
 // Запись голоса для донатного голосового сообщения
-const donate__voiceMessage = document.getElementById("donate__voiceMessage")
+const donate__voiceMessage = document.getElementById("donate__voiceMessage");
 const donate_voiceMessage__microphone = document.getElementById("donate_voiceMessage__microphone");
 const donate_voiceMessage__soundcloud = document.getElementById("donate_voiceMessage__soundcloud");
 const donate_voiceMessage__wrapper = document.getElementById("donate_voiceMessage__wrapper");
@@ -223,58 +227,57 @@ const donate__voiceMessage__record_instruction = document.getElementById("donate
 let audio_track__bars = document.getElementById("audio_track__bars");
 let record_time_interval_ID;
 let record_time_blinks_interval_ID;
-let record_time = 0;
+let record_time = [];
 let voice = [];
+
+// Функция, при нажатии ESC
+function CloseRecordVoiceMessage() {
+  // Убираем всё, связанное с записью
+  clearInterval(record_time_interval_ID);
+  clearInterval(record_time_blinks_interval_ID);
+  donate__voiceMessage.classList.remove("record");
+
+  // Меняем стили
+  for (let el of donate_voiceMessage__wrapper__p) {
+    el.style.opacity = 1;
+  }
+  donate_voiceMessages__exit.style.opacity = 0;
+  donate_voiceMessage__audio_track.style.opacity = 0;
+  setTimeout(() => {
+    donate_voiceMessage__audio_track.style.display = "none";
+  }, 200);
+  donate__voiceMessage__record_instruction.classList.remove("visible");
+
+  // Остановка столбиков записи
+  let bars = document.querySelectorAll(".audio_bar");
+  for (let bar of bars) {
+    audio_track__bars.removeChild(bar);
+  }
+
+  // Остановка таймеров
+  for (let timer of timers) {
+    clearTimeout(timer);
+  }
+
+  eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
+}
 
 // Функция для обработки событий при записи
 function RecordEventListener(e) {
   try {
-    if (e.keyCode == 27) {
+    if (e.keyCode == 27) { // Esc
+      // Вызываем функцию для закрытия интерфейса
+      CloseRecordVoiceMessage();
 
-      // Убираем всё, связанное с записью
-      clearInterval(record_time_interval_ID);
-      clearInterval(record_time_blinks_interval_ID);
-      donate__voiceMessage.classList.remove("record");
-
-      // Меняем стили
-      for (el of donate_voiceMessage__wrapper__p) {
-        el.style.opacity = 1;
-      }
-      donate_voiceMessages__exit.style.opacity = 0;
-      donate_voiceMessage__audio_track.style.opacity = 0;
-      setTimeout(() => {
-        donate_voiceMessage__audio_track.style.display = "none";
-      }, 200);
-      donate__voiceMessage__record_instruction.classList.remove("visible");
-
-      // Остановка столбиков записи
-      let bars = document.querySelectorAll(".audio_bar");
-      for (let bar of bars) {
-        audio_track__bars.removeChild(bar);
-      }
-
-      // Остановка таймеров
-      for (let timer of timers) {
-        clearTimeout(timer);
-      }
-
-      // Обнуляем таймер
-      record_time = 0;
-      audio_track__time.textContent = `${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}`;
-
-      eventsObj.addEvent(donate__voiceMessage, "click", dblclick_voiceMessage_event);
     } else if (e.keyCode == 32) { // пробел
       e.preventDefault(); // Убираем функциональность по-умолчанию.
       // Если запись активна, то нажатие её останавливает, если не активна, то запускает.
-      (donate__voiceMessage.classList.contains("record")) ? ChangeToStop() : ChangeToStart();
+      donate__voiceMessage.classList.contains("record") ? ChangeToStop() : ChangeToStart();
     }
   } catch {
-    return
+    return;
   }
-};
-
-// Вешаем события записи
-document.addEventListener("keydown", RecordEventListener);
+}
 
 // Таймеры
 let timers = [];
@@ -286,7 +289,7 @@ let mediaRecorderIntervalStopID;
 let mediaRecorderForFile;
 let RequestID;
 let IntervalID;
-let Voicefile;
+let Voicefile = [];
 
 // Функция запуска
 function ChangeToStart() {
@@ -300,15 +303,20 @@ function ChangeToStart() {
   // Возобновление таймеров
   if (timers.length) {
     for (let timer of timers) {
-      timer.resume()
+      timer.resume();
     }
   }
+
+  // Обнуляем таймер
+  record_time.push(0);
+  donat_id = forms__ids[forms__ids.length - 1] - 1;
+  audio_track__time.textContent = `${Math.floor(record_time[donat_id] / 60)}:${(record_time[donat_id] % 60 < 10) ? `0${record_time[donat_id] % 60}` : record_time[donat_id] % 60}`;
 
   // Включаем таймер
   audio_track__time.classList.remove("stop");
   record_time_interval_ID = setInterval(() => {
-    record_time += 1;
-    audio_track__time.textContent = `${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}`;
+    record_time[donat_id] += 1;
+    audio_track__time.textContent = `${Math.floor(record_time[donat_id] / 60)}:${(record_time[donat_id] % 60 < 10) ? `0${record_time[donat_id] % 60}` : record_time[donat_id] % 60}`;
   }, 1000);
   clearInterval(record_time_blinks_interval_ID);
 
@@ -318,7 +326,7 @@ function ChangeToStart() {
   // Изменяем стили
   donate__voiceMessage.classList.add("record");
 
-  for (el of donate_voiceMessage__wrapper__p) {
+  for (let el of donate_voiceMessage__wrapper__p) {
     el.style.opacity = 0;
   }
 
@@ -343,13 +351,14 @@ function ChangeToStart() {
   }).then(stream => {
     mediaRecorderForFile = new MediaRecorder(stream);
     mediaRecorderForFile.start();
+    voice = [];
     // Создаём объект голосового сообщения и отправляем на сервер
     mediaRecorderForFile.addEventListener("dataavailable", function (event) {
       voice.push(event.data);
       const voiceBlob = new Blob(voice, {
         type: 'audio/wav'
       });
-      Voicefile = new File([voiceBlob], "voiceBlob");
+      Voicefile[donat_id] = new File([voiceBlob], "voiceBlob");
     });
 
     mediaRecorder = new MediaRecorder(stream);
@@ -412,19 +421,22 @@ function ChangeToStart() {
         if (audio_bars.length) {
           audio_bars[0].style.opacity = 0;
           setTimeout(() => {
-            audio_track__bars.removeChild(audio_bars.shift());
+            delete_audio_bar = audio_bars.shift();
+            if (delete_audio_bar in audio_track__bars) {
+              audio_track__bars.removeChild(delete_audio_bar);
+            }
           }, 300);
         }
       }, 9100));
     }
   }, 1000);
 
-  startAnimation()
+  startAnimation();
 
   function startAnimation() {
     // копируем данные о частотах в frequencyArray. getByteFrequencyData копирует данные о частоте в frequencyArray.
     analyser.getByteFrequencyData(frequencyArray);
-    RequestID = requestAnimationFrame(startAnimation)
+    RequestID = requestAnimationFrame(startAnimation);
   }
 
   // Функция для нахождения среднего арифмитического массива частот.
@@ -464,7 +476,7 @@ function ChangeToStop() {
 
   // Остановка таймеров
   for (let timer of timers) {
-    timer.pause()
+    timer.pause();
   }
 }
 
@@ -493,17 +505,17 @@ function download__VoiceMessage(input) {
       playTrack(file);
       donate_voiceMessage__upload_voiceMessage.type = "";
 
-      for (el of donate__voiceMessage__instruction__p) {
+      for (let el of donate__voiceMessage__instruction__p) {
         el.style.opacity = 1;
       }
       donate_voiceMessages__exit.style.opacity = 1;
 
-      for (el of donate_voiceMessage__wrapper__p) {
+      for (let el of donate_voiceMessage__wrapper__p) {
         el.style.opacity = 0;
       }
 
       $("body").css("cursor", "default");
-    }
+    };
   } else {
     donate_voiceMessage__upload_voiceMessage.type = "";
   }
@@ -551,12 +563,12 @@ function keyboardListener(e) {
 
       donate_voiceMessage__upload_voiceMessage.type = "";
 
-      for (el of donate__voiceMessage__instruction__p) {
+      for (let el of donate__voiceMessage__instruction__p) {
         el.style.opacity = 0;
         donate_voiceMessages__exit.style.opacity = 0;
       }
 
-      for (el of donate_voiceMessage__wrapper__p) {
+      for (let el of donate_voiceMessage__wrapper__p) {
         el.style.opacity = 1;
       }
 
@@ -717,15 +729,15 @@ const comments__author__img = document.getElementById("comments__author__img");
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
       let response = await responseRequest.json();
-      user_photo = response["user_photo"];
-      user_name = response["user_name"];
+      user_photo = response.user_photo;
+      user_name = response.user_name;
       document.getElementById("profile").classList.add("hide");
       login_profile.classList.remove("hide");
       document.getElementById("login_profile__img").src = user_photo;
       document.getElementById("login_profile__name").textContent = user_name;
       document.getElementById("photo__wrapper__text").textContent = "";
       comments__author__img.src = user_photo;
-      comments__author__img.classList.add("comments_form__img")
+      comments__author__img.classList.add("comments_form__img");
       comments__author.textContent = user_name;
     } else {
       console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
@@ -754,7 +766,7 @@ eventsObj.addEvent(login_profile, "mouseout", function () {
       login_profile__container.classList.remove('open');
       login_profile__container.classList.add('close');
     }
-  }, 300)
+  }, 300);
 });
 eventsObj.addEvent(login_profile, "click", function () { window.location.href = '/profile'; });
 
@@ -762,7 +774,7 @@ eventsObj.addEvent(login_profile, "click", function () { window.location.href = 
 let leaveAccount = async function () {
   deleteCookie("access-token");
   window.location.href = '/profile';
-}
+};
 
 let leave_account = document.getElementById("leave_account");
 eventsObj.addEvent(leave_account, "click", leaveAccount);
@@ -783,7 +795,7 @@ let deleteAccount = async function () {
   } else {
     console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
   }
-}
+};
 
 let delete_account = document.getElementById("delete_account");
 eventsObj.addEvent(delete_account, "click", deleteAccount);
@@ -800,7 +812,7 @@ const cookie_modal = document.getElementById("cookie_modal");
 const cookie_close = document.getElementById("cookie_close");
 eventsObj.addEvent(cookie_close, "click", function () {
   cookie_modal.classList.remove("cookie_modal--open");
-  setCookie("cookie_authorisation", true, { 'max-age': 30000000 })
+  setCookie("cookie_authorisation", true, { 'max-age': 30000000 });
 });
 
 /* Отправка текстового ответа на донат */
@@ -814,12 +826,12 @@ let answered__donat;
 // Функция ошибки
 function errorFunc(object, error__text, default__text, change__text = false) {
   object.setAttribute("placeholder", error__text);
-  if (change__text) { object.textContent = error__text; object.value = error__text }
+  if (change__text) { object.textContent = error__text; object.value = error__text; }
   object.classList.add("error");
   let errorTimer = setTimeout(function () {
     object.classList.remove("error");
     object.setAttribute("placeholder", default__text);
-    if (change__text) { object.textContent = default__text; object.value = error__text }
+    if (change__text) { object.textContent = default__text; object.value = error__text; }
   }, 3000);
   comments__submit.addEventListener("click", function () {
     clearTimeout(errorTimer);
@@ -920,10 +932,11 @@ eventsObj.addEvent(photo__form__submit, "click", async function (e) {
 
 /* Отправка голосового сообщения на донат */
 const voiceMessage__form__submit = document.getElementById("voiceMessage__form__submit");
+let play_time_IntervalID = [];
 eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
   e.preventDefault();
 
-  ChangeToStop()
+  ChangeToStop();
 
   try {
     mediaRecorder.pause();
@@ -931,8 +944,8 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
 
   clearInterval(mediaRecorderIntervalStartID);
   clearInterval(mediaRecorderIntervalStopID);
-  cancelAnimationFrame(RequestID)
-  clearInterval(IntervalID)
+  cancelAnimationFrame(RequestID);
+  clearInterval(IntervalID);
 
   mediaRecorderForFile.stop();
 
@@ -950,9 +963,9 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
       for (let index = 0; index < AverageFrequencyArray.length; index++) {
         if (AverageFrequencyArray.length < 30) {
           AverageFrequencyArray[index] = AverageFrequencyArray[index] / 1.5;
-          AverageFrequencyArray.push(AverageFrequencyArray[index] / 1.5)
+          AverageFrequencyArray.push(AverageFrequencyArray[index] / 1.5);
         } else {
-          break
+          break;
         }
       }
     } else if (AverageFrequencyArray.length > 30) {
@@ -963,7 +976,7 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
           AverageFrequencyArray.shift(AverageFrequencyArray[index + 1]);
           AverageFrequencyArray.push(AverageFrequencyArray[index]);
         } else {
-          break
+          break;
         }
       }
       AverageFrequencyArray.pop();
@@ -984,61 +997,68 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
                 <div class="play_audio_track">
                   <i class="fa fa-play" id="play_audio_track--${donat_id}" aria-hidden="true"></i>
                 </div>
-                <p class="audio_track--time">${Math.floor(record_time / 60)}:${(record_time % 60 < 10) ? `0${record_time % 60}` : record_time % 60}</p>
+                <p class="audio_track--time">${Math.floor(record_time[donat_id] / 60)}:${(record_time[donat_id] % 60 < 10) ? `0${record_time[donat_id] % 60}` : record_time[donat_id] % 60}</p>
                 <div class="voiceMessage_audio_track__bars">
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--1"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--2"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--3"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--4"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--5"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--6"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--7"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--8"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--9"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--10"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--11"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--12"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--13"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--14"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--15"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--16"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--17"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--18"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--19"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--20"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--21"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--22"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--23"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--24"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--25"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--26"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--27"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--28"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--29"></div>
-                  <div class="voiceMessage__audio_bar" id="voiceMessage__audio_bar--30"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--1"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--2"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--3"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--4"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--5"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--6"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--7"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--8"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--9"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--10"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--11"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--12"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--13"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--14"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--15"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--16"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--17"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--18"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--19"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--20"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--21"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--22"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--23"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--24"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--25"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--26"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--27"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--28"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--29"></div>
+                  <div class="voiceMessage__audio_bar" id="donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--30"></div>
                 </div>
               </div>
           </div>
       </div>`;
-    next_donat = donats[forms__ids[forms__ids.length - 1]];
-    next_donat.style.marginTop = 30 + "%";
     answered__donat.insertAdjacentHTML(`beforeend`, donate_answer__request);
+    next_donat = donats[forms__ids[forms__ids.length - 1]];
+    if (next_donat.id != "donats__form__donat") {
+      next_donat.style.marginTop = 30 + "%";
+    }
     comments.scrollTop = comments.scrollHeight;
 
     // Делаем столбики высотой под уровни частот
+    voiceMessage_audio_bars = document.querySelectorAll(`#donate_voiceMessage--${donat_id} .voiceMessage__audio_bar`);
     for (let index = 0; index < AverageFrequencyArray.length; index++) {
-      document.querySelectorAll(".voiceMessage__audio_bar")[index].style.height = (AverageFrequencyArray[index] * 0.3) + 1 + 'px'
+      voiceMessage_audio_bars[index].style.height = (AverageFrequencyArray[index] * 0.3) + 1 + 'px';
     }
 
     // Создаём альтернативную полоску для воспроизведения
+    const own_donate_voiceMessage = document.querySelector(`#donate_voiceMessage--${donat_id}`);
     voiceMessage_audio_track__bars = document.querySelector(`#donate_voiceMessage--${donat_id} .voiceMessage_audio_track__bars`);
     playback_audio_track__bars = voiceMessage_audio_track__bars.cloneNode(true);
-    playback_audio_track__bars.classList.add("voiceMessage_playback_audio_track__bars");
+    playback_audio_track__bars.classList.add("voiceMessage_playback_audio_track__bars", 'paused');
     playback_audio_track__bars.id = `voiceMessage_playback_audio_track__bars--${donat_id}`;
-    document.querySelector(`#donate_voiceMessage--${donat_id}`).appendChild(playback_audio_track__bars);
-    for (let bar of Array.from(document.querySelectorAll(".voiceMessage__audio_bar")).slice(30, 60)) {
-      bar.id = `voiceMessage__audio_bar--${Number(bar.id.split("--")[1]) + 30}`;
+    own_donate_voiceMessage.appendChild(playback_audio_track__bars);
+    for (let bar of Array.from(voiceMessage_audio_bars).slice(30, 60)) {
+      bar.id = `donate_voiceMessage--${donat_id}--voiceMessage__audio_bar--${Number(bar.id.split("--")[3]) + 30}`;
     }
+
+    // Убираем интерфейс записи
+    CloseRecordVoiceMessage();
 
     // Инициализируем переменные
     play_audio_track = document.querySelector(`#play_audio_track--${donat_id}`);
@@ -1059,29 +1079,43 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
     // Инициализируем переменные
     play_time = 0;
     audio_current_time = 0;
-    play_time_IntervalID = "";
-    play_button = document.querySelector(`#donate_voiceMessage--${donat_id} .fa`);
-    audio_track_time = document.querySelector(`#donate_voiceMessage--${donat_id} .audio_track--time`);
+    play_time_IntervalID[donat_id] = "";
+    reroll_time = 1;
+    playback_audio_track__bars.style.clipPath = `inset(0 var(--inset_${donat_id}) 0 0)`;
+    document.documentElement.style.cssText += `--inset_${donat_id}: 100%`;
+    const animationframes = `@keyframes playback_anim__${donat_id} {
+      0% {
+        clip-path: inset(0 var(--inset_${donat_id}) 0 0);
+      }
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }`;
+    const playtrack_animation = document.createElement('style');
+    playtrack_animation.innerHTML = animationframes;
+    own_donate_voiceMessage.appendChild(playtrack_animation);
 
     // Воспроизведение голосового сообщения
-    function playback_voiceMessage(donat_id) {
+    playback_voiceMessage = function (donat_id) {
       // метод URL.createObjectURL() создает DOMString, содержащий URL с указанием на объект, заданный как параметр
       // он позволяет загружать файлы из любого места на жестком диске
       // время жизни URL - сессия браузера
-      audio.src = URL.createObjectURL(Voicefile);
+      audio.src = URL.createObjectURL(Voicefile[donat_id]);
 
       // Запускаем воспроизведение
-      playback_audio_track__bars.style.animation = `playback_anim ${record_time * 1.8}s linear`; // Запускаем анимацию воспроизведения
+      playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
+      audio_track_time = document.querySelector(`#donate_voiceMessage--${donat_id} .audio_track--time`);
+      // Запускаем анимацию воспроизведения
+      playback_audio_track__bars.style.animation = `playback_anim__${donat_id} ${record_time[donat_id] * 1.5}s linear`;
       play_button.classList.remove("fa-play");
       play_button.classList.add("fa-pause");
 
       // Все анимации воспроизведения
-      playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
       audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
-      if (play_time_IntervalID == "") {
-        play_time_IntervalID = setInterval(() => {
+      if (play_time_IntervalID[donat_id] == "") {
+        play_time_IntervalID[donat_id] = setInterval(() => {
           if (play_button.classList.contains("fa-pause")) {
-            if (play_time <= record_time) {
+            if (play_time <= record_time[donat_id]) {
               audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
               play_time += 1;
             } else {
@@ -1089,14 +1123,15 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
               playback_audio_track__bars.style.animation = "none";
               play_button.classList.remove("fa-pause");
               play_button.classList.add("fa-play");
-              clearInterval(play_time_IntervalID);
+              clearInterval(play_time_IntervalID[donat_id]);
               play_time = 0;
               audio_current_time = 0;
-              play_time_IntervalID = "";
+              play_time_IntervalID[donat_id] = "";
               audio_track__time.textContent = "0:00";
+              document.documentElement.style.cssText += `--inset_${donat_id}: 100%`;
             }
           }
-        }, 1000);
+        }, 900);
       }
 
       playback_audio_track__bars.classList.remove("paused"); // Отпускаем с паузы воспроизведение
@@ -1104,10 +1139,11 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
         audio.play();
         audio.currentTime = audio_current_time;
       }
-    }
+    };
 
     // Пауза голосового сообщения
-    function pause_voiceMessage(donat_id) {
+    pause_voiceMessage = function (donat_id) {
+      audio_track_time = document.querySelector(`#donate_voiceMessage--${donat_id} .audio_track--time`);
       playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
       playback_audio_track__bars.classList.add("paused"); // Ставим на паузу воспроизведение
       play_button.classList.remove("fa-pause");
@@ -1116,25 +1152,44 @@ eventsObj.addEvent(voiceMessage__form__submit, "click", async function (e) {
         audio.pause();
         audio_current_time = audio.currentTime;
       }
-    }
+    };
 
     // Вешаем события воспроизведения
-    eventsObj.addEvent(play_audio_track, "click", function () {
+    eventsObj.addEvent(play_audio_track, "click", function (donat_id) {
+      play_button = document.querySelector(`#donate_voiceMessage--${donat_id} .fa`);
+
       if (play_button.classList.contains("fa-play")) {
         playback_voiceMessage(donat_id);
       } else {
         pause_voiceMessage(donat_id);
       }
-    });
+    }.bind(null, donat_id));
 
     // Вешаем событие для перемотки и делаем функционал
-    let audio_track_bars_array = Array.from(document.querySelectorAll(".voiceMessage__audio_bar"));
-    eventsObj.addEvent(voiceMessage_audio_track__bars, "click", function (e) {
-      reroll_time = record_time / (30 / audio_track_bars_array.indexOf(e.target));
+    reroll_voiceMessage = function (e) {
+      donat_id = e.target.id.split("--")[1];
+      audio_track_bars_array = Array.from(document.querySelectorAll(`#donate_voiceMessage--${donat_id} .voiceMessage__audio_bar`));
+      audio_track_time = document.querySelector(`#donate_voiceMessage--${donat_id} .audio_track--time`);
+      playback_audio_track__bars = document.getElementById(`voiceMessage_playback_audio_track__bars--${donat_id}`);
+      if (audio_track_bars_array.indexOf(e.target) > 30) {
+        reroll_time = record_time[donat_id] / (30 / (audio_track_bars_array.indexOf(e.target) - 30));
+      } else {
+        reroll_time = record_time[donat_id] / (30 / audio_track_bars_array.indexOf(e.target));
+      }
       play_time = Math.floor(reroll_time);
       audio.currentTime = reroll_time;
       audio_track_time.textContent = `${Math.floor(play_time / 60)}:${(play_time % 60 < 10) ? `0${play_time % 60}` : play_time % 60}`;
-      playback_audio_track__bars.style.clipPath = `inset(0 ${100 - reroll_time / (record_time / 100)}% 0 0)`;
-    })
+      document.documentElement.style.cssText += `--inset_${donat_id}: ${100 - reroll_time / (record_time[donat_id] / 100)}%`;
+      if (play_button.classList.contains("fa-pause")) {
+        playback_audio_track__bars.style.animation = 'none';
+        setTimeout(() => {
+          playback_audio_track__bars.style.animation = `playback_anim__${donat_id} ${record_time[donat_id] * 1.8}s linear`;
+          playback_audio_track__bars.style.clipPath = `inset(0 var(--inset_${donat_id}) 0 0)`;
+        }, 100);
+      }
+    };
+
+    eventsObj.addEvent(voiceMessage_audio_track__bars, "click", reroll_voiceMessage);
+    eventsObj.addEvent(playback_audio_track__bars, "click", reroll_voiceMessage);
   }
 });
