@@ -661,3 +661,230 @@ showText();
 /* АСИНХРОННЫЕ ИТЕРАТОРЫ - https://www.youtube.com/watch?v=58_qeGUBS2k&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=8 */
 
 
+// Массив из промисов
+names = [
+    new Promise(resolve => resolve('Jack')),
+    new Promise(resolve => resolve('Max')),
+    new Promise(resolve => resolve('Leo')),
+];
+
+// Если бы мы итерировали массив из промисов с помощью обычного for of, то он бы просто вывел нам, что в массиве находяться промисы, но не их значения.
+showNames = async () => {
+    for (name of names) {
+        console.log(name);
+    }
+};
+showNames(); // Promise, Promise, Promise
+
+// А вот когда мы используем for await of, то всё работает так, как нам надо
+const showNames = async () => {
+    // Цикл ждёт разрешения каждого промиса и только после этого переходит к следующему шагу.
+    for await (name of names) {
+        console.log(name);
+    }
+};
+showNames(); // 'Jack', 'Max', 'Leo'
+
+
+// Пример асинхронного генератора. Промежуточное значение здесь возвращается ввиде промиса.
+async function* readLines(path) {
+    let file = await fileOpen(path);
+
+    try {
+        while (!file.EOF) {
+            yield await file.readLine();
+        }
+    } finally {
+        await file.close();
+    }
+};
+
+
+// Асинхронная итерация по вызову асинхронного генератора
+for await (const line of readLines(filePath)) {
+    console.log(line);
+};
+
+
+/* МЕТОДЫ МАССИВА - https://www.youtube.com/watch?v=8z1DQqlC78I&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=7 */
+
+
+arr = [1, 2, 3, 4, 'five', NaN];
+
+// Проверка на то, есть ли элемент в массиве
+if (arr.includes(3)) {
+    console.log(true); // true
+}
+
+// Можно даже сделать проверку на вхождение NaN в массив
+arr.includes(NaN); // true
+
+
+// .flat() делаем поднятие всех подмассивов на указанный уровень (по началу - это 1)
+const arr1 = [1, 2, [3, 4]];
+arr1.flat(); // [1, 2, 3, 4]
+
+const arr2 = [1, 2, [3, 4, [5, 6]]];
+arr2.flat(); // [1, 2, 3, 4, [5, 6]]
+
+const arr3 = [1, 2, [3, 4, [5, 6]]];
+arr3.flat(2); // [1, 2, 3, 4, 5, 6]
+
+const arr4 = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+arr4.flat(Infinity); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+// .flat() также удаляет пустые слоты
+const arr6 = [1, 2, , 4, 5, [6, , 8]];
+arr6.flat(); // [1, 2, 4, 5, 6, 8]
+
+
+// Метод .flatMap() сначала применяет функцию к каждому элементу, а потом раскрывает вложенные массивы
+const arr7 = [[1], [2], [3], [4]];
+arr7.flatMap(x => [x * 2]); // [2, 4, 6, 8]
+
+
+/* МЕТОДЫ СТРОК - https://www.youtube.com/watch?v=MI_9grIevCE&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=9 */
+
+
+str = "test";
+// .padStart() подставляет определённое количество символов в начале строки, а .padEnd() в конце.
+str.padStart(10, '~'); // '~~~~~~test'
+str.padEnd(10, '~'); // 'test~~~~~~'
+// .padStart() и .pandEnd() без переданного символа заполяют нужную область пробелами.
+str.padStart(10); // '      test'
+str.padEnd(10); // 'test      '
+// Если переданная строка длиннее, чем заданный параметр длины, то строка останеться неизменной.
+
+
+str = "Hello, my name is Yauhen";
+// .startsWith() проверяет, есть ли переданная строка в начале строки.
+str.startsWith("Hello"); // true
+str.startsWith("Hi"); // false
+// .endsWith() проверяет, есть ли переданная строка в конце строки.
+str.endsWith("Yauhen"); // true
+str.endsWith("Jack"); // false
+
+// Второй аргумент startsWith() как бы обрезает строку с начала на переданное число символов. В примере, теперь строка это 'my name is Yauhen'.
+str.startsWith("my", 7); // true
+str.startsWith("name", 7); // false
+
+// Второй аргумент endsWith() как бы обрезает строку ДО заданного количества символов. В примере, теперь это 'Hello, my name'.
+str.endsWith("name", 14); // true
+// В примере, теперь это 'Hello, my'.
+str.endsWith("name", 9); // false
+
+
+str = "    Just test string     ";
+// trim() убирает пробельные символы у начала и конца строки.
+str.trim(); // "Just test string"
+
+// .trimStart() убирает пробелы только у начала.
+str.trimStart(); // "Just test string     "
+
+// .trimEnd() убирает пробелы только у конца.
+str.trimEnd(); // "    Just test string"
+
+
+/* FUNCTION.TOSTRING() & SYMBOL DESCRIPTION & JSON.STRINGIFY() - https://www.youtube.com/watch?v=gvxCKEtCJaM&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=11 */
+
+
+function /* just a comment */ test() { }
+
+// Теперь метод .toString() выдаёт полный код переданной функции, вместе с комментариями.
+test.toString(); // 'function /* just a comment */ test () {}'
+
+function greeting() {
+    const name = 'webDev';
+    console.log(`hello from ${name}`);
+};
+// Также, теперь соблюдены все отступы и табуляции.
+test.toString();
+/*  'function greeting() {\n' +
+    "  const name = 'webDev'\n" +
+    '  console.log(`hello from ${name}`)\n' +
+    '}'
+*/
+
+
+const mySymbol = Symbol('Symbol description');
+
+// Теперь у Символов есть свойство description для того, чтобы узнать, что в них храниться.
+mySymbol.description; // 'Symbol description'
+mySymbol.description === 'Symbol description'; // true
+
+// Если у символа нет значения, то оно будет равно undefined
+const myNewSymbol = Symbol();
+myNewSymbol.description; // undefined
+
+
+// .stringify() раньше работал плохо с символами Unicode, но теперь всё хорошо.
+// Раньше:
+JSON.stringify("\uD800"); // '"�"'
+// Сейчас:
+JSON.stringify("\uD800"); // '"\\ud800"'
+
+
+/* НОВЫЕ ВОЗМОЖНОСТИ РЕГУЛЯРНЫХ ВЫРАЖЕНИЙ - https://www.youtube.com/watch?v=dv_iHGJbVZQ&list=PLNkWIWHIRwMH_05WTvIX419odDtStynm3&index=10 */
+
+
+/* Точка в регулярных выражениях обозначает любой символ. Но раньше она не засчитывала спецсимволы типа \n. 
+Теперь засчитывает, но для этого нужно поставить специальный флаг /s. */
+/one.two/.test('one\ntwo'); // false
+/one.two/s.test('one\ntwo'); // true
+
+
+/* Данное регулярное выражение ищется в падение по строке, 
+в которой идёт 4 цифры, затем тире, затем 2 цифры, потом опять тире, и опять 2 цифры. */
+regEx = /(\d{4})-(\d{2})-(\d{2})/;
+
+// Метод exec возвращает массив с результатами по вхождению строки в регулярное выражение.
+result = regEx.exec('2019-08-23');
+
+console.log(result); // ["2019-08-23", "2019", "08", "23", index: 0, input: "2019-08-23", groups: undefined]
+
+/* Тоже самое регулярное выражение, но с именнованными группами. 
+Это названия для групп (частей) в регулярном выражении, которые станут словарём в свойстве groups. */
+regEx = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+
+result = regEx.exec('2019-08-23');
+
+console.log(result); // ["2019-08-23", "2019", "08", "23", index: 0, input: "2019-08-23", groups: {...}];
+
+// Теперь мы можем работать с частями строки, входящей в регулярное выражение.
+console.log(result.groups); // { year: "2019", month: "08", day: "23" }
+
+
+// Использование .replace() и регулярного выражения.
+const str = 'Kavalchuk Yauhen';
+
+// Создаём регулярное выражение с именноваными группами.
+const repl = /(?<firstName>[A-Za-z]+) (?<lastName>[A-Za-z]+$)/u;
+
+// Меняем именновые группы местами.
+const newStr = str.replace(repl, '$<lastName>, $<firstName>');
+
+console.log(newStr); // "Yauhen, Kavalchuk"
+
+
+// Использование именованной группы внутри регулярного выражения возможно с помощью флага \k.
+let sameWords = /(?<fruit>apple|orange) === \k<fruit>/u;
+
+sameWords.test('apple === apple');  //true
+sameWords.test('orange === orange');  //true
+sameWords.test('apple === orange');  //false
+
+
+// ?<=[symbol] делает проверку на то, есть ли конкретный символ перед строкой (в нашем случае это - #).
+/(?<=#).*/.test('#frontend'); // true
+/(?<=#).*/.test('frontend'); // false
+
+// Возврат строки осуществляется без этого символа.
+'#frontend'.match(/(?<=#).*/)[0]; // 'frontend'
+
+
+// ?>![symbol]) делает проверку на то, чтобы перед строкой был обязательно не переданный символ, а любой другой.
+// В следующем примере, делаем проверку на то, чтобы вернуло любое число, перед которым стоит НЕ $.
+'course coasts $20'.match(/(?<!\$)\d+\.?\d+/) // null
+'use hash-tag #20'.match(/(?<!\$)\d+\.?\d+/)[0] // 20
+'email@404.com'.match(/(?<!\$)\d+\.?\d+/)[0] // 404
