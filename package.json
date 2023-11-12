@@ -17,6 +17,7 @@
     "idb": "^7.1.1",
     "jquery": "^3.7.0",
     "metasync": "^0.3.32",
-    "recorder-js": "^1.0.7"
+    "recorder-js": "^1.0.7",
+    "ts-node": "^10.9.1"
   }
 }
