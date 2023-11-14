@@ -1,1 +1,252 @@
-/*# sourceMappingURL=style.css.map */
+@charset "UTF-8";
+/* Добавление шрифтов */
+@font-face {
+  font-family: "Ambient";
+  src: url("../fonts/ljk_Ambient-Medium.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+/* CSS Normalize*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Ambient";
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  border: none;
+}
+
+/* Header */
+header {
+  background-image: url(../images/background.png);
+  background-size: cover;
+  min-height: 100vh;
+  /* Nav */
+}
+header nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+header nav .nav__menu {
+  display: flex;
+  gap: 10%;
+  padding: 8%;
+}
+header nav .nav__menu .fa-bars {
+  cursor: pointer;
+  font-size: 25px;
+  transition: 0.3s linear all;
+}
+header nav .nav__menu .fa-bars:hover {
+  color: blue;
+}
+header nav .nav__menu .nav__pages {
+  display: flex;
+  gap: 10%;
+}
+header nav .nav__menu .nav__pages a {
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 20px;
+  color: black;
+  transition: 0.3s linear all;
+}
+header nav .nav__menu .nav__pages a::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 4px;
+  background-color: blue;
+  border-radius: 20px;
+  box-shadow: 1px 1px 15px blue;
+  transition: all 0.2s linear;
+  margin: 0 auto;
+}
+header nav .nav__menu .nav__pages a:hover::after {
+  width: 100%;
+}
+header nav .nav__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+header nav .nav__logo .logo__image {
+  width: 60px;
+  height: 60px;
+}
+header nav .nav__logo .logo__caption {
+  font-size: 25px;
+}
+header nav .profile__icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5%;
+  font-size: 30px;
+  color: gray;
+  padding: 8%;
+  padding-right: 20%;
+}
+header nav .profile__icons i {
+  cursor: pointer;
+  transition: 0.3s linear all;
+}
+header nav .profile__icons i:hover {
+  color: blue;
+}
+header nav .profile__icons .profile__email {
+  display: flex;
+  position: relative;
+}
+header nav .profile__icons .profile__email .email__messages_amount {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+  width: 10px;
+  height: 10px;
+  border-radius: 40%;
+  position: absolute;
+  font-size: 10px;
+  color: #fff;
+  left: 70%;
+  bottom: 85%;
+}
+header nav .profile__icons .profile__login {
+  text-transform: uppercase;
+  font-size: 12px;
+  background: linear-gradient(violet, blue);
+  color: #fff;
+  cursor: pointer;
+  width: 20%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+header nav .profile__icons .profile__login:before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background-color: blue;
+  opacity: 0.4;
+  left: -110%;
+  top: 90%;
+  transform: rotate(45deg);
+}
+@keyframes hover {
+  0% {
+    top: -110%;
+    left: 90%;
+  }
+  50% {
+    top: 10%;
+    left: -30%;
+  }
+  100% {
+    top: -10%;
+    left: -10%;
+  }
+}
+header nav .profile__icons .profile__login:hover::before {
+  animation-name: hover;
+  animation-duration: 0.6s;
+  top: -10%;
+  left: -10%;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 1000px) {
+  header nav {
+    grid-template-columns: repeat(3, [col] 1fr);
+    grid-template-rows: repeat(2, [row] 100px);
+  }
+  header nav .nav__menu {
+    grid-column: col 1;
+    grid-row: row 2/row 3;
+  }
+  header nav .nav__logo {
+    grid-column: col 2;
+  }
+  header nav .nav__profile {
+    grid-column: col 3;
+    grid-row: row 2/row 3;
+  }
+  header nav .nav__profile .profile__login {
+    width: 50%;
+  }
+}
+@media (max-width: 600px) {
+  header nav {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, [row] 100px);
+  }
+  header nav .nav__menu {
+    grid-row: row 2;
+    grid-column: span 1;
+    justify-content: space-evenly;
+    gap: 0;
+  }
+  header nav .nav__menu .nav__pages {
+    padding-right: 15%;
+  }
+  header nav .nav__menu .nav__pages a {
+    font-size: 5vw;
+  }
+  header nav .nav__logo {
+    grid-row: row 1;
+    grid-column: span 1;
+  }
+  header nav .nav__profile {
+    grid-row: row 3;
+    grid-column: span 1;
+  }
+  header nav .nav__profile .profile__icons {
+    font-size: 35px;
+  }
+}
+@media (max-width: 300px) {
+  header nav .nav__menu {
+    flex-direction: column;
+    align-items: center;
+  }
+  header nav .nav__menu .nav__pages a {
+    font-size: 6.5vw;
+  }
+  header nav .profile__icons {
+    flex-direction: column;
+    align-items: center;
+  }
+  header nav .profile__icons .profile__login {
+    width: 100%;
+  }
+}/*# sourceMappingURL=style.css.map */

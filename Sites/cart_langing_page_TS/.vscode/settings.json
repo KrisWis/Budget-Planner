@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "editor.quickSuggestions": {
+        "strings": true
+    }
+}
