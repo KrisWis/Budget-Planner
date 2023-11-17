@@ -1,52 +1,18 @@
-@charset "UTF-8";
-/* Добавление шрифтов */
-@font-face {
-  font-family: "Ambient";
-  src: url("../fonts/ljk_Ambient-Medium.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-/* CSS Normalize*/
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100vh;
-  font-family: "Ambient";
-  display: flex;
-  flex-direction: column;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-}
-
-button {
-  border: none;
-}
-
-/* Header */
 header {
-  background-image: url(../images/background.png);
-  background-size: cover;
-  min-height: 100vh;
+  min-height: 80vh;
+  position: relative;
   /* Nav */
+}
+header::before {
+  content: "";
+  display: block;
+  background-image: url(../../../img/header_background.jpg);
+  background-size: cover;
+  opacity: 0.3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 header nav {
   display: grid;
@@ -101,7 +67,7 @@ header nav .nav__logo .logo__image {
   height: 60px;
 }
 header nav .nav__logo .logo__caption {
-  font-size: 25px;
+  font-size: 35px;
 }
 header nav .profile__icons {
   display: flex;
@@ -183,70 +149,34 @@ header nav .profile__icons .profile__login:hover::before {
   top: -10%;
   left: -10%;
 }
-
-/* Адаптивный дизайн */
-@media (max-width: 1000px) {
-  header nav {
-    grid-template-columns: repeat(3, [col] 1fr);
-    grid-template-rows: repeat(2, [row] 100px);
-  }
-  header nav .nav__menu {
-    grid-column: col 1;
-    grid-row: row 2/row 3;
-  }
-  header nav .nav__logo {
-    grid-column: col 2;
-  }
-  header nav .nav__profile {
-    grid-column: col 3;
-    grid-row: row 2/row 3;
-  }
-  header nav .nav__profile .profile__login {
-    width: 50%;
-  }
+header .header__desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
 }
-@media (max-width: 600px) {
-  header nav {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, [row] 100px);
-  }
-  header nav .nav__menu {
-    grid-row: row 2;
-    grid-column: span 1;
-    justify-content: space-evenly;
-    gap: 0;
-  }
-  header nav .nav__menu .nav__pages {
-    padding-right: 15%;
-  }
-  header nav .nav__menu .nav__pages a {
-    font-size: 5vw;
-  }
-  header nav .nav__logo {
-    grid-row: row 1;
-    grid-column: span 1;
-  }
-  header nav .nav__profile {
-    grid-row: row 3;
-    grid-column: span 1;
-  }
-  header nav .nav__profile .profile__icons {
-    font-size: 35px;
-  }
+header .header__desc .header__desc--caption {
+  display: flex;
+  flex-direction: column;
+  color: rgb(69, 30, 184);
+  align-items: center;
+  font-size: 40px;
+  text-align: center;
 }
-@media (max-width: 300px) {
-  header nav .nav__menu {
-    flex-direction: column;
-    align-items: center;
-  }
-  header nav .nav__menu .nav__pages a {
-    font-size: 6.5vw;
-  }
-  header nav .profile__icons {
-    flex-direction: column;
-    align-items: center;
-  }
-  header nav .profile__icons .profile__login {
-    width: 100%;
-  }
-}/*# sourceMappingURL=style.css.map */
+header .header__desc .header__desc--description {
+  color: gray;
+  font-size: 14px;
+  margin: 1% 0;
+}
+header .header__desc .header__desc--button {
+  width: 7%;
+  height: 40px;
+  background-color: rgb(69, 30, 184);
+  color: #fff;
+  text-shadow: 1px 1px 5px #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 5px;
+}/*# sourceMappingURL=header.css.map */
