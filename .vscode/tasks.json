@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "typescript",
-			"tsconfig": "Sites/cart_langing_page_TS/scripts/tsconfig.json",
+			"tsconfig": "Sites/cart_langing_page_TS/src/scripts/tsconfig.json",
 			"option": "watch",
 			"problemMatcher": [
 				"$tsc-watch"

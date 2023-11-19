@@ -63,6 +63,15 @@
   .items {
     top: 100%;
   }
+  .cart__modal_wrapper .cart__modal--upper .fa {
+    bottom: 100%;
+  }
+  .cart__modal_wrapper .cart__items .cart__item {
+    grid-template-columns: 100px 200px 50px 50px;
+  }
+  .cart__modal_wrapper .cart__items .cart__item .cart__item__delete {
+    font-size: 10px;
+  }
 }
 @media (max-width: 300px) {
   header nav .nav__menu {
