@@ -16,8 +16,11 @@
 </head>
 <body itemscope itemtype="https://schema.org/WebPage">
 
+  <!-- Modal for select menu -->
+  <div class="select_menu__overlay" id="select_menu__overlay"></div>
+
   <!-- Modal for cart -->
-  <div class="cart__modal_wrapper" id="cart__modal_wrapper">
+  <div class="cart__modal_wrapper preload" id="cart__modal_wrapper">
     <div class="cart__modal--upper">
       <h2 class="cart__modal_wrapper--caption">Корзина</h2>
       <i class="fa fa-window-close-o" id="cart__modal--close" aria-hidden="true"></i>
@@ -26,7 +29,6 @@
     <div class="cart__items" id="cart__items"></div>
 
     <p class="cart__final_price">Финальная цена: <span id="cart__final_price">0</span></p>
-    <div class="cart__overlay"></div>
   </div>
 
   <!-- Header -->
@@ -102,18 +104,18 @@
               Add to cart
             </button>
 
-            <select id="item--1--amount">
-              <option>1</option>
-              <option>2</option> 
-              <option>3</option> 
-              <option>4</option> 
-              <option>5</option> 
-              <option>6</option> 
-              <option>7</option> 
-              <option>8</option> 
-              <option>9</option> 
-              <option>10</option> 
-            </select>
+            <selectmenu class="item__amount--select_menu" id="item--1--amount">
+              <option class="amount--select_menu__option">1</option>
+              <option class="amount--select_menu__option">2</option> 
+              <option class="amount--select_menu__option">3</option> 
+              <option class="amount--select_menu__option">4</option> 
+              <option class="amount--select_menu__option">5</option> 
+              <option class="amount--select_menu__option">6</option> 
+              <option class="amount--select_menu__option">7</option> 
+              <option class="amount--select_menu__option">8</option> 
+              <option class="amount--select_menu__option">9</option> 
+              <option class="amount--select_menu__option">10</option> 
+            </selectmenu>
           </div>
         </div>
       </div>
@@ -138,18 +140,18 @@
               Add to cart
             </button>
 
-            <select id="item--2--amount">
-              <option>1</option>
-              <option>2</option> 
-              <option>3</option> 
-              <option>4</option> 
-              <option>5</option> 
-              <option>6</option> 
-              <option>7</option> 
-              <option>8</option> 
-              <option>9</option> 
-              <option>10</option> 
-            </select>
+            <selectmenu class="item__amount--select_menu" id="item--2--amount">
+              <option class="amount--select_menu__option">1</option>
+              <option class="amount--select_menu__option">2</option> 
+              <option class="amount--select_menu__option">3</option> 
+              <option class="amount--select_menu__option">4</option> 
+              <option class="amount--select_menu__option">5</option> 
+              <option class="amount--select_menu__option">6</option> 
+              <option class="amount--select_menu__option">7</option> 
+              <option class="amount--select_menu__option">8</option> 
+              <option class="amount--select_menu__option">9</option> 
+              <option class="amount--select_menu__option">10</option> 
+            </selectmenu>
           </div>
         </div>
       </div>
@@ -174,18 +176,18 @@
               Add to cart
             </button>
 
-            <select id="item--3--amount">
-              <option>1</option>
-              <option>2</option> 
-              <option>3</option> 
-              <option>4</option> 
-              <option>5</option> 
-              <option>6</option> 
-              <option>7</option> 
-              <option>8</option> 
-              <option>9</option> 
-              <option>10</option> 
-            </select>
+            <selectmenu class="item__amount--select_menu" id="item--3--amount">
+              <option class="amount--select_menu__option">1</option>
+              <option class="amount--select_menu__option">2</option> 
+              <option class="amount--select_menu__option">3</option> 
+              <option class="amount--select_menu__option">4</option> 
+              <option class="amount--select_menu__option">5</option> 
+              <option class="amount--select_menu__option">6</option> 
+              <option class="amount--select_menu__option">7</option> 
+              <option class="amount--select_menu__option">8</option> 
+              <option class="amount--select_menu__option">9</option> 
+              <option class="amount--select_menu__option">10</option> 
+            </selectmenu>
           </div>
         </div>
       </div>
