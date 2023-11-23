@@ -4625,7 +4625,7 @@ button.close {
 .modal-dialog-centered {
   display: flex;
   align-items: center;
-  min-height: calc(100% - (0.5rem * 2));
+  min-height: calc(100% - 0.5rem * 2);
 }
 
 .modal-content {
@@ -4710,7 +4710,7 @@ button.close {
     margin: 1.75rem auto;
   }
   .modal-dialog-centered {
-    min-height: calc(100% - (1.75rem * 2));
+    min-height: calc(100% - 1.75rem * 2);
   }
   .modal-sm {
     max-width: 300px;

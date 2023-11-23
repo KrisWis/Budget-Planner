@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/* Добавление шрифтов */
+@font-face {
+  font-family: "Ambient";
+  src: url("../fonts/ljk_Ambient-Medium.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+/* CSS Normalize*/
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: "Ambient";
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 15%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  border: none;
+}/*# sourceMappingURL=main.css.map */
