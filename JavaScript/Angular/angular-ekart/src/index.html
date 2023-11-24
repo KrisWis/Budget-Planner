@@ -8,6 +8,11 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!-- app-root ответственнен за интерфейс всего веб-приложения. -->
+  <!-- В папке app храняться все файлы компонента, самые важные из них это:
+  app.component.css, app.component.html, app.component.ts. -->
   <app-root></app-root>
+  <!-- Angular делает так, что это всегда одностраничное приложение, т.е он всегда загружает только один файл index.html.
+  Если же страница меняется, то просто динамически меняется содержимое index.html, но не сам файл. -->
 </body>
 </html>
