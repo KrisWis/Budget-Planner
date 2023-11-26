@@ -1,1 +1,48 @@
-/*# sourceMappingURL=adaptive.css.map */
+@charset "UTF-8";
+@media screen and (max-width: 1400px) {
+  .panels {
+    grid-template-columns: 1fr;
+    /* Панели первого столбца */
+    /* Статистика */
+  }
+  .panels .first_panels .create_survey_panel {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .panels .first_panels .available_surveys_panel {
+    margin-left: 5%;
+    width: 90%;
+  }
+  .panels .first_panels .available_surveys_panel .available_surveys__header {
+    gap: 30%;
+  }
+  .panels .stats {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .panels .stats .stats_panel {
+    width: 100%;
+  }
+  .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+    width: 25%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .panels .first_panels .available_surveys_panel .available_surveys__header {
+    gap: 20%;
+  }
+  .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .panels .first_panels .available_surveys_panel {
+    margin-top: 30%;
+  }
+  .panels .first_panels .available_surveys_panel .available_surveys__header {
+    gap: 0;
+  }
+  .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+    width: 35%;
+  }
+}/*# sourceMappingURL=adaptive.css.map */

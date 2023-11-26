@@ -1,0 +1,187 @@
+/* Панели */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  margin-top: -5%;
+
+  .first_panels {
+    width: 100%;
+    height: 100%;
+
+    /* Панель создания опроса */
+    .create_survey_panel {
+      width: 100%;
+      height: 250px;
+      margin-left: 10%;
+
+      .create_survey__caption {
+        font-size: 28px;
+        padding-bottom: 5%;
+      }
+
+      .created_surveys {
+        width: 100%;
+        height: 100%;
+
+        .create__survey {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40%;
+          height: 200px;
+          background-color: #D9D9D9;
+          border-radius: 16px;
+          cursor: pointer;
+
+          i {
+            color: #939393;
+            font-size: 70px;
+          }
+        }
+      }
+
+      .survey_panel__pagination_arrows {
+        display: flex;
+        margin-left: 40%;
+        gap: 10%;
+
+        .survey_panel__pagination__arrow {
+          width: 25px;
+          height: 25px;
+          border: 1px solid #1C274C;
+          border-radius: 50%;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
+    /* Панель доступных опросов */
+    .available_surveys_panel {
+      margin-top: 15%;
+      margin-left: 10%;
+      width: 100%;
+      height: 250px;
+
+      .available_surveys__header {
+        display: flex;
+        gap: 20%;
+
+        .available_surveys__caption {
+          font-size: 28px;
+        }
+
+        .available_surveys__search {
+          width: 35%;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          background-color: #fff;
+
+          input {
+            border: none;
+            width: 100%;
+            height: 100%;
+            outline: none;
+
+            &::placeholder {
+              color: #000;
+              font-size: 14px;
+              padding: 3%;
+            }
+          }
+
+          i {
+            padding-right: 5%;
+          }
+        }
+      }
+
+      .available_surveys {
+        width: 100%;
+        height: 400px;
+      }
+
+      .available_surveys_panel__pagination_arrows {
+        display: flex;
+        margin-left: 40%;
+        gap: 10%;
+
+        .available_surveys_panel__pagination__arrow {
+          width: 25px;
+          height: 25px;
+          border: 1px solid #1C274C;
+          border-radius: 50%;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  /* Статистика */
+  .stats {
+
+    .stats__caption {
+      font-size: 28px;
+      padding-bottom: 5%;
+    }
+
+    .stats_panel {
+      height: 800px;
+      width: 80%;
+      border-radius: 24px;
+      background-color: #FFF;
+      box-shadow: 0px 0px 12px 4px rgba(193, 193, 193, 0.25);
+      padding: 3%;
+
+      .stats_panel--caption {
+        font-size: 28px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .stats--answers {
+        display: flex;
+        width: 100%;
+        height: 200px;
+        margin-top: 5%;
+        gap: 10%;
+        padding-left: 5%;
+
+        .stats--answers__pie_chart {
+          height: 190px;
+          width: 30%;
+          border-radius: 50%;
+          background-color: #F6F6F6;
+        }
+
+        .stats--answers__answers {
+          width: 15%;
+          height: 120px;
+          align-self: center;
+        }
+      }
+
+      /* Количество участников */
+      .stats_panel--participants_amount {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 5%;
+      }
+
+      /* Активность */
+      .stats--activity__caption {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        padding-top: 5%;
+      }
+    }
+  }
+}

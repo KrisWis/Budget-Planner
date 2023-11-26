@@ -1,8 +1,9 @@
 @charset "UTF-8";
 /* Добавление шрифтов */
 @font-face {
-  font-family: "Ambient";
-  src: url("../fonts/ljk_Ambient-Medium.ttf");
+  font-family: "Gilroy";
+  src: url("../fonts/Gilroy/Gilroy-Regular.eot");
+  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("../fonts/Gilroy/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Gilroy/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy/Gilroy-Regular.woff") format("woff"), url("../fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,11 +17,12 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  font-family: "Ambient";
+  font-family: "Gilroy";
   display: flex;
   flex-direction: column;
   position: relative;
   margin-bottom: 15%;
+  background-color: #F6F6F6;
 }
 
 h1,

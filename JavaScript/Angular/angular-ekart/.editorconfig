@@ -1,4 +1,5 @@
 # Editor configuration, see https://editorconfig.org
+# Файл конфигурации для определения кодировки, размера строки и тд.
 root = true
 
 [*]

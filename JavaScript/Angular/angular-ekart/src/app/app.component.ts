@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet],
-  // В templateUrl подключаем файл нашего html компонента, который будет использоваться
+  // В templateUrl подключаем файл нашего html компонента, который будет использоваться вместо app-root.
   templateUrl: './app.component.html',
   // В styleURL подключаем файл компонента стилей, который будет использоваться
   styleUrl: './app.component.scss'

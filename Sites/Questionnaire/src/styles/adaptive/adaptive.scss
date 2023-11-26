@@ -1,0 +1,64 @@
+@media screen and (max-width: 1400px) {
+  .panels {
+    grid-template-columns: 1fr;
+
+    /* Панели первого столбца */
+    .first_panels {
+      .create_survey_panel {
+        width: 90%;
+        margin-left: 5%;
+      }
+
+      .available_surveys_panel {
+        margin-left: 5%;
+        width: 90%;
+
+        .available_surveys__header {
+          gap: 30%;
+        }
+      }
+    }
+
+    /* Статистика */
+    .stats {
+      margin-left: 5%;
+      margin-right: 5%;
+
+      .stats_panel {
+        width: 100%;
+
+        .stats--answers .stats--answers__pie_chart {
+          width: 25%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .panels {
+    .first_panels .available_surveys_panel .available_surveys__header {
+      gap: 20%;
+    }
+
+    .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .panels {
+    .first_panels .available_surveys_panel {
+      margin-top: 30%;
+
+      .available_surveys__header {
+        gap: 0;
+      }
+    }
+
+    .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+      width: 35%;
+    }
+  }
+}

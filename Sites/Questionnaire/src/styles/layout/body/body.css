@@ -1,0 +1,164 @@
+@charset "UTF-8";
+/* Панели */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  margin-top: -5%;
+  /* Статистика */
+}
+.panels .first_panels {
+  width: 100%;
+  height: 100%;
+  /* Панель создания опроса */
+  /* Панель доступных опросов */
+}
+.panels .first_panels .create_survey_panel {
+  width: 100%;
+  height: 250px;
+  margin-left: 10%;
+}
+.panels .first_panels .create_survey_panel .create_survey__caption {
+  font-size: 28px;
+  padding-bottom: 5%;
+}
+.panels .first_panels .create_survey_panel .created_surveys {
+  width: 100%;
+  height: 100%;
+}
+.panels .first_panels .create_survey_panel .created_surveys .create__survey {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 200px;
+  background-color: #D9D9D9;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.panels .first_panels .create_survey_panel .created_surveys .create__survey i {
+  color: #939393;
+  font-size: 70px;
+}
+.panels .first_panels .create_survey_panel .survey_panel__pagination_arrows {
+  display: flex;
+  margin-left: 40%;
+  gap: 10%;
+}
+.panels .first_panels .create_survey_panel .survey_panel__pagination_arrows .survey_panel__pagination__arrow {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #1C274C;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.panels .first_panels .available_surveys_panel {
+  margin-top: 15%;
+  margin-left: 10%;
+  width: 100%;
+  height: 250px;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header {
+  display: flex;
+  gap: 20%;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__caption {
+  font-size: 28px;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search {
+  width: 35%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search input::-moz-placeholder {
+  color: #000;
+  font-size: 14px;
+  padding: 3%;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search input::placeholder {
+  color: #000;
+  font-size: 14px;
+  padding: 3%;
+}
+.panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search i {
+  padding-right: 5%;
+}
+.panels .first_panels .available_surveys_panel .available_surveys {
+  width: 100%;
+  height: 400px;
+}
+.panels .first_panels .available_surveys_panel .available_surveys_panel__pagination_arrows {
+  display: flex;
+  margin-left: 40%;
+  gap: 10%;
+}
+.panels .first_panels .available_surveys_panel .available_surveys_panel__pagination_arrows .available_surveys_panel__pagination__arrow {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #1C274C;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.panels .stats .stats__caption {
+  font-size: 28px;
+  padding-bottom: 5%;
+}
+.panels .stats .stats_panel {
+  height: 800px;
+  width: 80%;
+  border-radius: 24px;
+  background-color: #FFF;
+  box-shadow: 0px 0px 12px 4px rgba(193, 193, 193, 0.25);
+  padding: 3%;
+  /* Количество участников */
+  /* Активность */
+}
+.panels .stats .stats_panel .stats_panel--caption {
+  font-size: 28px;
+  text-align: center;
+  font-weight: 600;
+}
+.panels .stats .stats_panel .stats--answers {
+  display: flex;
+  width: 100%;
+  height: 200px;
+  margin-top: 5%;
+  gap: 10%;
+  padding-left: 5%;
+}
+.panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+  height: 190px;
+  width: 30%;
+  border-radius: 50%;
+  background-color: #F6F6F6;
+}
+.panels .stats .stats_panel .stats--answers .stats--answers__answers {
+  width: 15%;
+  height: 120px;
+  align-self: center;
+}
+.panels .stats .stats_panel .stats_panel--participants_amount {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 5%;
+}
+.panels .stats .stats_panel .stats--activity__caption {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding-top: 5%;
+}/*# sourceMappingURL=body.css.map */

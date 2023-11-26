@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content='Опросник'>
+    <meta name="keywords" content="html, css, js, ts, Questionnaire">
+    <meta name="author" content="Некрасов Евгений">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="src/styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/styles/main/main.css">
+    <link rel="stylesheet" href="src/styles/layout/header/header.css">
+    <link rel="stylesheet" href="src/styles/layout/body/body.css">
+    <link rel="stylesheet" href="src/styles/adaptive/adaptive.css">
+    <title content="Название сайта">Questionnaire</title>
+  </head>
+  <body itemscope itemtype="https://schema.org/WebPage">
+
+    <header>
+      <div class="header__settings">
+        <i class="fa fa-gear" aria-hidden="true"></i>
+      </div>
+    </header>
+
+    <main>
+      <div class="panels">
+        <div class="first_panels">
+          <div class="create_survey_panel">
+            <h2 class="create_survey__caption">Создать опрос</h2>
+            <div class="created_surveys">
+              <div class="create__survey">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </div>
+            </div>
+    
+            <div class="survey_panel__pagination_arrows">
+              <div class="survey_panel__pagination__arrow">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </div>
+              <div class="survey_panel__pagination__arrow">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              </div>
+            </div>
+    
+          </div>
+    
+          <div class="available_surveys_panel">
+            
+            <div class="available_surveys__header">
+              <h2 class="available_surveys__caption">Доступные опросы</h2>
+              <div class="available_surveys__search">
+                <input type="text" placeholder="Поиск">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+    
+            <div class="available_surveys">
+    
+            </div>
+    
+            <div class="available_surveys_panel__pagination_arrows">
+              <div class="available_surveys_panel__pagination__arrow">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </div>
+              <div class="available_surveys_panel__pagination__arrow">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="stats">
+          <h2 class="stats__caption">Статистика</h2>
+          
+          <div class="stats_panel">
+            <h3 class="stats_panel--caption">Заголовок</h3>
+
+          <div class="stats--answers">
+
+            <div class="stats--answers__pie_chart">
+
+            </div>
+
+            <div class="stats--answers__answers">
+
+            </div>
+
+          </div>
+          
+          <p class="stats_panel--participants_amount">Кол-во участников: <span id="stats_panel--participants_amount"></span></p>
+
+          <div class="stats--activity">
+            <h3 class="stats--activity__caption">Активность</h3>
+          </div>
+          </div>
+  
+        </div>
+      </div>
+    </main>
+  
+  <script src="src/scripts/main.js"></script>
+</body>
+</html>
