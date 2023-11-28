@@ -10,6 +10,8 @@
 /* CSS Normalize*/
 * {
   box-sizing: border-box;
+  transition: 0.3s transform linear;
+  transform: translateY(0);
 }
 
 body {
@@ -21,8 +23,8 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 15%;
   background-color: #F6F6F6;
+  overflow-y: hidden;
 }
 
 h1,

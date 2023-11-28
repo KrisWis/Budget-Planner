@@ -3,13 +3,13 @@
 	"tasks": [
 		{
 			"type": "typescript",
-			"tsconfig": "Sites/cart_langing_page_TS/src/scripts/tsconfig.json",
+			"tsconfig": "Sites/Questionnaire/src/scripts/tsconfig.json",
 			"option": "watch",
 			"problemMatcher": [
 				"$tsc-watch"
 			],
 			"group": "build",
-			"label": "tsc: watch - Sites/cart_langing_page_TS/scripts/tsconfig.json"
+			"label": "tsc: watch - Sites/Questionnaire/src/scripts/tsconfig.json"
 		}
 	]
 }

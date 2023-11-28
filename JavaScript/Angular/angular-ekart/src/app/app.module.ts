@@ -3,10 +3,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component'; // Импортируем наш компонент хедера
 
 @NgModule({
     imports: [BrowserModule], // Здесь нужно указать все внешние модули, которые нужны для нашего проекта.
-    declarations: [AppComponent], // Здесь нам нужно указать компоненты, которые принадлежат к нашему проекту.
+    declarations: [AppComponent, HeaderComponent], // Здесь нам нужно указать компоненты, которые принадлежат к нашему проекту.
     bootstrap: [AppComponent] // Здесь мы указываем компоненты, которые Angular должен загружать при загрузке этого модуля.
 })
 export class AppModule { }
