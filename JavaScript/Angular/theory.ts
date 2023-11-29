@@ -62,3 +62,22 @@
 /* ADDING CSS STYLES GLOBALLY - https://www.youtube.com/watch?v=ckbsKtnnHFo&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=10 */
 
 
+// Чтобы добавлять стили глобально для всех элементов, нужно использовать styles.css.
+
+
+/* USING BOOTSTRAP FOR STYLING - https://www.youtube.com/watch?v=9pE5t0CcoOM&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=11 */
+
+
+// Чтобы установить bootstrap в наш проект, нужно использовать команду "npm i --save bootstrap".
+// Чтобы установить .css файл бутстрапа, нужно в angular.json, в 'styles' добавить соответсвующий путь, например:
+/* "styles": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "src/styles.scss"
+], */
+// Также, после загрузки бутсрапа, проект надо перезагрузить.
+// Мы удалили его с помощью "npm uninstall bootstrap".
+
+
+/* CREATE COMPONENT USING ANGULAR CLI - https://www.youtube.com/watch?v=--Du9-iT78E&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=12 */
+
+

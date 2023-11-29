@@ -16,7 +16,7 @@
     <title content="Название сайта">Questionnaire</title>
   </head>
   <body itemscope itemtype="https://schema.org/WebPage">
-
+    <!--- Хедер -->
     <header>
       <button class="header__settings">
         <i class="fa fa-gear" aria-hidden="true"></i>
@@ -24,6 +24,7 @@
     </header>
 
     <main>
+      <!-- Дефолтная страница меню -->
       <div class="panels" id="panels">
         <div class="first_panels">
           <div class="create_survey_panel">
@@ -97,6 +98,17 @@
           </div>
   
         </div>
+      </div>
+
+      <!-- Страница с созданием опроса -->
+      <div class="create_survey_page create_survey" id="create_survey_page">
+        <div class="create_survey_page__name create_survey">
+          <input class="create_survey_page__input create_survey" type="text" value="Новый безымянный опрос">
+          <button class="create_survey_page__edit create_survey">
+            <i class="fa fa-edit create_survey" aria-hidden="true"></i>
+          </button>
+        </div>
+        <button class="create_survey_page__continue create_survey">Продолжить</button>
       </div>
     </main>
   
