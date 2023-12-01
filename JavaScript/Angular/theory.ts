@@ -81,3 +81,92 @@
 /* CREATE COMPONENT USING ANGULAR CLI - https://www.youtube.com/watch?v=--Du9-iT78E&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=12 */
 
 
+// Чтобы не в ручную создавать компонент, можно использовать команду "ng generate component component-name".
+// 1. Она создаст класс компонента с @Component декоратором.
+// 2. Сгенерирует html и css файлы компонента.
+// 3. Зарегистрирует класс компонента в корневом модуле. (но почему то не регает)
+
+// .component.spec.ts файл нужен для модульных тестов.
+
+// Если мы хотим создать дочерний компонент, например, top-header, нужно перейти в его папку перед написанием команды.
+
+
+/* TYPES OF COMPONENT SELECTOR - https://www.youtube.com/watch?v=j4KD6xuplsk&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=13 */
+
+
+// Также, ввиде селектора мы можем использовать атрибут, класс или id.
+
+// Ввиде класса:
+// @Component({
+//     selector: '.top-header',
+//     standalone: true,
+//     imports: [CommonModule],
+//     templateUrl: './top-header.component.html',
+//     styleUrl: './top-header.component.scss'
+//   })
+// Использование селектора ввиде класса .top-header в разметке будет выглядеть, как:
+// <div class="top-header"></div> - и в этом диве будет весь код компонента.
+
+// Ввиде атрибута, в основном мы используем это в директивах Angular:
+// @Component({
+//     selector: '[top-header]',
+//     standalone: true,
+//     imports: [CommonModule],
+//     templateUrl: './top-header.component.html',
+//     styleUrl: './top-header.component.scss'
+//   })
+// Использование селектора ввиде атрибута top-header в разметке будет выглядеть, как:
+// <div top-header></div> - и в этом диве будет весь код компонента.
+
+// Ввиде id:
+// @Component({
+//     selector: '#top-header',
+//     standalone: true,
+//     imports: [CommonModule],
+//     templateUrl: './top-header.component.html',
+//     styleUrl: './top-header.component.scss'
+//   })
+// Использование селектора ввиде id top-header в разметке будет выглядеть, как:
+// <div id="top-header"></div> - и в этом диве будет весь код компонента.
+
+
+/* WHAT IS DATA BINDING - https://www.youtube.com/watch?v=hgMo6ZDcNqE&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=14 */
+
+
+// Data Binding (привязка данных), которая позволяет нам взаимодействовать между классом компонента и его шаблоном представления.
+
+// Например, так выглядит класс в app.component.ts:
+export class MyComponent {
+    title: string = 'edumy';
+    message: string = 'Online learning';
+    display: boolean = false;
+
+    onClick() {
+        this.display = true;
+    }
+}
+
+// А так выглядит шаблон представления в app.component.html с привязкой данных из класса:
+/* <div class="header">
+    <div>{{ title }}</div>
+    <div>{{ message }}</div>
+    <button (click)="onClick()"></button>
+    <div [hidden]="display">
+        <p>display</p>
+    </div>
+</div> */
+// Для того, чтобы использовать свойства, объявленные в классе компонента нужно использовать двойные фигурные ковычки.
+/* Также, мы используем свойство display, используя для этого скрытый атрибут (ключевое слово hidden для скрытия атрибута),
+*оборачиваем его в квадратные скобки* для привязки данных и присваиваем ему значение "display". Это передавание данных из класса в шаблон. */
+// Также, мы используем функцию onClick() и для этого оборачиваем событие cliсk в круглые скобки и вызываем функцию. Это передавание данных из шаблона в класс.
+
+/* Мы можем разделить привязку данных на два пути: односторонний и двухсторонний. 
+Односторонная - это когда данные передаются из класса в шаблон, или из шаблона в класс.
+Двухсторонняя - это когда данные могут одновременно передавать из класса в шаблон и из шаблона в класс.
+Т.е при двухсторонней, если мы изменим что-либо в классе, это измениться и на шаблоне и наоборот. Для неё нужно использовать ngModel. */
+
+
+/* STRING INTERPOLATION - https://www.youtube.com/watch?v=_Kg3JMtncs4&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=15 */
+
+
+

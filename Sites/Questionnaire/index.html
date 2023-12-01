@@ -101,14 +101,37 @@
       </div>
 
       <!-- Страница с созданием опроса -->
-      <div class="create_survey_page create_survey" id="create_survey_page">
-        <div class="create_survey_page__name create_survey">
-          <input class="create_survey_page__input create_survey" type="text" value="Новый безымянный опрос">
-          <button class="create_survey_page__edit create_survey">
-            <i class="fa fa-edit create_survey" aria-hidden="true"></i>
-          </button>
+      <div class="create_survey_page create_survey_type" id="create_survey_page">
+        
+        <div class="create_survey_page--types create_survey_type">
+          <!-- Страница выбора имени для опроса -->
+          <div class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
+            <input class="create_survey_page_name__input create_survey_type" type="text" value="Новый безымянный опрос">
+            <button class="create_survey_page_name__edit create_survey_type">
+              <i class="fa fa-edit create_survey_type" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- Страница выбора режима безопасности опроса -->
+          <div class="create_survey_page--type create_survey_page__security create_survey_type" id="create_survey_page__security">
+
+            <!-- Анонимный опрос -->
+            <div class="create_survey_page__security--anonim create_survey_type">
+              <i class="fa fa-user-secret create_survey_type create_survey_page--anonim__icon" aria-hidden="true"></i>
+              <p class="create_survey_type">Анонимный опрос</p>
+              <input class="create_survey_type create_survey_page--anonim__checkbox" type="checkbox" value="secret">
+            </div>
+
+            <!-- Повышение безопасности -->
+            <div class="create_survey_page__security--upp_security create_survey_type">
+              <i class="fa fa-shield create_survey_type create_survey_page--upp_security__icon" aria-hidden="true"></i>
+              <p class="create_survey_type">Повысить безопасность</p>
+              <input class="create_survey_type create_survey_page--upp_security__checkbox" type="checkbox" value="secret">
+            </div>
+          </div> 
         </div>
-        <button class="create_survey_page__continue create_survey">Продолжить</button>
+
+        <button class="create_survey_page__continue create_survey" id="create_survey_page__continue">Продолжить</button>
       </div>
     </main>
   
