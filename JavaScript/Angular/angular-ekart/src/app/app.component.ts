@@ -4,13 +4,20 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { TopHeaderComponent } from './top-header/top-header.component';
 import { TopMenuComponent } from './header/top-menu/top-menu.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 // Декоратор компонента
 @Component({
   // Определяем селектор (app-root используется в index.html)
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, TopHeaderComponent, TopMenuComponent],
+  imports:
+    [CommonModule,
+      RouterOutlet,
+      HeaderComponent,
+      TopHeaderComponent,
+      TopMenuComponent,
+      ProductListComponent],
   // В templateUrl подключаем файл нашего html компонента, который будет использоваться вместо app-root.
   templateUrl: './app.component.html',
   // В styleURL подключаем файл компонента стилей, который будет использоваться

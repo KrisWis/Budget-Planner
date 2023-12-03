@@ -34,6 +34,9 @@
   .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
     width: 30%;
   }
+  .create_survey_page .create_survey_page__continue {
+    width: 90%;
+  }
 }
 @media screen and (max-width: 600px) {
   .panels .first_panels .available_surveys_panel {
@@ -44,5 +47,35 @@
   }
   .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
     width: 35%;
+  }
+  .create_survey_page .create_survey_page__name {
+    width: 95%;
+  }
+  .create_survey_page .create_survey_page__security .create_survey_page__security--anonim {
+    font-size: 25px;
+  }
+  .create_survey_page .create_survey_page__security .create_survey_page__security--upp_security {
+    font-size: 20px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_question__types {
+    font-size: 50px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--name {
+    font-size: 18px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--name .create_question__header--input {
+    font-size: 10px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__add_answer {
+    font-size: 20px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__add_answer .create_question__add_answer--icon {
+    font-size: 70px;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_questions--save {
+    width: 80%;
+  }
+  .create_survey_page .create_survey_page__create_question .create_questions .create_question .create_question--add {
+    font-size: 70px;
   }
 }/*# sourceMappingURL=adaptive.css.map */

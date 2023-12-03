@@ -104,6 +104,7 @@
       <div class="create_survey_page create_survey_type" id="create_survey_page">
         
         <div class="create_survey_page--types create_survey_type">
+
           <!-- Страница выбора имени для опроса -->
           <div class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
             <input class="create_survey_page_name__input create_survey_type" type="text" value="Новый безымянный опрос">
@@ -119,16 +120,53 @@
             <div class="create_survey_page__security--anonim create_survey_type">
               <i class="fa fa-user-secret create_survey_type create_survey_page--anonim__icon" aria-hidden="true"></i>
               <p class="create_survey_type">Анонимный опрос</p>
-              <input class="create_survey_type create_survey_page--anonim__checkbox" type="checkbox" value="secret">
+              <input class="create_survey_type create_survey_page--anonim__checkbox" id="anonim__checkbox" type="checkbox" value="secret">
             </div>
 
             <!-- Повышение безопасности -->
             <div class="create_survey_page__security--upp_security create_survey_type">
               <i class="fa fa-shield create_survey_type create_survey_page--upp_security__icon" aria-hidden="true"></i>
               <p class="create_survey_type">Повысить безопасность</p>
-              <input class="create_survey_type create_survey_page--upp_security__checkbox" type="checkbox" value="secret">
+              <input class="create_survey_type create_survey_page--upp_security__checkbox" id="upp_security__checkbox" type="checkbox" value="secret">
             </div>
           </div> 
+
+          <!-- Страница создания вопросов для опроса -->
+          <div class="create_survey_page__create_question" id="create_survey_page__create_question">
+
+            <div class="create_question__types">
+              <i class="fa fa-user-secret" id="create_question__types--anonim" aria-hidden="true"></i>
+              <i class="fa fa-shield" id="create_question__types--upp_security" aria-hidden="true"></i>
+            </div>
+
+            <div class="create_questions">
+
+              <div class="create_question_active">
+
+                <div class="create_question__header">
+
+                  <div class="create_question__header--name">
+                    <input class="create_question__header--input" type="text" value="Вопрос без заголовка">
+                    <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
+                  </div>
+                  <i class="fa fa-plus create_question__header--add_desc" aria-hidden="true"></i>
+
+                </div>
+
+                <div class="create_question__add_answer">
+                  <i class="fa fa-plus create_question__add_answer--icon" aria-hidden="true"></i>
+                  <p>Ответ</p>
+                </div>
+              </div>
+
+              <div class="create_question">
+                <i class="fa fa-plus create_question--add" aria-hidden="true"></i>
+              </div>
+
+              <button class="create_questions--save">Сохранить</button>
+            </div>
+
+          </div>
         </div>
 
         <button class="create_survey_page__continue create_survey" id="create_survey_page__continue">Продолжить</button>

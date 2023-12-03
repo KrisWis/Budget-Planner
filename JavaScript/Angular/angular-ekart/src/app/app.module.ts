@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component'; // Импортир
 import { TopHeaderComponent } from './top-header/top-header.component';
 import { TopMenuComponent } from './header/top-menu/top-menu.component';
 import { MainMenuComponent } from './header/main-menu/main-menu.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
     imports: [BrowserModule], // Здесь нужно указать все внешние модули, которые нужны для нашего проекта.
@@ -15,7 +16,8 @@ import { MainMenuComponent } from './header/main-menu/main-menu.component';
             HeaderComponent,
             TopHeaderComponent,
             TopMenuComponent,
-            MainMenuComponent],
+            MainMenuComponent,
+            ProductListComponent],
     bootstrap: [AppComponent] // Здесь мы указываем компоненты, которые Angular должен загружать при загрузке этого модуля.
 })
 export class AppModule { }

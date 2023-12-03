@@ -169,4 +169,136 @@ export class MyComponent {
 /* STRING INTERPOLATION - https://www.youtube.com/watch?v=_Kg3JMtncs4&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=15 */
 
 
+// Пример создания интерфейса для объекта в классе компонента:
+interface Product {
+    name: string,
+    price: number,
+    color: string,
+    discount: number,
+    discounted_price(): number,
+    inStock: number,
+    ItemAvailability(): string,
+}
+
+// Пример класса компонента с объектом внутри:
+export class ProductListComponent {
+    product: Product = {
+        name: "IPhone",
+        price: 999,
+        color: "Red",
+        discount: 8.5,
+        discounted_price: function () {
+            return Math.ceil(this.price - (this.price * this.discount / 100));
+        },
+        inStock: 5,
+        ItemAvailability: function () {
+            return this.inStock > 0 ? 'Only ' + this.inStock + ' items left' : "Not in Stock";
+        }
+    }
+}
+
+// Чтобы использовать интерполяцию строк и брать данные из класса компонента можно использовать двойные фигурные скобки:
+// <p>Name: {{ product.name }}</p>
+// <p>Price: ${{ product.price }}</p>
+// <p>Color: {{ product.color }}</p>
+// <p>Discounted price: ${{ product.discounted_price() }}</p>
+// <p>Availability: {{ product.ItemAvailability() }}</p>
+
+
+/* PROPERTY BINDING - https://www.youtube.com/watch?v=LEkFi15qr1o&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=16 */
+
+
+// Мы можем добавить в класс свойство, хранящее путь к картинке и использовать это свойство в тегах src и это всё с помощью интерполяции строк.
+// Но обычно атрибуты не добавляют с помощью интерполяции строк, а с помощью привязки свойств:
+// <img [src]="product.pathImage"> - для этого заключаем атрибут в квадратные скобки и в кавычках пишем уже .ts код.
+
+// Также, мы можем присваивать значения HTML атрибутам исходя из привязки свойств.
+// <button [disabled]="!(product.inStock > 0)">Buy Now</button>
+
+// Интерполяция строк не работает для атрибутов disabled, hidden, checked.
+
+// Еще один пример использования привязки свойств:
+// <input [value]="product.name">
+
+// Также, для привязки свойств можно использовать префикс bind вместо квадратных скобок, но приняты квадратные скобки.
+// <input bind-value="product.name">
+
+/* Главное различие HTML атрибута и HTML свойства в том,
+что атрибут представляет начальное значение и не изменяется,
+а свойство представляет определённое значение и может меняться. */
+
+// Например, если мы следующим способом попытаемся сделать привязку свойства с атрибутом aria-label или любым другим атрибутом, то выдаст ошибку:
+// <input [aria-label]="">
+// Поэтому, чтобы осуществлять привязку атрибута нужно использовать префикс attr.
+// <input [attr.aria-label]="product.name">
+
+
+/* EVENT BINDING - https://www.youtube.com/watch?v=vGuPDWgg4Io&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=17 */
+
+
+// Пример привязки события с помощью заключения события в круглые скобки:
+// <input (input)="onNameChange()">
+
+// Такой метод у нас находиться в .ts файле:
+// onNameChange: function () {
+//     this.name = "Mark";
+//   }
+
+// Также, мы можем передавать в функцию объект события:
+// <input (input)="onNameChange($event)">
+
+// И изменяем нашу функцию в .ts файле:
+// onNameChange: function (event) {
+//     this.name = event.target.value;
+//   }
+
+
+/* TWO WAY DATA BINDING - https://www.youtube.com/watch?v=THrWqRi2usg&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=18 */
+
+
+/* Двухстороняя привязка данных означает, что когда мы меняем свойство в классе компонента, это значение будет отражаться в шаблоне
+и также, когда значение меняется в шаблоне, оно меняется и в классе компонента.
+Она представляет из себя комбинацию привязки свойств и привязки событий, которую мы использовали в прошлом уроке,
+но обычно, для двухсторонней привязки используют ngModel - сначала в .ts файл компонента нужно добавить следующий импорт: */
+//import { FormsModule } from '@angular/forms'; - это именно для использования двухсторонней привязки в формах.
+
+// И в импортах его нужно указать:
+/* imports: [CommonModule, FormsModule], */
+
+// А в HTML файле компонента, нужно вот так вот использовать NgModel:
+// <input class="ekart-search-product-input" [(ngModel)]="searchText">
+
+// В классе компонента, мы просто объявили данное свойство:
+// searchText: string = "";
+
+/* Если я правильно понял, то NgModel тут привязывает свойство searchText к инпуту,
+и уже под капотом, с помощью formsModule делает так, что оно меняется в зависимости от того, что вводиться в инпут.
+Проще говоря, это двухсторонняя привязка данных, которая реализована изначально в Angular конкретно для форм и инпутов. */
+
+
+/* UNDERSTANDING DIRECTIVES - https://www.youtube.com/watch?v=syxyAINjP84&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=19 */
+
+
+// Директива - это инструкция для управления DOM. Директивы могут манипулировать DOM, изменять поведение, добавлять/удалять DOM элементы.
+// Есть 3 вида директив: директива компонента, директива атрибута, структурная директива.
+
+// Директива компонента - это компонент в Angular с шаблоном представления. Другие типы директив шаблона не имеют.
+
+// Директива атрибута используется, чтобы изменить поведение или представление DOM элемента, но не удалять или добавлять.
+// <div changeToGreen></div> - пример кастомной директивы атрибута. Мы создали кастомный атрибут, который с помощью TS меняет фон на зелёный.
+// Пример его создания в TS:
+// @Directive({
+//     selector: '[changeToGreen]'
+// })
+// export class ChangeToGreen {}
+// Есть также, встроенные директивы атрибута, например ngStyle или ngClass.
+
+// Структурная директива используется для удаления или добавления DOM элементов.
+// Есть парочка встроенный в Angular структурных директив, такие как ngIf, ngFor, ngSwitch.
+// Перед каждым применением любой структурной директивы нужно использовать звёздочку:
+// <div *ngIf></div>
+
+
+/* NGFOR DIRECTIVE - https://www.youtube.com/watch?v=5D16OClJ1Cw&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=20 */
+
 
