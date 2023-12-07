@@ -302,3 +302,72 @@ export class ProductListComponent {
 /* NGFOR DIRECTIVE - https://www.youtube.com/watch?v=5D16OClJ1Cw&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=20 */
 
 
+// Директива ngFor итерирует некоторые наборы данных, типа массива и тд и создаёт HTML элемент для каждого из предметов HTML шаблона.
+// Она используется для повторения части HTML шаблона один раз для каждого элемента в итерируемом объекте.
+// Это структурная директива, она может удалять или добавлять элементы.
+// Пример использования, делаем перебор по массиву: - и главное, что будет дублировать в цикле не содержимое дива, а сам див тоже. Т.е создаться 6 дивов.
+// <div *ngFor="let item of [2, 3, 4, 5, 6, 8]"> - используем директиву в качестве атрибута и передаём туда цикл, написанный на TS.
+//     <p>Current: {{ item }}</p> - используем переменную, параграф создаться для каждого из значений.
+// </div>
+
+// Мы можем задать массив в .component.ts файле:
+let MainMenuItems: string[] = ["Home", "Products", "Sale", "New Arrival", 'Contact'];
+// И затем использовать его в .component.html:
+// <div class="ekart-menu"> - просто определяем контейнер элементов.
+//     <a *ngFor="let menu of MainMenuItems" href="#">{{ menu }}</a> - в теге <a> используем директиву ngFor, что он повторялся с каждым из элементов в MainMenuItems.
+// </div>
+
+
+/* RENDERING LIST OF COMPLEX TYPE - https://www.youtube.com/watch?v=OuRAwzrFQm8&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=21 */
+
+
+// Ещё один пример использования ngFor. Здесь мы прошлись по массиву products,
+// а также, использовали let i = index, т.к ngFor сохраняет в переменную index порядковый номер итерируемого элемента.
+/* <div class="ekart--products--container">
+    <div *ngFor="let prod of products; let i = index;" class="ekart--product--item">
+        <div class="ekart-wishlist-sale-container">
+            <div class="ekart--add--to--wishlist">
+              <i class="fa fa-heart-o" aria-hidden="true">
+                <p>{{i}}</p>
+          <div class="ekart--product--image">
+              <img [src]="prod.imageURL" class="ekart--product--image">
+          </div>
+          <div class="ekart--add--to--price">
+              {{prod.price}}
+          </div>
+          <div class="ekart--product--name">{{prod.name}}</div>
+          <div class="ekart--product--category">{{prod.gender}} . {{prod.category}} . {{prod.brand}}</div>
+          <div class="ekart--product--available-colors">{{prod.color.length}} Colors . Best Seller</div> */
+
+
+/* NGIF DIRECTIVE - https://www.youtube.com/watch?v=RmKnHsUGpPY&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=22 */
+
+
+// Директива NgIf является структурной и удаляет или добавляет элемент на основе заданного условия.
+// Пример: Тут мы делаем проверку на то, что элемент отобразиться только если переменная searchText не пуста.
+// <p *ngIf="searchText != ''"><strong>Search result for:</strong>{{ searchText }}</p> - если searchText пуста, то элемент будет удален со страницы.
+
+// Отображаем элемент только если у него есть свойство discountPrice:
+// <div class="ekart-on-sale-tag" *ngIf="prod.discountPrice">{{ (100 - (prod.discountPrice / prod.price * 100)).toFixed(0) }}% OFF</div>
+
+
+/* NGSTYLE DIRECTIVE - https://www.youtube.com/watch?v=0q1vA9g1cTM&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=23 */
+
+
+// ngStyle - это директива атрибута, поэтому заключаем её в квадратные скобки. Она позволяет устанавливать инлайновые стили на элемент используя TS выражение.
+// Пример: тут мы устанавливаем жирный шрифт статически, а цвет присваивается динамически на основе того, есть ли у элемента свойство prod.is_in_inventory.
+// <div class="ekart--product--in-stock" [ngStyle]="{fontWeight: 'bold', color: prod.is_in_inventory ? 'green' : 'red'}">
+//     {{ prod.is_in_inventory ? "Available in Stock" : "Not available in stock" }} - использовании интерполяции строк.
+// </div>
+
+
+/* NGCLASS DIRECTIVE - https://www.youtube.com/watch?v=6vIH1Zl8LgE&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=24 */
+
+
+// ngClass - это директива атрибута, поэтому заключаем её в квадратные скобки. Она позволяет устанавливать CSS классы на элемент используя TS выражение.
+/* Пример: Мы устанавливаем класс btn статично, чтобы он был всегда.
+Остальные 2 класса динамически добавляются или удаляются на основе того, пусто ли значение searchText или нет. */
+// <button [ngClass]="{'btn': true, 'btn-search': searchText, 'btn-search-disabled': !searchText}" [disabled]="!searchText">Search</button>
+
+
+/* @INPUT: CURSTOM PROPERTY BINDING - https://www.youtube.com/watch?v=Ynaou7ZtPII&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=25 */

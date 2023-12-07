@@ -17,83 +17,82 @@
   </head>
   <body itemscope itemtype="https://schema.org/WebPage">
     <!--- Хедер -->
-    <header>
-      <button class="header__settings">
+    <header class="create__survey--hide_animation">
+      <button class="header__settings create__survey--hide_animation">
         <i class="fa fa-gear" aria-hidden="true"></i>
       </button>
     </header>
 
     <main>
       <!-- Дефолтная страница меню -->
-      <div class="panels" id="panels">
-        <div class="first_panels">
-          <div class="create_survey_panel">
-            <h2 class="create_survey__caption">Создать опрос</h2>
-            <div class="created_surveys">
-              <div class="create__survey" id="create__survey">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+      <div class="panels create__survey--hide_animation" id="panels">
+        <div class="first_panels create__survey--hide_animation">
+          <div class="create_survey_panel create__survey--hide_animation">
+            <h2 class="create_survey__caption create__survey--hide_animation">Создать опрос</h2>
+            <div class="created_surveys create__survey--hide_animation">
+              <div class="create__survey create__survey--hide_animation" id="create__survey">
+                <i class="fa fa-plus create__survey--hide_animation" aria-hidden="true"></i>
               </div>
             </div>
     
-            <div class="survey_panel__pagination_arrows">
-              <div class="survey_panel__pagination__arrow">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <div class="survey_panel__pagination_arrows create__survey--hide_animation">
+              <div class="survey_panel__pagination__arrow create__survey--hide_animation">
+                <i class="fa fa-arrow-left create__survey--hide_animation" aria-hidden="true"></i>
               </div>
-              <div class="survey_panel__pagination__arrow">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              <div class="survey_panel__pagination__arrow create__survey--hide_animation">
+                <i class="fa fa-arrow-right create__survey--hide_animation" aria-hidden="true"></i>
               </div>
             </div>
     
           </div>
     
-          <div class="available_surveys_panel">
+          <div class="available_surveys_panel create__survey--hide_animation">
             
-            <div class="available_surveys__header">
-              <h2 class="available_surveys__caption">Доступные опросы</h2>
-              <div class="available_surveys__search">
-                <input type="text" placeholder="Поиск">
-                <i class="fa fa-search" aria-hidden="true"></i>
+            <div class="available_surveys__header create__survey--hide_animation">
+              <h2 class="available_surveys__caption create__survey--hide_animation">Доступные опросы</h2>
+              <div class="available_surveys__search create__survey--hide_animation">
+                <input class="create__survey--hide_animation" type="text" placeholder="Поиск">
+                <i class="fa fa-search create__survey--hide_animation" aria-hidden="true"></i>
               </div>
             </div>
     
-            <div class="available_surveys">
+            <div class="available_surveys create__survey--hide_animation">
     
             </div>
     
-            <div class="available_surveys_panel__pagination_arrows">
-              <div class="available_surveys_panel__pagination__arrow">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <div class="available_surveys_panel__pagination_arrows create__survey--hide_animation">
+              <div class="available_surveys_panel__pagination__arrow create__survey--hide_animation">
+                <i class="fa fa-arrow-left create__survey--hide_animation" aria-hidden="true"></i>
               </div>
-              <div class="available_surveys_panel__pagination__arrow">
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+              <div class="available_surveys_panel__pagination__arrow create__survey--hide_animation">
+                <i class="fa fa-arrow-right create__survey--hide_animation" aria-hidden="true"></i>
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="stats">
-          <h2 class="stats__caption">Статистика</h2>
+        <div class="stats create__survey--hide_animation">
+          <h2 class="stats__caption create__survey--hide_animation">Статистика</h2>
           
-          <div class="stats_panel">
-            <h3 class="stats_panel--caption">Заголовок</h3>
+          <div class="stats_panel create__survey--hide_animation">
+            <h3 class="stats_panel--caption create__survey--hide_animation">Заголовок</h3>
 
-          <div class="stats--answers">
+          <div class="stats--answers create__survey--hide_animation">
 
-            <div class="stats--answers__pie_chart">
+            <div class="stats--answers__pie_chart create__survey--hide_animation">
 
             </div>
 
-            <div class="stats--answers__answers">
+            <div class="stats--answers__answers create__survey--hide_animation">
 
             </div>
 
           </div>
           
-          <p class="stats_panel--participants_amount">Кол-во участников: <span id="stats_panel--participants_amount"></span></p>
+          <p class="stats_panel--participants_amount create__survey--hide_animation">Кол-во участников: <span id="stats_panel--participants_amount"></span></p>
 
-          <div class="stats--activity">
-            <h3 class="stats--activity__caption">Активность</h3>
+          <div class="stats--activity create__survey--hide_animation">
+            <h3 class="stats--activity__caption create__survey--hide_animation">Активность</h3>
           </div>
           </div>
   
@@ -114,7 +113,7 @@
           </div>
 
           <!-- Страница выбора режима безопасности опроса -->
-          <div class="create_survey_page--type create_survey_page__security create_survey_type" id="create_survey_page__security">
+          <div class="create_survey_page--type create_survey_page__security create_survey_type hidden" id="create_survey_page__security">
 
             <!-- Анонимный опрос -->
             <div class="create_survey_page__security--anonim create_survey_type">
@@ -132,7 +131,7 @@
           </div> 
 
           <!-- Страница создания вопросов для опроса -->
-          <div class="create_survey_page__create_question" id="create_survey_page__create_question">
+          <div class="create_survey_page__create_question hidden" id="create_survey_page__create_question">
 
             <div class="create_question__types">
               <i class="fa fa-user-secret" id="create_question__types--anonim" aria-hidden="true"></i>
@@ -149,7 +148,13 @@
                     <input class="create_question__header--input" type="text" value="Вопрос без заголовка">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
                   </div>
-                  <i class="fa fa-plus create_question__header--add_desc" aria-hidden="true"></i>
+
+                  <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc" aria-hidden="true"></i>
+
+                  <div class="create_question__header--desc hidden" id="create_question__header--desc">
+                    <input class="create_question__header--input" type="text" value="Подробный текст вопроса">
+                    <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
+                  </div>
 
                 </div>
 

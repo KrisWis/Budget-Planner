@@ -1,25 +1,25 @@
 /* Открытие интерфейса создания опроса */
 const create__survey = document.getElementById("create__survey");
-const all_elements = document.querySelectorAll("header, .header__settings, .panels, .first_panels, .create_survey_panel, .create_survey__caption, .created_surveys, .create__survey, .create__survey .fa-plus, .survey_panel__pagination_arrows, .survey_panel__pagination__arrow, .survey_panel__pagination__arrow .fa, .available_surveys_panel, .available_surveys__header, .available_surveys__caption, .available_surveys__search, .available_surveys__search input, .available_surveys__search .fa-search, .available_surveys, .available_surveys_panel__pagination_arrows, .available_surveys_panel__pagination__arrow, .available_surveys_panel__pagination__arrow i, .stats, .stats__caption, .stats_panel, .stats_panel--caption, .stats--answers, .stats--answers__pie_chart, .stats--answers__answers, .stats_panel--participants_amount, #stats_panel--participants_amount, .stats--activity, .stats--activity__caption");
+const all_elements = document.querySelectorAll(".create__survey--hide_animation");
 const panels = document.getElementById("panels");
 const create_survey_page__continue = document.getElementById("create_survey_page__continue");
 create__survey.addEventListener("click", function () {
-    let Y_coordinate = 0;
+    let Y_coordinate = Number(document.documentElement.style.getPropertyValue('--Y_coordinate').slice(0, -1));
     for (let element of all_elements) {
-        element.style.transform = `translateY(${Y_coordinate}%)`;
+        document.documentElement.style.setProperty('--Y_coordinate', String(Y_coordinate) + "%");
         Y_coordinate += 1;
         setTimeout(() => {
-            element.style.transform = 'translateY(1000%)';
-            element.style.opacity = '0';
+            element.classList.add("create__survey--class");
+            element.classList.add("opacity-0");
         }, 250);
     }
     setTimeout(() => {
-        panels.style.display = "none";
+        panels.classList.add("hidden");
     }, 400);
     setTimeout(() => {
-        create_survey_page__name.style.opacity = '1';
-        create_survey_page__name.style.transform = 'translateY(100%)';
-        create_survey_page__continue.style.opacity = '1';
+        create_survey_page__name.classList.add("create__survey--class");
+        create_survey_page__name.classList.add("opacity-1");
+        create_survey_page__continue.classList.add("opacity-1");
     }, 700);
 });
 /* Нажатие на кнопку продолжения после выбора имени опроса */
@@ -32,30 +32,28 @@ const upp_security__checkbox = document.getElementById("upp_security__checkbox")
 const create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
 const create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 function page_name_continue() {
-    create_survey_page__name.style.transform = 'translateY(0%)';
-    create_survey_page__name.style.opacity = '0';
+    create_survey_page__name.classList.add("page_name--class");
+    create_survey_page__name.classList.add("opacity-0");
     setTimeout(() => {
-        create_survey_page__name.style.display = "none";
-        create_survey_page__security.style.display = "flex";
+        create_survey_page__name.classList.add("hidden");
+        create_survey_page__security.classList.remove("hidden");
     }, 400);
     setTimeout(() => {
-        create_survey_page__security.style.opacity = '1';
-        create_survey_page__security.style.transform = 'translateY(0%)';
+        create_survey_page__security.classList.add("opacity-1");
+        create_survey_page__security.classList.add("page_name--class");
     }, 700);
     create_survey_page__continue.removeEventListener("click", page_name_continue);
     /* Нажатие на кнопку продолжения после выбора типа опроса */
     create_survey_page__continue.addEventListener("click", function () {
-        create_survey_page__security.style.transform = 'translateY(-10%)';
-        create_survey_page__security.style.opacity = '0';
-        create_survey_page__continue.style.transform = 'translateY(-10%)';
-        create_survey_page__continue.style.opacity = '0';
+        create_survey_page__security.classList.add("create__survey__page--hidden");
+        create_survey_page__continue.classList.add("create__survey__page--hidden");
         setTimeout(() => {
-            create_survey_page__security.style.display = "none";
-            create_survey_page__create_question.style.display = "flex";
+            create_survey_page__security.classList.add("hidden");
+            create_survey_page__create_question.classList.remove("hidden");
         }, 400);
         setTimeout(() => {
-            create_survey_page__create_question.style.opacity = '1';
-            create_survey_page__create_question.style.transform = 'translateY(0%)';
+            create_survey_page__create_question.classList.add("opacity-1");
+            create_survey_page__create_question.classList.add("page_name--class");
             // Если опция была выбрана, то пусть будет окрашена в синий.
             if (anonim__checkbox.checked) {
                 create_question__types_anonim__icon.classList.add("create_question__type--active");
@@ -67,4 +65,20 @@ function page_name_continue() {
     });
 }
 create_survey_page__continue.addEventListener("click", page_name_continue);
+/* Функционал того, когда юзер нажимает на добавление подробного описания вопроса. */
+const create_question_header__add_desc = document.getElementById("create_question_header--add_desc");
+const create_question__header__desc = document.getElementById("create_question__header--desc");
+create_question_header__add_desc.addEventListener("click", function () {
+    create_question_header__add_desc.classList.add("hidden");
+    create_question__header__desc.classList.remove("hidden");
+});
+/* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
+const create_question__header__inputs = document.querySelectorAll(".create_question__header--input");
+const create_question__header__edits = document.querySelectorAll(".create_question__header--edit");
+for (let edit of create_question__header__edits) {
+    let index = Array.from(create_question__header__edits).indexOf(edit);
+    edit.addEventListener("click", function () {
+        create_question__header__inputs[index].focus();
+    });
+}
 //# sourceMappingURL=main.js.map

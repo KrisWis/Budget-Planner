@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main-menu.component.scss'
 })
 export class MainMenuComponent {
-
+  MainMenuItems: string[] = ["Home", "Products", "Sale", "New Arrival", 'Contact'];
 }

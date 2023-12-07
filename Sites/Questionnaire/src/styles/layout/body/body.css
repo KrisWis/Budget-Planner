@@ -259,7 +259,6 @@
   align-items: center;
   justify-content: center;
   transform: translateY(-20%);
-  display: none;
   margin-top: 10%;
 }
 .create_survey_page .create_survey_page__security .create_survey_page__security--anonim,
@@ -293,7 +292,7 @@
   transition: 0.3s all linear;
   width: 80%;
   height: 80vh;
-  display: none;
+  display: flex;
   flex-direction: column;
   position: fixed;
   top: -20%;
@@ -328,16 +327,28 @@
   flex-direction: column;
   width: 30%;
 }
+.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--desc {
+  display: flex;
+  padding-left: 10%;
+  font-size: 20px;
+  color: gray;
+  gap: 10%;
+}
+.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--desc .create_question__header--input {
+  font-size: 15px;
+  color: gray;
+}
 .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--name {
   display: flex;
   padding: 10%;
+  padding-bottom: 5%;
   font-size: 25px;
 }
-.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--name .create_question__header--input {
+.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--input {
   border: none;
   font-size: 20px;
 }
-.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--name .create_question__header--edit {
+.create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header .create_question__header--edit {
   cursor: pointer;
 }
 .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__header--add_desc {

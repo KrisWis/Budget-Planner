@@ -51,3 +51,36 @@ a {
 button {
   border: none;
 }
+
+.hidden {
+  display: none !important;
+}
+
+.create__survey--class {
+  transform: translateY(100%) !important;
+}
+
+.page_name--class {
+  transform: translateY(0%) !important;
+}
+
+.opacity-1 {
+  opacity: 1 !important;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.create__survey__page--hidden {
+  transform: translateY(-10%) !important;
+  opacity: 0 !important;
+}
+
+:root {
+  --Y_coordinate: 0;
+}
+
+.create__survey--hide_animation {
+  transform: translateY(var(--Y_coordinate));
+}
