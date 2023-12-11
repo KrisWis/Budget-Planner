@@ -3,11 +3,10 @@
 @font-face {
   font-family: "Gilroy";
   src: url("../fonts/Gilroy/Gilroy-Regular.eot");
-  src: local("Gilroy Regular"), local("Gilroy-Regular"), url("../fonts/Gilroy/Gilroy-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Gilroy/Gilroy-Regular.woff2") format("woff2"), url("../fonts/Gilroy/Gilroy-Regular.woff") format("woff"), url("../fonts/Gilroy/Gilroy-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
-/* CSS Normalize*/
+/* CSS Normalize */
 * {
   box-sizing: border-box;
   transition: 0.3s transform linear;
@@ -24,7 +23,11 @@ body {
   flex-direction: column;
   position: relative;
   background-color: #F6F6F6;
-  overflow-y: hidden;
+  overflow: hidden;
+}
+
+.overflow-y-on {
+  overflow-y: auto;
 }
 
 h1,
@@ -47,6 +50,7 @@ button {
   border: none;
 }
 
+/* Объявление дефолтных классов и переменных */
 .hidden {
   display: none !important;
 }

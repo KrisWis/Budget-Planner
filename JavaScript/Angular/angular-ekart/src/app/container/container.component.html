@@ -9,9 +9,10 @@
     <button (click)="product.decrementCartValue()">-</button>
     <span>{{ product.AddToCart}}</span>
     <button (click)="product.incrementCartValue()">+</button> -->
-    <app-search></app-search>
+    <app-search (searchTextChanged)="setSearchText($event)"></app-search>
     <!-- <div *ngFor="let item of listOfString">
         <p>Current: {{ item }}</p>
     </div> -->
-    <product-list></product-list>
+    <product-list [searchText]="searchText" #ProductListComponent></product-list>
+    <product-detail [ProductListComp]="ProductListComponent" *ngIf="ProductListComponent.selectedProduct"></product-detail>
 </div>

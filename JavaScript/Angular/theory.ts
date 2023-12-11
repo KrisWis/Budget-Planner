@@ -371,3 +371,236 @@ let MainMenuItems: string[] = ["Home", "Products", "Sale", "New Arrival", 'Conta
 
 
 /* @INPUT: CURSTOM PROPERTY BINDING - https://www.youtube.com/watch?v=Ynaou7ZtPII&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=25 */
+
+
+// @Input декоратор нужен для связи родительского компонента и дочернего.
+/* В .ts файле, в классе дочернего компонента мы устанавливаем декоратор над свойством, 
+которое типизируем и мы будем использовать его в .html файле дочернего компонента в качестве свойства из родительского компонента. */
+// @Input()
+// product: Product;
+
+// Пример использования в html файле дочернего компонента:
+// <div class="ekart--product--name">{{product.name}}</div>
+// <div class="ekart--product--category">{{product.gender}} . {{product.category}} . {{product.brand}}</div>
+// <div class="ekart--product--available-colors">{{product.color.length}} Colors . Best Seller</div>
+// <div class="ekart--product--in-stock" [ngStyle]="{fontWeight: 'bold', color: product.is_in_inventory ? 'green' : 'red'}">
+//   {{ product.is_in_inventory ? "Available in Stock" : "Not available in stock" }}
+// </div>
+
+// Но перед этим мы в .html файле родительского компонента написали такой код:
+// <div class="ekart--products--container">
+//   <app-product *ngFor="let prod of products" [product]="prod"></app-product>
+// </div>
+/* Мы используем селектор дочернего компонента, проходимся циклом по объекту, находящимуся в .ts файле родительского компонента с помощью ngFor,
+а потом, чтобы связать переменную, определённую в цикле и наше свойство, которое используется в .html файле дочернего компонента,
+мы заключаем это свойство в квадратные скобки и используем как атрибут, и привязываем к нему нашу переменную.
+И значение этой переменной будет вместо product в .html файле дочернего компонента. */
+
+/* Проще говоря, сначала мы определяем само свойство в .ts файле в классе дочернего компонента, используя декоратор @Input, 
+который и говорит Angular, что это свойство можно использовать, как атрибут в .html файле родительского компонента и только в селекторе этого дочернего компонента. 
+И затем, в этом .html файле родительского компонента, мы привязываем это свойство из дочернего компонента к переменной из родительского.
+И теперь, родительский и дочерний компонент, по своей сути, связаны - мы можем использовать свойство из дочернего компонента в его .html файле. */
+
+
+/* UNDERSTANDING INPUT DECORATOR - https://www.youtube.com/watch?v=NK5cxlIIins&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=26 */
+
+
+// Пользовательская привязка свойств, это когда мы привязываем свойства из класса компонента к некоторому TS выражению.
+
+// В .ts файле компонента мы определяем некоторые свойства:
+// totalProductCount = this.products.length;
+// ProductInStockCount = this.products.filter(p => p.is_in_inventory).length;
+// ProductOutOfStockCount = this.products.filter(p => !p.is_in_inventory).length;
+
+// И потом используем эти же свойства в .html файле компонента:
+// <app-filter [all]="totalProductCount" [inStock]="ProductInStockCount" [outOfStock]="ProductOutOfStockCount"></app-filter>
+
+
+/* @OUTPUT: CUSTOM EVENT BINDING - https://www.youtube.com/watch?v=PCAS6MUuD-4&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=27 */
+
+
+// В .ts файле мы определили переменную для обозначения дефолтно выбранного radio:
+let selectedFilterRadioButton: string = 'all';
+
+// В .html файле, мы у наших radio элементов, можем поставить такой атрибут ngModel:
+
+/* <input type="radio" name="filter" value="all" [(ngModel)]="selectedFilterRadioButton"/>
+<input type="radio" name="filter" value="true" [(ngModel)]="selectedFilterRadioButton"/>
+<input type="radio" name="filter" value="false" [(ngModel)]="selectedFilterRadioButton"/> */
+
+// И теперь, в зависимости от того, какое значение будет иметь selectedFilterRadioButton, такой radio элемент и будет выбран дефолтным.
+// Так как, ngModel создана специальна для инпутов, то видимо у неё есть какой то скрытый функционал для всего этого под капотом.
+// В зависимости от того, какой radio мы выберем такое и будет значение selectedFilterRadioButton, т.к это духсторонняя привязка.
+
+
+// @Output декоратор нужен для связи родительского компонента и дочернего, когда нужно передать данные из родительского компонента в дочерний.
+// Также, не стоит забывать, что если у дочернего компонента установлен этот декоратор, то его событие могут использовать любой его родительский компонент.
+
+// Можно использовать только одну структурную директиву для одного элемента.
+
+// Чтобы связать событие, определённое в классе дочернего компонента с родительским компонентом, нужно использовать директиву @Output().
+// @Output() - используем эту директиву для того, чтобы использовать selectedFilterRadioButtonChanged в html файле родительского элемента для значения для него.
+// selectedFilterRadioButtonChanged: EventEmitter<string> = new EventEmitter<string>(); - Объявляем саму переменную. Значение ей дадим уже в html файле.
+// onSelectedFilterRadioButtonChanged() { - Объявляем функцию, которая срабатывает при нажатии на radio элемент.
+//   this.selectedFilterRadioButtonChanged.emit(this.selectedFilterRadioButton); - передаём в событие значение выбранной кнопки.
+// }
+
+// В классе родительского компонента, пишем уже этот код:
+/* selectedFilterRadioButton: string = 'all'; - объявляем тут тоже переменную, просто она тут нужна,
+а как перенести свойство из класса дочернего элемента в родительский мы пока не знаем. */
+// onFilterChanged(value: string) { - Объявляем функцию
+//   this.selectedFilterRadioButton = value; - меняем значение свойства на значение переданной выбранной кнопки.
+// }
+
+// В селекторе дочернего компонента, связываем наше событие из класса дочернего компонента с функцией из класса родительского элемента.
+// <app-filter
+// (selectedFilterRadioButtonChanged)="onFilterChanged($event)"> - событие заключается в круглые скобки.
+// </app-filter>
+
+// И теперь, в селекторе родительского компонента делаем условие:
+// <app-product [product]="prod" *ngIf="selectedFilterRadioButton == 'all' || prod.is_in_inventory.toString() == selectedFilterRadioButton"></app-product>
+
+/* Т.е мы, с помощью @Output делаем так, чтобы событие, определённое в классе дочернего компонента можно было использовать в html файле родительского компонента
+и связать тем самым это событие с функцией из родительского компонента. Теперь это событие и функция связаны и мы используем это для своих целей.
+В событие передаётся значение выбранной кнопки, и оно передаётся как $event в функцию родительского элемента.
+И там, уже на основе этого полученного значения меняется свойство родительского компонента. */
+
+
+/* NON-RELATED COMPONENT COMMUNICATION - https://www.youtube.com/watch?v=aIkGXMJFTzM&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=28 */
+
+
+/* Стоит помнить, что @Input нужен для связи дочернего и родительского компонентов и при использовании этого декоратора,
+мы данные из родительского компонента, можем использовать в дочернем.
+А используя @Output мы можем использовать данные из дочернего компонента в родительском. Эта директива используется как раз таки для передачи событий. */
+
+/* Для того, чтобы связать два несвязных компонента, но у которых один родитель, используется комбинация этих директив:
+Сначала с помощью @Output, мы из одного дочернего компонента, передаём данные в родительский,
+а потом из родительского, с помощью @Input передаём данные в другой дочерний компонент. */
+
+// 1. Создаём событие с помощью EventEmitter.
+// @Output()
+// onSearchTextChanged: EventEmitter<string> = new EventEmitter<string>() - используем <string>, т.к событие возвращаем строковое значение того, что ввёл юзер.
+
+// 2. Создаём функцию для ловли нашего события:
+//  onSearchTextChanged() {
+//     this.SearchTextChanged.emit(this.searchText);
+//  }
+
+// 3. Нам в .ts файле родительского компонента нужно создать функцию, чтобы переменная изменялась так, как должна.
+// searchText: string = '';
+// setSearchText(value: string) {
+//   this.searchText = value;
+// }
+
+// 4. В .html файле родительского компонента, в селекторе дочернего компонента связываем событие дочернего компонента с функцией из родительского.
+// <app-search (searchTextChanged)="setSearchText($event)"></app-search>
+
+// 5. Всё, теперь мы передали данные из дочернего компонента в родительский.
+
+// 6. Теперь в другом дочернем компоненте, мы используем @Input() для получение данных из родительского компонента.
+// @Input()
+// searchText: string = '';
+
+// 7. И в селекторе этого дочернего компонента мы связываем наше свойство из дочернего компонента ([searchText]) со свойством из родительского ("searchText").
+// <product-list [searchText]="searchText"></product-list> - названия одинаковые случайно.
+
+// 8. И теперь, мы можем использовать это свойство в .html файле этого дочернего компонента:
+// <app-product [product]="prod" *ngIf="searchText == '' || prod.name.toLowerCase().includes(searchText)"></app-product>
+
+/* Подводя итог, мы создали событие в дочернем компоненте, создали функцию в родительском и связали их,
+чтобы данные из этого дочернего компонента передавались в родительский.
+Дальше, мы связали это свойство из родительского компонента со свойством из другого дочернего компонента
+и теперь мы можем использовать это свойство в .html файле этого дочернего компонента.
+И по итогу, мы создали связь между двумя дочерними компонентами, которые имеют одного родителя. */
+
+
+/* TEMPLATE REFERENCE VARIABLE - https://www.youtube.com/watch?v=Vcax2zHZGD8&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=29 */
+
+
+/* Ссылочная переменная шаблона - это переменная, которая хранит в себе ссылку на DOM элемент, компонент или директиву.
+Для того, чтобы обозначить ссылочную переменную шаблона, нужно использовать "#"". */
+// <input class="ekart-search-product-input" #searchInput> - теперь в переменной searchInput храниться ссылка на DOM элемент инпута.
+// <button class="btn btn-search" (click)="updateSearchText(searchInput)">Search</button> - используем эту переменную, передавая её в функцию.
+
+// Теперь мы можем использовать эту переданную переменную в функции:
+// updateSearchText(inputEL: HTMLInputElement) {
+//     this.searchText = inputEL.value;
+//     this.searchTextChanged.emit(this.searchText);
+//   }
+
+
+/* REFERENCE VARIABLE ON COMPONENT - https://www.youtube.com/watch?v=LQr9jZkK0e4&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=30 */
+
+
+// У дочернего компонента мы определили такое свойство:
+// selectedProduct: Product;
+
+// И в селекторе этого компонента, делаем ссылку на этот компонент:
+// <product-list [searchText]="searchText" #ProductListComponent></product-list>
+
+// И теперь мы можем легко брать все свойства этого компонента:
+// <product-detail *ngIf="ProductListComponent.selectedProduct"></product-detail>
+
+// Проще говоря, создавая ссылочную переменную для компонента, мы можем использовать все его свойства, функции и тд.
+
+
+/* VIEWCHILD() IN ANGULAR - https://www.youtube.com/watch?v=jWfNjNvUluA&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=31 */
+
+
+// Директива @ViewChild() используется для получения первого соответсвующего запросу DOM элемента в компоненте.
+
+// В HTML файле у нас есть инпут с ссылочной переменной на него:
+// <input class="ekart-search-product-input" #searchInput>
+
+/* И с помощью директивы @ViewChild(), мы можем передать в неё название ссылочной переменной
+и она присвоит в переменную, к которой привязана первое найденное соответствие.
+Переменной мы задаём тип ElementRef, т.к она будет хранить ссылку на элемент. */
+// @ViewChild("searchInput")
+// searchInputEl: ElementRef
+
+// Теперь, чтобы через эту ссылку обратиться к самому элементу, нужно использовать свойство nativeElement.
+// this.searchText = this.searchInputEl.nativeElement.value;
+
+/* Также, эта директива принимает необязательный параметр - объект, в котором можно перечислить два свойства static и read.
+Если static равен true, то переменной присвоиться значение единожды, когда весь шаблон представления будет инициализирован.
+Если же static равен false, то значение переменной будет переопределяться после каждого изменения в DOM.
+Свойство read используется для чтения различных токенов из требуемых элементов. */
+// @ViewChild("searchInput", {static: false})
+
+
+/* Чтобы передать какое-нибудь свойство между двумя дочерними компонентами,
+мы можем использовать ViewChild() и получить ссылку на один дочерний компонент в родительском компоненте.
+И потом, используя @Input мы можем присвоить переменной в другом дочернем компоненте эту ссылку, объявленную в родительском. */
+
+// У нас есть компонент с ссылочной переменной в родительском компоненте:
+// <product-list [searchText]="searchText" #ProductListComponent></product-list>
+
+// И мы можем получить ссылку на этот компонент, передав его ссылочную переменную, либо же сам компонент в директиву:
+// @ViewChild(ProductListComponent)
+// ProductListComponent: ProductListComponent;
+
+// Создаём свойство в другом дочернен компоненте и оборачиваем в декоратор:
+// @Input()
+// ProductListComp: ProductListComponent;
+
+// А затем, в его селекторе, присваиваем свойство из родительского и дочернего компонента:
+// <product-detail [ProductListComp]="ProductListComponent" *ngIf="ProductListComponent.selectedProduct"></product-detail>
+
+/* Когда компонент рендериться на странице, он проходит свой жизненный цикл
+и мы можем подключать свою логику для разных этапов этого жизненного цикла. */
+// Для подобных ситуаций используется, например, ngOnInit() - она вызывается когда весь компонент полностью инициализирован.
+// Т.к, нам нужно сохранять ссылку на компонент только при его полной инициализации, то используем ngOnInit():
+// ngOnInit() {
+//    this.product = this.ProductListComp.selectedProduct;
+// }
+
+// Теперь мы можем использовать это свойство в html файле дочернего компонента, в котором и определили это свойство:
+// <h2>{{ product.name }}</h2>
+
+// Также, у атрибута style мы можем обращаться к конкретным свойствам и задавать им значения:
+// <span class="ekart-product-detail-available-color" [style.background-color]="color.toLowerCase()"></span>
+
+
+/* VIEWCHILDREN() IN ANGULAR - https://www.youtube.com/watch?v=PqBKRoEYbIE&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=32 */
+
+

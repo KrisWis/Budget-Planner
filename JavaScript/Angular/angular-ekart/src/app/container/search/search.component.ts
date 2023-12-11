@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,4 +11,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchComponent {
   searchText: string = "";
+
+  @ViewChild("searchInput")
+  searchInputEl: ElementRef
+
+  @Output()
+  searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
+
+  updateSearchText() {
+    this.searchText = this.searchInputEl.nativeElement.value;
+    this.searchTextChanged.emit(this.searchText);
+  }
 }

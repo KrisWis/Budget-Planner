@@ -12,6 +12,9 @@ create__survey.addEventListener("click", function () {
             element.classList.add("create__survey--class");
             element.classList.add("opacity-0");
         }, 250);
+        setTimeout(() => {
+            element.classList.add("hidden");
+        }, 1000);
     }
     setTimeout(() => {
         panels.classList.add("hidden");
@@ -31,6 +34,7 @@ const anonim__checkbox = document.getElementById("anonim__checkbox");
 const upp_security__checkbox = document.getElementById("upp_security__checkbox");
 const create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
 const create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
+const body = document.querySelector("body");
 function page_name_continue() {
     create_survey_page__name.classList.add("page_name--class");
     create_survey_page__name.classList.add("opacity-0");
@@ -47,6 +51,7 @@ function page_name_continue() {
     create_survey_page__continue.addEventListener("click", function () {
         create_survey_page__security.classList.add("create__survey__page--hidden");
         create_survey_page__continue.classList.add("create__survey__page--hidden");
+        body.classList.add("overflow-y-on");
         setTimeout(() => {
             create_survey_page__security.classList.add("hidden");
             create_survey_page__create_question.classList.remove("hidden");
@@ -81,4 +86,83 @@ for (let edit of create_question__header__edits) {
         create_question__header__inputs[index].focus();
     });
 }
+/* Добавление меню выбора типа ответа по нажатию соответствующей кнопки. */
+const create_question__add_answer = document.getElementById("create_question__add_answer");
+const create_question__header = document.getElementById("create_question__header");
+let create_question__answers_count = 0;
+create_question__add_answer.addEventListener("click", function () {
+    create_question__answers_count++;
+    const comment__request = `<div class="create_question__answer_types" id="create_question__answer_types--${create_question__answers_count}">
+
+            <div class="create_question__answer_type answer_types--preset_answer">
+
+                <div class="create_question--preset_answer__interface">
+                    <i class="fa fa-address-book-o create_question__answer_type--icon" aria-hidden="true"></i>
+                    <p class="create_question__answer_type--caption">Предустановленный ответ</p>
+                    <input class="create_question__answer_type--checkbox" type="checkbox" id="create_question__preset_answer--checkbox--${create_question__answers_count}">
+                    <label for="create_question__preset_answer--checkbox"></label>
+                </div>
+
+                <div class="create_question--preset_answer__menu hidden" id="create_question--preset_answer__menu--${create_question__answers_count}">
+
+                    <div class="create_question--preset_answer__text">
+                        <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--preset_answer__input--${create_question__answers_count}">
+                        <i class="fa fa-pencil create_question__header--edit" aria-hidden="true" id="create_question--preset_answer__edit--${create_question__answers_count}"></i>
+                    </div>
+
+                    <div class="create_question--preset_answer__correct_answer">
+                        <p>Это правильный ответ</p>
+                        <input class="create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <label for="preset_answer__correct_answer--checkbox"></label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="create_question__answer_type answer_types--open_answer">
+
+                <div class="create_question--open_answer__interface">
+                    <i class="fa fa-address-card-o create_question__answer_type--icon" aria-hidden="true"></i>
+                    <p class="create_question__answer_type--caption">Форма открытого ответа</p>
+                    <input class="create_question__answer_type--radio" type="radio" id="create_question__open_answer--checkbox--${create_question__answers_count}">
+                </div>
+
+                <div class="create_question--open_answer__menu hidden" id="create_question--open_answer__menu--${create_question__answers_count}">
+
+                    <div class="create_question--open_answer__text">
+                        <input class="create_question__open_answer--input" type="text" placeholder="Тут пользователь сможет ввести свой ответ" id="create_question--open_answer__input--${create_question__answers_count}">
+                    </div>
+
+                    <div class="create_question--open_answer__correct_answer">
+                        <p>Это правильный ответ</p>
+                        <input class="create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>`;
+    create_question__header.insertAdjacentHTML(`afterend`, comment__request);
+    /* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
+    const create_question__preset_answer__input = document.getElementById(`create_question--preset_answer__input--${create_question__answers_count}`);
+    const create_question__preset_answer__edit = document.getElementById(`create_question--preset_answer__edit--${create_question__answers_count}`);
+    create_question__preset_answer__edit.addEventListener("click", function () {
+        create_question__preset_answer__input.focus();
+    });
+    /* Нажатие на кнопку предустановленного ответа и открытие соответствующего меню */
+    const create_question__preset_answer__checkbox = document.getElementById(`create_question__preset_answer--checkbox--${create_question__answers_count}`);
+    const create_question__preset_answer__menu = document.getElementById(`create_question--preset_answer__menu--${create_question__answers_count}`);
+    create_question__preset_answer__checkbox.addEventListener("click", function () {
+        create_question__preset_answer__menu.classList.remove("hidden");
+    });
+    /* Нажатие на кнопку открытого ответа и открытие соответствующего меню */
+    const create_question__open_answer__checkbox = document.getElementById(`create_question__open_answer--checkbox--${create_question__answers_count}`);
+    const create_question__open_answer__menu = document.getElementById(`create_question--open_answer__menu--${create_question__answers_count}`);
+    create_question__open_answer__checkbox.addEventListener("click", function () {
+        create_question__open_answer__menu.classList.remove("hidden");
+    });
+});
 //# sourceMappingURL=main.js.map

@@ -25,7 +25,7 @@
 
     <main>
       <!-- Дефолтная страница меню -->
-      <div class="panels create__survey--hide_animation" id="panels">
+      <section class="panels create__survey--hide_animation" id="panels">
         <div class="first_panels create__survey--hide_animation">
           <div class="create_survey_panel create__survey--hide_animation">
             <h2 class="create_survey__caption create__survey--hide_animation">Создать опрос</h2>
@@ -35,40 +35,40 @@
               </div>
             </div>
     
-            <div class="survey_panel__pagination_arrows create__survey--hide_animation">
+            <nav class="survey_panel__pagination_arrows create__survey--hide_animation">
               <div class="survey_panel__pagination__arrow create__survey--hide_animation">
                 <i class="fa fa-arrow-left create__survey--hide_animation" aria-hidden="true"></i>
               </div>
               <div class="survey_panel__pagination__arrow create__survey--hide_animation">
                 <i class="fa fa-arrow-right create__survey--hide_animation" aria-hidden="true"></i>
               </div>
-            </div>
+            </nav>
     
           </div>
     
-          <div class="available_surveys_panel create__survey--hide_animation">
+          <section class="available_surveys_panel create__survey--hide_animation">
             
             <div class="available_surveys__header create__survey--hide_animation">
               <h2 class="available_surveys__caption create__survey--hide_animation">Доступные опросы</h2>
-              <div class="available_surveys__search create__survey--hide_animation">
+              <search class="available_surveys__search create__survey--hide_animation">
                 <input class="create__survey--hide_animation" type="text" placeholder="Поиск">
                 <i class="fa fa-search create__survey--hide_animation" aria-hidden="true"></i>
-              </div>
+              </search>
             </div>
     
-            <div class="available_surveys create__survey--hide_animation">
+            <section class="available_surveys create__survey--hide_animation">
     
-            </div>
+            </section>
     
-            <div class="available_surveys_panel__pagination_arrows create__survey--hide_animation">
+            <nav class="available_surveys_panel__pagination_arrows create__survey--hide_animation">
               <div class="available_surveys_panel__pagination__arrow create__survey--hide_animation">
                 <i class="fa fa-arrow-left create__survey--hide_animation" aria-hidden="true"></i>
               </div>
               <div class="available_surveys_panel__pagination__arrow create__survey--hide_animation">
                 <i class="fa fa-arrow-right create__survey--hide_animation" aria-hidden="true"></i>
               </div>
-            </div>
-          </div>
+            </nav>
+          </section>
         </div>
 
         <div class="stats create__survey--hide_animation">
@@ -77,43 +77,43 @@
           <div class="stats_panel create__survey--hide_animation">
             <h3 class="stats_panel--caption create__survey--hide_animation">Заголовок</h3>
 
-          <div class="stats--answers create__survey--hide_animation">
+            <div class="stats--answers create__survey--hide_animation">
 
-            <div class="stats--answers__pie_chart create__survey--hide_animation">
+              <div class="stats--answers__pie_chart create__survey--hide_animation">
+
+              </div>
+
+              <div class="stats--answers__answers create__survey--hide_animation">
+
+              </div>
 
             </div>
+            
+            <p class="stats_panel--participants_amount create__survey--hide_animation">Кол-во участников: <span id="stats_panel--participants_amount"></span></p>
 
-            <div class="stats--answers__answers create__survey--hide_animation">
-
+            <div class="stats--activity create__survey--hide_animation">
+              <h3 class="stats--activity__caption create__survey--hide_animation">Активность</h3>
             </div>
-
-          </div>
-          
-          <p class="stats_panel--participants_amount create__survey--hide_animation">Кол-во участников: <span id="stats_panel--participants_amount"></span></p>
-
-          <div class="stats--activity create__survey--hide_animation">
-            <h3 class="stats--activity__caption create__survey--hide_animation">Активность</h3>
-          </div>
           </div>
   
         </div>
-      </div>
+      </section>
 
       <!-- Страница с созданием опроса -->
-      <div class="create_survey_page create_survey_type" id="create_survey_page">
+      <article class="create_survey_page create_survey_type" id="create_survey_page">
         
-        <div class="create_survey_page--types create_survey_type">
+        <section class="create_survey_page--types create_survey_type">
 
           <!-- Страница выбора имени для опроса -->
-          <div class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
+          <article class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
             <input class="create_survey_page_name__input create_survey_type" type="text" value="Новый безымянный опрос">
             <button class="create_survey_page_name__edit create_survey_type">
               <i class="fa fa-edit create_survey_type" aria-hidden="true"></i>
             </button>
-          </div>
+          </article>
 
           <!-- Страница выбора режима безопасности опроса -->
-          <div class="create_survey_page--type create_survey_page__security create_survey_type hidden" id="create_survey_page__security">
+          <article class="create_survey_page--type create_survey_page__security create_survey_type hidden" id="create_survey_page__security">
 
             <!-- Анонимный опрос -->
             <div class="create_survey_page__security--anonim create_survey_type">
@@ -128,10 +128,10 @@
               <p class="create_survey_type">Повысить безопасность</p>
               <input class="create_survey_type create_survey_page--upp_security__checkbox" id="upp_security__checkbox" type="checkbox" value="secret">
             </div>
-          </div> 
+          </article> 
 
           <!-- Страница создания вопросов для опроса -->
-          <div class="create_survey_page__create_question hidden" id="create_survey_page__create_question">
+          <article class="create_survey_page__create_question hidden" id="create_survey_page__create_question">
 
             <div class="create_question__types">
               <i class="fa fa-user-secret" id="create_question__types--anonim" aria-hidden="true"></i>
@@ -142,26 +142,27 @@
 
               <div class="create_question_active">
 
-                <div class="create_question__header">
+                <section class="create_question__header" id="create_question__header">
 
-                  <div class="create_question__header--name">
+                  <address class="create_question__header--name">
                     <input class="create_question__header--input" type="text" value="Вопрос без заголовка">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
-                  </div>
+                  </address>
 
                   <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc" aria-hidden="true"></i>
 
-                  <div class="create_question__header--desc hidden" id="create_question__header--desc">
+                  <address class="create_question__header--desc hidden" id="create_question__header--desc">
                     <input class="create_question__header--input" type="text" value="Подробный текст вопроса">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
-                  </div>
+                  </address>
 
-                </div>
+                </section>
 
-                <div class="create_question__add_answer">
+                <div class="create_question__add_answer" id="create_question__add_answer">
                   <i class="fa fa-plus create_question__add_answer--icon" aria-hidden="true"></i>
                   <p>Ответ</p>
                 </div>
+                
               </div>
 
               <div class="create_question">
@@ -171,11 +172,11 @@
               <button class="create_questions--save">Сохранить</button>
             </div>
 
-          </div>
-        </div>
+          </article>
+        </section>
 
         <button class="create_survey_page__continue create_survey" id="create_survey_page__continue">Продолжить</button>
-      </div>
+      </article>
     </main>
   
   <script src="src/scripts/main.js"></script>

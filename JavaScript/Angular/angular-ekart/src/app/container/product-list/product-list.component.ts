@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ProductComponent } from './product/product.component';
+import { FilterComponent } from './filter/filter.component';
+import { Product } from '../../Models/Product';
 @Component({
   selector: 'product-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductComponent, FilterComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
+
 export class ProductListComponent {
+
+  selectedProduct: Product;
   products = [
     {
       id: 1,
@@ -535,4 +540,17 @@ export class ProductListComponent {
       slug: "michael-feburary-sk8-hi"
     }
   ];
+
+  totalProductCount = this.products.length;
+  ProductInStockCount = this.products.filter(p => p.is_in_inventory).length;
+  ProductOutOfStockCount = this.products.filter(p => !p.is_in_inventory).length;
+
+  selectedFilterRadioButton: string = 'all';
+
+  onFilterChanged(value: string) {
+    this.selectedFilterRadioButton = value;
+  }
+
+  @Input()
+  searchText: string = '';
 }
