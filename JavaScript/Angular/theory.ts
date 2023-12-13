@@ -604,3 +604,50 @@ let selectedFilterRadioButton: string = 'all';
 /* VIEWCHILDREN() IN ANGULAR - https://www.youtube.com/watch?v=PqBKRoEYbIE&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=32 */
 
 
+// Директива @ViewChildren() работает, почти как @ViewChild(), но используется для получения списка DOM элементов, соответствующих запросу.
+// Например, в HTML файле у нас есть 3 элемента с одинаковой ссылочной переменной:
+// <input class="firstEl" #inputEl>
+// <input class="secondEl" #inputEl>
+// <input class="thirdEl" #inputEl>
+
+// И теперь используя @ViewChildren, мы можем передать ссылочную переменную и он запишет в переменную список ссылок на элементы
+// @ViewChildren('inputEl')
+// inputElements: QueryList<ElementRef>; - тип должен быть QueryList, каждый элемент которого будет ElementRef.
+
+// Теперь мы можем пройтись по этому списку ссылок, и у каждой ссылки получить элемент, используя nativeElement.
+// this.inputElements.forEach((el) => {
+//     console.log(el.nativeElement);
+// })
+
+/* Также, в отличии от @ViewChild() в @ViewChildren() можно указать только свойство read, а static нельзя.
+Переменная, декорированная с помощью @ViewChildren() не будет инициализирована сразу, а только когда будет запущен цикл обнаружения изменений.
+Поэтому, если попытаться получить к нему доступ с помощью ngOnInit(), то он выдаст undefined,
+т.к переменные объявленые с помощью @ViewChildren() не инициализируются сразу при создании компонента. */
+
+
+/* NG-TEMPLATE IN ANGULAR - https://www.youtube.com/watch?v=FM0KzpsGvIM&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=33 */
+
+
+// ng-template это элемент Angular, который содержит в себе HTML фрагмент, и он может использоваться как шаблон и рендериться в DOM.
+
+// Пример в app.component.html:
+// <h2>Learn NG template</h2> - этот элемент будет всегда, в нём ничего необычного нет.
+// <ng-template #ngTemplate> - для определения "шаблона", используем селектор ng-template и задаём ему ссылочную переменную.
+//     Контент, который находиться в нём, здесь отображаться не будет:
+//     <h3>This is a template</h3>
+//     <p>Example of template paragraph</p>
+// </ng-template>
+
+// <div *ngTemplateOutlet="ngTemplate"></div> - используем структурную директиву ngTemplateOutlet и передаём ей ссылочную переменную шаблона.
+// И теперь, в этом диве будет находиться весь контент, который и находиться в нашем шаблоне.
+
+// Ещё один пример использования ng-template:
+// <button class="btn-add-to-cart" *ngIf="product.is_in_inventory; else notifyMe">ADD TO CART</button>
+// <ng-template #notifyMe>
+//     <button class="btn-add-to-cart">NOTIFY ME</button>
+// </ng-template>
+
+
+/* NG-CONTAINER IN ANGULAR - https://www.youtube.com/watch?v=cD53j-TSxbc&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=34 */
+
+

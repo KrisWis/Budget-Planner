@@ -44,6 +44,22 @@
   margin-left: 10%;
 }
 
+%full_width_and_height {
+  width: 100%;
+  height: 100%;
+}
+
+%flex_full_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%flex_align_center {
+  display: flex;
+  align-items: center;
+}
+
 /* Панели */
 .panels {
   display: grid;
@@ -53,8 +69,7 @@
   height: 870px;
 
   .first_panels {
-    width: 100%;
-    height: 100%;
+    @extend %full_width_and_height;
 
     /* Панель создания опроса */
     .create_survey_panel {
@@ -68,13 +83,10 @@
       }
 
       .created_surveys {
-        width: 100%;
-        height: 100%;
+        @extend %full_width_and_height;
 
         .create__survey {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          @extend %flex_full_center;
           width: 40%;
           height: 200px;
           background-color: #D9D9D9;
@@ -100,9 +112,7 @@
           border: 1px solid #1C274C;
           border-radius: 50%;
           font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          @extend %flex_full_center;
           cursor: pointer;
         }
       }
@@ -126,14 +136,12 @@
         .available_surveys__search {
           width: 35%;
           height: 45px;
-          display: flex;
-          align-items: center;
+          @extend %flex_align_center;
           background-color: #fff;
 
           input {
             border: none;
-            width: 100%;
-            height: 100%;
+            @extend %full_width_and_height;
             outline: none;
 
             &::placeholder {
@@ -166,9 +174,7 @@
           border: 1px solid #1C274C;
           border-radius: 50%;
           font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          @extend %flex_full_center;
           cursor: pointer;
         }
       }
@@ -243,26 +249,23 @@
 .create_survey_page {
   width: 100vw;
   height: 100vh;
-  display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  @extend %flex_align_center;
   position: fixed;
 
   .create_survey_page--types {
     width: 100%;
     height: 50%;
-    display: flex;
     flex-direction: column;
-    align-items: center;
+    @extend %flex_align_center;
   }
 
   /* Страница с выбором имени для опроса */
   .create_survey_page--type {
     height: 30%;
     width: 100%;
-    display: flex;
-    align-items: center;
+    @extend %flex_align_center;
     gap: 1%;
     opacity: 0;
     transform: translateY(0%);
@@ -295,9 +298,7 @@
     height: 60px;
     background: #E1E1E1;
     border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @extend %flex_full_center;
     padding: 0;
     cursor: pointer;
 
@@ -310,7 +311,6 @@
   .create_survey_page__continue {
     width: 15%;
     color: #FFF;
-    text-align: center;
     font-size: 16px;
     border-radius: 12px;
     background: #0085FF;
@@ -322,17 +322,14 @@
 
   /* Страница с выбором типа безопасности опроса */
   .create_survey_page__security {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @extend %flex_full_center;
     transform: translateY(-20%);
     margin-top: 10%;
 
     .create_survey_page__security--anonim,
     .create_survey_page__security--upp_security {
-      display: flex;
-      align-items: center;
+      @extend %flex_align_center;
       font-size: 50px;
       gap: 5%;
       white-space: nowrap;
@@ -383,9 +380,8 @@
     }
 
     .create_questions {
-      display: flex;
       flex-direction: column;
-      align-items: center;
+      @extend %flex_align_center;
       gap: 5%;
 
       .create_question_active {
@@ -435,11 +431,10 @@
         }
 
         .create_question__add_answer {
-          display: flex;
           flex-direction: column;
-          align-items: center;
+          @extend %flex_align_center;
           justify-content: flex-end;
-          height: 30%;
+          height: 100%;
           font-size: 25px;
           padding-bottom: 5%;
           align-self: end;
@@ -449,64 +444,6 @@
             color: #0084FF;
             cursor: pointer;
           }
-        }
-
-        .create_question__answer_types {
-          display: flex;
-          align-items: center;
-          justify-content: baseline;
-          flex-direction: column;
-          padding-bottom: 3%;
-          margin-top: 5%;
-
-          .create_question__answer_type {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1%;
-            gap: 3%;
-            font-size: 25px;
-
-            .create_question--preset_answer__interface,
-            .create_question--open_answer__interface {
-              display: flex;
-              gap: 3%;
-            }
-
-            .create_question__answer_type--caption {
-              white-space: nowrap;
-            }
-
-            .create_question__answer_type--icon {
-              color: #0084FF;
-            }
-
-            .create_question__answer_type--checkbox {
-              @extend %create_question__answer_type--checkbox;
-            }
-
-            .create_question__answer_type--radio {
-              width: 55px;
-              cursor: pointer;
-              border: 1px solid black;
-            }
-          }
-        }
-      }
-
-      .create_question {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 220px;
-        width: 80%;
-        border-radius: 12px;
-        background: #FFF;
-        box-shadow: 0px 0px 12px 4px rgba(193, 193, 193, 0.25);
-
-        .create_question--add {
-          font-size: 100px;
-          color: #939393;
-          cursor: pointer;
         }
       }
 
@@ -591,6 +528,58 @@
           margin-top: 5%;
         }
       }
+    }
+
+    .create_question__answer_types {
+      @extend %flex_align_center;
+      justify-content: baseline;
+      flex-direction: column;
+      margin-top: 2%;
+      margin-bottom: 2%;
+      border-bottom: 1px solid black;
+
+      .create_question__answer_type {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1%;
+        gap: 3%;
+        font-size: 25px;
+
+        .create_question--preset_answer__interface,
+        .create_question--open_answer__interface {
+          display: flex;
+          gap: 3%;
+        }
+
+        .create_question__answer_type--caption {
+          white-space: nowrap;
+        }
+
+        .create_question__answer_type--icon {
+          color: #0084FF;
+        }
+
+        .create_question__answer_type--radio {
+          width: 55px;
+          cursor: pointer;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+
+  .create_question {
+    @extend %flex_full_center;
+    height: 220px;
+    width: 80%;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0px 0px 12px 4px rgba(193, 193, 193, 0.25);
+
+    .create_question--add {
+      font-size: 100px;
+      color: #939393;
+      cursor: pointer;
     }
   }
 }
