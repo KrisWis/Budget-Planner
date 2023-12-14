@@ -651,3 +651,28 @@ let selectedFilterRadioButton: string = 'all';
 /* NG-CONTAINER IN ANGULAR - https://www.youtube.com/watch?v=cD53j-TSxbc&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=34 */
 
 
+// ng-container это специальный Angular элемент, который может содержать структурные директивы без добавления новых элементов в DOM.
+
+/* Главная фишка ng-container в том, что в DOM рендериться только его содержимое, а сам он остаётся только в коде.
+Поэтому, вешать какие-либо классы или события на него не имеет смысла. */
+
+// Пример использования ng-container:
+// <ng-container *ngIf="toggle; else toggleOff">
+//     <p>The toggle is on.</p>
+// </ng-container>
+
+// <ng-template #toggleOff>
+//     <p>The toggle is off.</p>
+// </ng-template>
+
+// Обычно директива ngTemplateOutlet используется вместе с ng-container:
+// <ng-template #ngTemplate>
+//     <h3>This is a template</h3>
+//     <p>Example of template paragraph</p>
+// </ng-template>
+// <ng-container *ngTemplateOutlet="myTemplate"></ng-container>
+
+
+/* NG-CONTENT IN ANGULAR - https://www.youtube.com/watch?v=X-vlp3XeJAY&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=35 */
+
+

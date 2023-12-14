@@ -175,10 +175,34 @@
           </article>
         </section>
 
+        <section class="create_survey_page__end hidden" id="create_survey_page__end">
+
+          <address class="create_survey_page__share_block">
+
+            <div class="create_survey_page__share--qr create_survey_page__share">
+              <div id="create_survey_page__share--qr" class="create_survey_page__share--qr" aria-hidden="true"></div>
+              <p class="create_survey_page__share--text">Поделиться QR-кодом</p>
+            </div>
+
+            <div class="create_survey_page__share--link create_survey_page__share" id="create_survey_page__share--link">
+              <i class="fa fa-link create_survey_page__share--icon create_survey_page__share_link--icon" aria-hidden="true"></i>
+              <p class="create_survey_page__share--text create_survey_page__share_link--text">Поделиться ссылкой</p>
+
+              <dialog class="create_survey_page__share__link--pop_up_window opacity-0" id="create_survey_page__share__link--pop_up_window">
+                <p>Ссылка скопирована! <i class="fa fa-check" aria-hidden="true"></i></p>
+              </dialog>
+            </div>
+
+          </address>
+
+        </section>
+
         <button class="create_survey_page__continue create_survey" id="create_survey_page__continue">Продолжить</button>
       </article>
     </main>
-  
+
+
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
   <script src="src/scripts/main/main.js"></script>
   <script src="src/scripts/main_page/main_page.js"></script>
   <script src="src/scripts/create_survey_page/create_survey_page.js"></script>

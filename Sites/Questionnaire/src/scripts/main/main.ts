@@ -29,6 +29,10 @@ let create_question__preset_answer__menu: HTMLElement;
 let create_question__open_answer__checkbox: HTMLElement;
 let create_question__open_answer__menu: HTMLElement;
 const create_questions__save: HTMLElement = document.getElementById("create_questions--save");
+const create_survey_page__end: HTMLElement = document.getElementById("create_survey_page__end");
+const create_survey_page__share__link: HTMLElement = document.getElementById("create_survey_page__share--link");
+const create_survey_page__share__link__pop_up_window: HTMLElement = document.getElementById("create_survey_page__share__link--pop_up_window");
+const create_survey_page__share__qr: HTMLElement = document.getElementById("create_survey_page__share--qr");
 
 
 /* Объявление всех функций */

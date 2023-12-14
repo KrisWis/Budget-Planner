@@ -257,5 +257,40 @@ create_question.addEventListener("click", function (): void {
 
 /* Нажатие на конечную кнопку "Cохранить" */
 create_questions__save.addEventListener("click", function () {
+    create_survey_page__create_question.classList.add("page_name--class");
+    create_survey_page__create_question.classList.add("opacity-0");
 
+    setTimeout(() => {
+        hide(create_survey_page__create_question);
+        unhide(create_survey_page__end);
+    }, 400);
+
+    setTimeout(() => {
+        create_survey_page__end.classList.add("opacity-1");
+        create_survey_page__end.classList.add("page_name--class");
+        create_survey_page__continue.classList.remove("create__survey__page--hidden");
+        create_survey_page__continue.classList.add("create_survey_page__continue--end");
+    }, 700);
+
+    /* Создания qr кода на сайт */
+    // @ts-ignore
+    const qrcode = new QRCode(create_survey_page__share__qr, {
+        text: document.URL,
+        width: 100,
+        height: 105,
+        colorDark: '#0084FF',
+        colorLight: '#fff',
+        // @ts-ignore
+        correctLevel: QRCode.CorrectLevel.H
+    });
+})
+
+
+/* Появление оповещения о сохранении ссылки и само сохранение ссылки, по нажатию на кнопку */
+create_survey_page__share__link.addEventListener("click", async function () {
+    create_survey_page__share__link__pop_up_window.classList.remove("opacity-0");
+    setTimeout(() => {
+        create_survey_page__share__link__pop_up_window.classList.add("opacity-0");
+    }, 1500);
+    await navigator.clipboard.writeText(document.URL); // Записываем в буфер обмена ссылку на страницу
 })

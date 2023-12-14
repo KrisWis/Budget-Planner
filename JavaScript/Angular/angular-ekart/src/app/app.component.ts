@@ -27,4 +27,10 @@ import { ContainerComponent } from './container/container.component';
 // Создаём класс компонента нашего приложения. Из него мы можем брать различные свойства для использования в app.component.html.
 export class AppComponent {
   title = 'angular-ekart';
+
+  toggle: Boolean = true;
+
+  onToggle() {
+    this.toggle = !this.toggle;
+  }
 }

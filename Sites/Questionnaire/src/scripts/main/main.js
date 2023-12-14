@@ -29,6 +29,10 @@ let create_question__preset_answer__menu;
 let create_question__open_answer__checkbox;
 let create_question__open_answer__menu;
 const create_questions__save = document.getElementById("create_questions--save");
+const create_survey_page__end = document.getElementById("create_survey_page__end");
+const create_survey_page__share__link = document.getElementById("create_survey_page__share--link");
+const create_survey_page__share__link__pop_up_window = document.getElementById("create_survey_page__share__link--pop_up_window");
+const create_survey_page__share__qr = document.getElementById("create_survey_page__share--qr");
 /* Объявление всех функций */
 function hide(el) {
     el.classList.add("hidden");

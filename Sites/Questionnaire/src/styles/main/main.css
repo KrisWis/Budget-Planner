@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* Добавление шрифтов */
 @font-face {
-  font-family: "Gilroy";
+  font-family: Gilroy;
   src: url("../fonts/Gilroy/Gilroy-Regular.eot");
   font-weight: normal;
   font-style: normal;
@@ -9,7 +9,7 @@
 /* CSS Normalize */
 * {
   box-sizing: border-box;
-  transition: 0.3s transform linear;
+  transition: 0.4s transform linear;
   transform: translateY(0);
 }
 
@@ -18,7 +18,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  font-family: "Gilroy";
+  font-family: Gilroy;
   display: flex;
   flex-direction: column;
   position: relative;
