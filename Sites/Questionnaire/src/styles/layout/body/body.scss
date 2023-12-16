@@ -329,7 +329,7 @@
   .create_survey_page__security {
     flex-direction: column;
     @extend %flex_full_center;
-    transform: translateY(-20%);
+    transform: translateY(-300%);
     margin-top: 10%;
 
     .create_survey_page__security--anonim,
@@ -535,11 +535,15 @@
 
     .create_question__answer_types {
       @extend %flex_align_center;
-      justify-content: baseline;
       flex-direction: column;
-      margin-top: 2%;
       margin-bottom: 2%;
       border-bottom: 1px solid black;
+
+      .create_question__answer_types--delete {
+        align-self: center;
+        font-size: 30px;
+        cursor: pointer;
+      }
 
       .create_question__answer_type {
         @extend %flex_column;
@@ -592,6 +596,7 @@
     min-height: 300px;
     min-width: 600px;
     align-self: center;
+    margin-bottom: 15%;
 
     .create_survey_page__share_block {
       @extend %flex_column;
@@ -640,6 +645,7 @@
         border-radius: 10px;
         padding: 2%;
         font-size: 75px;
+        color: #0084FF;
       }
 
       .create_survey_page__share--link {
@@ -650,23 +656,56 @@
 
   /* Изменение стилей для кнопки продолжения на конечной странице */
   .create_survey_page__continue--end {
-    margin-bottom: 15%;
+    position: relative;
+    bottom: 10%;
   }
 
-  /* Всплывающее окно оповещения о том, что ссылка скопирована */
-  .create_survey_page__share__link--pop_up_window {
-    width: 50%;
-    height: 50%;
-    background-color: #000;
-    opacity: .8;
-    color: #fff;
-    position: fixed;
-    display: block;
-    text-align: center;
-    padding: 3%;
-    transition: .5s all linear;
-    align-self: center;
-    margin-bottom: 20%;
-    font-size: 20px;
+  /* Некоторые новые стили для элементов для последующих опросов */
+  .create_survey_page__name--new {
+    position: relative;
+    top: 50%;
+
+    .create_survey_page_name__input {
+      height: 70%;
+    }
   }
+
+  .create_survey_page__security--new {
+    position: relative;
+    top: 100%;
+    margin-top: 0;
+  }
+
+  .create_survey_page__create_question--new {
+    position: relative;
+    top: 25%;
+  }
+}
+
+/* Всплывающие окна оповещения о том, что ссылка скопирована и опрос создан */
+.create_survey_page__share__link--pop_up_window,
+.create_survey--pop_up_window-survey_created {
+  background-color: #000;
+  opacity: .7;
+  color: #fff;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+  transition: .5s all linear;
+  align-self: center;
+  margin-bottom: 20%;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.create_survey_page__share__link--pop_up_window {
+  width: 50%;
+  height: 50%;
+}
+
+.create_survey--pop_up_window-survey_created {
+  width: 20%;
+  height: 10%;
 }

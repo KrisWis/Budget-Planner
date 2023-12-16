@@ -676,3 +676,130 @@ let selectedFilterRadioButton: string = 'all';
 /* NG-CONTENT IN ANGULAR - https://www.youtube.com/watch?v=X-vlp3XeJAY&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=35 */
 
 
+// По умолчанию, если попробовать добавить какой то контент внутри селектора компонента, то он отображаться нигде не будет.
+// <app-header>
+//     <p>test</p>
+// </app-header>
+
+// Поэтому, чтобы контент, написанный внутри селектора компонента отображался, нужно в html файле компонента использовать селектор <ng-content></ng-content>.
+// И весь контент, написанный внутри селектора компонента отобразиться вместо тегов ng-content.
+
+// Пример: используем несколько селекторов одного компонента, но с разным содержимым.
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Nike</h3>
+// </featured-brands>
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Adidas</h3>
+// </featured-brands>
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Reebok</h3>
+// </featured-brands>
+
+// А в html файле этого компонента нужно использовать ng-content и вместо него будет элемент h3 из содержимого определённого селектора.
+// <div class="ekart-featured-product-item">
+//   <ng-content></ng-content>
+//     <p class="description">
+//       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+//       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+//     </p>
+//     <button class="call-to-action">Learn More</button>
+// </div>
+
+// Данная концепция называется проекцией контента. И стили для элементов, находящихся внутри селектора компонента нужно писать в стилях родительского компонента.
+
+// В следующем примере у нас есть несколько элементов в ng-content и нам нужно их отобразить в разных местах кода:
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Nike</h3>
+//      <button class="call-to-action">Show new Arrivals in Nike</button>
+// </featured-brands>
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Adidas</h3>
+//      <button class="call-to-action">Show new Arrivals in Adidas</button>
+// </featured-brands>
+// <featured-brands>
+//      <h3 class="title">New Arrivals in Reebok</h3>
+//      <button class="call-to-action">Show new Arrivals in Reebok</button>
+// </featured-brands>
+
+// И чтобы это сделать, мы в html файле дочернего компонента пишем несколько тегов ng-content:
+// <ng-content select=".title"></ng-content> - и чтобы ng-content понял, какой элемент нужно отображать, то в атрибут select передаём селектор нужного элемента.
+// <p class="description">
+//   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+//   Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+// </p>
+// <ng-content select=".call-to-action"></ng-content> - тут делаем тоже самое, но передаём другой селектор.
+
+// Кстати, как я понял, в .spec.ts файле находяться различные unit-тесты.
+
+
+/* CONTENTCHILD() IN ANGULAR - https://www.youtube.com/watch?v=Lugj2Jh5YiY&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=36 */
+
+
+// @ContentChild() используется для доступа к ссылке на элемент, компонент или директиву из проецируемого контента в классе дочернего компонента по селектору.
+
+// В HTML файле родительского элемента мы можем написать следующий код:
+// <app-child>
+//     <p #paragraph></p>
+//     <app-test></app-test> - в проекции контента можно также использовать селектор компонента и тогда вместо него просто отобразиться его шаблон представления.
+// </app-child>
+
+// И в классе компонента, внутри селектора которого и есть элементы с ссылочной переменной, мы можем, с помощью @ContentChild() получить ссылку на нужный элемент.
+// export class ChildComponent {
+//      @ContentChild('paragraph')
+//      paraEl: ElementRef
+
+// Также, мы можем получить ссылку на компонент внутри селектора компонента.
+//      @ContentChild(TestComponent)
+//      testEl: TestComponent
+
+// Т.е с помощью @ContentChild() мы в классе дочернего компонента можем получить по ссылочной переменной элемент, который находиться внутри селектора компонента.
+// И т.к этот элемент находиться внутри селектора компонента, использовать @ViewChild() внутри класса дочернего компонента не получиться.
+/* Но зато @ViewChild() можно использовать в классе родительского компонента и он сможет спокойно найти элемент,
+даже если он находиться в селекторе другого компонента, главное чтобы он в HTML файле родительского компонента. */
+
+// Чтобы получить контент из ссылки, можно также использовать nativeElement.
+
+// Разница между @ViewChild() и @ContentChild() в том, что @ViewChild() находит в HTML файле компонента, а @ContentChild() именно в селекторе ng-content компонента.
+
+
+/* CONTENTCHILDREN() IN ANGULAR - https://www.youtube.com/watch?v=xdcoyKF_-aI&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=37 */
+
+
+// @ContentChildren() используется для доступа к ссылкам на элементы, компоненты или директивы из проецируемого контента в класса дочернего компонента по селектору.
+// @ContentChild() возвращает первый, подходящий по селектору элемент, а @ContentChildren() возвращаем все подходящие.
+
+// Пример использования: для типа переменной используем QueryList<ElementRef>, т.к она будет хранить список ссылок на элементы.
+// @ContentChildren('paragraph')
+// paraElements: QueryList<ElementRef>;
+
+// Теперь мы можем пройтись циклом по всем этим ссылкам и взять из них сами элементы с помощью nativeElement.
+// this.paraElements.forEach((el) => {console.log(el.nativeElement)});
+
+
+// Также, мы можем обернуть некоторую переменную в @Input() чтобы использовать её в селекторе компонента:
+// @Input() name: string;
+
+// И теперь name является свойствами компонентов:
+// <app-test [name]='test'></app-test>
+// <app-test [name]='test2'></app-test>
+
+// Поэтому, с помощью @ContentChildren мы можем получить ссылки на эти элементы:
+// @ContentChildren(TestComponent)
+// testComponents: QueryList<TestComponent>; - используем QueryList<TestComponent>, т.к это будет список ссылок на компоненты Test.
+// this.testComponents.forEach((el) => {console.log(el.name)}); - и т.к name является свойством компонентов, мы можем к нему спокойно обратиться.
+
+
+// Т.е с помощью @ContentChildrem() мы в классе дочернего компонента можем получить по ссылочной переменной элементы, которые находяться внутри селектора компонента.
+// И т.к этти элементы находяться внутри селектора компонента, использовать @ViewChild() внутри класса дочернего компонента не получиться.
+/* Но зато @ViewChild() можно использовать в классе родительского компонента и он сможет спокойно найти элемент,
+даже если он находиться в селекторе другого компонента, главное чтобы он в HTML файле родительского компонента. */
+/* Разница между @ViewChild() и @ContentChild() в том, что @ViewChild() находит в HTML файле компонента, 
+а @ContentChild() именно в ng-content этого компонента, т.е в контенте, который в родительском HTML файле находиться в селекторе этого компонента. */
+
+
+/* LIFECYCLE HOOKS IN ANGULAR */
+
+
+/* COMPONENT INITIALIZATION - https://www.youtube.com/watch?v=mru2lQnZxhs&list=PL1BztTYDF-QNlGo5-g65Xj1mINHYk_FM9&index=38 */
+
+

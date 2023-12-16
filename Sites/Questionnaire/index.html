@@ -26,6 +26,11 @@
     <main>
       <!-- Дефолтная страница меню -->
       <section class="panels create__survey--hide_animation" id="panels">
+
+        <dialog class="create_survey--pop_up_window-survey_created opacity-0" id="create_survey--pop_up_window-survey_created">
+          <p>Опрос создан! <i class="fa fa-check" aria-hidden="true"></i></p>
+        </dialog>
+
         <div class="first_panels create__survey--hide_animation">
           <div class="create_survey_panel create__survey--hide_animation">
             <h2 class="create_survey__caption create__survey--hide_animation">Создать опрос</h2>
@@ -138,9 +143,9 @@
               <i class="fa fa-shield" id="create_question__types--upp_security" aria-hidden="true"></i>
             </div>
 
-            <div class="create_questions">
+            <div class="create_questions" id="create_questions">
 
-              <div class="create_question_active">
+              <div class="create_question_active" id="create_question_active--2">
 
                 <section class="create_question__header" id="create_question__header">
 

@@ -22,20 +22,16 @@ const create_question: HTMLElement = document.getElementById("create_question");
 const create_question__icon: HTMLElement = document.getElementById("create_question--icon");
 let create_question__answers_count: number = 0;
 let create_question__count: number = 2;
-let create_question__preset_answer__input: HTMLElement;
-let create_question__preset_answer__edit: HTMLElement;
-let create_question__preset_answer__checkbox: HTMLElement;
-let create_question__preset_answer__menu: HTMLElement;
-let create_question__open_answer__checkbox: HTMLElement;
-let create_question__open_answer__menu: HTMLElement;
 const create_questions__save: HTMLElement = document.getElementById("create_questions--save");
 const create_survey_page__end: HTMLElement = document.getElementById("create_survey_page__end");
 const create_survey_page__share__link: HTMLElement = document.getElementById("create_survey_page__share--link");
 const create_survey_page__share__link__pop_up_window: HTMLElement = document.getElementById("create_survey_page__share__link--pop_up_window");
 const create_survey_page__share__qr: HTMLElement = document.getElementById("create_survey_page__share--qr");
+const create_survey__pop_up_window_survey_created: HTMLElement = document.getElementById("create_survey--pop_up_window-survey_created");
+const create_questions: HTMLElement = document.getElementById("create_questions");
 
 
-/* Объявление всех функций */
+/* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el: HTMLElement): void {
     el.classList.add("hidden");
 }
@@ -60,7 +56,9 @@ function edit_click_target() {
     }
 }
 
-function answer_functions() {
+function answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
+    create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
+    create_question_active, question) {
     /* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
     create_question__preset_answer__edit.addEventListener("click", function (): void {
         (create_question__preset_answer__input as HTMLInputElement).focus();
@@ -79,4 +77,21 @@ function answer_functions() {
         hide(create_question__preset_answer__menu);
         (create_question__preset_answer__checkbox as HTMLInputElement).checked = false;
     })
+
+    /* Функцонал того, что по нажатию на крестик, ответ удаляется. */
+    create_question__delete.addEventListener("click", function () {
+        create_question_active.removeChild(question);
+    })
 }
+
+/* Создания qr кода на сайт */
+// @ts-ignore
+new QRCode(create_survey_page__share__qr, {
+    text: document.URL,
+    width: 100,
+    height: 105,
+    colorDark: '#0084FF',
+    colorLight: '#fff',
+    // @ts-ignore
+    correctLevel: QRCode.CorrectLevel.H
+});

@@ -19,6 +19,7 @@ create__survey.addEventListener("click", function () {
         create_survey_page__name.classList.add("create__survey--class");
         create_survey_page__name.classList.add("opacity-1");
         create_survey_page__continue.classList.add("opacity-1");
+        create_survey_page__security.classList.remove("opacity-1");
     }, 700);
 });
 //# sourceMappingURL=main_page.js.map
