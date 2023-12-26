@@ -26,6 +26,11 @@ create__survey.addEventListener("click", function (): void {
         create_survey_page__name.classList.add("opacity-1");
         create_survey_page__continue.classList.add("opacity-1");
         create_survey_page__security.classList.remove("opacity-1");
+
+        // Если юзер нажимает на карандашик, то таргет делается на инпут
+        create_survey_page_name__edit.addEventListener("click", function () {
+            (create_survey_page_name__input as HTMLInputElement).focus();
+        });
     }, 700);
 })
 

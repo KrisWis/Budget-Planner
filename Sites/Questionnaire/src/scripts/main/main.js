@@ -12,7 +12,6 @@ const upp_security__checkbox = document.getElementById("upp_security__checkbox")
 const create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
 const create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 const body = document.querySelector("body");
-let create_question_header__add_desc = document.getElementById("create_question_header--add_desc");
 let create_question__header__desc = document.getElementById("create_question__header--desc");
 let create_question__header__inputs = document.querySelectorAll(".create_question__header--input");
 let create_question__header__edits = document.querySelectorAll(".create_question__header--edit");
@@ -29,6 +28,8 @@ const create_survey_page__share__link__pop_up_window = document.getElementById("
 const create_survey_page__share__qr = document.getElementById("create_survey_page__share--qr");
 const create_survey__pop_up_window_survey_created = document.getElementById("create_survey--pop_up_window-survey_created");
 const create_questions = document.getElementById("create_questions");
+const create_survey_page_name__edit = document.getElementById("create_survey_page_name__edit");
+const create_survey_page_name__input = document.getElementById("create_survey_page_name__input");
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el) {
     el.classList.add("hidden");
@@ -36,7 +37,9 @@ function hide(el) {
 function unhide(el) {
     el.classList.remove("hidden");
 }
-function create_question__add_desc() {
+function create_question__add_desc(create_question__count) {
+    const create_question_header__add_desc = document.getElementById(`create_question_header--add_desc--${create_question__count}`);
+    const create_question__header__desc = document.getElementById(`create_question__header--desc--${create_question__count}`);
     create_question_header__add_desc.addEventListener("click", function () {
         hide(create_question_header__add_desc);
         unhide(create_question__header__desc);
@@ -83,4 +86,25 @@ new QRCode(create_survey_page__share__qr, {
     // @ts-ignore
     correctLevel: QRCode.CorrectLevel.H
 });
+localStorage.setItem('surveys', JSON.stringify([]));
+/* Функции для работы с куки */
+function setCookie(name, value, options = {}) {
+    options = {
+        path: '/',
+        // при необходимости добавьте другие значения по умолчанию
+        ...options
+    };
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+    }
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+    document.cookie = updatedCookie;
+}
 //# sourceMappingURL=main.js.map

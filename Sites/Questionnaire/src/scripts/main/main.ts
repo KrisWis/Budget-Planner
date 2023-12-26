@@ -12,7 +12,6 @@ const upp_security__checkbox: HTMLElement = document.getElementById("upp_securit
 const create_question__types_anonim__icon: HTMLElement = document.getElementById("create_question__types--anonim");
 const create_question__types_upp_security__icon: HTMLElement = document.getElementById("create_question__types--upp_security");
 const body: HTMLElement = document.querySelector("body");
-let create_question_header__add_desc: HTMLElement = document.getElementById("create_question_header--add_desc");
 let create_question__header__desc: HTMLElement = document.getElementById("create_question__header--desc");
 let create_question__header__inputs: NodeList = document.querySelectorAll(".create_question__header--input");
 let create_question__header__edits: NodeList = document.querySelectorAll(".create_question__header--edit");
@@ -29,7 +28,8 @@ const create_survey_page__share__link__pop_up_window: HTMLElement = document.get
 const create_survey_page__share__qr: HTMLElement = document.getElementById("create_survey_page__share--qr");
 const create_survey__pop_up_window_survey_created: HTMLElement = document.getElementById("create_survey--pop_up_window-survey_created");
 const create_questions: HTMLElement = document.getElementById("create_questions");
-
+const create_survey_page_name__edit: HTMLElement = document.getElementById("create_survey_page_name__edit");
+const create_survey_page_name__input: HTMLElement = document.getElementById("create_survey_page_name__input");
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el: HTMLElement): void {
@@ -40,7 +40,10 @@ function unhide(el: HTMLElement): void {
     el.classList.remove("hidden");
 }
 
-function create_question__add_desc() {
+function create_question__add_desc(create_question__count) {
+    const create_question_header__add_desc: HTMLElement = document.getElementById(`create_question_header--add_desc--${create_question__count}`);
+    const create_question__header__desc: HTMLElement = document.getElementById(`create_question__header--desc--${create_question__count}`);
+
     create_question_header__add_desc.addEventListener("click", function (): void {
         hide(create_question_header__add_desc);
         unhide(create_question__header__desc);
@@ -59,6 +62,7 @@ function edit_click_target() {
 function answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
     create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
     create_question_active, question) {
+
     /* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
     create_question__preset_answer__edit.addEventListener("click", function (): void {
         (create_question__preset_answer__input as HTMLInputElement).focus();
@@ -95,3 +99,51 @@ new QRCode(create_survey_page__share__qr, {
     // @ts-ignore
     correctLevel: QRCode.CorrectLevel.H
 });
+
+
+/* Наполняем localStorage дефолтными значениями и создаём интерфейсы для типов данных */
+interface Survey {
+    name: string,
+    security_type: string,
+    questions: Question[],
+}
+
+interface Question {
+    name: string,
+    desc: string,
+    answers: Answer[],
+}
+
+interface Answer {
+    type: string,
+    correct: boolean,
+    answer_text: string,
+}
+
+localStorage.setItem('surveys', JSON.stringify([]));
+
+/* Функции для работы с куки */
+function setCookie(name: string, value: string, options: any = {}): void {
+
+    options = {
+        path: '/',
+        // при необходимости добавьте другие значения по умолчанию
+        ...options
+    };
+
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+    }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+}

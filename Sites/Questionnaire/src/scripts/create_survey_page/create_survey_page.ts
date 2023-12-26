@@ -7,19 +7,33 @@ function page_survey_continue(): void {
     setTimeout(() => {
         hide(create_survey_page__security);
         unhide(create_survey_page__create_question);
+
+        // Если опция была выбрана, то пусть будет окрашена в синий.
+        if ((anonim__checkbox as HTMLInputElement).checked) {
+            create_question__types_anonim__icon.classList.add("create_question__type--active");
+
+            /* Сохранение типа опроса в Cookie, чтобы потом сохранить данные в localStorage */
+            setCookie('survey_security_type', 'anonim', { secure: true, 'max-age': 3600 });
+        }
+
+        if ((upp_security__checkbox as HTMLInputElement).checked) {
+            create_question__types_upp_security__icon.classList.add("create_question__type--active");
+
+            /* Сохранение типа опроса в Cookie, чтобы потом сохранить данные в localStorage */
+            setCookie('survey_security_type', 'upp_security', { secure: true, 'max-age': 3600 });
+        }
     }, 400);
 
     setTimeout(() => {
         create_survey_page__create_question.classList.add("opacity-1", "page_name--class");
 
-        // Если опция была выбрана, то пусть будет окрашена в синий.
-        if ((anonim__checkbox as HTMLInputElement).checked) {
-            create_question__types_anonim__icon.classList.add("create_question__type--active");
-        }
+        /* Функционал того, когда юзер нажимает на добавление подробного описания вопроса. */
+        create_question__add_desc(2);
 
-        if ((upp_security__checkbox as HTMLInputElement).checked) {
-            create_question__types_upp_security__icon.classList.add("create_question__type--active");
-        }
+        /* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
+        create_question__header__inputs = document.querySelectorAll(".create_question__header--input");
+        create_question__header__edits = document.querySelectorAll(".create_question__header--edit");
+        edit_click_target();
     }, 700);
 }
 
@@ -37,20 +51,14 @@ function page_name_continue(): void {
 
     create_survey_page__continue.removeEventListener("click", page_name_continue);
 
+    /* Сохранение имени опроса в Cookie, чтобы потом сохранить данные в localStorage */
+    setCookie('survey_name', (create_survey_page_name__input as HTMLInputElement).value, { secure: true, 'max-age': 3600 });
 
     /* Нажатие на кнопку продолжения после выбора типа опроса */
-    create_survey_page__continue.addEventListener("click", page_survey_continue)
+    create_survey_page__continue.addEventListener("click", page_survey_continue);
 }
 
 create_survey_page__continue.addEventListener("click", page_name_continue);
-
-
-/* Функционал того, когда юзер нажимает на добавление подробного описания вопроса. */
-create_question__add_desc();
-
-
-/* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
-edit_click_target();
 
 /* Добавление меню выбора типа ответа по нажатию соответствующей кнопки. */
 create_question__add_answer.addEventListener("click", function (): void {
@@ -116,6 +124,8 @@ create_question__add_answer.addEventListener("click", function (): void {
 
         </div>`;
 
+    // TODO: сделать так, чтобы правильный ответ в вопросе должен был быть, и мог быть только один.
+
     create_question__header.insertAdjacentHTML(`afterend`,
         create_question__request
     );
@@ -154,7 +164,7 @@ create_question.addEventListener("click", function (): void {
                 <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc--${create_question__count}" aria-hidden="true"></i>
 
                 <address class="create_question__header--desc hidden" id="create_question__header--desc--${create_question__count}">
-                    <input class="create_question__header--input" type="text" value="Подробный текст вопроса">
+                    <input class="create_question__header--input create_question__header--desc" type="text" value="Подробный текст вопроса">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
                 </address>
 
@@ -171,9 +181,7 @@ create_question.addEventListener("click", function (): void {
     );
 
     /* Функционал того, когда юзер нажимает на добавление подробного описания вопроса. */
-    create_question_header__add_desc = document.getElementById(`create_question_header--add_desc--${create_question__count}`);
-    create_question__header__desc = document.getElementById(`create_question__header--desc--${create_question__count}`);
-    create_question__add_desc();
+    create_question__add_desc(create_question__count);
 
     /* Функционал того, что по нажатию на карандашик, таргет делается на инпут */
     create_question__header__inputs = document.querySelectorAll(`#create_question__header--${create_question__count} .create_question__header--input`);
@@ -286,6 +294,38 @@ create_questions__save.addEventListener("click", function () {
         create_survey_page__continue.classList.add("create_survey_page__continue--end");
     }, 700);
 
+    /* Сохранение имени и описания вопроса в Cookie, чтобы потом сохранить данные в localStorage */
+    const questions: NodeList = document.querySelectorAll(".create_question_active");
+
+    let all_questions: Question[] = [];
+    for (let question of questions) {
+        let question_id: string = (question as HTMLElement).id;
+        let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
+        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc`) as HTMLInputElement).value;
+
+        let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
+        let all_answers: Answer[] = [];
+        for (let answer of answers) {
+            let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
+            let answer_type: string = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
+            let answer_correct: boolean;
+
+            if (answer_type == 'preset') {
+                answer_correct = (document.querySelector(`#${question_id} .create_question__open_answer--checkbox`) as HTMLInputElement).checked;
+            } else {
+                answer_correct = (document.querySelector(`#${question_id} .create_question__preset_answer--checkbox`) as HTMLInputElement).checked;
+            }
+
+            let answer_text: string = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
+
+            all_answers.push({ type: answer_type, correct: answer_correct, answer_text: answer_text });
+        }
+
+        all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
+    }
+
+    setCookie('survey_questions', JSON.stringify(all_questions), { secure: true, 'max-age': 3600 });
+
     /* Нажатие на кнопку "Сохранить" на конечной странице создания опроса */
     create_survey_page__continue.removeEventListener("click", page_survey_continue);
 
@@ -320,11 +360,13 @@ create_questions__save.addEventListener("click", function () {
         create_survey_page__continue.removeEventListener("click", page_end_continue);
 
         setTimeout(() => {
-            /* Приводим всё к тому, как и было в начале опроса: обнуляем стили. */
+            /* Приводим всё к тому, как и было в начале опроса: обнуляем стили, чекбоксы. */
             create_survey_page__name.classList.remove("opacity-1", "create__survey--class", "page_name--class", "opacity-0", "hidden");
             create_survey_page__continue.classList.remove("page_name--class", "opacity-0", "opacity-1", 'create_survey');
             create_survey_page__security.classList.remove("create__survey__page--hidden", "page_name--class");
             create_survey_page__create_question.classList.remove("opacity-0");
+            (anonim__checkbox as HTMLInputElement).checked = false;
+            (upp_security__checkbox as HTMLInputElement).checked = false;
 
             /* Добавление некоторых новых стилей. */
             create_survey_page__name.classList.add("create_survey_page__name--new");

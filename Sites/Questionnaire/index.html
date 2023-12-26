@@ -111,8 +111,8 @@
 
           <!-- Страница выбора имени для опроса -->
           <article class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
-            <input class="create_survey_page_name__input create_survey_type" type="text" value="Новый безымянный опрос">
-            <button class="create_survey_page_name__edit create_survey_type">
+            <input class="create_survey_page_name__input create_survey_type" id="create_survey_page_name__input" type="text" value="Новый безымянный опрос">
+            <button class="create_survey_page_name__edit create_survey_type" id="create_survey_page_name__edit">
               <i class="fa fa-edit create_survey_type" aria-hidden="true"></i>
             </button>
           </article>
@@ -154,9 +154,9 @@
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
                   </address>
 
-                  <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc" aria-hidden="true"></i>
+                  <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc--2" aria-hidden="true"></i>
 
-                  <address class="create_question__header--desc hidden" id="create_question__header--desc">
+                  <address class="create_question__header--desc hidden" id="create_question__header--desc--2">
                     <input class="create_question__header--input" type="text" value="Подробный текст вопроса">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
                   </address>
