@@ -357,3 +357,92 @@ setNumbers((prev) => [...prev, 1, 2, 3]);
 /* 2 УРОК - https://www.youtube.com/watch?v=bfj4lEyc4w8&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=2 */
 
 
+// В React нужно при создании тега <img> указывать атрибут alt.
+// В React в атрибуте style надо писать в фигурных скобках.
+// В style, чтобы передать набор свойств, нужно передавать их как объект, т.е к примеру: "style={{ backgroundImage: 'url()' }}".
+/* Также, свойства которые пишуться через дефис, в React пишуться с большой буквы. Например, background-image будет backgroundImage.
+Это из-за того, что то, что мы пишем в фигурных скобках это по сути js код. */
+
+// Да и впринципе, если ты хочешь написать js код в jsx разметке, нужно использовать фигурные скобки:
+// <h2>{5 + 5}</h2>
+// Это и есть различие JSX от HTML. В JSX можно выполнить JS код, а в HTML - нет.
+
+// Компоненты нужны для повторно используемых кусков HTML кода. Если поменять что-либо в компоненте, то это поменяется во всех местах, где он используется.
+// В правильной структуре, нужно хранить все компоненты в папке components.
+// Названия файлов компонентов нужно писать с большой буквы.
+
+// Сами функциональные компоненты должны называться также, как и их файлы, только без расширения.
+
+// Компонентами могут быть различные повторяющиеся блоки коды, а также, просто некоторые масштабные блоки кода, типа header, main и тд. Но это уже для гибкости.
+
+// При импорте компонента, его имя может быть любым - необязательно делать тоже самое имя, что и у самого функционального компонента, но обязательно с большой буквы.
+
+
+// Чтобы создать компонент, нужно сделать для него отдельный файл, а дальше код должен иметь приблизительно такую структуру:
+function Card() {
+    return (
+        <div className="card">
+            <div className="favorite">
+                <img src="/img/heart-unliked.svg" alt="Unliked" />
+            </div>
+            <img width={133} height={112} src="/img/sneakers/1.jpg" alt="Sneakers" />
+            <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
+            <div className="d-flex justify-between align-center">
+                <div className="d-flex flex-column">
+                    <span>Цена:</span>
+                    <b>12 999 руб.</b>
+                </div>
+                <button className="button">
+                    <img width={11} height={11} src="/img/plus.svg" alt="Plus" />
+                </button>
+            </div>
+        </div>
+    );
+}
+
+// export default Card;
+
+
+// Теперь, создав 3 компонента Card, Drawer, Header, наш главный компонент App.js выглядит так:
+// Импортируем все компоненты
+import Card from './components/Card';
+import Header from './components/Header';
+import Drawer from './components/Drawer';
+
+function App() {
+    return (
+        <div className="wrapper clear">
+            Для использования компонента в JSX разметке, его имя нужно использовать в ввиде закрывающего тега:
+            <Drawer />
+            <Header />
+            <div className="content p-40">
+                <div className="d-flex align-center justify-between mb-40">
+                    <h1>Все кроссовки</h1>
+                    <div className="search-block d-flex">
+                        <img src="/img/search.svg" alt="Search" />
+                        <input placeholder="Поиск..." />
+                    </div>
+                </div>
+
+                <div className="d-flex">
+                    <Card />
+                    <Card />
+                    <Card />
+                    <Card />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// export default App; - и нужно экспортировать сам компонент
+
+
+// В языке реакта функциональный компонент состоит из методов типа .createElement() и впринципе много мусора. Но у нас всё лаконично.
+
+// Импорты компонентов стоит писать там, где эти компоненты и используется, т.е переносить все импорты в один корневой файл - зло и неоптимизированно.
+
+
+/* 3 УРОК - https://www.youtube.com/watch?v=8W-M96dXA3Y&list=PL0FGkDGJQjJEos_0yVkbKjsQ9zGVy3dG7&index=3 */
+
+
