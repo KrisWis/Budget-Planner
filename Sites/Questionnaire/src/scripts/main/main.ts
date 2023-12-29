@@ -30,6 +30,8 @@ const create_survey__pop_up_window_survey_created: HTMLElement = document.getEle
 const create_questions: HTMLElement = document.getElementById("create_questions");
 const create_survey_page_name__edit: HTMLElement = document.getElementById("create_survey_page_name__edit");
 const create_survey_page_name__input: HTMLElement = document.getElementById("create_survey_page_name__input");
+const save__answers_error: HTMLElement = document.getElementById("save--answers_error");
+const save__correct_error: HTMLElement = document.getElementById("save--correct_error");
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el: HTMLElement): void {

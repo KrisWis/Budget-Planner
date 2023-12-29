@@ -450,6 +450,13 @@
         }
       }
 
+      .create_survey_page__save--errors {
+        color: red;
+        margin-top: 3%;
+        display: flex;
+        flex-direction: column;
+      }
+
       .create_questions--save {
         border-radius: 12px;
         background: #0085FF;

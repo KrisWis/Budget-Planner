@@ -90,7 +90,7 @@ create_question__add_answer.addEventListener("click", function (): void {
 
                     <div class="create_question--preset_answer__correct_answer">
                         <p>Это правильный ответ</p>
-                        <input class="create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
                         <label for="preset_answer__correct_answer--checkbox"></label>
                     </div>
 
@@ -114,7 +114,7 @@ create_question__add_answer.addEventListener("click", function (): void {
 
                     <div class="create_question--open_answer__correct_answer">
                         <p>Это правильный ответ</p>
-                        <input class="create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
                         <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
                     </div>
 
@@ -123,8 +123,6 @@ create_question__add_answer.addEventListener("click", function (): void {
             </div>
 
         </div>`;
-
-    // TODO: сделать так, чтобы правильный ответ в вопросе должен был быть, и мог быть только один.
 
     create_question__header.insertAdjacentHTML(`afterend`,
         create_question__request
@@ -221,7 +219,7 @@ create_question.addEventListener("click", function (): void {
 
                         <div class="create_question--preset_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="preset_answer__correct_answer--checkbox"></label>
                         </div>
 
@@ -245,7 +243,7 @@ create_question.addEventListener("click", function (): void {
 
                         <div class="create_question--open_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
                         </div>
 
@@ -280,6 +278,23 @@ create_question.addEventListener("click", function (): void {
 
 /* Нажатие на конечную кнопку "Cохранить" */
 create_questions__save.addEventListener("click", function () {
+
+    if (document.querySelectorAll(".create_question__answer_types").length < 2) {
+        save__answers_error.classList.remove("hidden");
+        setTimeout(() => {
+            save__answers_error.classList.add("hidden");
+        }, 3000);
+        return
+    }
+
+    if (Array.from(document.querySelectorAll(".create_question--correct_checkbox")).filter((v: HTMLInputElement) => v.checked).length != 1) {
+        save__correct_error.classList.remove("hidden");
+        setTimeout(() => {
+            save__correct_error.classList.add("hidden");
+        }, 3000);
+        return
+    }
+
     create_survey_page__create_question.classList.add("page_name--class", "opacity-0");
 
     setTimeout(() => {

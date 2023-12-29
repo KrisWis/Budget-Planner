@@ -71,7 +71,7 @@ create_question__add_answer.addEventListener("click", function () {
 
                     <div class="create_question--preset_answer__correct_answer">
                         <p>Это правильный ответ</p>
-                        <input class="create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
                         <label for="preset_answer__correct_answer--checkbox"></label>
                     </div>
 
@@ -95,7 +95,7 @@ create_question__add_answer.addEventListener("click", function () {
 
                     <div class="create_question--open_answer__correct_answer">
                         <p>Это правильный ответ</p>
-                        <input class="create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                        <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
                         <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
                     </div>
 
@@ -180,7 +180,7 @@ create_question.addEventListener("click", function () {
 
                         <div class="create_question--preset_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="preset_answer__correct_answer--checkbox"></label>
                         </div>
 
@@ -204,7 +204,7 @@ create_question.addEventListener("click", function () {
 
                         <div class="create_question--open_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
                         </div>
 
@@ -229,6 +229,20 @@ create_question.addEventListener("click", function () {
 });
 /* Нажатие на конечную кнопку "Cохранить" */
 create_questions__save.addEventListener("click", function () {
+    if (document.querySelectorAll(".create_question__answer_types").length < 2) {
+        save__answers_error.classList.remove("hidden");
+        setTimeout(() => {
+            save__answers_error.classList.add("hidden");
+        }, 3000);
+        return;
+    }
+    if (Array.from(document.querySelectorAll(".create_question--correct_checkbox")).filter((v) => v.checked).length != 1) {
+        save__correct_error.classList.remove("hidden");
+        setTimeout(() => {
+            save__correct_error.classList.add("hidden");
+        }, 3000);
+        return;
+    }
     create_survey_page__create_question.classList.add("page_name--class", "opacity-0");
     setTimeout(() => {
         hide(create_survey_page__create_question);
@@ -264,7 +278,6 @@ create_questions__save.addEventListener("click", function () {
         }
         all_questions[question.id] = { name: question_name, desc: question_desc, answers: all_answers };
     }
-    // TODO: сделать так, чтобы правильный ответ должен был быть и только один.
     setCookie('survey_questions', JSON.stringify(all_questions), { secure: true, 'max-age': 3600 });
     /* Нажатие на кнопку "Сохранить" на конечной странице создания опроса */
     create_survey_page__continue.removeEventListener("click", page_survey_continue);

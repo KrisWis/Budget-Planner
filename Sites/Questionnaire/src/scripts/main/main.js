@@ -30,6 +30,8 @@ const create_survey__pop_up_window_survey_created = document.getElementById("cre
 const create_questions = document.getElementById("create_questions");
 const create_survey_page_name__edit = document.getElementById("create_survey_page_name__edit");
 const create_survey_page_name__input = document.getElementById("create_survey_page_name__input");
+const save__answers_error = document.getElementById("save--answers_error");
+const save__correct_error = document.getElementById("save--correct_error");
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el) {
     el.classList.add("hidden");

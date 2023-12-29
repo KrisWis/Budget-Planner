@@ -398,6 +398,12 @@
   color: #0084FF;
   cursor: pointer;
 }
+.create_survey_page .create_survey_page__create_question .create_questions .create_survey_page__save--errors {
+  color: red;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+}
 .create_survey_page .create_survey_page__create_question .create_questions .create_questions--save {
   border-radius: 12px;
   background: #0085FF;
