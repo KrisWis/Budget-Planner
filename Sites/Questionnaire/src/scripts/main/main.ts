@@ -111,21 +111,19 @@ interface Survey {
 }
 
 interface Question {
-    name: string,
-    desc: string,
-    answers: Answer[],
+    name?: string,
+    desc?: string,
+    answers?: Answer[],
 }
 
 interface Answer {
-    type: string,
-    correct: boolean,
-    answer_text: string,
+    type?: string,
+    correct?: boolean,
+    answer_text?: string,
 }
 
-localStorage.setItem('surveys', JSON.stringify([]));
-
 /* Функции для работы с куки */
-function setCookie(name: string, value: string, options: any = {}): void {
+function setCookie(name: string, value: any, options: any = {}): void {
 
     options = {
         path: '/',
@@ -148,4 +146,11 @@ function setCookie(name: string, value: string, options: any = {}): void {
     }
 
     document.cookie = updatedCookie;
+}
+
+function getCookie(name: string): any {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }

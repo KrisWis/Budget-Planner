@@ -88,7 +88,6 @@ new QRCode(create_survey_page__share__qr, {
     // @ts-ignore
     correctLevel: QRCode.CorrectLevel.H
 });
-localStorage.setItem('surveys', JSON.stringify([]));
 /* Функции для работы с куки */
 function setCookie(name, value, options = {}) {
     options = {
@@ -108,5 +107,9 @@ function setCookie(name, value, options = {}) {
         }
     }
     document.cookie = updatedCookie;
+}
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 //# sourceMappingURL=main.js.map

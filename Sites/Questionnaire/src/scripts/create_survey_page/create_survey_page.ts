@@ -9,18 +9,22 @@ function page_survey_continue(): void {
         unhide(create_survey_page__create_question);
 
         // Если опция была выбрана, то пусть будет окрашена в синий.
-        if ((anonim__checkbox as HTMLInputElement).checked) {
-            create_question__types_anonim__icon.classList.add("create_question__type--active");
+        if ((anonim__checkbox as HTMLInputElement).checked && (upp_security__checkbox as HTMLInputElement).checked) {
+            if ((anonim__checkbox as HTMLInputElement).checked) {
+                create_question__types_anonim__icon.classList.add("create_question__type--active");
 
-            /* Сохранение типа опроса в Cookie, чтобы потом сохранить данные в localStorage */
-            setCookie('survey_security_type', 'anonim', { secure: true, 'max-age': 3600 });
-        }
+                /* Сохранение типа опроса в Cookie */
+                setCookie('survey_security_type', 'anonim', { secure: true, 'max-age': 3600 });
+            }
 
-        if ((upp_security__checkbox as HTMLInputElement).checked) {
-            create_question__types_upp_security__icon.classList.add("create_question__type--active");
+            if ((upp_security__checkbox as HTMLInputElement).checked) {
+                create_question__types_upp_security__icon.classList.add("create_question__type--active");
 
-            /* Сохранение типа опроса в Cookie, чтобы потом сохранить данные в localStorage */
-            setCookie('survey_security_type', 'upp_security', { secure: true, 'max-age': 3600 });
+                /* Сохранение типа опроса в Cookie */
+                setCookie('survey_security_type', 'upp_security', { secure: true, 'max-age': 3600 });
+            }
+        } else {
+            setCookie('survey_security_type', 'none', { secure: true, 'max-age': 3600 });
         }
     }, 400);
 
@@ -51,7 +55,6 @@ function page_name_continue(): void {
 
     create_survey_page__continue.removeEventListener("click", page_name_continue);
 
-    /* Сохранение имени опроса в Cookie, чтобы потом сохранить данные в localStorage */
     setCookie('survey_name', (create_survey_page_name__input as HTMLInputElement).value, { secure: true, 'max-age': 3600 });
 
     /* Нажатие на кнопку продолжения после выбора типа опроса */
@@ -277,7 +280,7 @@ create_question.addEventListener("click", function (): void {
 
 
 /* Нажатие на конечную кнопку "Cохранить" */
-create_questions__save.addEventListener("click", function () {
+create_questions__save.addEventListener("click", async function (): Promise<void> {
 
     if (document.querySelectorAll(".create_question__answer_types").length < 2) {
         save__answers_error.classList.remove("hidden");
@@ -309,17 +312,17 @@ create_questions__save.addEventListener("click", function () {
         create_survey_page__continue.classList.add("create_survey_page__continue--end");
     }, 700);
 
-    /* Сохранение имени и описания вопроса в Cookie, чтобы потом сохранить данные в localStorage */
+    /* Сохранение имени и описания вопроса в Cookie */
     const questions: NodeList = document.querySelectorAll(".create_question_active");
 
-    let all_questions: Question[] = [];
+    let all_questions: Question = {};
     for (let question of questions) {
         let question_id: string = (question as HTMLElement).id;
         let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
         let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc`) as HTMLInputElement).value;
 
         let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
-        let all_answers: Answer[] = [];
+        let all_answers: Answer = {};
         for (let answer of answers) {
             let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
             let answer_type: string = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
@@ -333,13 +336,32 @@ create_questions__save.addEventListener("click", function () {
 
             let answer_text: string = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
 
-            all_answers.push({ type: answer_type, correct: answer_correct, answer_text: answer_text });
+            all_answers[`${answers_id}`] = { type: answer_type, correct: answer_correct, answer_text: answer_text };
         }
 
         all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
     }
 
-    setCookie('survey_questions', JSON.stringify(all_questions), { secure: true, 'max-age': 3600 });
+    // Сохранение опроса в бд
+    let responseRequest = await fetch('api/save-survey', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ survey_name: getCookie("survey_name"), survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
+    });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+
+        let response = await responseRequest.json();
+        const survey_link = response["link"];
+        const existing_surveys_links = getCookie('survey_link') || [];
+        existing_surveys_links.push(survey_link);
+        setCookie('survey_links', existing_surveys_links, { secure: true, 'max-age': 360000000 });
+
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
 
     /* Нажатие на кнопку "Сохранить" на конечной странице создания опроса */
     create_survey_page__continue.removeEventListener("click", page_survey_continue);
@@ -405,6 +427,7 @@ create_questions__save.addEventListener("click", function () {
             const create_questions_active: NodeList = document.querySelectorAll(".create_question_active:not(#create_question_active--2)");
             create_questions_active.forEach((question) => { create_questions.removeChild(question) });
 
+            console.log(getCookie('survey_links'))
         }, 500);
 
         create_survey_page__continue.addEventListener("click", page_name_continue);
