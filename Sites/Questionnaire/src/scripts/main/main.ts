@@ -32,6 +32,7 @@ const create_survey_page_name__edit: HTMLElement = document.getElementById("crea
 const create_survey_page_name__input: HTMLElement = document.getElementById("create_survey_page_name__input");
 const save__answers_error: HTMLElement = document.getElementById("save--answers_error");
 const save__correct_error: HTMLElement = document.getElementById("save--correct_error");
+const created_surveys: HTMLElement = document.getElementById("created_surveys");
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el: HTMLElement): void {
@@ -154,3 +155,29 @@ function getCookie(name: string): any {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+// Создание ссылки на опрос в "Создать опрос"
+(function () {
+    const survey_links = JSON.parse(getCookie('survey_links')) || null;
+    let create_link__request: string;
+
+    if (survey_links) {
+        for (let id in survey_links) {
+            create_link__request =
+                `<a href="${survey_links[0]}" class="survey create__survey--hide_animation" id="survey--${id}">
+            
+                    <h3 class="survey--caption">${survey_links[1]}</h3>
+            
+                    <div class="survey__edit">
+                        <p>Редактировать</p>
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </div>
+                    
+                </a>`;
+        }
+
+        created_surveys.insertAdjacentHTML(`beforeend`,
+            create_link__request
+        );
+    }
+}())

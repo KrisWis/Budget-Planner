@@ -283,19 +283,32 @@ create_questions__save.addEventListener("click", async function () {
         all_questions[question.id] = { name: question_name, desc: question_desc, answers: all_answers };
     }
     // Сохранение опроса в бд
+    const survey_name = getCookie("survey_name");
     let responseRequest = await fetch('api/save-survey', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ survey_name: getCookie("survey_name"), survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
+        body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
     });
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
         let response = await responseRequest.json();
         const survey_link = response["link"];
-        const existing_surveys_links = getCookie('survey_link') || [];
-        existing_surveys_links.push(survey_link);
-        setCookie('survey_links', existing_surveys_links, { secure: true, 'max-age': 360000000 });
+        const survey_id = response["id"];
+        const existing_surveys_links = JSON.parse(getCookie('survey_links')) || {};
+        existing_surveys_links[survey_id] = [survey_link, survey_name];
+        setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000 });
+        const create_link__request = `<a href="${survey_link}" class="survey create__survey--hide_animation" id="survey--${survey_id}">
+    
+            <h3 class="survey--caption">${survey_name}</h3>
+    
+            <div class="survey__edit">
+                <p>Редактировать</p>
+                <i class="fa fa-edit" aria-hidden="true"></i>
+            </div>
+            
+        </a>`;
+        created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
     }
     else {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
@@ -348,7 +361,6 @@ create_questions__save.addEventListener("click", async function () {
             /* Удаляем сами, созданные в прошлой сессии, вопросы. */
             const create_questions_active = document.querySelectorAll(".create_question_active:not(#create_question_active--2)");
             create_questions_active.forEach((question) => { create_questions.removeChild(question); });
-            console.log(getCookie('survey_links'));
         }, 500);
         create_survey_page__continue.addEventListener("click", page_name_continue);
     }

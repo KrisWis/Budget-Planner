@@ -88,6 +88,8 @@
       }
 
       .created_surveys {
+        display: flex;
+        gap: 5%;
         @extend %full_width_and_height;
 
         .create__survey {
@@ -102,6 +104,49 @@
             cursor: pointer;
             color: #939393;
             font-size: 70px;
+          }
+        }
+
+        .survey {
+          @extend %flex_full_center;
+          width: 40%;
+          height: 200px;
+          background-color: #fff;
+          border-radius: 16px;
+          cursor: pointer;
+          justify-content: space-between;
+
+          .survey__edit {
+            @extend %flex_align_center;
+            align-self: flex-start;
+            color: #929292;
+            font-size: 16px;
+            gap: 5%;
+            padding: 5%;
+            position: relative;
+            opacity: .8;
+            transition: all .3s linear;
+            transform: scale(.95);
+
+            i {
+              width: 12px;
+              height: 12px;
+              stroke-width: 1px;
+              stroke: #929292;
+            }
+
+            &:hover {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          .survey--caption {
+            color: #000;
+            font-size: 20px;
+            align-self: flex-end;
+            padding: 5%;
+            white-space: nowrap;
           }
         }
       }

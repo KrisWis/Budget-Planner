@@ -49,14 +49,14 @@
   height: 100%;
 }
 
-.create_survey_page .create_question, .create_survey_page .create_survey_page__security, .create_survey_page .create_survey_page_name__edit, .panels .first_panels .available_surveys_panel .available_surveys_panel__pagination_arrows .available_surveys_panel__pagination__arrow, .panels .first_panels .create_survey_panel .survey_panel__pagination_arrows .survey_panel__pagination__arrow, .panels .first_panels .create_survey_panel .created_surveys .create__survey {
+.create_survey_page .create_question, .create_survey_page .create_survey_page__security, .create_survey_page .create_survey_page_name__edit, .panels .first_panels .available_surveys_panel .available_surveys_panel__pagination_arrows .available_surveys_panel__pagination__arrow, .panels .first_panels .create_survey_panel .survey_panel__pagination_arrows .survey_panel__pagination__arrow, .panels .first_panels .create_survey_panel .created_surveys .survey, .panels .first_panels .create_survey_panel .created_surveys .create__survey {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .create_survey_page .create_survey_page__create_question .create_question__answer_types, .create_survey_page .create_survey_page__create_question .create_questions .create_question_active .create_question__add_answer, .create_survey_page .create_survey_page__create_question .create_questions, .create_survey_page .create_survey_page__security .create_survey_page__security--anonim,
-.create_survey_page .create_survey_page__security .create_survey_page__security--upp_security, .create_survey_page .create_survey_page--type, .create_survey_page .create_survey_page--types, .create_survey_page, .panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search {
+.create_survey_page .create_survey_page__security .create_survey_page__security--upp_security, .create_survey_page .create_survey_page--type, .create_survey_page .create_survey_page--types, .create_survey_page, .panels .first_panels .available_surveys_panel .available_surveys__header .available_surveys__search, .panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit {
   display: flex;
   align-items: center;
 }
@@ -88,6 +88,10 @@
   font-size: 28px;
   padding-bottom: 5%;
 }
+.panels .first_panels .create_survey_panel .created_surveys {
+  display: flex;
+  gap: 5%;
+}
 .panels .first_panels .create_survey_panel .created_surveys .create__survey {
   width: 40%;
   height: 200px;
@@ -99,6 +103,42 @@
   cursor: pointer;
   color: #939393;
   font-size: 70px;
+}
+.panels .first_panels .create_survey_panel .created_surveys .survey {
+  width: 40%;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 16px;
+  cursor: pointer;
+  justify-content: space-between;
+}
+.panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit {
+  align-self: flex-start;
+  color: #929292;
+  font-size: 16px;
+  gap: 5%;
+  padding: 5%;
+  position: relative;
+  opacity: 0.8;
+  transition: all 0.3s linear;
+  transform: scale(0.95);
+}
+.panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit i {
+  width: 12px;
+  height: 12px;
+  stroke-width: 1px;
+  stroke: #929292;
+}
+.panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+.panels .first_panels .create_survey_panel .created_surveys .survey .survey--caption {
+  color: #000;
+  font-size: 20px;
+  align-self: flex-end;
+  padding: 5%;
+  white-space: nowrap;
 }
 .panels .first_panels .create_survey_panel .survey_panel__pagination_arrows {
   display: flex;

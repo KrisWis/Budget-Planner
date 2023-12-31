@@ -11,7 +11,7 @@ from asyncpg import Connection
 """ Для приложений серверного типа, которые обрабатывают частые запросы и 
 которым требуется подключение к базе данных на короткий период времени при обработке запроса, рекомендуется использовать пул подключений. """
 from asyncpg.pool import Pool
-import json
+import uuid
 
 # Определеяем класс базы данных
 class Database:
@@ -77,10 +77,11 @@ class Database:
                             id SERIAL PRIMARY KEY,
                             name TEXT NOT NULL,
                             security_type TEXT,
-                            survey_questions TEXT);
+                            survey_questions TEXT,
+                            survey_id TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
-        print(await self.fetch("SELECT * from surveys"))
+        print(self.fetch("SELECT * FROM surveys"))
         print('Таблица опросов создана!')
 
 db = Database()
@@ -112,6 +113,14 @@ async def root(request: Request):
     await db.create_pool()
     await db.create_tables()
 
+    sql = '''SELECT survey_id FROM surveys'''
+    surveys_ids = await db.fetch(sql)
+    for id in surveys_ids:
+        @app.get(f"/survey-{id['survey_id']}", response_class=HTMLResponse)
+        async def survey_page(request: Request):
+            return templates.TemplateResponse("src/pages/survey_page.html", {"request": request})
+
+
     return templates.TemplateResponse("index.html", {"request": request})
 
 
@@ -125,12 +134,14 @@ class SaveSurveyRequest(BaseModel):
 @app.post("/api/save-survey")
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
-        print(str(request.survey_questions))
-        sql = '''INSERT INTO surveys (name, security_type, survey_questions) VALUES($1, $2, $3)'''
-        await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions))
+        survey_id = str(uuid.uuid4())
+        sql = '''INSERT INTO surveys (name, security_type, survey_questions, survey_id) VALUES($1, $2, $3, $4)'''
+        await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), survey_id)
 
-        # TODO: сделать для каждого опроса свой уникальный айдишник и уже из него делать ссылку.
+        @app.get(f"/survey-{survey_id}", response_class=HTMLResponse)
+        async def survey_page(request: Request):
+            return templates.TemplateResponse("src/pages/survey_page.html", {"request": request})
 
-        return {"link": f"/{request.survey_name}"}
+        return {"link": f"/survey-{survey_id}", "id": survey_id}
 
     return {"link": "/"}
