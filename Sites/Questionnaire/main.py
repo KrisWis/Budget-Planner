@@ -81,7 +81,7 @@ class Database:
                             survey_id TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
-        print(self.fetch("SELECT * FROM surveys"))
+        print(await self.fetch("SELECT * FROM surveys"))
         print('Таблица опросов создана!')
 
 db = Database()

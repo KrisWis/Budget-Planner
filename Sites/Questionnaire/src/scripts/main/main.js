@@ -33,6 +33,10 @@ const create_survey_page_name__input = document.getElementById("create_survey_pa
 const save__answers_error = document.getElementById("save--answers_error");
 const save__correct_error = document.getElementById("save--correct_error");
 const created_surveys = document.getElementById("created_surveys");
+const survey_panel__pagination__left_arrow = document.getElementById("survey_panel__pagination--left_arrow");
+const survey_panel__pagination__right_arrow = document.getElementById("survey_panel__pagination--right_arrow");
+let survey_panel__pagination__counter = 0;
+let existing_surveys_dict = {};
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el) {
     el.classList.add("hidden");
@@ -78,6 +82,27 @@ function answer_functions(create_question__preset_answer__edit, create_question_
         create_question_active.removeChild(question);
     });
 }
+function create_survey_pagination(first_arrow, second_arrow, array) {
+    if (!first_arrow.classList.contains("survey_panel__pagination__arrow--disabled")) {
+        second_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+        for (let survey_id of array) {
+            if (existing_surveys_dict[survey_id] == "select") {
+                document.getElementById(survey_id).classList.add("hidden");
+                existing_surveys_dict[survey_id] = "unselect";
+            }
+            else {
+                if (Object.values(existing_surveys_dict).filter(survey => survey == "select").length < 2) {
+                    document.getElementById(survey_id).classList.remove("hidden");
+                    existing_surveys_dict[survey_id] = "select";
+                    if (array[array.length - 1] == survey_id) {
+                        first_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 /* Создания qr кода на сайт */
 // @ts-ignore
 new QRCode(create_survey_page__share__qr, {
@@ -113,16 +138,22 @@ function getCookie(name) {
     let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+function deleteCookie(name) {
+    setCookie(name, "", {
+        'max-age': -1
+    });
+}
 // Создание ссылки на опрос в "Создать опрос"
 (function () {
-    const survey_links = JSON.parse(getCookie('survey_links')) || null;
+    let survey_links = getCookie('survey_links') || null;
     let create_link__request;
     if (survey_links) {
+        survey_links = JSON.parse(survey_links);
         for (let id in survey_links) {
             create_link__request =
-                `<a href="${survey_links[0]}" class="survey create__survey--hide_animation" id="survey--${id}">
+                `<a href="${survey_links[id][0]}" class="survey hidden create__survey--hide_animation" id="survey--${id}">
             
-                    <h3 class="survey--caption">${survey_links[1]}</h3>
+                    <h3 class="survey--caption">${survey_links[id][1]}</h3>
             
                     <div class="survey__edit">
                         <p>Редактировать</p>
@@ -130,8 +161,22 @@ function getCookie(name) {
                     </div>
                     
                 </a>`;
+            created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
         }
-        created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
+        document.querySelector(".survey").classList.remove("hidden");
+        let existing_surveys = created_surveys.children;
+        for (let el of existing_surveys) {
+            if (Array.from(existing_surveys).indexOf(el) > 1) {
+                existing_surveys_dict[el.id] = "unselect";
+            }
+            else {
+                existing_surveys_dict[el.id] = "select";
+            }
+        }
+        survey_panel__pagination__left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        if (existing_surveys.length <= 2) {
+            survey_panel__pagination__right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        }
     }
 }());
 //# sourceMappingURL=main.js.map

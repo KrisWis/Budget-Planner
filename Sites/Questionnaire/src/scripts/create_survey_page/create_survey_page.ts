@@ -354,31 +354,49 @@ create_questions__save.addEventListener("click", async function (): Promise<void
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
-        let response = await responseRequest.json();
+        let response: Response = await responseRequest.json();
 
-        const survey_link = response["link"];
-        const survey_id = response["id"];
-        const existing_surveys_links = JSON.parse(getCookie('survey_links')) || {};
+        const survey_link: string = response["link"];
+        const survey_id: string = response["id"];
+        let existing_surveys_links: any = getCookie('survey_links');
+        if (existing_surveys_links) {
+            existing_surveys_links = JSON.parse(existing_surveys_links);
+        } else {
+            existing_surveys_links = {};
+        }
         existing_surveys_links[survey_id] = [survey_link, survey_name];
 
-        setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000 });
-
         const create_link__request: string =
-            `<a href="${survey_link}" class="survey create__survey--hide_animation" id="survey--${survey_id}">
-    
-            <h3 class="survey--caption">${survey_name}</h3>
-    
-            <div class="survey__edit">
-                <p>Редактировать</p>
-                <i class="fa fa-edit" aria-hidden="true"></i>
-            </div>
+            `<a href="${survey_link}" class="survey hidden create__survey--hide_animation" id="survey--${survey_id}">
+
+                <h3 class="survey--caption">${survey_name}</h3>
+
+                <div class="survey__edit">
+                    <p>Редактировать</p>
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                </div>
             
-        </a>`;
+            </a>`;
 
         created_surveys.insertAdjacentHTML(`beforeend`,
             create_link__request
         );
 
+        setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000 });
+
+        let existing_surveys: HTMLCollection = created_surveys.children;
+        existing_surveys_dict = {};
+        for (let el of existing_surveys) {
+            if (Array.from(existing_surveys).indexOf(el) > 1) {
+                existing_surveys_dict[el.id] = "unselect";
+            } else {
+                existing_surveys_dict[el.id] = "select";
+            }
+        }
+
+        if (created_surveys.children.length <= 2) {
+            survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+        }
     } else {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
@@ -462,4 +480,15 @@ create_survey_page__share__link.addEventListener("click", async function () {
         create_survey_page__share__link__pop_up_window.classList.add("opacity-0");
     }, 1500);
     await navigator.clipboard.writeText(document.URL); // Записываем в буфер обмена ссылку на страницу
+})
+
+
+/* Функционал пагинации в блоке "Создать опрос" (правая стрелочка). */
+survey_panel__pagination__right_arrow.addEventListener("click", function (): void {
+    create_survey_pagination(survey_panel__pagination__right_arrow, survey_panel__pagination__left_arrow, Object.keys(existing_surveys_dict));
+});
+
+/* Функционал пагинации в блоке "Создать опрос" (левая стрелочка). */
+survey_panel__pagination__left_arrow.addEventListener("click", function (): void {
+    create_survey_pagination(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, Object.keys(existing_surveys_dict).reverse());
 })

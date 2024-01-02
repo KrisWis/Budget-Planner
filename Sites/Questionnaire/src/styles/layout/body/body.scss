@@ -91,6 +91,8 @@
         display: flex;
         gap: 5%;
         @extend %full_width_and_height;
+        min-width: 100%;
+        overflow: hidden;
 
         .create__survey {
           @extend %flex_full_center;
@@ -99,6 +101,7 @@
           background-color: #D9D9D9;
           border-radius: 16px;
           cursor: pointer;
+          transition: .3s all linear;
 
           i {
             cursor: pointer;
@@ -115,6 +118,8 @@
           border-radius: 16px;
           cursor: pointer;
           justify-content: space-between;
+          position: relative;
+          transition: .3s all linear;
 
           .survey__edit {
             @extend %flex_align_center;
@@ -123,7 +128,8 @@
             font-size: 16px;
             gap: 5%;
             padding: 5%;
-            position: relative;
+            position: fixed;
+            right: 0;
             opacity: .8;
             transition: all .3s linear;
             transform: scale(.95);
@@ -143,17 +149,19 @@
 
           .survey--caption {
             color: #000;
-            font-size: 20px;
+            font-size: 18px;
             align-self: flex-end;
             padding: 5%;
             white-space: nowrap;
+            position: fixed;
+            left: 0;
           }
         }
       }
 
       .survey_panel__pagination_arrows {
         display: flex;
-        margin-left: 40%;
+        margin-left: 36%;
         gap: 10%;
 
         .survey_panel__pagination__arrow {
@@ -164,6 +172,10 @@
           font-size: 14px;
           @extend %flex_full_center;
           cursor: pointer;
+        }
+
+        .survey_panel__pagination__arrow--disabled {
+          opacity: 0.3;
         }
       }
     }
@@ -760,4 +772,15 @@
 .create_survey--pop_up_window-survey_created {
   width: 20%;
   height: 10%;
+}
+
+/* Классы для анимаций */
+.create_survey__hidden--left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.create_survey__hidden--right {
+  transform: translateX(100%);
+  opacity: 0;
 }

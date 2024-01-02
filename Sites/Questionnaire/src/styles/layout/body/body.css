@@ -91,6 +91,8 @@
 .panels .first_panels .create_survey_panel .created_surveys {
   display: flex;
   gap: 5%;
+  min-width: 100%;
+  overflow: hidden;
 }
 .panels .first_panels .create_survey_panel .created_surveys .create__survey {
   width: 40%;
@@ -98,6 +100,7 @@
   background-color: #D9D9D9;
   border-radius: 16px;
   cursor: pointer;
+  transition: 0.3s all linear;
 }
 .panels .first_panels .create_survey_panel .created_surveys .create__survey i {
   cursor: pointer;
@@ -111,6 +114,8 @@
   border-radius: 16px;
   cursor: pointer;
   justify-content: space-between;
+  position: relative;
+  transition: 0.3s all linear;
 }
 .panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit {
   align-self: flex-start;
@@ -118,7 +123,8 @@
   font-size: 16px;
   gap: 5%;
   padding: 5%;
-  position: relative;
+  position: fixed;
+  right: 0;
   opacity: 0.8;
   transition: all 0.3s linear;
   transform: scale(0.95);
@@ -135,14 +141,16 @@
 }
 .panels .first_panels .create_survey_panel .created_surveys .survey .survey--caption {
   color: #000;
-  font-size: 20px;
+  font-size: 18px;
   align-self: flex-end;
   padding: 5%;
   white-space: nowrap;
+  position: fixed;
+  left: 0;
 }
 .panels .first_panels .create_survey_panel .survey_panel__pagination_arrows {
   display: flex;
-  margin-left: 40%;
+  margin-left: 36%;
   gap: 10%;
 }
 .panels .first_panels .create_survey_panel .survey_panel__pagination_arrows .survey_panel__pagination__arrow {
@@ -152,6 +160,9 @@
   border-radius: 50%;
   font-size: 14px;
   cursor: pointer;
+}
+.panels .first_panels .create_survey_panel .survey_panel__pagination_arrows .survey_panel__pagination__arrow--disabled {
+  opacity: 0.3;
 }
 .panels .first_panels .available_surveys_panel {
   margin-top: 15%;
@@ -644,4 +655,15 @@
 .create_survey--pop_up_window-survey_created {
   width: 20%;
   height: 10%;
+}
+
+/* Классы для анимаций */
+.create_survey__hidden--left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.create_survey__hidden--right {
+  transform: translateX(100%);
+  opacity: 0;
 }/*# sourceMappingURL=body.css.map */
