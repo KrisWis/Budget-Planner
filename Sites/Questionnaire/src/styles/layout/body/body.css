@@ -657,13 +657,4 @@
   height: 10%;
 }
 
-/* Классы для анимаций */
-.create_survey__hidden--left {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-.create_survey__hidden--right {
-  transform: translateX(100%);
-  opacity: 0;
-}/*# sourceMappingURL=body.css.map */
+/* Классы для анимаций *//*# sourceMappingURL=body.css.map */

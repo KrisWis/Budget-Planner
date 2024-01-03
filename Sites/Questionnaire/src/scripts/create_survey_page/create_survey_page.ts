@@ -367,7 +367,7 @@ create_questions__save.addEventListener("click", async function (): Promise<void
         existing_surveys_links[survey_id] = [survey_link, survey_name];
 
         const create_link__request: string =
-            `<a href="${survey_link}" class="survey hidden create__survey--hide_animation" id="survey--${survey_id}">
+            `<a href="${survey_link}" class="survey opacity-0 create__survey--hide_animation" id="survey--${survey_id}">
 
                 <h3 class="survey--caption">${survey_name}</h3>
 

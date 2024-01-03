@@ -87,12 +87,20 @@ function create_survey_pagination(first_arrow, second_arrow, array) {
         second_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
         for (let survey_id of array) {
             if (existing_surveys_dict[survey_id] == "select") {
-                document.getElementById(survey_id).classList.add("hidden");
+                document.getElementById(survey_id).classList.add("opacity-0");
                 existing_surveys_dict[survey_id] = "unselect";
+                setTimeout(() => {
+                    document.getElementById(survey_id).classList.add("hidden");
+                }, 300);
             }
             else {
                 if (Object.values(existing_surveys_dict).filter(survey => survey == "select").length < 2) {
-                    document.getElementById(survey_id).classList.remove("hidden");
+                    setTimeout(() => {
+                        document.getElementById(survey_id).classList.remove("hidden");
+                        setTimeout(() => {
+                            document.getElementById(survey_id).classList.remove("opacity-0");
+                        }, 300);
+                    }, 300);
                     existing_surveys_dict[survey_id] = "select";
                     if (array[array.length - 1] == survey_id) {
                         first_arrow.classList.add("survey_panel__pagination__arrow--disabled");
@@ -151,7 +159,7 @@ function deleteCookie(name) {
         survey_links = JSON.parse(survey_links);
         for (let id in survey_links) {
             create_link__request =
-                `<a href="${survey_links[id][0]}" class="survey hidden create__survey--hide_animation" id="survey--${id}">
+                `<a href="${survey_links[id][0]}" class="survey hidden opacity-0 create__survey--hide_animation" id="survey--${id}">
             
                     <h3 class="survey--caption">${survey_links[id][1]}</h3>
             
@@ -163,7 +171,9 @@ function deleteCookie(name) {
                 </a>`;
             created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
         }
-        document.querySelector(".survey").classList.remove("hidden");
+        let survey = document.querySelector(".survey");
+        survey.classList.remove("opacity-0");
+        unhide(survey);
         let existing_surveys = created_surveys.children;
         for (let el of existing_surveys) {
             if (Array.from(existing_surveys).indexOf(el) > 1) {
