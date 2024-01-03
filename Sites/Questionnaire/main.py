@@ -81,7 +81,7 @@ class Database:
                             survey_id TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
-        print(await self.fetch("SELECT * FROM surveys"))
+        #print(await self.fetch("SELECT * FROM surveys"))
         print('Таблица опросов создана!')
 
 db = Database()
@@ -118,19 +118,19 @@ async def root(request: Request):
     for id in surveys_ids:
         @app.get(f"/survey-{id['survey_id']}", response_class=HTMLResponse)
         async def survey_page(request: Request):
-            return templates.TemplateResponse("src/pages/survey_page.html", {"request": request})
+            return templates.TemplateResponse("survey_page.html", {"request": request})
 
 
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+# Запрос для сохранения опроса в бд
 class SaveSurveyRequest(BaseModel):
     survey_name: str
     survey_security_type: str
     survey_questions: dict
 
 
-# Запрос для сохранения опроса в бд
 @app.post("/api/save-survey")
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
@@ -140,8 +140,19 @@ async def save_survey(request: SaveSurveyRequest):
 
         @app.get(f"/survey-{survey_id}", response_class=HTMLResponse)
         async def survey_page(request: Request):
-            return templates.TemplateResponse("src/pages/survey_page.html", {"request": request})
+            return templates.TemplateResponse("survey_page.html", {"request": request})
 
         return {"link": f"/survey-{survey_id}", "id": survey_id}
 
     return {"link": "/"}
+
+
+# Запрос для получения данных об опросе по id
+class GetSurveyRequest(BaseModel):
+    survey_id: str
+
+
+@app.post("/api/get-survey")
+async def get_survey(request: GetSurveyRequest):
+    sql = 'SELECT * FROM surveys WHERE survey_id = $1'
+    return await db.fetchrow(sql, request.survey_id)

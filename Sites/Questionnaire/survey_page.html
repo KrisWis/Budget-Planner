@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content='Опросник'>
+    <meta name="keywords" content="html, css, js, ts, Questionnaire">
+    <meta name="author" content="Некрасов Евгений">
+    <link rel="shortcut icon" href="./icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="src/styles/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/styles/main/main.css">
+    <link rel="stylesheet" href="src/styles/layout/body/body.css">
+    <link rel="stylesheet" href="src/styles/adaptive/adaptive.css">
+    <link rel="stylesheet" href="src/styles/survey_page/survey_page.css">
+    <title content="Название сайта"></title>
+</head>
+<body itemscope itemtype="https://schema.org/WebPage">
+
+    <main>
+        <!-- Страница с созданием опроса -->
+        <article class="create_survey_page create_survey_type" id="create_survey_page">
+            
+            <section class="create_survey_page--types create_survey_type">
+
+                <!-- Страница выбора имени для опроса -->
+                <article class="create_survey_page--type create_survey_page__name create_survey_type" id="create_survey_page__name">
+                    <input class="create_survey_page_name__input create_survey_type" id="create_survey_page_name__input" type="text" value="Новый безымянный опрос">
+                    <button class="create_survey_page_name__edit create_survey_type" id="create_survey_page_name__edit">
+                        <i class="fa fa-edit create_survey_type" aria-hidden="true"></i>
+                    </button>
+                </article>
+
+                <!-- Страница выбора режима безопасности опроса -->
+                <article class="create_survey_page--type create_survey_page__security create_survey_type hidden" id="create_survey_page__security">
+
+                <!-- Анонимный опрос -->
+                <div class="create_survey_page__security--anonim create_survey_type">
+                    <i class="fa fa-user-secret create_survey_type create_survey_page--anonim__icon" aria-hidden="true"></i>
+                    <p class="create_survey_type">Анонимный опрос</p>
+                    <input class="create_survey_type create_survey_page--anonim__checkbox" id="anonim__checkbox" type="checkbox" value="secret">
+                </div>
+
+                <!-- Повышение безопасности -->
+                <div class="create_survey_page__security--upp_security create_survey_type">
+                    <i class="fa fa-shield create_survey_type create_survey_page--upp_security__icon" aria-hidden="true"></i>
+                    <p class="create_survey_type">Повысить безопасность</p>
+                    <input class="create_survey_type create_survey_page--upp_security__checkbox" id="upp_security__checkbox" type="checkbox" value="secret">
+                </div>
+                </article> 
+
+                <!-- Страница создания вопросов для опроса -->
+                <article class="create_survey_page__create_question hidden" id="create_survey_page__create_question">
+
+                <div class="create_question__types">
+                    <i class="fa fa-user-secret" id="create_question__types--anonim" aria-hidden="true"></i>
+                    <i class="fa fa-shield" id="create_question__types--upp_security" aria-hidden="true"></i>
+                </div>
+
+                <div class="create_questions" id="create_questions">
+
+                    <div class="create_question_active" id="create_question_active--2">
+
+                    <section class="create_question__header" id="create_question__header">
+
+                        <address class="create_question__header--name">
+                            <input class="create_question__header--input" type="text" value="Вопрос без заголовка">
+                            <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
+                        </address>
+
+                        <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc--2" aria-hidden="true"></i>
+
+                        <address class="create_question__header--desc hidden" id="create_question__header--desc--2">
+                            <input class="create_question__header--input" type="text" value="Подробный текст вопроса">
+                            <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
+                        </address>
+
+                    </section>
+
+                    <div class="create_question__add_answer" id="create_question__add_answer">
+                        <i class="fa fa-plus create_question__add_answer--icon" aria-hidden="true"></i>
+                        <p>Ответ</p>
+                    </div>
+                    
+                    </div>
+
+                    <div class="create_question" id="create_question">
+                        <i id="create_question--icon" class="fa fa-plus create_question--add" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="create_survey_page__save--errors">
+                        <strong class="hidden" id="save--answers_error">Должно быть хотя бы 2 варианта ответа!</strong>
+                        <strong class="hidden" id="save--correct_error">Один ответ должен быть правильным!</strong>
+                    </div>
+
+                    <button class="create_questions--save" id="create_questions--save">Сохранить</button>
+                </div>
+
+                </article>
+            </section>
+
+            <section class="create_survey_page__end hidden" id="create_survey_page__end">
+
+                <address class="create_survey_page__share_block">
+
+                <div class="create_survey_page__share--qr create_survey_page__share">
+                    <div id="create_survey_page__share--qr" class="create_survey_page__share--qr" aria-hidden="true"></div>
+                    <p class="create_survey_page__share--text">Поделиться QR-кодом</p>
+                </div>
+
+                <div class="create_survey_page__share--link create_survey_page__share" id="create_survey_page__share--link">
+                    <i class="fa fa-link create_survey_page__share--icon create_survey_page__share_link--icon" aria-hidden="true"></i>
+                    <p class="create_survey_page__share--text create_survey_page__share_link--text">Поделиться ссылкой</p>
+
+                    <dialog class="create_survey_page__share__link--pop_up_window opacity-0" id="create_survey_page__share__link--pop_up_window">
+                        <p>Ссылка скопирована! <i class="fa fa-check" aria-hidden="true"></i></p>
+                    </dialog>
+                </div>
+
+                </address>
+
+            </section>
+
+            <button class="create_survey_page__continue create_survey" id="create_survey_page__continue">Продолжить</button>
+        </article>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <script src="src/scripts/main/main.js"></script>
+    <script src="src/scripts/create_survey_page/create_survey_page.js"></script>
+    <script src="src/scripts/survey_page/survey_page.js" type="module"></script>
+</body>
+</html>

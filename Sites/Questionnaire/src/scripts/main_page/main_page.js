@@ -26,4 +26,12 @@ create__survey.addEventListener("click", function () {
         });
     }, 700);
 });
+/* Функционал пагинации в блоке "Создать опрос" (правая стрелочка). */
+survey_panel__pagination__right_arrow.addEventListener("click", function () {
+    create_survey_pagination(survey_panel__pagination__right_arrow, survey_panel__pagination__left_arrow, Object.keys(existing_surveys_dict));
+});
+/* Функционал пагинации в блоке "Создать опрос" (левая стрелочка). */
+survey_panel__pagination__left_arrow.addEventListener("click", function () {
+    create_survey_pagination(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, Object.keys(existing_surveys_dict).reverse());
+});
 //# sourceMappingURL=main_page.js.map
