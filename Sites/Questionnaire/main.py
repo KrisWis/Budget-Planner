@@ -149,10 +149,10 @@ async def save_survey(request: SaveSurveyRequest):
 
 # Запрос для получения данных об опросе по id
 class GetSurveyRequest(BaseModel):
-    survey_id: str
+    survey_question_id: str
 
 
 @app.post("/api/get-survey")
 async def get_survey(request: GetSurveyRequest):
     sql = 'SELECT * FROM surveys WHERE survey_id = $1'
-    return await db.fetchrow(sql, request.survey_id)
+    return await db.fetchrow(sql, request.survey_question_id)

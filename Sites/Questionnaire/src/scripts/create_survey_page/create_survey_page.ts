@@ -73,89 +73,91 @@ function page_name_continue(): void {
 create_survey_page__continue.addEventListener("click", page_name_continue);
 
 /* Добавление меню выбора типа ответа по нажатию соответствующей кнопки. */
-create_question__add_answer.addEventListener("click", function (): void {
+if (create_question__add_answer) {
+    create_question__add_answer.addEventListener("click", function (): void {
 
-    create_question__answers_count++;
+        create_question__answers_count++;
 
-    /* Создание вопроса */
-    const create_question__request: string =
-        `<div class="create_question__answer_types" id="create_question--2--answer_types--${create_question__answers_count}">
-
-            <div class="create_question__answer_types--delete" id="create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}">
-                <i class="fa fa-close" aria-hidden="true"></i>
-            </div>
-
-            <div class="create_question__answer_type answer_types--preset_answer">
-
-                <div class="create_question--preset_answer__interface">
-                    <i class="fa fa-address-book-o create_question__answer_type--icon" aria-hidden="true"></i>
-                    <p class="create_question__answer_type--caption">Предустановленный ответ</p>
-                    <input class="create_question__answer_type--radio" type="radio" id="create_question__preset_answer--checkbox--${create_question__answers_count}">
+        /* Создание вопроса */
+        const create_question__request: string =
+            `<div class="create_question__answer_types" id="create_question--2--answer_types--${create_question__answers_count}">
+    
+                <div class="create_question__answer_types--delete" id="create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}">
+                    <i class="fa fa-close" aria-hidden="true"></i>
                 </div>
-
-                <div class="create_question--preset_answer__menu hidden" id="create_question--preset_answer__menu--${create_question__answers_count}">
-
-                    <div class="create_question--preset_answer__text">
-                        <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--preset_answer__input--${create_question__answers_count}">
-                        <i class="fa fa-pencil create_question__header--edit" aria-hidden="true" id="create_question--preset_answer__edit--${create_question__answers_count}"></i>
+    
+                <div class="create_question__answer_type answer_types--preset_answer">
+    
+                    <div class="create_question--preset_answer__interface">
+                        <i class="fa fa-address-book-o create_question__answer_type--icon" aria-hidden="true"></i>
+                        <p class="create_question__answer_type--caption">Предустановленный ответ</p>
+                        <input class="create_question__answer_type--radio" type="radio" id="create_question__preset_answer--checkbox--${create_question__answers_count}">
                     </div>
-
-                    <div class="create_question--preset_answer__correct_answer">
-                        <p>Это правильный ответ</p>
-                        <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
-                        <label for="preset_answer__correct_answer--checkbox"></label>
+    
+                    <div class="create_question--preset_answer__menu hidden" id="create_question--preset_answer__menu--${create_question__answers_count}">
+    
+                        <div class="create_question--preset_answer__text">
+                            <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--preset_answer__input--${create_question__answers_count}">
+                            <i class="fa fa-pencil create_question__header--edit" aria-hidden="true" id="create_question--preset_answer__edit--${create_question__answers_count}"></i>
+                        </div>
+    
+                        <div class="create_question--preset_answer__correct_answer">
+                            <p>Это правильный ответ</p>
+                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <label for="preset_answer__correct_answer--checkbox"></label>
+                        </div>
+    
                     </div>
-
+    
                 </div>
-
-            </div>
-
-            <div class="create_question__answer_type answer_types--open_answer">
-
-                <div class="create_question--open_answer__interface">
-                    <i class="fa fa-address-card-o create_question__answer_type--icon" aria-hidden="true"></i>
-                    <p class="create_question__answer_type--caption">Форма открытого ответа</p>
-                    <input class="create_question__answer_type--radio" type="radio" id="create_question__open_answer--checkbox--${create_question__answers_count}">
-                </div>
-
-                <div class="create_question--open_answer__menu hidden" id="create_question--open_answer__menu--${create_question__answers_count}">
-
-                    <div class="create_question--open_answer__text">
-                        <input class="create_question__open_answer--input" type="text" placeholder="Тут пользователь сможет ввести свой ответ" id="create_question--open_answer__input--${create_question__answers_count}">
+    
+                <div class="create_question__answer_type answer_types--open_answer">
+    
+                    <div class="create_question--open_answer__interface">
+                        <i class="fa fa-address-card-o create_question__answer_type--icon" aria-hidden="true"></i>
+                        <p class="create_question__answer_type--caption">Форма открытого ответа</p>
+                        <input class="create_question__answer_type--radio" type="radio" id="create_question__open_answer--checkbox--${create_question__answers_count}">
                     </div>
-
-                    <div class="create_question--open_answer__correct_answer">
-                        <p>Это правильный ответ</p>
-                        <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
-                        <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
+    
+                    <div class="create_question--open_answer__menu hidden" id="create_question--open_answer__menu--${create_question__answers_count}">
+    
+                        <div class="create_question--open_answer__text">
+                            <input class="create_question__open_answer--input" type="text" placeholder="Тут пользователь сможет ввести свой ответ" id="create_question--open_answer__input--${create_question__answers_count}">
+                        </div>
+    
+                        <div class="create_question--open_answer__correct_answer">
+                            <p>Это правильный ответ</p>
+                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
+                        </div>
+    
                     </div>
-
+    
                 </div>
+    
+            </div>`;
 
-            </div>
+        create_question__header.insertAdjacentHTML(`afterend`,
+            create_question__request
+        );
 
-        </div>`;
+        /* Объявление переменных, созданных после создания опроса и активация функций в создании ответа */
+        const create_question__preset_answer__input: HTMLElement = document.getElementById(`create_question--preset_answer__input--${create_question__answers_count}`);
+        const create_question__preset_answer__edit: HTMLElement = document.getElementById(`create_question--preset_answer__edit--${create_question__answers_count}`);
+        const create_question__preset_answer__checkbox: HTMLElement = document.getElementById(`create_question__preset_answer--checkbox--${create_question__answers_count}`);
+        const create_question__preset_answer__menu: HTMLElement = document.getElementById(`create_question--preset_answer__menu--${create_question__answers_count}`);
+        const create_question__open_answer__checkbox: HTMLElement = document.getElementById(`create_question__open_answer--checkbox--${create_question__answers_count}`);
+        const create_question__open_answer__menu: HTMLElement = document.getElementById(`create_question--open_answer__menu--${create_question__answers_count}`);
+        const create_question__delete: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}`);
+        const question: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--${create_question__answers_count}`);
+        const create_question_active: HTMLElement = document.getElementById("create_question_active--${create_question__count}");
 
-    create_question__header.insertAdjacentHTML(`afterend`,
-        create_question__request
-    );
+        answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
+            create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
+            create_question_active, question);
+    })
 
-    /* Объявление переменных, созданных после создания опроса и активация функций в создании ответа */
-    const create_question__preset_answer__input: HTMLElement = document.getElementById(`create_question--preset_answer__input--${create_question__answers_count}`);
-    const create_question__preset_answer__edit: HTMLElement = document.getElementById(`create_question--preset_answer__edit--${create_question__answers_count}`);
-    const create_question__preset_answer__checkbox: HTMLElement = document.getElementById(`create_question__preset_answer--checkbox--${create_question__answers_count}`);
-    const create_question__preset_answer__menu: HTMLElement = document.getElementById(`create_question--preset_answer__menu--${create_question__answers_count}`);
-    const create_question__open_answer__checkbox: HTMLElement = document.getElementById(`create_question__open_answer--checkbox--${create_question__answers_count}`);
-    const create_question__open_answer__menu: HTMLElement = document.getElementById(`create_question--open_answer__menu--${create_question__answers_count}`);
-    const create_question__delete: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}`);
-    const question: HTMLElement = document.getElementById(`create_question--2--answer_types--${create_question__answers_count}`);
-    const create_question_active: HTMLElement = document.getElementById("create_question_active--2");
-
-    answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
-        create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
-        create_question_active, question);
-})
-
+}
 
 /* Функционал добавления нового вопроса */
 create_question.addEventListener("click", function (): void {
@@ -174,7 +176,7 @@ create_question.addEventListener("click", function (): void {
                 <i class="fa fa-plus create_question__header--add_desc" id="create_question_header--add_desc--${create_question__count}" aria-hidden="true"></i>
 
                 <address class="create_question__header--desc hidden" id="create_question__header--desc--${create_question__count}">
-                    <input class="create_question__header--input create_question__header--desc" type="text" value="Подробный текст вопроса">
+                    <input class="create_question__header--input create_question__header--desc_input" type="text" value="Подробный текст вопроса">
                     <i class="fa fa-pencil create_question__header--edit" aria-hidden="true"></i>
                 </address>
 
@@ -201,91 +203,10 @@ create_question.addEventListener("click", function (): void {
     /* Добавление меню выбора типа ответа по нажатию соответствующей кнопки. */
     const create_question__add_answer: HTMLElement = document.getElementById(`create_question__add_answer--${create_question__count}`);
     const create_question__header: HTMLElement = document.getElementById(`create_question__header--${create_question__count}`);
-    create_question__answers_count = 0;
-    create_question__add_answer.addEventListener("click", function (): void {
-
-        create_question__answers_count++;
-
-        /* Создание вопроса */
-        const create_question__request: string =
-            `<div class="create_question__answer_types" id="create_question--${create_question__count}--answer_types--${create_question__answers_count}">
-
-                <div class="create_question__answer_types--delete" id="create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}">
-                    <i class="fa fa-close" aria-hidden="true"></i>
-                </div>
-
-                <div class="create_question__answer_type answer_types--preset_answer">
-
-                    <div class="create_question--preset_answer__interface">
-                        <i class="fa fa-address-book-o create_question__answer_type--icon" aria-hidden="true"></i>
-                        <p class="create_question__answer_type--caption">Предустановленный ответ</p>
-                        <input class="create_question__answer_type--radio" type="radio" id="create_question--${create_question__count}__preset_answer--checkbox--${create_question__answers_count}">
-                    </div>
-
-                    <div class="create_question--preset_answer__menu hidden" id="create_question--${create_question__count}--preset_answer__menu--${create_question__answers_count}">
-
-                        <div class="create_question--preset_answer__text">
-                            <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--${create_question__count}--preset_answer__input--${create_question__answers_count}">
-                            <i class="fa fa-pencil create_question__header--edit" aria-hidden="true" id="create_question--${create_question__count}--preset_answer__edit--${create_question__answers_count}"></i>
-                        </div>
-
-                        <div class="create_question--preset_answer__correct_answer">
-                            <p>Это правильный ответ</p>
-                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
-                            <label for="preset_answer__correct_answer--checkbox"></label>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="create_question__answer_type answer_types--open_answer">
-
-                    <div class="create_question--open_answer__interface">
-                        <i class="fa fa-address-card-o create_question__answer_type--icon" aria-hidden="true"></i>
-                        <p class="create_question__answer_type--caption">Форма открытого ответа</p>
-                        <input class="create_question__answer_type--radio" type="radio" id="create_question--${create_question__count}__open_answer--checkbox--${create_question__answers_count}">
-                    </div>
-
-                    <div class="create_question--open_answer__menu hidden" id="create_question--${create_question__count}--open_answer__menu--${create_question__answers_count}">
-
-                        <div class="create_question--open_answer__text">
-                            <input class="create_question__open_answer--input" type="text" placeholder="Тут пользователь сможет ввести свой ответ" id="create_question--${create_question__count}--open_answer__input--${create_question__answers_count}">
-                        </div>
-
-                        <div class="create_question--open_answer__correct_answer">
-                            <p>Это правильный ответ</p>
-                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
-                            <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
-                        </div>
-
-                    </div>
-
-                </div>
-
-        </div>`;
-
-        create_question__header.insertAdjacentHTML(`afterend`,
-            create_question__request
-        );
-
-
-        /* Объявление переменных, созданных после создания опроса и активация функций в создании ответа */
-        const create_question__preset_answer__input: HTMLElement = document.getElementById(`create_question--${create_question__count}--preset_answer__input--${create_question__answers_count}`);
-        const create_question__preset_answer__edit: HTMLElement = document.getElementById(`create_question--${create_question__count}--preset_answer__edit--${create_question__answers_count}`);
-        const create_question__preset_answer__checkbox: HTMLElement = document.getElementById(`create_question--${create_question__count}__preset_answer--checkbox--${create_question__answers_count}`);
-        const create_question__preset_answer__menu: HTMLElement = document.getElementById(`create_question--${create_question__count}--preset_answer__menu--${create_question__answers_count}`);
-        const create_question__open_answer__checkbox: HTMLElement = document.getElementById(`create_question--${create_question__count}__open_answer--checkbox--${create_question__answers_count}`);
-        const create_question__open_answer__menu: HTMLElement = document.getElementById(`create_question--${create_question__count}--open_answer__menu--${create_question__answers_count}`);
-        const create_question__delete: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}`);
-        const question: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--${create_question__answers_count}`);
-        const create_question_active: HTMLElement = document.getElementById(`create_question_active--${create_question__count}`);
-
-        answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
-            create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
-            create_question_active, question);
-    })
+    create_answer(create_question__add_answer, create_question__header, create_question__count);
 })
+
+// TODO: сделать так, чтобы проверялось не наличие правильного ответа вообще, а в каждом вопросе.
 
 /* Функция конечного "Сохранить" */
 async function page_end_continue(): Promise<void> {
@@ -323,25 +244,25 @@ async function page_end_continue(): Promise<void> {
     for (let question of questions) {
         let question_id: string = (question as HTMLElement).id;
         let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
-        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc`) as HTMLInputElement).value;
-
+        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
         let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
         let all_answers: Answer = {};
+
         for (let answer of answers) {
             let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
             let answer_type: string;
             if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
                 answer_type = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
             } else {
-                answer_type = "string";
+                answer_type = "open";
             }
 
             let answer_correct: boolean;
 
             if (answer_type == 'preset') {
-                answer_correct = (document.querySelector(`#${question_id} .create_question__open_answer--checkbox`) as HTMLInputElement).checked;
+                answer_correct = (document.getElementById(`preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
             } else {
-                answer_correct = (document.querySelector(`#${question_id} .create_question__preset_answer--checkbox`) as HTMLInputElement).checked;
+                answer_correct = (document.getElementById(`open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
             }
 
             let answer_text: string = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
@@ -391,6 +312,10 @@ async function page_end_continue(): Promise<void> {
         created_surveys.insertAdjacentHTML(`beforeend`,
             create_link__request
         );
+
+        let survey: HTMLElement = document.querySelector(".survey");
+        survey.classList.remove("opacity-0");
+        unhide(survey);
 
         setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000 });
 
