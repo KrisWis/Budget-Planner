@@ -75,36 +75,6 @@ header p {
   width: 200px;
 }
 
-.overlay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.drawer {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 420px;
-  height: 100%;
-  right: 0;
-  background: #ffffff;
-  box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-}
-.drawer .items {
-  flex: 1;
-  overflow: auto;
-  margin-bottom: 40px;
-}
-.drawer h2 {
-  margin: 0;
-}
-
 .cartTotalBlock ul {
   display: block;
   margin-bottom: 40px !important;
@@ -124,6 +94,9 @@ header p {
 }
 .cartTotalBlock .greenButton {
   position: relative;
+}
+.cartTotalBlock .greenButton:disabled {
+  animation: button-loading 0.6s ease-in-out infinite;
 }
 .cartTotalBlock .greenButton:hover img {
   transform: translateX(5px);
@@ -146,6 +119,10 @@ header p {
   font-weight: 500;
   cursor: pointer;
   transition: background 0.1s ease-in-out;
+}
+.greenButton:disabled {
+  background-color: #bebebe !important;
+  cursor: default;
 }
 .greenButton:hover {
   background: #a9da6c;
@@ -182,4 +159,16 @@ header p {
 }
 .cartItem .removeBtn:hover {
   opacity: 1;
+}
+
+@keyframes button-loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
 }/*# sourceMappingURL=index.css.map */
