@@ -201,12 +201,15 @@ function ceate_survey__end_continue(func) {
             }, 3000);
             return;
         }
-        if (Array.from(document.querySelectorAll(".create_question--correct_checkbox")).filter((v) => v.checked).length != 1) {
-            save__correct_error.classList.remove("hidden");
-            setTimeout(() => {
-                save__correct_error.classList.add("hidden");
-            }, 3000);
-            return;
+        let questions = document.querySelectorAll(".create_question_active");
+        for (let question of questions) {
+            if (Array.from(document.querySelectorAll(`#${question.id} .create_question--correct_checkbox`)).filter((v) => v.checked).length != 1) {
+                save__correct_error.classList.remove("hidden");
+                setTimeout(() => {
+                    save__correct_error.classList.add("hidden");
+                }, 3000);
+                return;
+            }
         }
         create_survey_page__create_question.classList.add("page_name--class", "opacity-0");
         setTimeout(() => {

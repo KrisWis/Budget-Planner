@@ -78,7 +78,8 @@ class Database:
                             name TEXT NOT NULL,
                             security_type TEXT,
                             survey_questions TEXT,
-                            survey_id TEXT);
+                            survey_id TEXT,
+                            creator_id TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
         #print(await self.fetch("SELECT * FROM surveys"))
@@ -129,20 +130,21 @@ class SaveSurveyRequest(BaseModel):
     survey_name: str
     survey_security_type: str
     survey_questions: dict
+    creator_id: str
 
 
 @app.post("/api/save-survey")
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
         survey_id = str(uuid.uuid4())
-        sql = 'INSERT INTO surveys (name, security_type, survey_questions, survey_id) VALUES($1, $2, $3, $4)'
-        await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), survey_id)
+        sql = 'INSERT INTO surveys (name, security_type, survey_questions, survey_id, creator_id) VALUES($1, $2, $3, $4, $5)'
+        await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), survey_id, request.creator_id)
 
-        @app.get(f"/survey-{survey_id}", response_class=HTMLResponse)
+        @app.get(f"/edit_survey--{survey_id}", response_class=HTMLResponse)
         async def survey_page(request: Request):
             return templates.TemplateResponse("survey_page.html", {"request": request})
 
-        return {"link": f"/survey-{survey_id}", "id": survey_id}
+        return {"link": f"/edit_survey--{survey_id}", "id": survey_id}
 
     return {"link": "/"}
 
@@ -175,3 +177,14 @@ async def update_survey(request: UpdateSurveyRequest):
         return {"OK": True}
 
     return {"OK": False}
+
+
+# Запрос для получения id создателя опроса по id опроса
+class GetSurveyCreatorIDRequest(BaseModel):
+    survey_id: str
+
+
+@app.post("/api/get-survey-creatorID")
+async def get_survey_creatorID(request: GetSurveyCreatorIDRequest):
+    sql = 'SELECT creator_id FROM surveys WHERE survey_id = $1'
+    return await db.fetchrow(sql, request.survey_id)

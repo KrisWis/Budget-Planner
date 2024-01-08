@@ -162,6 +162,9 @@ create_question.addEventListener("click", function (): void {
     create_question__count++;
 
     /* Создание вопроса */
+    while (document.getElementById(`create_question_active--${create_question__count}`)) {
+        create_question__count++;
+    }
     const create_question__request: string =
         `<div class="create_question_active" id="create_question_active--${create_question__count}">
             <section class="create_question__header" id="create_question__header--${create_question__count}">
@@ -203,8 +206,6 @@ create_question.addEventListener("click", function (): void {
     const create_question__header: HTMLElement = document.getElementById(`create_question__header--${create_question__count}`);
     create_answer(create_question__add_answer, create_question__header, create_question__count);
 })
-
-// TODO: сделать так, чтобы проверялось не наличие правильного ответа вообще, а в каждом вопросе.
 
 /* Функция конечного "Сохранить" */
 async function page_end_continue(): Promise<void> {
@@ -274,14 +275,23 @@ async function page_end_continue(): Promise<void> {
             all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
         }
 
+        // Сохраняем id юзера в куки
+        let user_id: string = "id-" + Math.random().toString(16).slice(2);
+        if (!getCookie("user_id")) {
+            setCookie('user_id', JSON.stringify(user_id), { secure: true, 'max-age': 360000000 });
+        } else {
+            user_id = getCookie("user_id");
+        }
+
         // Сохранение опроса в бд
         const survey_name: string = getCookie("survey_name");
+
         let responseRequest = await fetch('api/save-survey', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
+            body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, creator_id: user_id })
         });
 
         if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
@@ -330,7 +340,7 @@ async function page_end_continue(): Promise<void> {
                 }
             }
 
-            if (created_surveys.children.length <= 2) {
+            if (created_surveys.children.length == 3) {
                 survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
             }
         } else {

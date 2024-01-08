@@ -1,11 +1,32 @@
+// Базовые данные
+const survey_id = window.location.href.split("/")[3].split("--")[1];
+const user_id = getCookie("user_id");
 /* Берём данные из бд по id этого опроса и вставляем эти данные в страницу */
-const survey_id = window.location.href.split("/")[3].slice(7, 1000);
 let survey_name;
 anonim__checkbox = document.getElementById("anonim__checkbox");
 upp_security__checkbox = document.getElementById("upp_security__checkbox");
 create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
 create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 (async function () {
+    // Если id юзера не равно id создателя опроса, то отбираем доступ к странице у этого злоумышленника
+    let responseRequest_creatorID = await fetch('api/get-survey-creatorID', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ survey_id: survey_id })
+    });
+    if (responseRequest_creatorID.ok) { // если HTTP-статус в диапазоне 200-299
+        let response = await responseRequest_creatorID.json();
+        if (user_id != response.creator_id) {
+            alert("Вы не имеете доступа к этой странице!");
+            window.location.href = "/";
+        }
+    }
+    else {
+        alert(`Ошибка создания ${responseRequest_creatorID.status}: ${responseRequest_creatorID.statusText}`);
+    }
+    // Получаем данные опроса из бд
     let responseRequest = await fetch('api/get-survey', {
         method: 'POST',
         headers: {
@@ -30,7 +51,6 @@ create_question__types_upp_security__icon = document.getElementById("create_ques
         let survey_questions = eval('(' + response.survey_questions + ')');
         for (let id in obj_reverse(survey_questions)) {
             const question_id = id.split("--")[1];
-            // TODO: сделать так, чтобы у каждого опроса сохранялся идентфикатор создателя и url был edit-survey и проверка на то, что зашёл создатель, другой юзер бы не смог.
             const survey_questions_request = `<div class="create_question_active" id="create_question_active--${question_id}">
                     <section class="create_question__header" id="create_question__header--${question_id}">
 
@@ -56,7 +76,6 @@ create_question__types_upp_security__icon = document.getElementById("create_ques
             const create_question__header = document.getElementById(`create_question__header--${question_id}`);
             create_answer(create_question__add_answer, create_question__header, question_id);
             // Создание старых ответов
-            // TODO: сделать так, чтобы инпут в выборе имени имел нормальную анимацию
             const question_answers = survey_questions[id]["answers"];
             for (let answer_id in question_answers) {
                 const survey_answers_request = `<div class="create_question__answer_types" id="create_question--${question_id}--answer_types--${answer_id}">
@@ -212,5 +231,4 @@ async function end_continue() {
     }
 }
 ceate_survey__end_continue(end_continue);
-// TODO: чекнуть баг с тем, что иногда вопрос не получается создать
 //# sourceMappingURL=survey_page.js.map
