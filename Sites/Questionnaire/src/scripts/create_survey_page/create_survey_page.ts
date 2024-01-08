@@ -9,29 +9,27 @@ function page_survey_continue(): void {
         unhide(create_survey_page__create_question);
 
         // Если опция была выбрана, то пусть будет окрашена в синий.
+
         if ((anonim__checkbox as HTMLInputElement).checked && (upp_security__checkbox as HTMLInputElement).checked) {
+            create_question__types_anonim__icon.classList.add("create_question__type--active");
+            create_question__types_upp_security__icon.classList.add("create_question__type--active");
 
-            if ((anonim__checkbox as HTMLInputElement).checked && (upp_security__checkbox as HTMLInputElement).checked) {
-                create_question__types_anonim__icon.classList.add("create_question__type--active");
-                create_question__types_upp_security__icon.classList.add("create_question__type--active");
+            /* Сохранение типа опроса в Cookie */
+            setCookie('survey_security_type', 'all', { secure: true, 'max-age': 3600 });
+        }
 
-                /* Сохранение типа опроса в Cookie */
-                setCookie('survey_security_type', 'all', { secure: true, 'max-age': 3600 });
-            }
+        else if ((anonim__checkbox as HTMLInputElement).checked) {
+            create_question__types_anonim__icon.classList.add("create_question__type--active");
 
-            else if ((anonim__checkbox as HTMLInputElement).checked) {
-                create_question__types_anonim__icon.classList.add("create_question__type--active");
+            /* Сохранение типа опроса в Cookie */
+            setCookie('survey_security_type', 'anonim', { secure: true, 'max-age': 3600 });
+        }
 
-                /* Сохранение типа опроса в Cookie */
-                setCookie('survey_security_type', 'anonim', { secure: true, 'max-age': 3600 });
-            }
+        else if ((upp_security__checkbox as HTMLInputElement).checked) {
+            create_question__types_upp_security__icon.classList.add("create_question__type--active");
 
-            else if ((upp_security__checkbox as HTMLInputElement).checked) {
-                create_question__types_upp_security__icon.classList.add("create_question__type--active");
-
-                /* Сохранение типа опроса в Cookie */
-                setCookie('survey_security_type', 'upp_security', { secure: true, 'max-age': 3600 });
-            }
+            /* Сохранение типа опроса в Cookie */
+            setCookie('survey_security_type', 'upp_security', { secure: true, 'max-age': 3600 });
         } else {
             setCookie('survey_security_type', 'none', { secure: true, 'max-age': 3600 });
         }
@@ -232,73 +230,76 @@ async function page_end_continue(): Promise<void> {
         }, 700);
     }
 
-    create_survey__pop_up_window_survey_created.classList.remove("opacity-0");
-    setTimeout(() => {
-        create_survey__pop_up_window_survey_created.classList.add("opacity-0");
-    }, 1500);
+    if (create_survey__pop_up_window_survey_created) {
 
-    /* Сохранение имени и описания вопросов */
-    const questions: NodeList = document.querySelectorAll(".create_question_active");
 
-    let all_questions: Question = {};
-    for (let question of questions) {
-        let question_id: string = (question as HTMLElement).id;
-        let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
-        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
-        let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
-        let all_answers: Answer = {};
+        create_survey__pop_up_window_survey_created.classList.remove("opacity-0");
+        setTimeout(() => {
+            create_survey__pop_up_window_survey_created.classList.add("opacity-0");
+        }, 1500);
 
-        for (let answer of answers) {
-            let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
-            let answer_type: string;
-            if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
-                answer_type = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
-            } else {
-                answer_type = "open";
+        /* Сохранение имени и описания вопросов */
+        const questions: NodeList = document.querySelectorAll(".create_question_active");
+
+        let all_questions: Question = {};
+        for (let question of questions) {
+            let question_id: string = (question as HTMLElement).id;
+            let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
+            let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
+            let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
+            let all_answers: Answer = {};
+
+            for (let answer of answers) {
+                let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
+                let answer_type: string;
+                if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
+                    answer_type = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
+                } else {
+                    answer_type = "open";
+                }
+
+                let answer_correct: boolean;
+
+                if (answer_type == 'preset') {
+                    answer_correct = (document.getElementById(`preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+                } else {
+                    answer_correct = (document.getElementById(`open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+                }
+
+                let answer_text: string = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
+
+                all_answers[`${answers_id}`] = { type: answer_type, correct: String(answer_correct), answer_text: answer_text };
             }
 
-            let answer_correct: boolean;
+            all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
+        }
 
-            if (answer_type == 'preset') {
-                answer_correct = (document.getElementById(`preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+        // Сохранение опроса в бд
+        const survey_name: string = getCookie("survey_name");
+        let responseRequest = await fetch('api/save-survey', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
+        });
+
+        if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
+
+            let response: Response = await responseRequest.json();
+
+            const survey_link: string = response["link"];
+            const survey_id: string = response["id"];
+            let existing_surveys_links: any = getCookie('survey_links');
+            if (existing_surveys_links) {
+                existing_surveys_links = JSON.parse(existing_surveys_links);
             } else {
-                answer_correct = (document.getElementById(`open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+                existing_surveys_links = {};
             }
+            existing_surveys_links[survey_id] = [survey_link, survey_name];
 
-            let answer_text: string = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
-
-            all_answers[`${answers_id}`] = { type: answer_type, correct: String(answer_correct), answer_text: answer_text };
-        }
-
-        all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
-    }
-
-    // Сохранение опроса в бд
-    const survey_name: string = getCookie("survey_name");
-    let responseRequest = await fetch('api/save-survey', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions })
-    });
-
-    if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
-
-        let response: Response = await responseRequest.json();
-
-        const survey_link: string = response["link"];
-        const survey_id: string = response["id"];
-        let existing_surveys_links: any = getCookie('survey_links');
-        if (existing_surveys_links) {
-            existing_surveys_links = JSON.parse(existing_surveys_links);
-        } else {
-            existing_surveys_links = {};
-        }
-        existing_surveys_links[survey_id] = [survey_link, survey_name];
-
-        const create_link__request: string =
-            `<a href="${survey_link}" class="survey opacity-0 hidden create__survey--hide_animation" id="survey--${survey_id}">
+            const create_link__request: string =
+                `<a href="${survey_link}" class="survey opacity-0 hidden create__survey--hide_animation" id="survey--${survey_id}">
 
                 <h3 class="survey--caption">${survey_name}</h3>
 
@@ -309,69 +310,71 @@ async function page_end_continue(): Promise<void> {
             
             </a>`;
 
-        created_surveys.insertAdjacentHTML(`beforeend`,
-            create_link__request
-        );
+            created_surveys.insertAdjacentHTML(`beforeend`,
+                create_link__request
+            );
 
-        let survey: HTMLElement = document.querySelector(".survey");
-        survey.classList.remove("opacity-0");
-        unhide(survey);
+            let survey: HTMLElement = document.querySelector(".survey");
+            survey.classList.remove("opacity-0");
+            unhide(survey);
 
-        setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000 });
+            setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
 
-        let existing_surveys: HTMLCollection = created_surveys.children;
-        existing_surveys_dict = {};
-        for (let el of existing_surveys) {
-            if (Array.from(existing_surveys).indexOf(el) > 1) {
-                existing_surveys_dict[el.id] = "unselect";
-            } else {
-                existing_surveys_dict[el.id] = "select";
+            let existing_surveys: HTMLCollection = created_surveys.children;
+            existing_surveys_dict = {};
+            for (let el of existing_surveys) {
+                if (Array.from(existing_surveys).indexOf(el) > 1) {
+                    existing_surveys_dict[el.id] = "unselect";
+                } else {
+                    existing_surveys_dict[el.id] = "select";
+                }
             }
+
+            if (created_surveys.children.length <= 2) {
+                survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+            }
+        } else {
+            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
         }
 
-        if (created_surveys.children.length <= 2) {
-            survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
-        }
-    } else {
-        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        create_survey_page__continue.removeEventListener("click", page_end_continue);
+
+        setTimeout(() => {
+            /* Приводим всё к тому, как и было в начале опроса: обнуляем стили, чекбоксы. */
+            create_survey_page__name.classList.remove("opacity-1", "create__survey--class", "page_name--class", "opacity-0", "hidden");
+            create_survey_page__continue.classList.remove("page_name--class", "opacity-0", "opacity-1", 'create_survey');
+            create_survey_page__security.classList.remove("create__survey__page--hidden", "page_name--class");
+            create_survey_page__create_question.classList.remove("opacity-0");
+            (anonim__checkbox as HTMLInputElement).checked = false;
+            (upp_security__checkbox as HTMLInputElement).checked = false;
+
+            /* Добавление некоторых новых стилей. */
+            create_survey_page__name.classList.add("create_survey_page__name--new");
+            create_survey_page__security.classList.add("create_survey_page__security--new");
+            create_survey_page__create_question.classList.add("create_survey_page__create_question--new");
+
+            /* Удаляем, созданные в прошлой сессии, ответы на вопросы. */
+            const create_question__answer_types: NodeList = document.querySelectorAll(".create_question__answer_types");
+
+            for (let answer of create_question__answer_types) {
+
+                const question_id: string = (answer as HTMLElement).id.split("--")[1];
+                const create_question_active: HTMLElement = document.getElementById(`create_question_active--${question_id}`);
+
+                if (answer.parentElement == create_question_active) {
+                    create_question_active.removeChild(answer);
+                }
+            }
+
+            /* Удаляем сами, созданные в прошлой сессии, вопросы. */
+            const create_questions_active: NodeList = document.querySelectorAll(".create_question_active:not(#create_question_active--2)");
+            create_questions_active.forEach((question) => { create_questions.removeChild(question) });
+
+        }, 500);
+
+        create_survey_page__continue.addEventListener("click", page_name_continue);
+
     }
-
-    create_survey_page__continue.removeEventListener("click", page_end_continue);
-
-    setTimeout(() => {
-        /* Приводим всё к тому, как и было в начале опроса: обнуляем стили, чекбоксы. */
-        create_survey_page__name.classList.remove("opacity-1", "create__survey--class", "page_name--class", "opacity-0", "hidden");
-        create_survey_page__continue.classList.remove("page_name--class", "opacity-0", "opacity-1", 'create_survey');
-        create_survey_page__security.classList.remove("create__survey__page--hidden", "page_name--class");
-        create_survey_page__create_question.classList.remove("opacity-0");
-        (anonim__checkbox as HTMLInputElement).checked = false;
-        (upp_security__checkbox as HTMLInputElement).checked = false;
-
-        /* Добавление некоторых новых стилей. */
-        create_survey_page__name.classList.add("create_survey_page__name--new");
-        create_survey_page__security.classList.add("create_survey_page__security--new");
-        create_survey_page__create_question.classList.add("create_survey_page__create_question--new");
-
-        /* Удаляем, созданные в прошлой сессии, ответы на вопросы. */
-        const create_question__answer_types: NodeList = document.querySelectorAll(".create_question__answer_types");
-
-        for (let answer of create_question__answer_types) {
-
-            const question_id: string = (answer as HTMLElement).id.split("--")[1];
-            const create_question_active: HTMLElement = document.getElementById(`create_question_active--${question_id}`);
-
-            if (answer.parentElement == create_question_active) {
-                create_question_active.removeChild(answer);
-            }
-        }
-
-        /* Удаляем сами, созданные в прошлой сессии, вопросы. */
-        const create_questions_active: NodeList = document.querySelectorAll(".create_question_active:not(#create_question_active--2)");
-        create_questions_active.forEach((question) => { create_questions.removeChild(question) });
-
-    }, 500);
-
-    create_survey_page__continue.addEventListener("click", page_name_continue);
 }
 
 /* Нажатие на конечную кнопку "Cохранить" */

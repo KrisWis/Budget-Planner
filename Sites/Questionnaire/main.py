@@ -135,7 +135,7 @@ class SaveSurveyRequest(BaseModel):
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
         survey_id = str(uuid.uuid4())
-        sql = '''INSERT INTO surveys (name, security_type, survey_questions, survey_id) VALUES($1, $2, $3, $4)'''
+        sql = 'INSERT INTO surveys (name, security_type, survey_questions, survey_id) VALUES($1, $2, $3, $4)'
         await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), survey_id)
 
         @app.get(f"/survey-{survey_id}", response_class=HTMLResponse)
@@ -149,10 +149,29 @@ async def save_survey(request: SaveSurveyRequest):
 
 # Запрос для получения данных об опросе по id
 class GetSurveyRequest(BaseModel):
-    survey_question_id: str
+    survey_id: str
 
 
 @app.post("/api/get-survey")
 async def get_survey(request: GetSurveyRequest):
     sql = 'SELECT * FROM surveys WHERE survey_id = $1'
-    return await db.fetchrow(sql, request.survey_question_id)
+    return await db.fetchrow(sql, request.survey_id)
+
+
+# Запрос для обновления опроса в бд
+class UpdateSurveyRequest(BaseModel):
+    survey_name: str
+    survey_security_type: str
+    survey_questions: dict
+    survey_id: str
+
+
+@app.post("/api/update-survey")
+async def update_survey(request: UpdateSurveyRequest):
+    if CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
+        sql = 'UPDATE surveys SET name = $1, security_type = $2, survey_questions = $3 WHERE survey_id = $4'
+        await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), request.survey_id)
+
+        return {"OK": True}
+
+    return {"OK": False}

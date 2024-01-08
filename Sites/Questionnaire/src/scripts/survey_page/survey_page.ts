@@ -1,21 +1,28 @@
 /* Берём данные из бд по id этого опроса и вставляем эти данные в страницу */
-const survey_question_id = window.location.href.split("/")[3].slice(7, 1000);
+const survey_id = window.location.href.split("/")[3].slice(7, 1000);
+let survey_name: string;
+anonim__checkbox = document.getElementById("anonim__checkbox");
+upp_security__checkbox = document.getElementById("upp_security__checkbox");
+create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
+create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 (async function () {
     let responseRequest = await fetch('api/get-survey', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ survey_question_id: survey_question_id })
+        body: JSON.stringify({ survey_id: survey_id })
     });
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
         let response: any = await responseRequest.json();
 
+        survey_name = response.name;
+
         // Присвоение имени
-        document.querySelector("title").text = `Редактирование опроса | ${response.name}`;
-        (create_survey_page_name__input as HTMLInputElement).value = response.name;
+        document.querySelector("title").text = `Редактирование опроса | ${survey_name}`;
+        (create_survey_page_name__input as HTMLInputElement).value = survey_name;
 
         // Присвоение типа безопасности
         if (response.security_type == "anonim" || response.security_type == "all") {
@@ -28,9 +35,9 @@ const survey_question_id = window.location.href.split("/")[3].slice(7, 1000);
 
         // Присвоение вопросов
         let survey_questions: any = eval('(' + response.survey_questions + ')');
-        for (let id in survey_questions) {
+        for (let id in obj_reverse(survey_questions)) {
             const question_id: string = id.split("--")[1];
-            // TODO: сделать так, чтобы у каждого опроса сохранялся идентфикатор создателя и url был edit-survey.
+            // TODO: сделать так, чтобы у каждого опроса сохранялся идентфикатор создателя и url был edit-survey и проверка на то, что зашёл создатель, другой юзер бы не смог.
             const survey_questions_request: string =
                 `<div class="create_question_active" id="create_question_active--${question_id}">
                     <section class="create_question__header" id="create_question__header--${question_id}">
@@ -164,9 +171,74 @@ const survey_question_id = window.location.href.split("/")[3].slice(7, 1000);
 })();
 
 /* Нажатие на конечную кнопку "Cохранить" */
-function end_continue(): void {
-    // TODO: сделать сохранение измённых параметров в бд
-    window.location.href = "/";
+async function end_continue(): Promise<void> {
+    /* Сохранение имени и описания вопросов */
+    const questions: NodeList = document.querySelectorAll(".create_question_active");
+
+    let all_questions: Question = {};
+    for (let question of questions) {
+        let question_id: string = (question as HTMLElement).id;
+        let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
+        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
+        let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
+        let all_answers: Answer = {};
+
+        for (let answer of answers) {
+            let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
+            let answer_type: string;
+            if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
+                answer_type = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
+            } else {
+                answer_type = "open";
+            }
+
+            let answer_correct: boolean;
+            if (answer_type == 'preset') {
+                answer_correct = (document.getElementById(`question--${question_id.split("--")[1]}__preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+            } else {
+                answer_correct = (document.getElementById(`question--${question_id.split("--")[1]}__open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+            }
+
+            let answer_text: string
+            try {
+                answer_text = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
+            } catch {
+                answer_text = "";
+            }
+
+            all_answers[`${answers_id}`] = { type: answer_type, correct: String(answer_correct), answer_text: answer_text };
+        }
+
+        all_questions[(question as HTMLElement).id] = { name: question_name, desc: question_desc, answers: all_answers }
+    }
+
+    // Сохранение опроса в куки
+    let existing_surveys_links: any = getCookie('survey_links');
+    if (existing_surveys_links) {
+        existing_surveys_links = JSON.parse(existing_surveys_links);
+    } else {
+        existing_surveys_links = {};
+    }
+    survey_name = (create_survey_page_name__input as HTMLInputElement).value;
+    existing_surveys_links[survey_id] = [window.location.href, survey_name];
+    setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
+
+    // Сохранение опроса в бд
+    let responseRequest = await fetch('api/update-survey', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, survey_id: survey_id })
+    });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        window.location.href = "/";
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
 }
 
 ceate_survey__end_continue(end_continue);
+
+// TODO: чекнуть баг с тем, что иногда вопрос не получается создать

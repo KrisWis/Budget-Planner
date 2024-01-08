@@ -7,10 +7,10 @@ const create_survey_page__name = document.getElementById("create_survey_page__na
 const create_survey_page__name_elements = document.querySelectorAll(".create_survey_type:not(.create_survey_page, .create_survey_page__continue)");
 const create_survey_page__security = document.getElementById("create_survey_page__security");
 const create_survey_page__create_question = document.getElementById("create_survey_page__create_question");
-const anonim__checkbox = document.getElementById("anonim__checkbox");
-const upp_security__checkbox = document.getElementById("upp_security__checkbox");
-const create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
-const create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
+let anonim__checkbox = document.getElementById("anonim__checkbox");
+let upp_security__checkbox = document.getElementById("upp_security__checkbox");
+let create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
+let create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 const body = document.querySelector("body");
 let create_question__header__desc = document.getElementById("create_question__header--desc");
 let create_question__header__inputs = document.querySelectorAll(".create_question__header--input");
@@ -299,5 +299,14 @@ function create_answer(create_question__add_answer, create_question__header, cre
         const create_question_active = document.getElementById(`create_question_active--${create_question__count}`);
         answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox, create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete, create_question_active, question);
     });
+}
+// Функция для реверса объекта
+function obj_reverse(obj) {
+    let new_obj = {};
+    let rev_obj = Object.keys(obj).reverse();
+    rev_obj.forEach(function (i) {
+        new_obj[i] = obj[i];
+    });
+    return new_obj;
 }
 //# sourceMappingURL=main.js.map
