@@ -139,14 +139,22 @@ async def save_survey(request: SaveSurveyRequest):
         survey_id = str(uuid.uuid4())
         sql = 'INSERT INTO surveys (name, security_type, survey_questions, survey_id, creator_id) VALUES($1, $2, $3, $4, $5)'
         await db.execute(sql, request.survey_name, request.survey_security_type, str(request.survey_questions), survey_id, request.creator_id)
-
+        
+        pass
+        # Запуск страницы для редактирования
         @app.get(f"/edit_survey--{survey_id}", response_class=HTMLResponse)
+        async def edit_survey_page(request: Request):
+            return templates.TemplateResponse("edit_survey_page.html", {"request": request})
+        
+        pass
+        # Запуск страницы опроса
+        @app.get(f"/survey--{survey_id}", response_class=HTMLResponse)
         async def survey_page(request: Request):
             return templates.TemplateResponse("survey_page.html", {"request": request})
 
-        return {"link": f"/edit_survey--{survey_id}", "id": survey_id}
+        return {"edit_link": f"/edit_survey--{survey_id}", "id": survey_id, "survey_link": f"/survey--{survey_id}"}
 
-    return {"link": "/"}
+    return {"OK": False}
 
 
 # Запрос для получения данных об опросе по id

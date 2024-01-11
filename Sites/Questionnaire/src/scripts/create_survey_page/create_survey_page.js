@@ -240,8 +240,9 @@ async function page_end_continue() {
         });
         if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
             let response = await responseRequest.json();
-            const survey_link = response["link"];
+            const survey_edit_link = response["edit_link"];
             const survey_id = response["id"];
+            const survey_link = response["survey_link"];
             let existing_surveys_links = getCookie('survey_links');
             if (existing_surveys_links) {
                 existing_surveys_links = JSON.parse(existing_surveys_links);
@@ -249,8 +250,9 @@ async function page_end_continue() {
             else {
                 existing_surveys_links = {};
             }
-            existing_surveys_links[survey_id] = [survey_link, survey_name];
-            const create_link__request = `<a href="${survey_link}" class="survey opacity-0 hidden create__survey--hide_animation" id="survey--${survey_id}">
+            existing_surveys_links[survey_id] = [survey_edit_link, survey_name, survey_link];
+            // Добавление ссылки на опрос в "Создать опрос"
+            let create_link__request = `<a href="${survey_edit_link}" class="survey opacity-0 hidden create__survey--hide_animation" id="survey--${survey_id}">
 
                 <h3 class="survey--caption">${survey_name}</h3>
 
@@ -261,6 +263,12 @@ async function page_end_continue() {
             
             </a>`;
             created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
+            // Добавление ссылки на опрос в "доступные вопросы"
+            create_link__request =
+                `<a href="${survey_link}" class="available_survey" id="available_survey--${survey_id}">
+                    <h3 class="available_survey--caption">${survey_name}</h3>
+                </a>`;
+            available_surveys.insertAdjacentHTML(`afterbegin`, create_link__request);
             let survey = document.querySelector(".survey");
             survey.classList.remove("opacity-0");
             unhide(survey);

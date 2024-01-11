@@ -37,7 +37,8 @@ const survey_panel__pagination__left_arrow: HTMLElement = document.getElementByI
 const survey_panel__pagination__right_arrow: HTMLElement = document.getElementById("survey_panel__pagination--right_arrow");
 let survey_panel__pagination__counter: number = 0;
 let existing_surveys_dict: any = {};
-
+const available_surveys: HTMLElement = document.getElementById("available_surveys");
+const available_surveys__none: HTMLElement = document.getElementById("available_surveys__none");
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el: HTMLElement): void {
@@ -207,8 +208,8 @@ function deleteCookie(name) {
     })
 }
 
-// Создание блоков-ссылок на опросы в "Создать опрос"
 (function () {
+    // Получение и обработка ссылок на все опросы
     let survey_links: any = getCookie('survey_links') || null;
     let create_link__request: string;
 
@@ -216,6 +217,7 @@ function deleteCookie(name) {
         survey_links = JSON.parse(survey_links);
 
         for (let id in survey_links) {
+            // Создание блоков-ссылок на опросы в "Создать опрос"
             create_link__request =
                 `<a href="${survey_links[id][0]}" class="survey hidden opacity-0 create__survey--hide_animation" id="survey--${id}">
             
@@ -231,7 +233,19 @@ function deleteCookie(name) {
             created_surveys.insertAdjacentHTML(`beforeend`,
                 create_link__request
             );
+
+            // Создание ссылок на все опросы в блоке "доступные опросы"
+            create_link__request =
+                `<a href="${survey_links[id][2]}" class="available_survey" id="available_survey--${id}">
+                    <h3 class="available_survey--caption">${survey_links[id][1]}</h3>
+                </a>`;
+
+            available_surveys.insertAdjacentHTML(`afterbegin`,
+                create_link__request
+            );
         }
+
+        // Устанавливаем стили, и делаем функционал для корректной пагинации
         let survey: HTMLElement = document.querySelector(".survey");
         survey.classList.remove("opacity-0");
         unhide(survey);
@@ -249,6 +263,8 @@ function deleteCookie(name) {
         if (existing_surveys.length <= 2) {
             survey_panel__pagination__right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
         }
+
+        available_surveys__none.classList.add("hidden");
     }
 }())
 
