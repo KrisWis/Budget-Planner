@@ -2,6 +2,7 @@
 const create__survey = document.getElementById("create__survey");
 const all_elements = document.querySelectorAll(".create__survey--hide_animation");
 const panels = document.getElementById("panels");
+const create_survey_page = document.getElementById("create_survey_page");
 const create_survey_page__continue = document.getElementById("create_survey_page__continue");
 const create_survey_page__name = document.getElementById("create_survey_page__name");
 const create_survey_page__name_elements = document.querySelectorAll(".create_survey_type:not(.create_survey_page, .create_survey_page__continue)");
@@ -36,9 +37,12 @@ const created_surveys = document.getElementById("created_surveys");
 const survey_panel__pagination__left_arrow = document.getElementById("survey_panel__pagination--left_arrow");
 const survey_panel__pagination__right_arrow = document.getElementById("survey_panel__pagination--right_arrow");
 let survey_panel__pagination__counter = 0;
-let existing_surveys_dict = {};
+let create_survey__existing_surveys = {};
+let available_surveys__existing_surveys = {};
 const available_surveys = document.getElementById("available_surveys");
 const available_surveys__none = document.getElementById("available_surveys__none");
+const available_surveys__pagination__left_arrow = document.getElementById("available_surveys__pagination--left_arrow");
+const available_surveys__pagination__right_arrow = document.getElementById("available_surveys__pagination--right_arrow");
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 function hide(el) {
     el.classList.add("hidden");
@@ -86,26 +90,26 @@ function answer_functions(create_question__preset_answer__edit, create_question_
         create_question_active.removeChild(question);
     });
 }
-function create_survey_pagination(first_arrow, second_arrow, array) {
+function create_survey_pagination(first_arrow, second_arrow, array, dict, surveys_amount) {
     if (!first_arrow.classList.contains("survey_panel__pagination__arrow--disabled")) {
         second_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
         for (let survey_id of array) {
-            if (existing_surveys_dict[survey_id] == "select") {
+            if (dict[survey_id] == "select") {
                 document.getElementById(survey_id).classList.add("opacity-0");
-                existing_surveys_dict[survey_id] = "unselect";
+                dict[survey_id] = "unselect";
                 setTimeout(() => {
                     document.getElementById(survey_id).classList.add("hidden");
                 }, 300);
             }
             else {
-                if (Object.values(existing_surveys_dict).filter(survey => survey == "select").length < 2) {
+                if (Object.values(dict).filter(survey => survey == "select").length < surveys_amount) {
                     setTimeout(() => {
                         document.getElementById(survey_id).classList.remove("hidden");
                         setTimeout(() => {
                             document.getElementById(survey_id).classList.remove("opacity-0");
                         }, 300);
                     }, 300);
-                    existing_surveys_dict[survey_id] = "select";
+                    dict[survey_id] = "select";
                     if (array[array.length - 1] == survey_id) {
                         first_arrow.classList.add("survey_panel__pagination__arrow--disabled");
                         break;
@@ -177,29 +181,49 @@ function deleteCookie(name) {
             created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
             // Создание ссылок на все опросы в блоке "доступные опросы"
             create_link__request =
-                `<a href="${survey_links[id][2]}" class="available_survey" id="available_survey--${id}">
+                `<a href="${survey_links[id][2]}" class="available_survey hidden opacity-0" id="available_survey--${id}">
                     <h3 class="available_survey--caption">${survey_links[id][1]}</h3>
                 </a>`;
             available_surveys.insertAdjacentHTML(`afterbegin`, create_link__request);
         }
-        // Устанавливаем стили, и делаем функционал для корректной пагинации
+        // Устанавливаем стили для опросов на первой странице, и делаем функционал для корректной пагинации
+        available_surveys__none.classList.add("hidden");
         let survey = document.querySelector(".survey");
         survey.classList.remove("opacity-0");
         unhide(survey);
+        let available_surveys_selectors = document.querySelectorAll(".available_survey");
+        for (let index = 0; index < 4; index++) {
+            available_surveys_selectors[index].classList.remove("opacity-0");
+            unhide(available_surveys_selectors[index]);
+        }
         let existing_surveys = created_surveys.children;
         for (let el of existing_surveys) {
             if (Array.from(existing_surveys).indexOf(el) > 1) {
-                existing_surveys_dict[el.id] = "unselect";
+                create_survey__existing_surveys[el.id] = "unselect";
             }
             else {
-                existing_surveys_dict[el.id] = "select";
+                create_survey__existing_surveys[el.id] = "select";
+            }
+        }
+        let existing_available_surveys = available_surveys.children;
+        available_surveys.removeChild(available_surveys__none);
+        available_surveys__existing_surveys = {};
+        for (let el of existing_available_surveys) {
+            if (Array.from(existing_available_surveys).indexOf(el) > 3) {
+                available_surveys__existing_surveys[el.id] = "unselect";
+            }
+            else {
+                available_surveys__existing_surveys[el.id] = "select";
             }
         }
         survey_panel__pagination__left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
         if (existing_surveys.length <= 2) {
             survey_panel__pagination__right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
         }
-        available_surveys__none.classList.add("hidden");
+        available_surveys__pagination__left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        if (existing_available_surveys.length < 5) {
+            available_surveys__pagination__right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        }
     }
 }());
 /* Функция нажатия на конечную кнопку "Cохранить" */

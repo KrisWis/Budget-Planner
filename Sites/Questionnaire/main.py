@@ -117,10 +117,15 @@ async def root(request: Request):
     sql = '''SELECT survey_id FROM surveys'''
     surveys_ids = await db.fetch(sql)
     for id in surveys_ids:
+        # Запуск страницы для редактирования
         @app.get(f"/survey-{id['survey_id']}", response_class=HTMLResponse)
+        async def edit_survey_page(request: Request):
+            return templates.TemplateResponse("edit_survey_page.html", {"request": request})
+        pass
+        # Запуск страницы опроса
+        @app.get(f"/survey--{id['survey_id']}", response_class=HTMLResponse)
         async def survey_page(request: Request):
             return templates.TemplateResponse("survey_page.html", {"request": request})
-
 
     return templates.TemplateResponse("index.html", {"request": request})
 
@@ -132,7 +137,7 @@ class SaveSurveyRequest(BaseModel):
     survey_questions: dict
     creator_id: str
 
-
+# TODO: сделать рефакторинг
 @app.post("/api/save-survey")
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):

@@ -1,5 +1,6 @@
 /* Открытие интерфейса создания опроса */
 create__survey.addEventListener("click", function () {
+    create_survey_page.classList.remove("hidden");
     let Y_coordinate = Number(document.documentElement.style.getPropertyValue('--Y_coordinate').slice(0, -1));
     for (let element of all_elements) {
         document.documentElement.style.setProperty('--Y_coordinate', String(Y_coordinate) + "%");
@@ -28,10 +29,18 @@ create__survey.addEventListener("click", function () {
 });
 /* Функционал пагинации в блоке "Создать опрос" (правая стрелочка). */
 survey_panel__pagination__right_arrow.addEventListener("click", function () {
-    create_survey_pagination(survey_panel__pagination__right_arrow, survey_panel__pagination__left_arrow, Object.keys(existing_surveys_dict));
+    create_survey_pagination(survey_panel__pagination__right_arrow, survey_panel__pagination__left_arrow, Object.keys(create_survey__existing_surveys), create_survey__existing_surveys, 2);
 });
 /* Функционал пагинации в блоке "Создать опрос" (левая стрелочка). */
 survey_panel__pagination__left_arrow.addEventListener("click", function () {
-    create_survey_pagination(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, Object.keys(existing_surveys_dict).reverse());
+    create_survey_pagination(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, Object.keys(create_survey__existing_surveys).reverse(), create_survey__existing_surveys, 2);
+});
+/* Функционал пагинации в блоке "Доступные опросы" (правая стрелочка). */
+available_surveys__pagination__right_arrow.addEventListener("click", function () {
+    create_survey_pagination(available_surveys__pagination__right_arrow, available_surveys__pagination__left_arrow, Object.keys(available_surveys__existing_surveys), available_surveys__existing_surveys, 4);
+});
+/* Функционал пагинации в блоке "Доступные опросы" (левая стрелочка). */
+available_surveys__pagination__left_arrow.addEventListener("click", function () {
+    create_survey_pagination(available_surveys__pagination__left_arrow, available_surveys__pagination__right_arrow, Object.keys(available_surveys__existing_surveys).reverse(), available_surveys__existing_surveys, 4);
 });
 //# sourceMappingURL=main_page.js.map

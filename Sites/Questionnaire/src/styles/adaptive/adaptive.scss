@@ -1,9 +1,19 @@
 @media screen and (max-width: 1400px) {
+  body {
+    overflow-y: scroll;
+  }
+
+  .available_surveys {
+    margin-left: 10%;
+  }
+
   .panels {
     grid-template-columns: 1fr;
 
     /* Панели первого столбца */
     .first_panels {
+      margin-left: 5%;
+
       .create_survey_panel {
         width: 90%;
         margin-left: 5%;
@@ -21,32 +31,68 @@
 
     /* Статистика */
     .stats {
-      margin-left: 5%;
+      margin-left: 16%;
       margin-right: 5%;
 
-      .stats_panel {
-        width: 100%;
+      .stats__caption {
+        margin-left: 25%;
+        margin-top: 5%;
+      }
 
-        .stats--answers .stats--answers__pie_chart {
-          width: 25%;
-        }
+      .stats_panel {
+        width: 60%;
       }
     }
   }
 }
 
 @media screen and (max-width: 900px) {
+
+  .available_surveys {
+    margin-left: 0%;
+  }
+
   .panels {
-    .first_panels .available_surveys_panel .available_surveys__header {
-      gap: 20%;
+    .first_panels {
+      margin-left: 0%;
+
+      .create_survey_panel {
+        margin-left: 10%;
+      }
+
+      .available_surveys_panel .available_surveys_panel__pagination_arrows {
+        margin-left: 43%;
+      }
+
+      .available_surveys_pane {
+        margin-left: 0%;
+
+        .available_surveys__header {
+          gap: 20%;
+        }
+      }
     }
 
-    .stats .stats_panel .stats--answers .stats--answers__pie_chart {
-      width: 30%;
+    /* Статистика */
+    .stats {
+      margin-left: 10%;
+
+      .stats__caption {
+        margin-left: 30%;
+      }
+
+      .stats_panel {
+        width: 80%;
+      }
     }
   }
 
   .create_survey_page {
+    .create_survey_page__create_question {
+      width: 100%;
+      height: 100vh;
+    }
+
     .create_survey_page__continue {
       width: 90%;
     }
@@ -55,16 +101,16 @@
 
 @media screen and (max-width: 600px) {
   .panels {
-    .first_panels .available_surveys_panel {
-      margin-top: 30%;
+    .first_panels {
+      margin-left: 5%;
 
-      .available_surveys__header {
-        gap: 0;
+      .available_surveys_panel {
+        margin-top: 30%;
+
+        .available_surveys__header {
+          gap: 0;
+        }
       }
-    }
-
-    .stats .stats_panel .stats--answers .stats--answers__pie_chart {
-      width: 35%;
     }
   }
 
@@ -95,7 +141,7 @@
           font-size: 18px;
 
           .create_question__header--input {
-            font-size: 10px;
+            font-size: 14px;
           }
         }
 
@@ -118,6 +164,85 @@
           font-size: 70px;
         }
       }
+    }
+  }
+
+  header .header__settings {
+    margin-right: 5%;
+  }
+
+  .panels {
+    .first_panels {
+
+      .survey_panel__pagination_arrows,
+      .available_surveys_panel__pagination_arrows {
+        margin-left: 40% !important;
+        margin-top: 0%;
+        position: relative;
+        bottom: 10%;
+      }
+
+      .create_survey_panel {
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        height: 45%;
+
+        .create_survey__caption {
+          padding-bottom: 10%;
+          margin-left: 15%;
+          margin-top: 5%;
+        }
+
+        .created_surveys {
+          flex-direction: column;
+          margin-left: 3%;
+          margin-right: 3%;
+          height: 80%;
+
+          .survey,
+          .create__survey {
+            width: 100%;
+          }
+        }
+      }
+
+      .available_surveys {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        margin-left: 15%;
+      }
+
+      .available_surveys_panel {
+        margin-left: 2%;
+        margin-top: 0;
+        margin-bottom: 60%;
+
+        .available_surveys__header {
+          flex-direction: column;
+          margin-left: 12%;
+
+          .available_surveys__caption {
+            margin-bottom: 5%;
+            position: relative;
+            left: 15%;
+          }
+
+          .available_surveys__search {
+            width: 90%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+          }
+        }
+
+        .available_surveys_panel__pagination_arrows {
+          margin-top: 35%;
+        }
+      }
+    }
+
+    .stats .stats_panel .stats--answers .stats--answers__pie_chart {
+      width: 55%;
     }
   }
 }

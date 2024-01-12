@@ -326,9 +326,24 @@ async function page_end_continue(): Promise<void> {
                 create_link__request
             );
 
+            let survey: HTMLElement = document.querySelector(".survey");
+            survey.classList.remove("opacity-0");
+            unhide(survey);
+            available_surveys__none.classList.add("hidden");
+
+            let existing_surveys: HTMLCollection = created_surveys.children;
+            create_survey__existing_surveys = {};
+            for (let el of existing_surveys) {
+                if (Array.from(existing_surveys).indexOf(el) > 1) {
+                    create_survey__existing_surveys[el.id] = "unselect";
+                } else {
+                    create_survey__existing_surveys[el.id] = "select";
+                }
+            }
+
             // Добавление ссылки на опрос в "доступные вопросы"
             create_link__request =
-                `<a href="${survey_link}" class="available_survey" id="available_survey--${survey_id}">
+                `<a href="${survey_link}" class="available_survey opacity-0 hidden" id="available_survey--${survey_id}">
                     <h3 class="available_survey--caption">${survey_name}</h3>
                 </a>`;
 
@@ -336,25 +351,26 @@ async function page_end_continue(): Promise<void> {
                 create_link__request
             );
 
-            let survey: HTMLElement = document.querySelector(".survey");
-            survey.classList.remove("opacity-0");
-            unhide(survey);
-
-            setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
-
-            let existing_surveys: HTMLCollection = created_surveys.children;
-            existing_surveys_dict = {};
-            for (let el of existing_surveys) {
-                if (Array.from(existing_surveys).indexOf(el) > 1) {
-                    existing_surveys_dict[el.id] = "unselect";
+            let existing_available_surveys: any = available_surveys.children;
+            available_surveys.removeChild(available_surveys__none);
+            available_surveys__existing_surveys = {};
+            for (let el of existing_available_surveys) {
+                if (Array.from(existing_available_surveys).indexOf(el) > 1) {
+                    available_surveys__existing_surveys[el.id] = "unselect";
                 } else {
-                    existing_surveys_dict[el.id] = "select";
+                    available_surveys__existing_surveys[el.id] = "select";
                 }
             }
 
             if (created_surveys.children.length == 3) {
                 survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
             }
+
+            if (available_surveys.children.length == 5) {
+                available_surveys__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+            }
+
+            setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
         } else {
             console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
         }
