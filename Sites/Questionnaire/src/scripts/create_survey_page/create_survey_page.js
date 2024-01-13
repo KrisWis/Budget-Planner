@@ -1,3 +1,23 @@
+// Функция для фокуса на инпут, при нажатии на карандашик
+function edit_click_target() {
+    for (let edit of create_question__header__edits) {
+        let index = Array.from(create_question__header__edits).indexOf(edit);
+        edit.addEventListener("click", function () {
+            create_question__header__inputs[index].focus();
+        });
+    }
+}
+// Функция для добавления в вопрос описания
+function create_question__add_desc(create_question__count) {
+    const create_question_header__add_desc = document.getElementById(`create_question_header--add_desc--${create_question__count}`);
+    const create_question__header__desc = document.getElementById(`create_question__header--desc--${create_question__count}`);
+    if (create_question_header__add_desc) {
+        create_question_header__add_desc.addEventListener("click", function () {
+            hide(create_question_header__add_desc);
+            unhide(create_question__header__desc);
+        });
+    }
+}
 /* Функция нажатия на кнопку продолжения после выбора типа опроса */
 function page_survey_continue() {
     create_survey_page__security.classList.add("create__survey__page--hidden");
@@ -80,7 +100,7 @@ if (create_question__add_answer) {
     
                         <div class="create_question--preset_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="preset_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__preset_answer--checkbox" type="checkbox" id="question--${create_question__count}__preset_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="preset_answer__correct_answer--checkbox"></label>
                         </div>
     
@@ -104,7 +124,7 @@ if (create_question__add_answer) {
     
                         <div class="create_question--open_answer__correct_answer">
                             <p>Это правильный ответ</p>
-                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="open_answer__correct_answer--checkbox--${create_question__answers_count}">
+                            <input class="create_question--correct_checkbox create_question__open_answer--checkbox" type="checkbox" id="question--${create_question__count}__open_answer__correct_answer--checkbox--${create_question__answers_count}">
                             <label for="open_answer__correct_answer--checkbox" class="create_question__open_answer--label"></label>
                         </div>
     
@@ -192,35 +212,7 @@ async function page_end_continue() {
             create_survey__pop_up_window_survey_created.classList.add("opacity-0");
         }, 1500);
         /* Сохранение имени и описания вопросов */
-        const questions = document.querySelectorAll(".create_question_active");
-        let all_questions = {};
-        for (let question of questions) {
-            let question_id = question.id;
-            let question_name = document.querySelector(`#${question_id} .create_question__header--input`).value;
-            let question_desc = document.querySelector(`#${question_id} .create_question__header--desc_input`).value;
-            let answers = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
-            let all_answers = {};
-            for (let answer of answers) {
-                let answers_id = Number(answer.id.split("--")[3]);
-                let answer_type;
-                if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
-                    answer_type = document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`).checked ? 'preset' : 'open';
-                }
-                else {
-                    answer_type = "open";
-                }
-                let answer_correct;
-                if (answer_type == 'preset') {
-                    answer_correct = document.getElementById(`preset_answer__correct_answer--checkbox--${answers_id}`).checked;
-                }
-                else {
-                    answer_correct = document.getElementById(`open_answer__correct_answer--checkbox--${answers_id}`).checked;
-                }
-                let answer_text = document.getElementById(`create_question--preset_answer__input--${answers_id}`).value;
-                all_answers[`${answers_id}`] = { type: answer_type, correct: String(answer_correct), answer_text: answer_text };
-            }
-            all_questions[question.id] = { name: question_name, desc: question_desc, answers: all_answers };
-        }
+        let all_questions = save_questions();
         // Сохраняем id юзера в куки
         let user_id = "id-" + Math.random().toString(16).slice(2);
         if (!getCookie("user_id")) {
@@ -231,13 +223,7 @@ async function page_end_continue() {
         }
         // Сохранение опроса в бд
         const survey_name = getCookie("survey_name");
-        let responseRequest = await fetch('api/save-survey', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, creator_id: user_id })
-        });
+        let responseRequest = await fetch_post('api/save-survey', { survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, creator_id: user_id });
         if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
             let response = await responseRequest.json();
             const survey_edit_link = response["edit_link"];
@@ -251,48 +237,19 @@ async function page_end_continue() {
                 existing_surveys_links = {};
             }
             existing_surveys_links[survey_id] = [survey_edit_link, survey_name, survey_link];
-            // Добавление ссылки на опрос в "Создать опрос"
-            let create_link__request = `<a href="${survey_edit_link}" class="survey opacity-0 hidden create__survey--hide_animation" id="survey--${survey_id}">
-
-                <h3 class="survey--caption">${survey_name}</h3>
-
-                <div class="survey__edit">
-                    <p>Редактировать</p>
-                    <i class="fa fa-edit" aria-hidden="true"></i>
-                </div>
-            
-            </a>`;
-            created_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
-            let survey = document.querySelector(".survey");
-            survey.classList.remove("opacity-0");
-            unhide(survey);
-            available_surveys__none.classList.add("hidden");
+            // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
+            create_survey(survey_edit_link, survey_id, survey_name, survey_link);
+            // Корректировка стилей
+            after_creating_survey();
+            // Установка глобальных значений для переменных пагинации
             let existing_surveys = created_surveys.children;
             create_survey__existing_surveys = {};
-            for (let el of existing_surveys) {
-                if (Array.from(existing_surveys).indexOf(el) > 1) {
-                    create_survey__existing_surveys[el.id] = "unselect";
-                }
-                else {
-                    create_survey__existing_surveys[el.id] = "select";
-                }
-            }
-            // Добавление ссылки на опрос в "доступные вопросы"
-            create_link__request =
-                `<a href="${survey_link}" class="available_survey opacity-0 hidden" id="available_survey--${survey_id}">
-                    <h3 class="available_survey--caption">${survey_name}</h3>
-                </a>`;
-            available_surveys.insertAdjacentHTML(`afterbegin`, create_link__request);
+            pagination_func(existing_surveys, create_survey__existing_surveys, 1);
             let existing_available_surveys = available_surveys.children;
-            available_surveys.removeChild(available_surveys__none);
             available_surveys__existing_surveys = {};
-            for (let el of existing_available_surveys) {
-                if (Array.from(existing_available_surveys).indexOf(el) > 1) {
-                    available_surveys__existing_surveys[el.id] = "unselect";
-                }
-                else {
-                    available_surveys__existing_surveys[el.id] = "select";
-                }
+            pagination_func(existing_available_surveys, available_surveys__existing_surveys, 3);
+            if (available_surveys__none.parentElement == available_surveys) {
+                available_surveys.removeChild(available_surveys__none);
             }
             if (created_surveys.children.length == 3) {
                 survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
@@ -335,7 +292,7 @@ async function page_end_continue() {
     }
 }
 /* Нажатие на конечную кнопку "Cохранить" */
-ceate_survey__end_continue(page_end_continue);
+create_survey__end_continue(page_end_continue);
 /* Появление оповещения о сохранении ссылки и само сохранение ссылки, по нажатию на кнопку */
 create_survey_page__share__link.addEventListener("click", async function () {
     create_survey_page__share__link__pop_up_window.classList.remove("opacity-0");

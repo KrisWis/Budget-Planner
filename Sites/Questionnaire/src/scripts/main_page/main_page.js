@@ -27,6 +27,36 @@ create__survey.addEventListener("click", function () {
         });
     }, 700);
 });
+// Функция для работы пагинации
+function create_survey_pagination(first_arrow, second_arrow, array, dict, surveys_amount) {
+    if (!first_arrow.classList.contains("survey_panel__pagination__arrow--disabled")) {
+        second_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+        for (let survey_id of array) {
+            if (dict[survey_id] == "select") {
+                document.getElementById(survey_id).classList.add("opacity-0");
+                dict[survey_id] = "unselect";
+                setTimeout(() => {
+                    document.getElementById(survey_id).classList.add("hidden");
+                }, 300);
+            }
+            else {
+                if (Object.values(dict).filter(survey => survey == "select").length < surveys_amount) {
+                    setTimeout(() => {
+                        document.getElementById(survey_id).classList.remove("hidden");
+                        setTimeout(() => {
+                            document.getElementById(survey_id).classList.remove("opacity-0");
+                        }, 300);
+                    }, 300);
+                    dict[survey_id] = "select";
+                    if (array[array.length - 1] == survey_id) {
+                        first_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 /* Функционал пагинации в блоке "Создать опрос" (правая стрелочка). */
 survey_panel__pagination__right_arrow.addEventListener("click", function () {
     create_survey_pagination(survey_panel__pagination__right_arrow, survey_panel__pagination__left_arrow, Object.keys(create_survey__existing_surveys), create_survey__existing_surveys, 2);

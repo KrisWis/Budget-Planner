@@ -28,8 +28,7 @@ class Database:
             database='postgres'
         )
 
-    # Функция для получения списка всех строк, подходящих по условию
-    async def fetch(self, sql, *args):
+    async def db_method_func(self, db_method, sql, *args):
         # acquire() делает подключение из пула
         async with self.pool.acquire() as connection:
             connection: Connection
@@ -37,39 +36,35 @@ class Database:
             # Делаем саму операцию подключения
             async with connection.transaction():
                 # И через подключение осуществляем вводимый запрос.
-                res = await connection.fetch(sql, *args)
+                if db_method == "fetch":
+                    res = await connection.fetch(sql, *args)
+
+                elif db_method == "fetchval":
+                    res = await connection.fetchval(sql, *args)
+
+                elif db_method == "fetchrow":
+                    res = await connection.fetchrow(sql, *args)
+
+                elif db_method == "execute":
+                    res = await connection.execute(sql, *args)
 
             return res
+
+    # Функция для получения списка всех строк, подходящих по условию
+    async def fetch(self, sql, *args):
+        return await self.db_method_func("fetch", sql, *args)
 
     # Функция для получения количества строк
     async def fetchval(self, sql, *args):
-        async with self.pool.acquire() as connection:
-            connection: Connection
-
-            async with connection.transaction():
-                res = await connection.fetchval(sql, *args)
-
-            return res
+        return await self.db_method_func("fetchval", sql, *args)
 
     # Функция для получения одной строки, подходящей по условию
     async def fetchrow(self, sql, *args):
-        async with self.pool.acquire() as connection:
-            connection: Connection
-
-            async with connection.transaction():
-                res = await connection.fetchrow(sql, *args)
-
-            return res
+        return await self.db_method_func("fetchrow", sql, *args)
 
     # Функция для методов "INSERT, DELETE, UPDATE, CREATE".
     async def execute(self, sql, *args):
-        async with self.pool.acquire() as connection:
-            connection: Connection
-
-            async with connection.transaction():
-                res = await connection.execute(sql, *args)
-
-            return res
+        return await self.db_method_func("execute", sql, *args)
 
     # Функция для создания таблиц
     async def create_tables(self):
@@ -116,12 +111,15 @@ async def root(request: Request):
 
     sql = '''SELECT survey_id FROM surveys'''
     surveys_ids = await db.fetch(sql)
+
     for id in surveys_ids:
+
         # Запуск страницы для редактирования
-        @app.get(f"/survey-{id['survey_id']}", response_class=HTMLResponse)
+        @app.get(f"/edit_survey-{id['survey_id']}", response_class=HTMLResponse)
         async def edit_survey_page(request: Request):
             return templates.TemplateResponse("edit_survey_page.html", {"request": request})
         pass
+
         # Запуск страницы опроса
         @app.get(f"/survey--{id['survey_id']}", response_class=HTMLResponse)
         async def survey_page(request: Request):
@@ -137,7 +135,6 @@ class SaveSurveyRequest(BaseModel):
     survey_questions: dict
     creator_id: str
 
-# TODO: сделать рефакторинг
 @app.post("/api/save-survey")
 async def save_survey(request: SaveSurveyRequest):
     if CheckSqlInjections(request.survey_name) and CheckSqlInjections(request.survey_security_type) and CheckSqlInjections(request.survey_questions):
