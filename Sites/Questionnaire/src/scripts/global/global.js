@@ -165,17 +165,31 @@ function save_questions() {
     }
     return all_questions;
 }
+// Функция для реверса объекта
+function obj_reverse(obj) {
+    let new_obj = {};
+    let rev_obj = Object.keys(obj).reverse();
+    rev_obj.forEach(function (i) {
+        new_obj[i] = obj[i];
+    });
+    return new_obj;
+}
 /* Создания qr кода на сайт */
-// @ts-ignore
-new QRCode(create_survey_page__share__qr, {
-    text: document.URL,
-    width: 100,
-    height: 105,
-    colorDark: '#0084FF',
-    colorLight: '#fff',
+try {
     // @ts-ignore
-    correctLevel: QRCode.CorrectLevel.H
-});
+    new QRCode(create_survey_page__share__qr, {
+        text: document.URL,
+        width: 100,
+        height: 105,
+        colorDark: '#0084FF',
+        colorLight: '#fff',
+        // @ts-ignore
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
+catch {
+    console.log("На данной странице нет QR!");
+}
 /* Функции для работы с куки */
 function setCookie(name, value, options = {}) {
     options = {

@@ -195,17 +195,32 @@ function save_questions(): Question {
     return all_questions;
 }
 
+// Функция для реверса объекта
+function obj_reverse(obj: Object): Object {
+    let new_obj: Object = {}
+    let rev_obj: any = Object.keys(obj).reverse();
+    rev_obj.forEach(function (i) {
+        new_obj[i] = obj[i];
+    })
+    return new_obj;
+}
+
+
 /* Создания qr кода на сайт */
-// @ts-ignore
-new QRCode(create_survey_page__share__qr, {
-    text: document.URL,
-    width: 100,
-    height: 105,
-    colorDark: '#0084FF',
-    colorLight: '#fff',
+try {
     // @ts-ignore
-    correctLevel: QRCode.CorrectLevel.H
-});
+    new QRCode(create_survey_page__share__qr, {
+        text: document.URL,
+        width: 100,
+        height: 105,
+        colorDark: '#0084FF',
+        colorLight: '#fff',
+        // @ts-ignore
+        correctLevel: QRCode.CorrectLevel.H
+    });
+} catch {
+    console.log("На данной странице нет QR!");
+}
 
 
 /* Наполняем localStorage дефолтными значениями и создаём интерфейсы для типов данных */

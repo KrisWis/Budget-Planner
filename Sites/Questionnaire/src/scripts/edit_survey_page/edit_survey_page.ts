@@ -1,16 +1,6 @@
 // Базовые данные
-const survey_id: string = window.location.href.split("/")[3].split("--")[1];
+let survey_id: string = window.location.href.split("/")[3].split("--")[1];
 const user_id: string = getCookie("user_id");
-
-// Функция для реверса объекта
-function obj_reverse(obj: Object): Object {
-    let new_obj: Object = {}
-    let rev_obj: any = Object.keys(obj).reverse();
-    rev_obj.forEach(function (i) {
-        new_obj[i] = obj[i];
-    })
-    return new_obj;
-}
 
 // Функция для выполнения прошлого функционала ответов
 function answers_func(answer_checkbox: HTMLElement, question_answers: Object, answer_id: string, question_id: string): void {
