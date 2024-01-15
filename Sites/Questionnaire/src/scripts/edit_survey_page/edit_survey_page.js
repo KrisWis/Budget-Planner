@@ -180,5 +180,5 @@ async function end_continue() {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
 }
-create_survey__end_continue(end_continue);
+create_survey__end_continue(end_continue, false);
 //# sourceMappingURL=edit_survey_page.js.map

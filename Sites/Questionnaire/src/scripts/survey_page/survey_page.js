@@ -53,4 +53,17 @@
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
 })();
+/* Узнавание результатов опроса */
+const survey__get_results = document.getElementById("survey__get_results");
+survey__get_results.addEventListener("click", function () {
+    const all_elements = document.querySelectorAll(".survey__element");
+    for (let element of all_elements) {
+        setTimeout(() => {
+            element.classList.add("opacity-0");
+        }, 250);
+        setTimeout(() => {
+            hide(element);
+        }, 1000);
+    }
+});
 //# sourceMappingURL=survey_page.js.map

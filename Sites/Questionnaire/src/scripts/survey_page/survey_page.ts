@@ -74,3 +74,20 @@
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
 })();
+
+/* Узнавание результатов опроса */
+const survey__get_results: HTMLElement = document.getElementById("survey__get_results");
+
+survey__get_results.addEventListener("click", function (): void {
+    const all_elements: NodeList = document.querySelectorAll(".survey__element");
+    for (let element of all_elements) {
+
+        setTimeout(() => {
+            (element as HTMLElement).classList.add("opacity-0");
+        }, 250);
+
+        setTimeout(() => {
+            hide((element as HTMLElement));
+        }, 1000);
+    }
+})

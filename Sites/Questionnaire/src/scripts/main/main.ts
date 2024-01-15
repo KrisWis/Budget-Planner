@@ -54,7 +54,7 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
 }())
 
 /* Функция нажатия на конечную кнопку "Cохранить" */
-function create_survey__end_continue(func: VoidFunction): void {
+function create_survey__end_continue(func: VoidFunction, create_survey_page: boolean): void {
     create_questions__save.addEventListener("click", async function (): Promise<void> {
 
         if (document.querySelectorAll(".create_question__answer_types").length < 2) {
@@ -84,6 +84,90 @@ function create_survey__end_continue(func: VoidFunction): void {
             create_survey_page__continue.classList.remove("create__survey__page--hidden");
             create_survey_page__continue.classList.add("create_survey_page__continue--end");
         }, 700);
+
+        if (create_survey_page) {
+            /* Сохранение имени и описания вопросов */
+            let all_questions: Question = save_questions();
+
+            // Сохраняем id юзера в куки
+            let user_id: string = "id-" + Math.random().toString(16).slice(2);
+            if (!getCookie("user_id")) {
+                setCookie('user_id', JSON.stringify(user_id), { secure: true, 'max-age': 360000000 });
+            } else {
+                user_id = getCookie("user_id");
+            }
+
+            // Сохранение опроса в бд
+            const survey_name: string = getCookie("survey_name");
+
+            let responseRequest = await fetch_post('api/save-survey', { survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, creator_id: user_id });
+
+            if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
+
+                let response: Response = await responseRequest.json();
+
+                const survey_edit_link: string = response["edit_link"];
+                create_survey_id = response["id"];
+                const survey_link: string = response["survey_link"];
+                let existing_surveys_links: any = getCookie('survey_links');
+                if (existing_surveys_links) {
+                    existing_surveys_links = JSON.parse(existing_surveys_links);
+                } else {
+                    existing_surveys_links = {};
+                }
+                existing_surveys_links[create_survey_id] = [survey_edit_link, survey_name, survey_link];
+
+                // Удаление прошлого кр кода
+                let last_qr_img: HTMLElement = document.querySelector(`#create_survey_page__share--qr img`);
+                if (last_qr_img) {
+                    create_survey_page__share__qr.removeChild(last_qr_img);
+                    create_survey_page__share__qr.removeChild(document.querySelector(`#create_survey_page__share--qr canvas`));
+                }
+
+                /* Создания qr кода на сайт */
+                // @ts-ignore
+                new QRCode(create_survey_page__share__qr, {
+                    text: document.URL + `survey--${create_survey_id}`,
+                    width: 100,
+                    height: 105,
+                    colorDark: '#0084FF',
+                    colorLight: '#fff',
+                    // @ts-ignore
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+
+                // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
+                create_survey(survey_edit_link, create_survey_id, survey_name, survey_link);
+
+                // Корректировка стилей
+                after_creating_survey();
+
+                // Установка глобальных значений для переменных пагинации
+                let existing_surveys: HTMLCollection = created_surveys.children;
+                create_survey__existing_surveys = {};
+                pagination_func(existing_surveys, create_survey__existing_surveys, 1);
+
+                let existing_available_surveys: any = available_surveys.children;
+                available_surveys__existing_surveys = {};
+                pagination_func(existing_available_surveys, available_surveys__existing_surveys, 3);
+
+                if (available_surveys__none.parentElement == available_surveys) {
+                    available_surveys.removeChild(available_surveys__none);
+                }
+
+                if (created_surveys.children.length == 3) {
+                    survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+                }
+
+                if (available_surveys.children.length == 5) {
+                    available_surveys__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
+                }
+
+                setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
+            } else {
+                console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+            }
+        }
 
         /* Нажатие на кнопку "Сохранить" на конечной странице создания опроса */
         create_survey_page__continue.removeEventListener("click", page_survey_continue);

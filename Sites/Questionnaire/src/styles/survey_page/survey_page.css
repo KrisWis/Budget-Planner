@@ -7,6 +7,10 @@ main {
   height: 100%;
 }
 
+* {
+  transition: 0.3s all linear;
+}
+
 /* Стили опроса */
 .survey {
   width: 100%;

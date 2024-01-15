@@ -174,22 +174,6 @@ function obj_reverse(obj) {
     });
     return new_obj;
 }
-/* Создания qr кода на сайт */
-try {
-    // @ts-ignore
-    new QRCode(create_survey_page__share__qr, {
-        text: document.URL,
-        width: 100,
-        height: 105,
-        colorDark: '#0084FF',
-        colorLight: '#fff',
-        // @ts-ignore
-        correctLevel: QRCode.CorrectLevel.H
-    });
-}
-catch {
-    console.log("На данной странице нет QR!");
-}
 /* Функции для работы с куки */
 function setCookie(name, value, options = {}) {
     options = {

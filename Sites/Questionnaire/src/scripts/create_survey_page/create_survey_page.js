@@ -189,6 +189,7 @@ create_question.addEventListener("click", function () {
     create_answer(create_question__add_answer, create_question__header, create_question__count);
 });
 /* Функция конечного "Сохранить" */
+let create_survey_id;
 async function page_end_continue() {
     body.classList.remove("overflow-y-on");
     create_survey_page__end.classList.remove("page_name--class");
@@ -211,57 +212,6 @@ async function page_end_continue() {
         setTimeout(() => {
             create_survey__pop_up_window_survey_created.classList.add("opacity-0");
         }, 1500);
-        /* Сохранение имени и описания вопросов */
-        let all_questions = save_questions();
-        // Сохраняем id юзера в куки
-        let user_id = "id-" + Math.random().toString(16).slice(2);
-        if (!getCookie("user_id")) {
-            setCookie('user_id', JSON.stringify(user_id), { secure: true, 'max-age': 360000000 });
-        }
-        else {
-            user_id = getCookie("user_id");
-        }
-        // Сохранение опроса в бд
-        const survey_name = getCookie("survey_name");
-        let responseRequest = await fetch_post('api/save-survey', { survey_name: survey_name, survey_security_type: getCookie("survey_security_type"), survey_questions: all_questions, creator_id: user_id });
-        if (responseRequest.ok && created_surveys) { // если HTTP-статус в диапазоне 200-299
-            let response = await responseRequest.json();
-            const survey_edit_link = response["edit_link"];
-            const survey_id = response["id"];
-            const survey_link = response["survey_link"];
-            let existing_surveys_links = getCookie('survey_links');
-            if (existing_surveys_links) {
-                existing_surveys_links = JSON.parse(existing_surveys_links);
-            }
-            else {
-                existing_surveys_links = {};
-            }
-            existing_surveys_links[survey_id] = [survey_edit_link, survey_name, survey_link];
-            // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
-            create_survey(survey_edit_link, survey_id, survey_name, survey_link);
-            // Корректировка стилей
-            after_creating_survey();
-            // Установка глобальных значений для переменных пагинации
-            let existing_surveys = created_surveys.children;
-            create_survey__existing_surveys = {};
-            pagination_func(existing_surveys, create_survey__existing_surveys, 1);
-            let existing_available_surveys = available_surveys.children;
-            available_surveys__existing_surveys = {};
-            pagination_func(existing_available_surveys, available_surveys__existing_surveys, 3);
-            if (available_surveys__none.parentElement == available_surveys) {
-                available_surveys.removeChild(available_surveys__none);
-            }
-            if (created_surveys.children.length == 3) {
-                survey_panel__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
-            }
-            if (available_surveys.children.length == 5) {
-                available_surveys__pagination__right_arrow.classList.remove("survey_panel__pagination__arrow--disabled");
-            }
-            setCookie('survey_links', JSON.stringify(existing_surveys_links), { secure: true, 'max-age': 360000000, path: "/" });
-        }
-        else {
-            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
-        }
         create_survey_page__continue.removeEventListener("click", page_end_continue);
         setTimeout(() => {
             /* Приводим всё к тому, как и было в начале опроса: обнуляем стили, чекбоксы. */
@@ -292,13 +242,13 @@ async function page_end_continue() {
     }
 }
 /* Нажатие на конечную кнопку "Cохранить" */
-create_survey__end_continue(page_end_continue);
+create_survey__end_continue(page_end_continue, true);
 /* Появление оповещения о сохранении ссылки и само сохранение ссылки, по нажатию на кнопку */
 create_survey_page__share__link.addEventListener("click", async function () {
     create_survey_page__share__link__pop_up_window.classList.remove("opacity-0");
     setTimeout(() => {
         create_survey_page__share__link__pop_up_window.classList.add("opacity-0");
     }, 1500);
-    await navigator.clipboard.writeText(document.URL); // Записываем в буфер обмена ссылку на страницу
+    await navigator.clipboard.writeText(document.URL + `survey--${create_survey_id}`); // Записываем в буфер обмена ссылку на страницу
 });
 //# sourceMappingURL=create_survey_page.js.map

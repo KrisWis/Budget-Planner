@@ -214,4 +214,4 @@ async function end_continue(): Promise<void> {
     }
 }
 
-create_survey__end_continue(end_continue);
+create_survey__end_continue(end_continue, false);
