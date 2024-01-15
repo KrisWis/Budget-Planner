@@ -1,3 +1,6 @@
+// Объявление переменных
+let survey_questions: any;
+
 (async function () {
 
     // Базовые данные
@@ -28,12 +31,12 @@
             create_question__types_upp_security__icon.classList.add("survey__question_type--active");
         }
 
-        let survey_questions: any = obj_reverse(eval('(' + response.survey_questions + ')'));
+        survey_questions = obj_reverse(eval('(' + response.survey_questions + ')'));
 
         for (let question in survey_questions) {
 
             let create_question__request: string =
-                `<div class="survey__question">
+                `<div class="survey__question" id="survey__question--${question}">
                     <h3 class="survey__question--caption">${survey_questions[question]["name"]}</h3>
                     <p class="survey__question--desc">${survey_questions[question]["desc"]}</p>
                     
@@ -78,16 +81,49 @@
 /* Узнавание результатов опроса */
 const survey__get_results: HTMLElement = document.getElementById("survey__get_results");
 
-survey__get_results.addEventListener("click", function (): void {
-    const all_elements: NodeList = document.querySelectorAll(".survey__element");
-    for (let element of all_elements) {
-
-        setTimeout(() => {
-            (element as HTMLElement).classList.add("opacity-0");
-        }, 250);
-
-        setTimeout(() => {
-            hide((element as HTMLElement));
-        }, 1000);
+function get_results(): void {
+    // Проверка, что на каждый вопрос есть ответ
+    let correct_answer: any = {};
+    loop1:
+    for (let question in survey_questions) {
+        let survey_preset_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__preset_answer--checkbox`);
+        for (let preset_answer of survey_preset_answers) {
+            if ((preset_answer as HTMLInputElement).checked) {
+                correct_answer[question] = preset_answer;
+                break loop1;
+            }
+        }
+        let survey_open_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__open_answer--input`);
+        for (let open_answer of survey_open_answers) {
+            if ((open_answer as HTMLInputElement).value) {
+                correct_answer[question] = open_answer;
+                break loop1;
+            }
+        }
     }
-})
+
+    // Проверка, что правильный ответ есть
+    for (let question in survey_questions) {
+        if (!correct_answer[question]) {
+            alert("У каждого вопроса должен быть выбран правильный ответ!");
+            return;
+        }
+    }
+
+    // Выдача результатов
+    for (let question in survey_questions) {
+        correct_answer[question].insertAdjacentHTML(`beforebegin`,
+            `<h3>✔ Правильно</h3>`
+        );
+    }
+
+    survey__get_results.textContent = "На главную";
+
+    survey__get_results.removeEventListener("click", get_results);
+
+    survey__get_results.addEventListener("click", function (): void {
+        window.location.href = "/";
+    })
+}
+
+survey__get_results.addEventListener("click", get_results)

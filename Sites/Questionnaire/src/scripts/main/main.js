@@ -21,6 +21,10 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
         for (let id in survey_links) {
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
+            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", function () {
+                // TODO: сделать функционал статы
+                console.log("Мышь над элементом!");
+            });
         }
         // Устанавливаем стили для опросов на первой странице, и делаем функционал для корректной пагинации
         after_creating_survey();
@@ -113,6 +117,10 @@ function create_survey__end_continue(func, create_survey_page) {
                 });
                 // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
                 create_survey(survey_edit_link, create_survey_id, survey_name, survey_link);
+                document.getElementById(`available_survey--${create_survey_id}`).addEventListener("mouseover", function () {
+                    // TODO: сделать функционал статы
+                    console.log("Мышь над элементом!");
+                });
                 // Корректировка стилей
                 after_creating_survey();
                 // Установка глобальных значений для переменных пагинации

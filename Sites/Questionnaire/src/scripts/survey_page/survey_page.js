@@ -1,3 +1,5 @@
+// Объявление переменных
+let survey_questions;
 (async function () {
     // Базовые данные
     const survey_id = window.location.href.split("/")[3].split("--")[1];
@@ -18,9 +20,9 @@
         if (response.security_type == "upp_security" || response.security_type == "all") {
             create_question__types_upp_security__icon.classList.add("survey__question_type--active");
         }
-        let survey_questions = obj_reverse(eval('(' + response.survey_questions + ')'));
+        survey_questions = obj_reverse(eval('(' + response.survey_questions + ')'));
         for (let question in survey_questions) {
-            let create_question__request = `<div class="survey__question">
+            let create_question__request = `<div class="survey__question" id="survey__question--${question}">
                     <h3 class="survey__question--caption">${survey_questions[question]["name"]}</h3>
                     <p class="survey__question--desc">${survey_questions[question]["desc"]}</p>
                     
@@ -55,15 +57,41 @@
 })();
 /* Узнавание результатов опроса */
 const survey__get_results = document.getElementById("survey__get_results");
-survey__get_results.addEventListener("click", function () {
-    const all_elements = document.querySelectorAll(".survey__element");
-    for (let element of all_elements) {
-        setTimeout(() => {
-            element.classList.add("opacity-0");
-        }, 250);
-        setTimeout(() => {
-            hide(element);
-        }, 1000);
+function get_results() {
+    // Проверка, что на каждый вопрос есть ответ
+    let correct_answer = {};
+    loop1: for (let question in survey_questions) {
+        let survey_preset_answers = document.querySelectorAll(`#survey__question--${question} .survey__preset_answer--checkbox`);
+        for (let preset_answer of survey_preset_answers) {
+            if (preset_answer.checked) {
+                correct_answer[question] = preset_answer;
+                break loop1;
+            }
+        }
+        let survey_open_answers = document.querySelectorAll(`#survey__question--${question} .survey__open_answer--input`);
+        for (let open_answer of survey_open_answers) {
+            if (open_answer.value) {
+                correct_answer[question] = open_answer;
+                break loop1;
+            }
+        }
     }
-});
+    // Проверка, что правильный ответ есть
+    for (let question in survey_questions) {
+        if (!correct_answer[question]) {
+            alert("У каждого вопроса должен быть выбран правильный ответ!");
+            return;
+        }
+    }
+    // Выдача результатов
+    for (let question in survey_questions) {
+        correct_answer[question].insertAdjacentHTML(`beforebegin`, `<h3>✔ Правильно</h3>`);
+    }
+    survey__get_results.textContent = "На главную";
+    survey__get_results.removeEventListener("click", get_results);
+    survey__get_results.addEventListener("click", function () {
+        window.location.href = "/";
+    });
+}
+survey__get_results.addEventListener("click", get_results);
 //# sourceMappingURL=survey_page.js.map
