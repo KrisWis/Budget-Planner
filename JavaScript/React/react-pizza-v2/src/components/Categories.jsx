@@ -2,7 +2,7 @@ import React from 'react';
 
 function Categories() {
     return (
-        <div class="categories">
+        <div className="categories">
             <ul>
                 <li class="active">Все</li>
                 <li>Мясные</li>
