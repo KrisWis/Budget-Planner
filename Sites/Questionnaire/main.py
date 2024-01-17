@@ -74,7 +74,10 @@ class Database:
                             security_type TEXT,
                             survey_questions TEXT,
                             survey_id TEXT,
-                            creator_id TEXT);
+                            creator_id TEXT,
+                            users_amount INT DEFAULT(0),
+                            answers_percents TEXT,
+                            activity TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
         #print(await self.fetch("SELECT * FROM surveys"))
@@ -197,4 +200,29 @@ class GetSurveyCreatorIDRequest(BaseModel):
 @app.post("/api/get-survey-creatorID")
 async def get_survey_creatorID(request: GetSurveyCreatorIDRequest):
     sql = 'SELECT creator_id FROM surveys WHERE survey_id = $1'
+    return await db.fetchrow(sql, request.survey_id)
+
+
+# Запрос для добавления статистики опроса в бд
+class CreateSurveyStatsRequest(BaseModel):
+    users_amount: int
+    answers_percents: dict
+    activity: dict
+
+
+@app.post("/api/create-survey-stats")
+async def create_survey_stats(request: CreateSurveyStatsRequest):
+    sql = 'INSERT INTO surveys (users_amount, answers_percents, activity) VALUES($1, $2, $3)'
+    await db.execute(sql, request.users_amount, str(request.answers_percents), str(request.activity))
+
+    return {"OK": True}
+
+
+# Запрос для получения числа юзеров, которые прошли опрос
+class GetSurveyUsersAmountRequest(BaseModel):
+    survey_id: str
+
+@app.post("/api/get-survey-users-amount")
+async def get_survey_users_amount(request: GetSurveyUsersAmountRequest):
+    sql = 'SELECT users_amount FROM surveys WHERE survey_id = $1'
     return await db.fetchrow(sql, request.survey_id)

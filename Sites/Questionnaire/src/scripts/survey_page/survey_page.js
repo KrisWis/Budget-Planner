@@ -1,5 +1,6 @@
 // Объявление переменных
 let survey_questions;
+// TODO: сделать так, чтобы один и тот же юзер мог пройти опрос только один раз
 (async function () {
     // Базовые данные
     const survey_id = window.location.href.split("/")[3].split("--")[1];
@@ -50,6 +51,18 @@ let survey_questions;
                 survey__answers.insertAdjacentHTML(`afterbegin`, create_answer__request);
             }
         }
+        // Получение прошлого количества юзеров и добавление к нему одного
+        responseRequest = await fetch_post('api/get-survey-users-amount', { survey_id: survey_id });
+        let new_users_amount;
+        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            let response = await responseRequest.json();
+            new_users_amount = response.users_amount + 1;
+        }
+        else {
+            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        }
+        // TODO: сделать добавление ещё двух параметров статистики сюда
+        responseRequest = await fetch_post('api/create-survey-stats', { users_amount: new_users_amount });
     }
     else {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);

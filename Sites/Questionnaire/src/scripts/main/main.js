@@ -22,7 +22,6 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
             document.getElementById(`available_survey--${id}`).addEventListener("mouseover", function () {
-                // TODO: сделать функционал статы
                 console.log("Мышь над элементом!");
             });
         }
@@ -31,8 +30,10 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
         // Настройка стилей для элементов блока "Доступные опросы" (открываем первые 4 элемента)
         let available_surveys_selectors = document.querySelectorAll(".available_survey");
         for (let index = 0; index < 4; index++) {
-            available_surveys_selectors[index].classList.remove("opacity-0");
-            unhide(available_surveys_selectors[index]);
+            if (available_surveys_selectors[index]) {
+                available_surveys_selectors[index].classList.remove("opacity-0");
+                unhide(available_surveys_selectors[index]);
+            }
         }
         // Настройка пагинации
         let existing_surveys = created_surveys.children;
@@ -118,9 +119,16 @@ function create_survey__end_continue(func, create_survey_page) {
                 // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
                 create_survey(survey_edit_link, create_survey_id, survey_name, survey_link);
                 document.getElementById(`available_survey--${create_survey_id}`).addEventListener("mouseover", function () {
-                    // TODO: сделать функционал статы
                     console.log("Мышь над элементом!");
                 });
+                // Открываем элемент, если он входит в первые 4 элемента
+                let available_surveys_selectors = document.querySelectorAll(".available_survey");
+                for (let index = 0; index < 4; index++) {
+                    if (available_surveys_selectors[index]) {
+                        available_surveys_selectors[index].classList.remove("opacity-0");
+                        unhide(available_surveys_selectors[index]);
+                    }
+                }
                 // Корректировка стилей
                 after_creating_survey();
                 // Установка глобальных значений для переменных пагинации
