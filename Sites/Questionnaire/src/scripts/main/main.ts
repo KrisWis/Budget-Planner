@@ -26,8 +26,16 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
 
-            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", function (): void {
-                console.log("Мышь над элементом!")
+            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function (): Promise<void> {
+                let responseRequest: any = await fetch_post('api/get-survey-stats', { survey_id: id });
+
+                if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+                    let response: any = await responseRequest.json();
+                    console.log(response);
+                    // TODO: сделать вывод всех этих данных в стате
+                } else {
+                    console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+                }
             });
         }
 
@@ -284,3 +292,4 @@ function create_answer(create_question__add_answer: HTMLElement, create_question
             create_question_active, question);
     })
 }
+// TODO: во всех .ts скриптах заменить все any на что-то адекватное

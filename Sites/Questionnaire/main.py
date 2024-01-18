@@ -204,25 +204,26 @@ async def get_survey_creatorID(request: GetSurveyCreatorIDRequest):
 
 
 # Запрос для добавления статистики опроса в бд
-class CreateSurveyStatsRequest(BaseModel):
+class UpdateSurveyStatsRequest(BaseModel):
+    survey_id: str
     users_amount: int
     answers_percents: dict
     activity: dict
 
 
-@app.post("/api/create-survey-stats")
-async def create_survey_stats(request: CreateSurveyStatsRequest):
-    sql = 'INSERT INTO surveys (users_amount, answers_percents, activity) VALUES($1, $2, $3)'
-    await db.execute(sql, request.users_amount, str(request.answers_percents), str(request.activity))
+@app.post("/api/update-survey-stats")
+async def update_survey_stats(request: UpdateSurveyStatsRequest):
+    sql = 'UPDATE surveys SET users_amount = $1, answers_percents = $2, activity = $3 WHERE survey_id = $4'
+    await db.execute(sql, request.users_amount, str(request.answers_percents), str(request.activity), request.survey_id)
 
     return {"OK": True}
 
 
 # Запрос для получения числа юзеров, которые прошли опрос
-class GetSurveyUsersAmountRequest(BaseModel):
+class GetSurveyStatsRequest(BaseModel):
     survey_id: str
 
-@app.post("/api/get-survey-users-amount")
-async def get_survey_users_amount(request: GetSurveyUsersAmountRequest):
-    sql = 'SELECT users_amount FROM surveys WHERE survey_id = $1'
+@app.post("/api/get-survey-stats")
+async def get_survey_users_amount(request: GetSurveyStatsRequest):
+    sql = 'SELECT users_amount, answers_percents, activity FROM surveys WHERE survey_id = $1'
     return await db.fetchrow(sql, request.survey_id)

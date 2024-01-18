@@ -6,6 +6,10 @@ main {
     height: 100%;
 }
 
+body {
+    overflow: scroll;
+}
+
 * {
     transition: .3s all linear;
 }

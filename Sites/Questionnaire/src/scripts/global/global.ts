@@ -13,11 +13,11 @@ let upp_security__checkbox: HTMLElement = document.getElementById("upp_security_
 let create_question__types_anonim__icon: HTMLElement = document.getElementById("create_question__types--anonim");
 let create_question__types_upp_security__icon: HTMLElement = document.getElementById("create_question__types--upp_security");
 const body: HTMLElement = document.querySelector("body");
-let create_question__header__desc: HTMLElement = document.getElementById("create_question__header--desc");
+let create_question__header__desc: HTMLElement = document.getElementById("create_question__header--desc--2");
 let create_question__header__inputs: NodeList = document.querySelectorAll(".create_question__header--input");
 let create_question__header__edits: NodeList = document.querySelectorAll(".create_question__header--edit");
-const create_question__add_answer: HTMLElement = document.getElementById("create_question__add_answer");
-const create_question__header: HTMLElement = document.getElementById("create_question__header");
+const create_question__add_answer: HTMLElement = document.getElementById("create_question__add_answer--2");
+const create_question__header: HTMLElement = document.getElementById("create_question__header--2");
 const create_question: HTMLElement = document.getElementById("create_question");
 const create_question__icon: HTMLElement = document.getElementById("create_question--icon");
 let create_question__answers_count: number = 0;
@@ -156,32 +156,30 @@ function save_questions(): Question {
 
     let all_questions: Question = {};
     for (let question of questions) {
-        let question_id: string = (question as HTMLElement).id;
-        let question_name: string = (document.querySelector(`#${question_id} .create_question__header--input`) as HTMLInputElement).value;
-        let question_desc: string = (document.querySelector(`#${question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
-        let answers: NodeList = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
+        let element_question_id: string = (question as HTMLElement).id;
+        let question_name: string = (document.querySelector(`#${element_question_id} .create_question__header--input`) as HTMLInputElement).value;
+        let question_desc: string = (document.querySelector(`#${element_question_id} .create_question__header--desc_input`) as HTMLInputElement).value;
+        let answers: NodeList = document.querySelectorAll(`#${element_question_id} .create_question__answer_types`);
         let all_answers: Answer = {};
+        let question_id: string = element_question_id.split("--")[1];
 
         for (let answer of answers) {
             let answers_id: number = Number((answer as HTMLElement).id.split("--")[3]);
             let answer_type: string;
-            if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
-                answer_type = (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
-            } else {
-                answer_type = "open";
-            }
+
+            answer_type = (document.getElementById(`create_question--${question_id}__preset_answer--checkbox--${answers_id}`) as HTMLInputElement).checked ? 'preset' : 'open';
 
             let answer_correct: boolean;
 
             if (answer_type == 'preset') {
-                answer_correct = (document.getElementById(`question--${question_id.split("--")[1]}__preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+                answer_correct = (document.getElementById(`question--${question_id}__preset_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
             } else {
-                answer_correct = (document.getElementById(`question--${question_id.split("--")[1]}__open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
+                answer_correct = (document.getElementById(`question--${question_id}__open_answer__correct_answer--checkbox--${answers_id}`) as HTMLInputElement).checked;
             }
 
             let answer_text: string;
             try {
-                answer_text = (document.getElementById(`create_question--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
+                answer_text = (document.getElementById(`create_question--${question_id}--preset_answer__input--${answers_id}`) as HTMLInputElement).value;
             } catch {
                 answer_text = "";
             }

@@ -13,11 +13,11 @@ let upp_security__checkbox = document.getElementById("upp_security__checkbox");
 let create_question__types_anonim__icon = document.getElementById("create_question__types--anonim");
 let create_question__types_upp_security__icon = document.getElementById("create_question__types--upp_security");
 const body = document.querySelector("body");
-let create_question__header__desc = document.getElementById("create_question__header--desc");
+let create_question__header__desc = document.getElementById("create_question__header--desc--2");
 let create_question__header__inputs = document.querySelectorAll(".create_question__header--input");
 let create_question__header__edits = document.querySelectorAll(".create_question__header--edit");
-const create_question__add_answer = document.getElementById("create_question__add_answer");
-const create_question__header = document.getElementById("create_question__header");
+const create_question__add_answer = document.getElementById("create_question__add_answer--2");
+const create_question__header = document.getElementById("create_question__header--2");
 const create_question = document.getElementById("create_question");
 const create_question__icon = document.getElementById("create_question--icon");
 let create_question__answers_count = 0;
@@ -131,30 +131,26 @@ function save_questions() {
     const questions = document.querySelectorAll(".create_question_active");
     let all_questions = {};
     for (let question of questions) {
-        let question_id = question.id;
-        let question_name = document.querySelector(`#${question_id} .create_question__header--input`).value;
-        let question_desc = document.querySelector(`#${question_id} .create_question__header--desc_input`).value;
-        let answers = document.querySelectorAll(`#${question_id} .create_question__answer_types`);
+        let element_question_id = question.id;
+        let question_name = document.querySelector(`#${element_question_id} .create_question__header--input`).value;
+        let question_desc = document.querySelector(`#${element_question_id} .create_question__header--desc_input`).value;
+        let answers = document.querySelectorAll(`#${element_question_id} .create_question__answer_types`);
         let all_answers = {};
+        let question_id = element_question_id.split("--")[1];
         for (let answer of answers) {
             let answers_id = Number(answer.id.split("--")[3]);
             let answer_type;
-            if (document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`)) {
-                answer_type = document.querySelector(`#${question_id} #create_question__preset_answer--checkbox--${answers_id}`).checked ? 'preset' : 'open';
-            }
-            else {
-                answer_type = "open";
-            }
+            answer_type = document.getElementById(`create_question--${question_id}__preset_answer--checkbox--${answers_id}`).checked ? 'preset' : 'open';
             let answer_correct;
             if (answer_type == 'preset') {
-                answer_correct = document.getElementById(`question--${question_id.split("--")[1]}__preset_answer__correct_answer--checkbox--${answers_id}`).checked;
+                answer_correct = document.getElementById(`question--${question_id}__preset_answer__correct_answer--checkbox--${answers_id}`).checked;
             }
             else {
-                answer_correct = document.getElementById(`question--${question_id.split("--")[1]}__open_answer__correct_answer--checkbox--${answers_id}`).checked;
+                answer_correct = document.getElementById(`question--${question_id}__open_answer__correct_answer--checkbox--${answers_id}`).checked;
             }
             let answer_text;
             try {
-                answer_text = document.getElementById(`create_question--preset_answer__input--${answers_id}`).value;
+                answer_text = document.getElementById(`create_question--${question_id}--preset_answer__input--${answers_id}`).value;
             }
             catch {
                 answer_text = "";

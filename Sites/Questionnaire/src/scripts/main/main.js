@@ -21,8 +21,16 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
         for (let id in survey_links) {
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
-            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", function () {
-                console.log("Мышь над элементом!");
+            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function () {
+                let responseRequest = await fetch_post('api/get-survey-stats', { survey_id: id });
+                if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+                    let response = await responseRequest.json();
+                    console.log(response);
+                    // TODO: сделать вывод всех этих данных в стате
+                }
+                else {
+                    console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+                }
             });
         }
         // Устанавливаем стили для опросов на первой странице, и делаем функционал для корректной пагинации
@@ -234,4 +242,5 @@ function create_answer(create_question__add_answer, create_question__header, cre
         answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox, create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete, create_question_active, question);
     });
 }
+// TODO: во всех .ts скриптах заменить все any на что-то адекватное
 //# sourceMappingURL=main.js.map

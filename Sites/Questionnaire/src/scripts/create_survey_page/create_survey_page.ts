@@ -113,13 +113,13 @@ if (create_question__add_answer) {
                     <div class="create_question--preset_answer__interface">
                         <i class="fa fa-address-book-o create_question__answer_type--icon" aria-hidden="true"></i>
                         <p class="create_question__answer_type--caption">Предустановленный ответ</p>
-                        <input class="create_question__answer_type--radio" type="radio" id="create_question__preset_answer--checkbox--${create_question__answers_count}">
+                        <input class="create_question__answer_type--radio" type="radio" id="create_question--${create_question__count}__preset_answer--checkbox--${create_question__answers_count}">
                     </div>
     
                     <div class="create_question--preset_answer__menu hidden" id="create_question--preset_answer__menu--${create_question__answers_count}">
     
                         <div class="create_question--preset_answer__text">
-                            <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--preset_answer__input--${create_question__answers_count}">
+                            <input class="create_question__header--input" type="text" placeholder="Введите вариант ответа" id="create_question--${create_question__count}--preset_answer__input--${create_question__answers_count}">
                             <i class="fa fa-pencil create_question__header--edit" aria-hidden="true" id="create_question--preset_answer__edit--${create_question__answers_count}"></i>
                         </div>
     
@@ -164,15 +164,15 @@ if (create_question__add_answer) {
         );
 
         /* Объявление переменных, созданных после создания опроса и активация функций в создании ответа */
-        const create_question__preset_answer__input: HTMLElement = document.getElementById(`create_question--preset_answer__input--${create_question__answers_count}`);
+        const create_question__preset_answer__input: HTMLElement = document.getElementById(`create_question--${create_question__count}--preset_answer__input--${create_question__answers_count}`);
         const create_question__preset_answer__edit: HTMLElement = document.getElementById(`create_question--preset_answer__edit--${create_question__answers_count}`);
-        const create_question__preset_answer__checkbox: HTMLElement = document.getElementById(`create_question__preset_answer--checkbox--${create_question__answers_count}`);
+        const create_question__preset_answer__checkbox: HTMLElement = document.getElementById(`create_question--${create_question__count}__preset_answer--checkbox--${create_question__answers_count}`);
         const create_question__preset_answer__menu: HTMLElement = document.getElementById(`create_question--preset_answer__menu--${create_question__answers_count}`);
         const create_question__open_answer__checkbox: HTMLElement = document.getElementById(`create_question__open_answer--checkbox--${create_question__answers_count}`);
         const create_question__open_answer__menu: HTMLElement = document.getElementById(`create_question--open_answer__menu--${create_question__answers_count}`);
         const create_question__delete: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--delete--${create_question__answers_count}`);
         const question: HTMLElement = document.getElementById(`create_question--${create_question__count}--answer_types--${create_question__answers_count}`);
-        const create_question_active: HTMLElement = document.getElementById("create_question_active--${create_question__count}");
+        const create_question_active: HTMLElement = document.getElementById(`create_question_active--${create_question__count}`);
 
         answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox,
             create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete,
@@ -240,6 +240,8 @@ async function page_end_continue(): Promise<void> {
     create_survey_page__continue.classList.add("page_name--class");
     setTimeout(() => {
         create_survey_page__end.classList.add("opacity-0");
+        create_survey_page__end.classList.remove("opacity-1");
+        hide(create_survey_page__end);
         create_survey_page__continue.classList.add("opacity-0");
     }, 200);
 

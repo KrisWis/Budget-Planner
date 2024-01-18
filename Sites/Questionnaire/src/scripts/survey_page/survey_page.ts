@@ -1,15 +1,21 @@
-// Объявление переменных
+// Объявление переменных и функций
 let survey_questions: any;
+let survey_page_id: string;
+interface Month {
+    [key: string]: string
+}
+const monthes: Month = { "1": "Январь", "2": "Февраль", "3": "Март", "4": "Апрель", "5": "Май", "6": "Июнь", "7": "Июль", "8": "Август", "9": "Сентябрь", "10": "Октябрь", "11": "Ноябрь", "12": "Декабрь" };
+
 // TODO: сделать так, чтобы один и тот же юзер мог пройти опрос только один раз
 
 (async function () {
 
     // Базовые данные
-    const survey_id: string = window.location.href.split("/")[3].split("--")[1];
+    survey_page_id = window.location.href.split("/")[3].split("--")[1];
     const survey__questions: HTMLElement = document.getElementById("survey__questions");
 
     // Получаем данные опроса из бд
-    let responseRequest = await fetch_post('api/get-survey', { survey_id: survey_id });
+    let responseRequest = await fetch_post('api/get-survey', { survey_id: survey_page_id });
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
@@ -59,13 +65,14 @@ let survey_questions: any;
                 if (question__answers[answer]["type"] == 'preset') {
                     create_answer__request =
                         `<div class="survey__preset_answer survey__answer">
-                            <input type="radio" class="survey__preset_answer--checkbox" name="preset_answers--checkboxes" id="survey__preset_answer__checkbox--${answer}">
+                            <input type="radio" class="survey__preset_answer--checkbox" name="preset_answers--checkboxes--${question}" id="survey__preset_answer__checkbox--${answer}">
                             <label class="survey__preset_answer--text" for="survey__preset_answer__checkbox--${answer}">${question__answers[answer]["answer_text"]}</label>
                         </div>`;
+
                 } else if (question__answers[answer]["type"] == 'open') {
                     create_answer__request =
                         `<div class="survey__open_answer survey__answer">
-                            <input class="survey__open_answer--input" type="text" placeholder="Введите свой вариант ответа">
+                            <input class="survey__open_answer--input" id="survey__open_answer__input--${answer}" type="text" placeholder="Введите свой вариант ответа">
                         </div>`;
                 }
 
@@ -75,20 +82,6 @@ let survey_questions: any;
             }
         }
 
-        // Получение прошлого количества юзеров и добавление к нему одного
-        responseRequest = await fetch_post('api/get-survey-users-amount', { survey_id: survey_id });
-        let new_users_amount: number;
-        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-
-            let response: any = await responseRequest.json();
-            new_users_amount = response.users_amount + 1;
-
-        } else {
-            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
-        }
-
-        // TODO: сделать добавление ещё двух параметров статистики сюда
-        responseRequest = await fetch_post('api/create-survey-stats', { users_amount: new_users_amount });
     } else {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
@@ -96,50 +89,142 @@ let survey_questions: any;
 
 /* Узнавание результатов опроса */
 const survey__get_results: HTMLElement = document.getElementById("survey__get_results");
+let checked_answers: any = {};
 
-function get_results(): void {
+async function get_results(): Promise<void> {
     // Проверка, что на каждый вопрос есть ответ
-    let correct_answer: any = {};
-    loop1:
     for (let question in survey_questions) {
+
         let survey_preset_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__preset_answer--checkbox`);
         for (let preset_answer of survey_preset_answers) {
             if ((preset_answer as HTMLInputElement).checked) {
-                correct_answer[question] = preset_answer;
-                break loop1;
+                checked_answers[question] = preset_answer;
+                break;
             }
         }
         let survey_open_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__open_answer--input`);
         for (let open_answer of survey_open_answers) {
             if ((open_answer as HTMLInputElement).value) {
-                correct_answer[question] = open_answer;
-                break loop1;
+                checked_answers[question] = open_answer;
+                break;
             }
         }
     }
 
     // Проверка, что правильный ответ есть
     for (let question in survey_questions) {
-        if (!correct_answer[question]) {
+        if (!checked_answers[question]) {
             alert("У каждого вопроса должен быть выбран правильный ответ!");
             return;
         }
     }
 
-    // Выдача результатов
-    for (let question in survey_questions) {
-        correct_answer[question].insertAdjacentHTML(`beforebegin`,
-            `<h3>✔ Правильно</h3>`
-        );
+    // Получаем данные опроса из бд и проверяем правильность ответов
+    let responseRequest = await fetch_post('api/get-survey', { survey_id: survey_page_id });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+
+        let response: any = await responseRequest.json();
+        let db_survey_questions: any = obj_reverse(eval('(' + response.survey_questions + ')'));
+
+        for (let survey_question in db_survey_questions) {
+
+            let survey_answers: any = db_survey_questions[survey_question].answers;
+
+            for (let survey_answer in survey_answers) {
+
+                if (survey_answers[survey_answer].correct == "true") {
+
+                    if (survey_answer == checked_answers[survey_question].id.split("--")[1]) {
+
+                        checked_answers[survey_question].insertAdjacentHTML(`beforebegin`,
+                            `<h3>✔ Правильно</h3>`
+                        );
+                    } else {
+                        checked_answers[survey_question].insertAdjacentHTML(`beforebegin`,
+                            `<h3>✘ Неправильно</h3>`
+                        );
+                    }
+                }
+            }
+        }
+
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
     }
 
-    survey__get_results.textContent = "На главную";
+    // Получение прошлой статы и добавление к ней новой
+    responseRequest = await fetch_post('api/get-survey-stats', { survey_id: survey_page_id });
+    let new_users_amount: number;
+    let answers_percents: any;
+    let activity: any;
 
-    survey__get_results.removeEventListener("click", get_results);
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
-    survey__get_results.addEventListener("click", function (): void {
-        window.location.href = "/";
-    })
+        // Получение и добавление к кол-ву участников
+        let response: any = await responseRequest.json();
+
+        new_users_amount = response.users_amount + 1;
+
+        // Получение и добавление к процентному соотношению ответов
+        if (!response.answers_percents) {
+            answers_percents = {};
+        } else {
+            answers_percents = eval('(' + response.answers_percents + ')');
+        }
+
+        let preset_answers: NodeListOf<HTMLElement> = document.querySelectorAll(".survey__preset_answer--text");
+
+        for (let answer of preset_answers) {
+            if (answers_percents[answer.textContent]) {
+                answers_percents[answer.textContent] += 1;
+            } else {
+                answers_percents[answer.textContent] = 1;
+            }
+        }
+
+        let open_answers: NodeListOf<HTMLElement> = document.querySelectorAll(".survey__open_answer--input");
+
+        for (let answer of open_answers) {
+            if ((answer as HTMLInputElement).value) {
+                if (answers_percents["Другое"]) {
+                    answers_percents["Другое"] += 1;
+                } else {
+                    answers_percents["Другое"] = 1;
+                }
+            }
+        }
+
+        // Получение времени и статы об активности и добавление к ним
+        const date: Date = new Date();
+        const now_month: string = monthes[String(date.getMonth() + 1)];
+
+        if (!response.activity) {
+            activity = { "Январь": 0, "Февраль": 0, "Март": 0, "Апрель": 0, "Май": 0, "Июнь": 0, "Июль": 0, "Август": 0, "Сентябрь": 0, "Октябрь": 0, "Ноябрь": 0, "Декабрь": 0 };
+        } else {
+            activity = eval('(' + response.activity + ')');
+        }
+
+        activity[now_month] += 1;
+
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
+
+    responseRequest = await fetch_post('api/update-survey-stats', { survey_id: survey_page_id, users_amount: new_users_amount, answers_percents: answers_percents, activity: activity });
+
+    if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        // Кнопка "На главную"
+        survey__get_results.textContent = "На главную";
+
+        survey__get_results.removeEventListener("click", get_results);
+
+        survey__get_results.addEventListener("click", function (): void {
+            window.location.href = "/";
+        })
+    } else {
+        console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+    }
 }
 
 survey__get_results.addEventListener("click", get_results)
