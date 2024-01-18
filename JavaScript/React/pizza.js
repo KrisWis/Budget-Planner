@@ -33,3 +33,31 @@
 /* СОЗДАЁМ КОМПОНЕНТ ПИЦЦ И КАТЕГОРИИ, РЕНДЕР СПИСКА, SPREAD-ОПЕРАТОР - https://www.youtube.com/watch?v=Y8j2GzMbaAw&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=5 */
 
 
+// Стоит помнить, что React изначально находиться в папке public, поэтому и пути надо указывать, зная это.
+
+// Чтобы передавать параметры в функцию, можно использовать bind().
+<li onClick={onClickCategory.bind(null, 0)} className={activeIndex === 0 ? 'active' : ''}>Все</li>
+
+// Но дучше использовать стрелочную функцию для этого. Т.к это анонимная, но не самовызывающияся функция, т.е бесконечных ререндеров не будет.
+// <li onClick={() => onClickCategory(categories[category])} className={activeIndex === categories[category] ? 'active' : ''}>{category}</li>
+
+// Также, стоит помнить, что когда проходимся по массиву с помощью map, то мы также можем брать автоматически и индекс элемента в массиве:
+{
+    categories.map((category, index) => (
+        <li key={index} onClick={() => onClickCategory(index)} className={activeIndex === index ? 'active' : ''}>{category}</li>
+    ))
+}
+
+// Не всегда есть смысл создавать для onClick() отдельную функцию, тем более если она занимает 1 строчку:
+<li key={size} onClick={() => setActiveSize(index)} className={activeSize === index ? 'active' : ''}>{size} см.</li>
+
+// Не стоит забывать про spread оператор для присваивания пропсов:
+{/* <PizzaBlock
+    key={pizza["id"]}
+    {...pizza}
+/> */}
+
+
+/* СОЗДАЁМ POPUP-ОКНО СОРТИРОВКИ, ЧТО ТАКОЕ KEY? - https://www.youtube.com/watch?v=_EiClUmTlNg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=6 */
+
+
