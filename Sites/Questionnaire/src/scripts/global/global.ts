@@ -37,8 +37,8 @@ const created_surveys: HTMLElement = document.getElementById("created_surveys");
 const survey_panel__pagination__left_arrow: HTMLElement = document.getElementById("survey_panel__pagination--left_arrow");
 const survey_panel__pagination__right_arrow: HTMLElement = document.getElementById("survey_panel__pagination--right_arrow");
 let survey_panel__pagination__counter: number = 0;
-let create_survey__existing_surveys: any = {};
-let available_surveys__existing_surveys: any = {};
+let create_survey__existing_surveys: ExistingSurveys = {};
+let available_surveys__existing_surveys: ExistingSurveys = {};
 const available_surveys: HTMLElement = document.getElementById("available_surveys");
 const available_surveys__none: HTMLElement = document.getElementById("available_surveys__none");
 const available_surveys__pagination__left_arrow: HTMLElement = document.getElementById("available_surveys__pagination--left_arrow");
@@ -126,7 +126,7 @@ function after_creating_survey(): void {
 }
 
 // Функция для настройки пагинации
-function pagination_func(array: HTMLCollection, obj: {}, surveys_length: number): void {
+function pagination_func(array: HTMLCollection, obj: ExistingSurveys, surveys_length: number): void {
     for (let el of array) {
         if (Array.from(array).indexOf(el) > surveys_length) {
             obj[el.id] = "unselect";
@@ -196,7 +196,7 @@ function save_questions(): Question {
 // Функция для реверса объекта
 function obj_reverse(obj: Object): Object {
     let new_obj: Object = {}
-    let rev_obj: any = Object.keys(obj).reverse();
+    let rev_obj: Array<string | number> = Object.keys(obj).reverse();
     rev_obj.forEach(function (i) {
         new_obj[i] = obj[i];
     })
@@ -218,12 +218,76 @@ interface Question {
 
 interface Answer {
     type?: string,
-    correct?: boolean,
+    correct?: boolean | string,
     answer_text?: string,
 }
 
+interface GetSurveyCreatorID {
+    creator_id: string
+}
+
+interface GetSurvey {
+    id: string,
+    name: string,
+    security_type: string,
+    survey_questions: string,
+    survey_id: string
+}
+
+interface SurveyQuestions {
+    [key: string]: Question
+}
+
+interface ExistingSurveysLinks {
+    [key: string]: [string, string]
+}
+
+interface ExistingSurveys {
+    [key: string]: "select" | "unselect"
+}
+
+interface CookieOptions {
+    path?: string,
+    domain?: string,
+    'max-age'?: number,
+    secure?: boolean,
+    expires?: Date | string,
+    samesite?: string
+}
+
+interface SurveyLinks {
+    [key: string]: [string, string, string]
+}
+
+interface SurveyStats {
+    activity: null | string,
+    answers_percents: null | string,
+    users_amount: number
+}
+
+interface QuestionAnswers {
+    [key: string]: Answer
+}
+
+interface CheckedAnswers {
+    [key: string]: HTMLElement
+}
+
+interface SurveyAnswers {
+    [key: string]: Answer
+}
+
+interface AnswersPercents {
+    [key: string]: number
+}
+
+interface Activity {
+    [key: string]: number
+}
+
+
 /* Функции для работы с куки */
-function setCookie(name: string, value: any, options: any = {}): void {
+function setCookie(name: string, value: string, options: CookieOptions = {}): void {
 
     options = {
         path: '/',
@@ -248,14 +312,14 @@ function setCookie(name: string, value: any, options: any = {}): void {
     document.cookie = updatedCookie;
 }
 
-function getCookie(name: string): any {
+function getCookie(name: string): string | undefined {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-function deleteCookie(name) {
+function deleteCookie(name: string): void {
     setCookie(name, "", {
         'max-age': -1
     })

@@ -161,9 +161,10 @@ async function end_continue() {
     /* Сохранение имени и описания вопросов */
     let all_questions = save_questions();
     // Сохранение опроса в куки
-    let existing_surveys_links = getCookie('survey_links');
-    if (existing_surveys_links) {
-        existing_surveys_links = JSON.parse(existing_surveys_links);
+    let cookie_existing_surveys_links = getCookie('survey_links');
+    let existing_surveys_links;
+    if (cookie_existing_surveys_links) {
+        existing_surveys_links = JSON.parse(cookie_existing_surveys_links);
     }
     else {
         existing_surveys_links = {};

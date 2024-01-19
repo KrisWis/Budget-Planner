@@ -26,7 +26,7 @@ create_question__types_upp_security__icon = document.getElementById("create_ques
 
     if (responseRequest_creatorID.ok) { // если HTTP-статус в диапазоне 200-299
 
-        let response: any = await responseRequest_creatorID.json();
+        let response: GetSurveyCreatorID = await responseRequest_creatorID.json();
 
         if (user_id != response.creator_id) {
             alert("Вы не имеете доступа к этой странице!");
@@ -42,7 +42,7 @@ create_question__types_upp_security__icon = document.getElementById("create_ques
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
-        let response: any = await responseRequest.json();
+        let response: GetSurvey = await responseRequest.json();
 
         survey_name = response.name;
 
@@ -60,7 +60,8 @@ create_question__types_upp_security__icon = document.getElementById("create_ques
         }
 
         // Присвоение вопросов
-        let survey_questions: any = eval('(' + response.survey_questions + ')');
+        let survey_questions: SurveyQuestions = eval('(' + response.survey_questions + ')');
+
         for (let id in obj_reverse(survey_questions)) {
             const question_id: string = id.split("--")[1];
             const survey_questions_request: string =
@@ -194,9 +195,11 @@ async function end_continue(): Promise<void> {
     let all_questions: Question = save_questions();
 
     // Сохранение опроса в куки
-    let existing_surveys_links: any = getCookie('survey_links');
-    if (existing_surveys_links) {
-        existing_surveys_links = JSON.parse(existing_surveys_links);
+    let cookie_existing_surveys_links: string = getCookie('survey_links');
+    let existing_surveys_links: ExistingSurveysLinks;
+
+    if (cookie_existing_surveys_links) {
+        existing_surveys_links = JSON.parse(cookie_existing_surveys_links);
     } else {
         existing_surveys_links = {};
     }

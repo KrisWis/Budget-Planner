@@ -15,14 +15,15 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
 // Функционал при загрузке страницы
 (function () {
     // Получение и обработка ссылок на все опросы
-    let survey_links = getCookie('survey_links') || null;
-    if (survey_links && created_surveys) {
-        survey_links = JSON.parse(survey_links);
+    let cookie_survey_links = getCookie('survey_links') || null;
+    if (cookie_survey_links && created_surveys) {
+        let survey_links = JSON.parse(cookie_survey_links);
         for (let id in survey_links) {
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
             document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function () {
                 let responseRequest = await fetch_post('api/get-survey-stats', { survey_id: id });
+                console.log(responseRequest);
                 if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
                     let response = await responseRequest.json();
                     console.log(response);
@@ -99,9 +100,10 @@ function create_survey__end_continue(func, create_survey_page) {
                 const survey_edit_link = response["edit_link"];
                 create_survey_id = response["id"];
                 const survey_link = response["survey_link"];
-                let existing_surveys_links = getCookie('survey_links');
-                if (existing_surveys_links) {
-                    existing_surveys_links = JSON.parse(existing_surveys_links);
+                let cookie_existing_surveys_links = getCookie('survey_links');
+                let existing_surveys_links;
+                if (cookie_existing_surveys_links) {
+                    existing_surveys_links = JSON.parse(cookie_existing_surveys_links);
                 }
                 else {
                     existing_surveys_links = {};
@@ -242,5 +244,4 @@ function create_answer(create_question__add_answer, create_question__header, cre
         answer_functions(create_question__preset_answer__edit, create_question__preset_answer__input, create_question__preset_answer__checkbox, create_question__preset_answer__menu, create_question__open_answer__menu, create_question__open_answer__checkbox, create_question__delete, create_question_active, question);
     });
 }
-// TODO: во всех .ts скриптах заменить все any на что-то адекватное
 //# sourceMappingURL=main.js.map

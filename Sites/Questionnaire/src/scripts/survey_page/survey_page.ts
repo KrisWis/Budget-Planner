@@ -1,5 +1,5 @@
 // Объявление переменных и функций
-let survey_questions: any;
+let survey_questions: Object;
 let survey_page_id: string;
 interface Month {
     [key: string]: string
@@ -19,7 +19,7 @@ const monthes: Month = { "1": "Январь", "2": "Февраль", "3": "Ма�
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
-        let response: any = await responseRequest.json();
+        let response: GetSurvey = await responseRequest.json();
 
         survey_name = response.name;
 
@@ -56,7 +56,7 @@ const monthes: Month = { "1": "Январь", "2": "Февраль", "3": "Ма�
             );
 
             const survey__answers: HTMLElement = document.getElementById("survey__answers");
-            const question__answers: any = survey_questions[question]["answers"];
+            const question__answers: QuestionAnswers = survey_questions[question]["answers"];
 
             for (let answer in question__answers) {
 
@@ -89,20 +89,20 @@ const monthes: Month = { "1": "Январь", "2": "Февраль", "3": "Ма�
 
 /* Узнавание результатов опроса */
 const survey__get_results: HTMLElement = document.getElementById("survey__get_results");
-let checked_answers: any = {};
+let checked_answers: CheckedAnswers = {};
 
 async function get_results(): Promise<void> {
     // Проверка, что на каждый вопрос есть ответ
     for (let question in survey_questions) {
 
-        let survey_preset_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__preset_answer--checkbox`);
+        let survey_preset_answers: NodeListOf<HTMLElement> = document.querySelectorAll(`#survey__question--${question} .survey__preset_answer--checkbox`);
         for (let preset_answer of survey_preset_answers) {
             if ((preset_answer as HTMLInputElement).checked) {
                 checked_answers[question] = preset_answer;
                 break;
             }
         }
-        let survey_open_answers: NodeList = document.querySelectorAll(`#survey__question--${question} .survey__open_answer--input`);
+        let survey_open_answers: NodeListOf<HTMLElement> = document.querySelectorAll(`#survey__question--${question} .survey__open_answer--input`);
         for (let open_answer of survey_open_answers) {
             if ((open_answer as HTMLInputElement).value) {
                 checked_answers[question] = open_answer;
@@ -124,12 +124,12 @@ async function get_results(): Promise<void> {
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
-        let response: any = await responseRequest.json();
-        let db_survey_questions: any = obj_reverse(eval('(' + response.survey_questions + ')'));
+        let response: GetSurvey = await responseRequest.json();
+        let db_survey_questions: SurveyQuestions | Object = obj_reverse(eval('(' + response.survey_questions + ')'));
 
         for (let survey_question in db_survey_questions) {
 
-            let survey_answers: any = db_survey_questions[survey_question].answers;
+            let survey_answers: SurveyAnswers = db_survey_questions[survey_question].answers;
 
             for (let survey_answer in survey_answers) {
 
@@ -156,13 +156,13 @@ async function get_results(): Promise<void> {
     // Получение прошлой статы и добавление к ней новой
     responseRequest = await fetch_post('api/get-survey-stats', { survey_id: survey_page_id });
     let new_users_amount: number;
-    let answers_percents: any;
-    let activity: any;
+    let answers_percents: AnswersPercents;
+    let activity: Activity;
 
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
 
         // Получение и добавление к кол-ву участников
-        let response: any = await responseRequest.json();
+        let response: SurveyStats = await responseRequest.json();
 
         new_users_amount = response.users_amount + 1;
 

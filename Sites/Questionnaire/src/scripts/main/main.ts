@@ -17,20 +17,21 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
 // Функционал при загрузке страницы
 (function () {
     // Получение и обработка ссылок на все опросы
-    let survey_links: any = getCookie('survey_links') || null;
+    let cookie_survey_links: string | null = getCookie('survey_links') || null;
 
-    if (survey_links && created_surveys) {
-        survey_links = JSON.parse(survey_links);
+    if (cookie_survey_links && created_surveys) {
+        let survey_links: SurveyLinks = JSON.parse(cookie_survey_links);
 
         for (let id in survey_links) {
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
 
             document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function (): Promise<void> {
-                let responseRequest: any = await fetch_post('api/get-survey-stats', { survey_id: id });
+                let responseRequest: Response = await fetch_post('api/get-survey-stats', { survey_id: id });
+                console.log(responseRequest)
 
                 if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-                    let response: any = await responseRequest.json();
+                    let response: SurveyStats = await responseRequest.json();
                     console.log(response);
                     // TODO: сделать вывод всех этих данных в стате
                 } else {
@@ -123,9 +124,11 @@ function create_survey__end_continue(func: VoidFunction, create_survey_page: boo
                 const survey_edit_link: string = response["edit_link"];
                 create_survey_id = response["id"];
                 const survey_link: string = response["survey_link"];
-                let existing_surveys_links: any = getCookie('survey_links');
-                if (existing_surveys_links) {
-                    existing_surveys_links = JSON.parse(existing_surveys_links);
+                let cookie_existing_surveys_links: string = getCookie('survey_links');
+                let existing_surveys_links: SurveyLinks;
+
+                if (cookie_existing_surveys_links) {
+                    existing_surveys_links = JSON.parse(cookie_existing_surveys_links);
                 } else {
                     existing_surveys_links = {};
                 }
@@ -174,7 +177,7 @@ function create_survey__end_continue(func: VoidFunction, create_survey_page: boo
                 create_survey__existing_surveys = {};
                 pagination_func(existing_surveys, create_survey__existing_surveys, 1);
 
-                let existing_available_surveys: any = available_surveys.children;
+                let existing_available_surveys: HTMLCollection = available_surveys.children;
                 available_surveys__existing_surveys = {};
                 pagination_func(existing_available_surveys, available_surveys__existing_surveys, 3);
 
@@ -292,4 +295,3 @@ function create_answer(create_question__add_answer: HTMLElement, create_question
             create_question_active, question);
     })
 }
-// TODO: во всех .ts скриптах заменить все any на что-то адекватное
