@@ -61,3 +61,21 @@
 /* СОЗДАЁМ POPUP-ОКНО СОРТИРОВКИ, ЧТО ТАКОЕ KEY? - https://www.youtube.com/watch?v=_EiClUmTlNg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=6 */
 
 
+// Пример условного рендеринга: если isVisible true, то div отрендериться. Если левая часть true, то будет сделана правая часть.
+{
+    isVisible &&
+        <div className="sort__popup">
+            <ul>
+                <li>популярности</li>
+                <li>цене</li>
+                <li>алфавиту</li>
+            </ul>
+        </div>
+}
+
+// if и else нельзя писать в JSX. И впринципе всё, что пишеться не в одну строчку.
+
+
+/* ПОЛУЧАЕМ ПИЦЦЫ С БЕКЕНДА (FETCH), ИЗУЧАЕМ ХУК USEEFFECT - https://www.youtube.com/watch?v=A_7DhcVwcjg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=7 */
+
+
