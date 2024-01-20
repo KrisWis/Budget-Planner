@@ -43,6 +43,9 @@ const available_surveys: HTMLElement = document.getElementById("available_survey
 const available_surveys__none: HTMLElement = document.getElementById("available_surveys__none");
 const available_surveys__pagination__left_arrow: HTMLElement = document.getElementById("available_surveys__pagination--left_arrow");
 const available_surveys__pagination__right_arrow: HTMLElement = document.getElementById("available_surveys__pagination--right_arrow");
+const stats_panel__participants_amount: HTMLElement = document.getElementById("stats_panel--participants_amount");
+const stats__answers__answers: HTMLElement = document.getElementById("stats--answers__answers");
+const stats__answers__pie_chart: HTMLElement = document.getElementById("stats--answers__pie_chart");
 
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
@@ -202,6 +205,17 @@ function obj_reverse(obj: Object): Object {
     })
     return new_obj;
 }
+
+// Функция для выдачи случайного цвета
+function getRandomColor(): string {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 
 /* Наполняем localStorage дефолтными значениями и создаём интерфейсы для типов данных */
 interface Survey {

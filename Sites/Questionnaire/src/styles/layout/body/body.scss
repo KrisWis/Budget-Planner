@@ -274,6 +274,24 @@
         gap: 10%;
         padding-left: 5%;
 
+        .stats--answer__answer {
+          display: flex;
+          gap: 5%;
+          min-width: 100px;
+
+          &--color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+          }
+
+          &--text {
+            color: #313131;
+            font-size: 20px;
+            font-weight: 600;
+          }
+        }
+
         .stats--answers__pie_chart {
           height: 190px;
           width: 30%;
@@ -282,9 +300,13 @@
         }
 
         .stats--answers__answers {
+          display: flex;
+          flex-direction: column;
           width: 15%;
           height: 120px;
           align-self: center;
+          margin-left: 10%;
+          gap: 5%;
         }
       }
 

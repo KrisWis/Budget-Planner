@@ -43,6 +43,9 @@ const available_surveys = document.getElementById("available_surveys");
 const available_surveys__none = document.getElementById("available_surveys__none");
 const available_surveys__pagination__left_arrow = document.getElementById("available_surveys__pagination--left_arrow");
 const available_surveys__pagination__right_arrow = document.getElementById("available_surveys__pagination--right_arrow");
+const stats_panel__participants_amount = document.getElementById("stats_panel--participants_amount");
+const stats__answers__answers = document.getElementById("stats--answers__answers");
+const stats__answers__pie_chart = document.getElementById("stats--answers__pie_chart");
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 // Функция скрытия элемента
 function hide(el) {
@@ -169,6 +172,15 @@ function obj_reverse(obj) {
         new_obj[i] = obj[i];
     });
     return new_obj;
+}
+// Функция для выдачи случайного цвета
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 /* Функции для работы с куки */
 function setCookie(name, value, options = {}) {

@@ -247,6 +247,21 @@
   gap: 10%;
   padding-left: 5%;
 }
+.panels .stats .stats_panel .stats--answers .stats--answer__answer {
+  display: flex;
+  gap: 5%;
+  min-width: 100px;
+}
+.panels .stats .stats_panel .stats--answers .stats--answer__answer--color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.panels .stats .stats_panel .stats--answers .stats--answer__answer--text {
+  color: #313131;
+  font-size: 20px;
+  font-weight: 600;
+}
 .panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
   height: 190px;
   width: 30%;
@@ -254,9 +269,13 @@
   background-color: #F6F6F6;
 }
 .panels .stats .stats_panel .stats--answers .stats--answers__answers {
+  display: flex;
+  flex-direction: column;
   width: 15%;
   height: 120px;
   align-self: center;
+  margin-left: 10%;
+  gap: 5%;
 }
 .panels .stats .stats_panel .stats_panel--participants_amount {
   font-size: 20px;

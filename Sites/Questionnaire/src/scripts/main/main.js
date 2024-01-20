@@ -28,6 +28,26 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
                     let response = await responseRequest.json();
                     console.log(response);
                     // TODO: сделать вывод всех этих данных в стате
+                    // Вывод количества участников
+                    stats_panel__participants_amount.textContent = String(response.users_amount);
+                    // Очистка всех детей элемента перед внедрением в него новых
+                    stats__answers__answers.innerHTML = "";
+                    // Вывод процентного соотношения ответов
+                    let answers_percents = eval("(" + response.answers_percents + ")");
+                    for (let answer in answers_percents) {
+                        // Генерация случайного цвета для процентного соотношения
+                        let answer_color = getRandomColor();
+                        // Внедрение ответа в HTML
+                        const create_stats__answer__request = `<div class="stats--answer__answer">
+                            <div class="stats--answer__answer--color" style="background-color: ${answer_color}"></div>
+                            <p class="stats--answer__answer--text">${answer}</p>
+                        </div>`;
+                        stats__answers__answers.insertAdjacentHTML(`beforeend`, create_stats__answer__request);
+                    }
+                    // Создание круговой диограммы
+                    stats__answers__pie_chart.width = 300;
+                    stats__answers__pie_chart.height = 300;
+                    let pie_chart__ctx = stats__answers__pie_chart.getContext("2d");
                 }
                 else {
                     console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
