@@ -305,8 +305,9 @@
 
       /* Количество участников */
       .stats_panel--participants_amount {
+        color: #313131;
         font-size: 20px;
-        font-weight: 500;
+        font-weight: 600;
         padding: 5%;
       }
 
@@ -316,6 +317,40 @@
         font-weight: 700;
         text-align: center;
         padding-top: 5%;
+      }
+
+      .stats__activities {
+        display: flex;
+        gap: 1%;
+        height: 300px;
+
+        .stats__activities--activity {
+          align-self: flex-end;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+          height: 100%;
+
+          .stats__activities--count {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E1B39;
+          }
+
+          .stats__activities--col {
+            width: 100%;
+            border-radius: 16px;
+            background: #0084FF;
+          }
+
+          .stats__activities--month {
+            color: #6E6C83;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5%;
+          }
+        }
       }
     }
   }

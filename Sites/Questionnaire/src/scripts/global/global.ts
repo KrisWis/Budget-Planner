@@ -46,6 +46,8 @@ const available_surveys__pagination__right_arrow: HTMLElement = document.getElem
 const stats_panel__participants_amount: HTMLElement = document.getElementById("stats_panel--participants_amount");
 const stats__answers__answers: HTMLElement = document.getElementById("stats--answers__answers");
 const stats__answers__pie_chart: HTMLElement = document.getElementById("stats--answers__pie_chart");
+const stats__activities: HTMLElement = document.getElementById("stats__activities");
+const stats_panel__caption: HTMLElement = document.getElementById("stats_panel--caption");
 
 
 /* Объявление всех функций, которые будут использоваться глобально в коде */
@@ -124,8 +126,11 @@ function create_survey(edit_survey_link: string, survey_id: string, survey_name:
 function after_creating_survey(): void {
     available_surveys__none.classList.add("hidden");
     let survey: HTMLElement = document.querySelector(".survey");
-    survey.classList.remove("opacity-0");
-    unhide(survey);
+    if (survey) {
+
+        survey.classList.remove("opacity-0");
+        unhide(survey);
+    }
 }
 
 // Функция для настройки пагинации

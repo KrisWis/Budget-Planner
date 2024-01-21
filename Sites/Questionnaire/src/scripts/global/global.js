@@ -46,6 +46,8 @@ const available_surveys__pagination__right_arrow = document.getElementById("avai
 const stats_panel__participants_amount = document.getElementById("stats_panel--participants_amount");
 const stats__answers__answers = document.getElementById("stats--answers__answers");
 const stats__answers__pie_chart = document.getElementById("stats--answers__pie_chart");
+const stats__activities = document.getElementById("stats__activities");
+const stats_panel__caption = document.getElementById("stats_panel--caption");
 /* Объявление всех функций, которые будут использоваться глобально в коде */
 // Функция скрытия элемента
 function hide(el) {
@@ -103,8 +105,10 @@ function create_survey(edit_survey_link, survey_id, survey_name, survey_link) {
 function after_creating_survey() {
     available_surveys__none.classList.add("hidden");
     let survey = document.querySelector(".survey");
-    survey.classList.remove("opacity-0");
-    unhide(survey);
+    if (survey) {
+        survey.classList.remove("opacity-0");
+        unhide(survey);
+    }
 }
 // Функция для настройки пагинации
 function pagination_func(array, obj, surveys_length) {

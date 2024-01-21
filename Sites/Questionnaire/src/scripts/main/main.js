@@ -5,8 +5,8 @@ function show_error(error) {
         error.classList.add("hidden");
     }, 3000);
 }
-// Функция для добавления стрелочкам пагинации неактивности
-function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_surveys_length) {
+// Функция для дизактивации стрелочкам пагинации
+function disable_pagination_arrows(left_arrow, right_arrow, visible_surveys_length, surveys = []) {
     left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
     if (surveys.length <= visible_surveys_length) {
         right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
@@ -22,12 +22,11 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
             document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function () {
+                // Вывод имени опроса в заголовке
+                stats_panel__caption.textContent = survey_links[id][1];
                 let responseRequest = await fetch_post('api/get-survey-stats', { survey_id: id });
-                console.log(responseRequest);
                 if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
                     let response = await responseRequest.json();
-                    console.log(response);
-                    // TODO: сделать вывод всех этих данных в стате
                     // Вывод количества участников
                     stats_panel__participants_amount.textContent = String(response.users_amount);
                     // Очистка всех детей элемента перед внедрением в него новых
@@ -41,9 +40,9 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
                         answer_colors.push(getRandomColor());
                         // Внедрение ответа в HTML
                         const create_stats__answer__request = `<div class="stats--answer__answer">
-                            <div class="stats--answer__answer--color" style="background-color: ${answer_colors[answer_colors.length - 1]}"></div>
-                            <p class="stats--answer__answer--text">${answer}</p>
-                        </div>`;
+                                <div class="stats--answer__answer--color" style="background-color: ${answer_colors[answer_colors.length - 1]}"></div>
+                                <p class="stats--answer__answer--text">${answer}</p>
+                            </div>`;
                         stats__answers__answers.insertAdjacentHTML(`beforeend`, create_stats__answer__request);
                     }
                     // Создание круговой диограммы
@@ -51,11 +50,19 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
                     stats__answers__pie_chart.width = 200;
                     stats__answers__pie_chart.height = 200;
                     // Функция для рисования кусочка круговой диаграммы
-                    function drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
+                    function drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color, percents, textX, textY) {
+                        // Рисуем саму дугу
                         ctx.fillStyle = color; // Определяем цвет контекста
                         ctx.beginPath(); // Начинаем рисование
                         ctx.moveTo(centerX, centerY); // Двигаемся к центру
                         ctx.arc(centerX, centerY, radius, startAngle, endAngle); // Рисуем дугу с нужными параметрами
+                        ctx.closePath(); // Заканчиваем рисование
+                        ctx.fill(); // Заполняем контекст нашим рисунком
+                        // Рисуем текст (проценты)
+                        ctx.beginPath(); // Начинаем рисование
+                        ctx.font = "20px Gilroy bold"; // Делаем стили для текста
+                        ctx.fillStyle = "#fff"; // Определяем цвет для текста
+                        ctx.fillText(`${percents}%`, textX, textY); // Пишем проценты
                         ctx.closePath(); // Заканчиваем рисование
                         ctx.fill(); // Заполняем контекст нашим рисунком
                     }
@@ -87,17 +94,30 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
                             for (let categ in this.options.data) {
                                 let val = this.options.data[categ];
                                 let slice_angle = 2 * Math.PI * val / total_value;
+                                let percents = val / total_value * 100;
+                                // Определяем центр холста
+                                let centerX = this.canvas.width / 2;
+                                let centerY = this.canvas.height / 2;
+                                // Определяем переменные для позиционирования текста
+                                let pieRadius = Math.min(centerX, centerY); // Определяем радиус
+                                // В полярных координатах, для определения X используется косинус, а для определения Y - синус.
+                                // centerX + (pieRadius / 2) и centerY + (pieRadius / 2) - определяем радиус конкретной дуги нашего пирога (он везде одинаковый).
+                                // А дальше определяем косинус и синус по формуле, а пятерки я убавляю и прибавляю просто для красоты.
+                                let textX = centerX + (pieRadius / 2) * Math.cos(start_angle + slice_angle / 2) - 5;
+                                let textY = centerY + (pieRadius / 2) * Math.sin(start_angle + slice_angle / 2) + 5;
                                 // Делаем рисование кусочка пирога
                                 drawPieSlice(this.ctx, // Передаём контекст
                                 // В качестве центра среза будет центр холста
-                                this.canvas.width / 2, this.canvas.height / 2, 
+                                centerX, centerY, 
                                 /* В качестве радиуса мы используем минимальное значение между половиной ширины холста и половиной высоты холста,
                                 так как мы не хотим, чтобы наш пирог выходил из холста. */
-                                Math.min(this.canvas.width / 2, this.canvas.height / 2), 
+                                pieRadius, 
                                 // Передаём начальный угол и конечный, вычисленный по формуле, угол
                                 start_angle, start_angle + slice_angle, 
                                 // Передаём цвета
-                                this.colors[color_index % this.colors.length]);
+                                this.colors[color_index % this.colors.length], 
+                                // Передаём проценты
+                                Math.floor(percents), textX, textY);
                                 // К начальному углу прибавляем текущее значение, чтобы срезы не рисовались на одном и том же месте
                                 start_angle += slice_angle;
                                 // Делаем следующий цвет
@@ -113,7 +133,19 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
                     });
                     // Рисуем круговую диаграмму
                     myPiechart.draw();
-                    // TODO: подписать теперь на круговой диаграмме проценты
+                    // Делаем вывод активности
+                    let answers_acitivity = eval("(" + response.activity + ")");
+                    // Очистка всех детей элемента перед внедрением в него новых
+                    stats__activities.innerHTML = "";
+                    for (let answer in answers_acitivity) {
+                        // Внедрение ответа в HTML
+                        const create_activity__request = `<div class="stats__activities--activity">
+                                <h5 class="stats__activities--count">${answers_acitivity[answer]}</h5>
+                                <div class="stats__activities--col" style="height: ${answers_acitivity[answer] / response.users_amount * 100}%"></div>
+                                <time class="stats__activities--month">${answer}</time>
+                            </div>`;
+                        stats__activities.insertAdjacentHTML(`beforeend`, create_activity__request);
+                    }
                 }
                 else {
                     console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
@@ -137,9 +169,14 @@ function disable_pagination_arrows(left_arrow, right_arrow, surveys, visible_sur
         available_surveys.removeChild(available_surveys__none);
         available_surveys__existing_surveys = {};
         pagination_func(existing_available_surveys, available_surveys__existing_surveys, 3);
-        // Настройка стрелочек пагинации
-        disable_pagination_arrows(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, existing_surveys, 2);
-        disable_pagination_arrows(available_surveys__pagination__left_arrow, available_surveys__pagination__right_arrow, existing_available_surveys, 4);
+        // Дизактивация стрелочек пагинации, если элементов нету
+        disable_pagination_arrows(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, 2, existing_surveys);
+        disable_pagination_arrows(available_surveys__pagination__left_arrow, available_surveys__pagination__right_arrow, 4, existing_available_surveys);
+    }
+    else {
+        // Дизактивация стрелочек пагинации, если элементов нету
+        disable_pagination_arrows(survey_panel__pagination__left_arrow, survey_panel__pagination__right_arrow, 1);
+        disable_pagination_arrows(available_surveys__pagination__left_arrow, available_surveys__pagination__right_arrow, 1);
     }
 }());
 /* Функция нажатия на конечную кнопку "Cохранить" */
