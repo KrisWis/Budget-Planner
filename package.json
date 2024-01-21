@@ -18,7 +18,7 @@
     "idb": "^7.1.1",
     "jquery": "^3.7.0",
     "metasync": "^0.3.32",
-    "react-router-dom": "^6.21.1",
+    "react-router-dom": "^6.21.3",
     "recorder-js": "^1.0.7",
     "sass": "^1.69.7",
     "styled-components": "^6.1.7",

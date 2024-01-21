@@ -43,14 +43,17 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
                     // Вывод процентного соотношения ответов
                     let answers_percents: AnswersPercents = eval("(" + response.answers_percents + ")");
 
+                    // Создание рандомного списка цветов, в цикле его заполняем
+                    let answer_colors: string[] = [];
+
                     for (let answer in answers_percents) {
                         // Генерация случайного цвета для процентного соотношения
-                        let answer_color: string = getRandomColor();
+                        answer_colors.push(getRandomColor());
 
                         // Внедрение ответа в HTML
                         const create_stats__answer__request: string =
                             `<div class="stats--answer__answer">
-                            <div class="stats--answer__answer--color" style="background-color: ${answer_color}"></div>
+                            <div class="stats--answer__answer--color" style="background-color: ${answer_colors[answer_colors.length - 1]}"></div>
                             <p class="stats--answer__answer--text">${answer}</p>
                         </div>`;
 
@@ -60,9 +63,94 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
                     }
 
                     // Создание круговой диограммы
-                    (stats__answers__pie_chart as HTMLCanvasElement).width = 300;
-                    (stats__answers__pie_chart as HTMLCanvasElement).height = 300;
-                    let pie_chart__ctx = (stats__answers__pie_chart as HTMLCanvasElement).getContext("2d");
+                    // Делаем стили для холста
+                    (stats__answers__pie_chart as HTMLCanvasElement).width = 200;
+                    (stats__answers__pie_chart as HTMLCanvasElement).height = 200;
+
+                    // Функция для рисования кусочка круговой диаграммы
+                    function drawPieSlice(ctx: CanvasRenderingContext2D, centerX: number, centerY: number,
+                        radius: number, startAngle: number, endAngle: number, color: string): void {
+                        ctx.fillStyle = color; // Определяем цвет контекста
+                        ctx.beginPath(); // Начинаем рисование
+                        ctx.moveTo(centerX, centerY); // Двигаемся к центру
+                        ctx.arc(centerX, centerY, radius, startAngle, endAngle); // Рисуем дугу с нужными параметрами
+                        ctx.closePath(); // Заканчиваем рисование
+                        ctx.fill(); // Заполняем контекст нашим рисунком
+                    }
+
+                    class Piechart {
+
+                        // Объявляем все типы данных для свойств класса
+                        options: PieChartOptions;
+                        canvas: HTMLCanvasElement;
+                        ctx: CanvasRenderingContext2D;
+                        colors: string[];
+
+                        // В конструкторе объявляем все переменные
+                        constructor(options: PieChartOptions) {
+                            this.options = options;
+                            this.canvas = options.canvas;
+                            this.ctx = this.canvas.getContext("2d");
+                            this.colors = options.colors;
+                        }
+
+                        draw(): void {
+                            // Определяем базовые переменные
+                            let total_value: number = 0;
+                            let color_index: number = 0;
+
+                            // Проходимся по всему объекту с процентным соотношением и вычисляем сумму
+                            for (let categ in this.options.data) {
+                                let val: number = this.options.data[categ];
+                                total_value += val;
+                            }
+
+                            // Определяем стартовый угол
+                            let start_angle: number = 0;
+
+                            // Проходимся по всему объекту с процентным соотношением ещё раз и по формуле вычисляем для каждого элемента пирога угол среза.
+                            for (let categ in this.options.data) {
+                                let val: number = this.options.data[categ];
+                                let slice_angle: number = 2 * Math.PI * val / total_value;
+
+                                // Делаем рисование кусочка пирога
+                                drawPieSlice(
+                                    this.ctx, // Передаём контекст
+                                    // В качестве центра среза будет центр холста
+                                    this.canvas.width / 2,
+                                    this.canvas.height / 2,
+                                    /* В качестве радиуса мы используем минимальное значение между половиной ширины холста и половиной высоты холста,
+                                    так как мы не хотим, чтобы наш пирог выходил из холста. */
+                                    Math.min(this.canvas.width / 2, this.canvas.height / 2),
+                                    // Передаём начальный угол и конечный, вычисленный по формуле, угол
+                                    start_angle,
+                                    start_angle + slice_angle,
+                                    // Передаём цвета
+                                    this.colors[color_index % this.colors.length]
+                                );
+
+                                // К начальному углу прибавляем текущее значение, чтобы срезы не рисовались на одном и том же месте
+                                start_angle += slice_angle;
+
+                                // Делаем следующий цвет
+                                color_index++;
+                            }
+                        }
+                    }
+
+                    // Создаём экзепляр класса круговой диаграммы
+                    let myPiechart: Piechart = new Piechart(
+                        {
+                            canvas: (stats__answers__pie_chart as HTMLCanvasElement),
+                            data: answers_percents,
+                            colors: answer_colors
+                        }
+                    );
+
+                    // Рисуем круговую диаграмму
+                    myPiechart.draw();
+
+                    // TODO: подписать теперь на круговой диаграмме проценты
 
                 } else {
                     console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);

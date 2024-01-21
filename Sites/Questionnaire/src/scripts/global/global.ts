@@ -299,6 +299,12 @@ interface Activity {
     [key: string]: number
 }
 
+interface PieChartOptions {
+    canvas: HTMLCanvasElement,
+    data: AnswersPercents,
+    colors: string[]
+}
+
 
 /* Функции для работы с куки */
 function setCookie(name: string, value: string, options: CookieOptions = {}): void {

@@ -262,12 +262,6 @@
   font-size: 20px;
   font-weight: 600;
 }
-.panels .stats .stats_panel .stats--answers .stats--answers__pie_chart {
-  height: 190px;
-  width: 30%;
-  border-radius: 50%;
-  background-color: #F6F6F6;
-}
 .panels .stats .stats_panel .stats--answers .stats--answers__answers {
   display: flex;
   flex-direction: column;

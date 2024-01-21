@@ -85,3 +85,50 @@
 /* ПОДКЛЮЧАЕМ REACT ROUTER V6, СОЗДАЁМ КОМПОНЕНТ СКЕЛЕТОН - https://www.youtube.com/watch?v=eUt-M-YRjyg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=8 */
 
 
+// Стоит помнить, что отражать скелетон при рендеринге массива бессмысленно, т.к массив пустой.
+
+// Пример рендеринга фейкового массива при загрузке и настоящего по её завершению:
+<div className="content__items">
+    {
+        pizzasIsLoading
+            // Передаём первым параметром черту, т.к индекс передаётся только вторым.
+            ? [...new Array(6)].map((_, index) => <PizzaBlockSkeleton key={index} />)
+            : pizzas.map((pizza) => (
+                <PizzaBlock
+                    key={pizza["id"]}
+                    {...pizza}
+                />
+            ))
+    }
+</div>
+
+// Пример файла index.js с роутингом:
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+    BrowserRouter,
+} from "react-router-dom";
+import "./index.css";
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
+);
+
+// Пример того, как надо указывать пути в App.js:
+<div className="container">
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="*" element={<NotFound />} /> - сработает, если ничто из вышеперечисленных роутингов не сработает
+    </Routes>
+</div>
+
+
+/* НАСТРАИВАЕМ АДАПТИВНУЮ ВЁРСТКУ, СОЗДАЁМ СТРАНИЦУ КОРЗИНЫ - https://www.youtube.com/watch?v=7t9_nmg_Yzg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=9 */
+
+
