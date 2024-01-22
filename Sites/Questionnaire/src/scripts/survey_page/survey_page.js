@@ -2,11 +2,27 @@
 let survey_questions;
 let survey_page_id;
 const monthes = { "1": "Январь", "2": "Февраль", "3": "Март", "4": "Апрель", "5": "Май", "6": "Июнь", "7": "Июль", "8": "Август", "9": "Сентябрь", "10": "Октябрь", "11": "Ноябрь", "12": "Декабрь" };
-// TODO: сделать так, чтобы один и тот же юзер мог пройти опрос только один раз
+const survey_user_id = getCookie("user_id");
+// Функционал самой страницы
 (async function () {
     // Базовые данные
     survey_page_id = window.location.href.split("/")[3].split("--")[1];
     const survey__questions = document.getElementById("survey__questions");
+    // Проверка на то, что юзер не проходил этот опрос ранее
+    let get_passed_users_responseRequest = await fetch_post('api/get-passed-users', { survey_id: survey_page_id });
+    if (get_passed_users_responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+        let response = await get_passed_users_responseRequest.json();
+        let survey_passed_users = eval('(' + response.passed_users + ')');
+        if (survey_passed_users) {
+            if (survey_passed_users.includes(survey_user_id)) {
+                alert("Вы уже проходили этот опрос!");
+                window.location.href = "/";
+            }
+        }
+    }
+    else {
+        console.log(`Ошибка создания ${get_passed_users_responseRequest.status}: ${get_passed_users_responseRequest.statusText}`);
+    }
     // Получаем данные опроса из бд
     let responseRequest = await fetch_post('api/get-survey', { survey_id: survey_page_id });
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
@@ -160,12 +176,19 @@ async function get_results() {
     }
     responseRequest = await fetch_post('api/update-survey-stats', { survey_id: survey_page_id, users_amount: new_users_amount, answers_percents: answers_percents, activity: activity });
     if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-        // Кнопка "На главную"
-        survey__get_results.textContent = "На главную";
-        survey__get_results.removeEventListener("click", get_results);
-        survey__get_results.addEventListener("click", function () {
-            window.location.href = "/";
-        });
+        // Записываем юзера в бд, помечая, что он прошёл опрос
+        let add_userID_responseRequest = await fetch_post('api/add-userID', { user_id: survey_user_id, survey_id: survey_page_id });
+        if (add_userID_responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            // Кнопка "На главную"
+            survey__get_results.textContent = "На главную";
+            survey__get_results.removeEventListener("click", get_results);
+            survey__get_results.addEventListener("click", function () {
+                window.location.href = "/";
+            });
+        }
+        else {
+            console.log(`Ошибка создания ${add_userID_responseRequest.status}: ${add_userID_responseRequest.statusText}`);
+        }
     }
     else {
         console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);

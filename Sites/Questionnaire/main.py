@@ -12,6 +12,7 @@ from asyncpg import Connection
 которым требуется подключение к базе данных на короткий период времени при обработке запроса, рекомендуется использовать пул подключений. """
 from asyncpg.pool import Pool
 import uuid
+import json
 
 # Определеяем класс базы данных
 class Database:
@@ -77,10 +78,10 @@ class Database:
                             creator_id TEXT,
                             users_amount INT DEFAULT(0),
                             answers_percents TEXT,
-                            activity TEXT);
+                            activity TEXT,
+                            passed_users TEXT);
                             ''')
         #await self.execute("DROP TABLE surveys")
-        #print(await self.fetch("SELECT * FROM surveys"))
         print('Таблица опросов создана!')
 
 db = Database()
@@ -226,4 +227,37 @@ class GetSurveyStatsRequest(BaseModel):
 @app.post("/api/get-survey-stats")
 async def get_survey_users_amount(request: GetSurveyStatsRequest):
     sql = 'SELECT users_amount, answers_percents, activity FROM surveys WHERE survey_id = $1'
+    return await db.fetchrow(sql, request.survey_id)
+
+
+# Запрос для добавления id юзера в список прошедших опрос
+class AddUserIDRequest(BaseModel):
+    user_id: str
+    survey_id: str
+
+@app.post("/api/add-userID")
+async def add_userID(request: AddUserIDRequest):
+    sql = 'SELECT passed_users FROM surveys WHERE survey_id = $1'
+    passed_users = await db.fetchrow(sql, request.survey_id)
+    passed_users = passed_users[0]
+
+    if not passed_users:
+        passed_users = []
+    else:
+        passed_users = eval(passed_users)
+        
+    passed_users.append(request.user_id)
+
+    sql = 'UPDATE surveys SET passed_users = $1 WHERE survey_id = $2'
+    await db.execute(sql, json.dumps(passed_users), request.survey_id)
+
+    return {"OK": True}
+
+# Запрос для получения всех id юзеров, которые прошли запрос
+class GetPassedUsersRequest(BaseModel):
+    survey_id: str
+
+@app.post("/api/get-passed-users")
+async def get_passed_users(request: GetPassedUsersRequest):
+    sql = 'SELECT passed_users FROM surveys WHERE survey_id = $1'
     return await db.fetchrow(sql, request.survey_id)

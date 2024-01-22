@@ -8,10 +8,196 @@ function show_error(error: HTMLElement): void {
 
 // Функция для дизактивации стрелочкам пагинации
 function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLElement, visible_surveys_length: number, surveys: HTMLCollection | undefined[] = []): void {
-    left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
-    if (surveys.length <= visible_surveys_length) {
-        right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+    if (left_arrow) {
+        left_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        if (surveys.length <= visible_surveys_length) {
+            right_arrow.classList.add("survey_panel__pagination__arrow--disabled");
+        }
     }
+}
+
+// Функция для создания события, при котором, когда мышь наводиться на опрос её статистика отображается
+function survey_stats(survey_id: string, survey_name: string): void {
+
+    document.getElementById(`available_survey--${survey_id}`).addEventListener("mouseover", async function (): Promise<void> {
+        // Вывод имени опроса в заголовке
+        stats_panel__caption.textContent = survey_name;
+
+        let responseRequest: Response = await fetch_post('api/get-survey-stats', { survey_id: survey_id });
+
+        if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
+            let response: SurveyStats = await responseRequest.json();
+
+            // Вывод количества участников
+            stats_panel__participants_amount.textContent = String(response.users_amount);
+
+            // Очистка всех детей элемента перед внедрением в него новых
+            stats__answers__answers.innerHTML = "";
+
+            // Вывод процентного соотношения ответов
+            let answers_percents: AnswersPercents = eval("(" + response.answers_percents + ")");
+
+            // Создание рандомного списка цветов, в цикле его заполняем
+            let answer_colors: string[] = [];
+
+            for (let answer in answers_percents) {
+                // Генерация случайного цвета для процентного соотношения
+                answer_colors.push(getRandomColor());
+
+                // Внедрение ответа в HTML
+                const create_stats__answer__request: string =
+                    `<div class="stats--answer__answer">
+                        <div class="stats--answer__answer--color" style="background-color: ${answer_colors[answer_colors.length - 1]}"></div>
+                        <p class="stats--answer__answer--text">${answer}</p>
+                    </div>`;
+
+                stats__answers__answers.insertAdjacentHTML(`beforeend`,
+                    create_stats__answer__request
+                );
+            }
+
+            // Создание круговой диограммы
+            // Делаем стили для холста
+            (stats__answers__pie_chart as HTMLCanvasElement).width = 200;
+            (stats__answers__pie_chart as HTMLCanvasElement).height = 200;
+
+            // Функция для рисования кусочка круговой диаграммы
+            function drawPieSlice(ctx: CanvasRenderingContext2D, centerX: number, centerY: number,
+                radius: number, startAngle: number, endAngle: number, color: string, percents: number, textX: number, textY: number): void {
+                // Рисуем саму дугу
+                ctx.fillStyle = color; // Определяем цвет контекста
+                ctx.beginPath(); // Начинаем рисование
+                ctx.moveTo(centerX, centerY); // Двигаемся к центру
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle); // Рисуем дугу с нужными параметрами
+                ctx.closePath(); // Заканчиваем рисование
+                ctx.fill(); // Заполняем контекст нашим рисунком
+
+                // Рисуем текст (проценты)
+                ctx.beginPath(); // Начинаем рисование
+                ctx.font = "16px Gilroy bold"; // Делаем стили для текста
+                ctx.fillStyle = "#fff"; // Определяем цвет для текста
+
+                ctx.fillText(`${percents}%`, textX, textY); // Пишем проценты
+                ctx.closePath(); // Заканчиваем рисование
+
+                ctx.fill(); // Заполняем контекст нашим рисунком
+            }
+
+            class Piechart {
+
+                // Объявляем все типы данных для свойств класса
+                options: PieChartOptions;
+                canvas: HTMLCanvasElement;
+                ctx: CanvasRenderingContext2D;
+                colors: string[];
+
+                // В конструкторе объявляем все переменные
+                constructor(options: PieChartOptions) {
+                    this.options = options;
+                    this.canvas = options.canvas;
+                    this.ctx = this.canvas.getContext("2d");
+                    this.colors = options.colors;
+                }
+
+                draw(): void {
+                    // Определяем базовые переменные
+                    let total_value: number = 0;
+                    let color_index: number = 0;
+
+                    // Проходимся по всему объекту с процентным соотношением и вычисляем сумму
+                    for (let categ in this.options.data) {
+                        let val: number = this.options.data[categ];
+                        total_value += val;
+                    }
+
+                    // Определяем стартовый угол
+                    let start_angle: number = 0;
+
+                    // Проходимся по всему объекту с процентным соотношением ещё раз и по формуле вычисляем для каждого элемента пирога угол среза.
+                    for (let categ in this.options.data) {
+                        let val: number = this.options.data[categ];
+                        let slice_angle: number = 2 * Math.PI * val / total_value;
+                        let percents: number = val / total_value * 100;
+
+                        // Определяем центр холста
+                        let centerX = this.canvas.width / 2;
+                        let centerY = this.canvas.height / 2;
+
+                        // Определяем переменные для позиционирования текста
+                        let pieRadius = Math.min(centerX, centerY); // Определяем радиус
+
+                        // В полярных координатах, для определения X используется косинус, а для определения Y - синус.
+                        // centerX + (pieRadius / 2) и centerY + (pieRadius / 2) - определяем радиус конкретной дуги нашего пирога (он везде одинаковый).
+                        // А дальше определяем косинус и синус по формуле.
+                        let textX = centerX + (pieRadius / 2) * Math.cos(start_angle + slice_angle / 2);
+                        let textY = centerY + (pieRadius / 2) * Math.sin(start_angle + slice_angle / 2);
+
+                        // Делаем рисование кусочка пирога
+                        drawPieSlice(
+                            this.ctx, // Передаём контекст
+                            // В качестве центра среза будет центр холста
+                            centerX,
+                            centerY,
+                            /* В качестве радиуса мы используем минимальное значение между половиной ширины холста и половиной высоты холста,
+                            так как мы не хотим, чтобы наш пирог выходил из холста. */
+                            pieRadius,
+                            // Передаём начальный угол и конечный, вычисленный по формуле, угол
+                            start_angle,
+                            start_angle + slice_angle,
+                            // Передаём цвета
+                            this.colors[color_index % this.colors.length],
+                            // Передаём проценты
+                            Math.floor(percents),
+                            textX,
+                            textY
+                        );
+
+                        // К начальному углу прибавляем текущее значение, чтобы срезы не рисовались на одном и том же месте
+                        start_angle += slice_angle;
+
+                        // Делаем следующий цвет
+                        color_index++;
+                    }
+                }
+            }
+
+            // Создаём экзепляр класса круговой диаграммы
+            let myPiechart: Piechart = new Piechart(
+                {
+                    canvas: (stats__answers__pie_chart as HTMLCanvasElement),
+                    data: answers_percents,
+                    colors: answer_colors
+                }
+            );
+
+            // Рисуем круговую диаграмму
+            myPiechart.draw();
+
+            // Делаем вывод активности
+            let answers_acitivity: AnswersPercents = eval("(" + response.activity + ")");
+
+            // Очистка всех детей элемента перед внедрением в него новых
+            stats__activities.innerHTML = "";
+
+            for (let answer in answers_acitivity) {
+
+                // Внедрение ответа в HTML
+                const create_activity__request: string =
+                    `<div class="stats__activities--activity">
+                        <h5 class="stats__activities--count">${answers_acitivity[answer]}</h5>
+                        <div class="stats__activities--col" style="height: ${answers_acitivity[answer] / response.users_amount * 100}%"></div>
+                        <time class="stats__activities--month">${answer}</time>
+                    </div>`;
+
+                stats__activities.insertAdjacentHTML(`beforeend`,
+                    create_activity__request
+                );
+            }
+
+        } else {
+            console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
+        }
+    });
 }
 
 // Функционал при загрузке страницы
@@ -27,184 +213,8 @@ function disable_pagination_arrows(left_arrow: HTMLElement, right_arrow: HTMLEle
             // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
             create_survey(survey_links[id][0], id, survey_links[id][1], survey_links[id][2]);
 
-            document.getElementById(`available_survey--${id}`).addEventListener("mouseover", async function (): Promise<void> {
-                // Вывод имени опроса в заголовке
-                stats_panel__caption.textContent = survey_links[id][1];
-
-                let responseRequest: Response = await fetch_post('api/get-survey-stats', { survey_id: id });
-
-                if (responseRequest.ok) { // если HTTP-статус в диапазоне 200-299
-                    let response: SurveyStats = await responseRequest.json();
-
-                    // Вывод количества участников
-                    stats_panel__participants_amount.textContent = String(response.users_amount);
-
-                    // Очистка всех детей элемента перед внедрением в него новых
-                    stats__answers__answers.innerHTML = "";
-
-                    // Вывод процентного соотношения ответов
-                    let answers_percents: AnswersPercents = eval("(" + response.answers_percents + ")");
-
-                    // Создание рандомного списка цветов, в цикле его заполняем
-                    let answer_colors: string[] = [];
-
-                    for (let answer in answers_percents) {
-                        // Генерация случайного цвета для процентного соотношения
-                        answer_colors.push(getRandomColor());
-
-                        // Внедрение ответа в HTML
-                        const create_stats__answer__request: string =
-                            `<div class="stats--answer__answer">
-                                <div class="stats--answer__answer--color" style="background-color: ${answer_colors[answer_colors.length - 1]}"></div>
-                                <p class="stats--answer__answer--text">${answer}</p>
-                            </div>`;
-
-                        stats__answers__answers.insertAdjacentHTML(`beforeend`,
-                            create_stats__answer__request
-                        );
-                    }
-
-                    // Создание круговой диограммы
-                    // Делаем стили для холста
-                    (stats__answers__pie_chart as HTMLCanvasElement).width = 200;
-                    (stats__answers__pie_chart as HTMLCanvasElement).height = 200;
-
-                    // Функция для рисования кусочка круговой диаграммы
-                    function drawPieSlice(ctx: CanvasRenderingContext2D, centerX: number, centerY: number,
-                        radius: number, startAngle: number, endAngle: number, color: string, percents: number, textX: number, textY: number): void {
-                        // Рисуем саму дугу
-                        ctx.fillStyle = color; // Определяем цвет контекста
-                        ctx.beginPath(); // Начинаем рисование
-                        ctx.moveTo(centerX, centerY); // Двигаемся к центру
-                        ctx.arc(centerX, centerY, radius, startAngle, endAngle); // Рисуем дугу с нужными параметрами
-                        ctx.closePath(); // Заканчиваем рисование
-                        ctx.fill(); // Заполняем контекст нашим рисунком
-
-                        // Рисуем текст (проценты)
-                        ctx.beginPath(); // Начинаем рисование
-                        ctx.font = "20px Gilroy bold"; // Делаем стили для текста
-                        ctx.fillStyle = "#fff"; // Определяем цвет для текста
-
-                        ctx.fillText(`${percents}%`, textX, textY); // Пишем проценты
-                        ctx.closePath(); // Заканчиваем рисование
-
-                        ctx.fill(); // Заполняем контекст нашим рисунком
-                    }
-
-                    class Piechart {
-
-                        // Объявляем все типы данных для свойств класса
-                        options: PieChartOptions;
-                        canvas: HTMLCanvasElement;
-                        ctx: CanvasRenderingContext2D;
-                        colors: string[];
-
-                        // В конструкторе объявляем все переменные
-                        constructor(options: PieChartOptions) {
-                            this.options = options;
-                            this.canvas = options.canvas;
-                            this.ctx = this.canvas.getContext("2d");
-                            this.colors = options.colors;
-                        }
-
-                        draw(): void {
-                            // Определяем базовые переменные
-                            let total_value: number = 0;
-                            let color_index: number = 0;
-
-                            // Проходимся по всему объекту с процентным соотношением и вычисляем сумму
-                            for (let categ in this.options.data) {
-                                let val: number = this.options.data[categ];
-                                total_value += val;
-                            }
-
-                            // Определяем стартовый угол
-                            let start_angle: number = 0;
-
-                            // Проходимся по всему объекту с процентным соотношением ещё раз и по формуле вычисляем для каждого элемента пирога угол среза.
-                            for (let categ in this.options.data) {
-                                let val: number = this.options.data[categ];
-                                let slice_angle: number = 2 * Math.PI * val / total_value;
-                                let percents: number = val / total_value * 100;
-
-                                // Определяем центр холста
-                                let centerX = this.canvas.width / 2;
-                                let centerY = this.canvas.height / 2;
-
-                                // Определяем переменные для позиционирования текста
-                                let pieRadius = Math.min(centerX, centerY); // Определяем радиус
-
-                                // В полярных координатах, для определения X используется косинус, а для определения Y - синус.
-                                // centerX + (pieRadius / 2) и centerY + (pieRadius / 2) - определяем радиус конкретной дуги нашего пирога (он везде одинаковый).
-                                // А дальше определяем косинус и синус по формуле, а пятерки я убавляю и прибавляю просто для красоты.
-                                let textX = centerX + (pieRadius / 2) * Math.cos(start_angle + slice_angle / 2) - 5;
-                                let textY = centerY + (pieRadius / 2) * Math.sin(start_angle + slice_angle / 2) + 5;
-
-                                // Делаем рисование кусочка пирога
-                                drawPieSlice(
-                                    this.ctx, // Передаём контекст
-                                    // В качестве центра среза будет центр холста
-                                    centerX,
-                                    centerY,
-                                    /* В качестве радиуса мы используем минимальное значение между половиной ширины холста и половиной высоты холста,
-                                    так как мы не хотим, чтобы наш пирог выходил из холста. */
-                                    pieRadius,
-                                    // Передаём начальный угол и конечный, вычисленный по формуле, угол
-                                    start_angle,
-                                    start_angle + slice_angle,
-                                    // Передаём цвета
-                                    this.colors[color_index % this.colors.length],
-                                    // Передаём проценты
-                                    Math.floor(percents),
-                                    textX,
-                                    textY
-                                );
-
-                                // К начальному углу прибавляем текущее значение, чтобы срезы не рисовались на одном и том же месте
-                                start_angle += slice_angle;
-
-                                // Делаем следующий цвет
-                                color_index++;
-                            }
-                        }
-                    }
-
-                    // Создаём экзепляр класса круговой диаграммы
-                    let myPiechart: Piechart = new Piechart(
-                        {
-                            canvas: (stats__answers__pie_chart as HTMLCanvasElement),
-                            data: answers_percents,
-                            colors: answer_colors
-                        }
-                    );
-
-                    // Рисуем круговую диаграмму
-                    myPiechart.draw();
-
-                    // Делаем вывод активности
-                    let answers_acitivity: AnswersPercents = eval("(" + response.activity + ")");
-
-                    // Очистка всех детей элемента перед внедрением в него новых
-                    stats__activities.innerHTML = "";
-
-                    for (let answer in answers_acitivity) {
-
-                        // Внедрение ответа в HTML
-                        const create_activity__request: string =
-                            `<div class="stats__activities--activity">
-                                <h5 class="stats__activities--count">${answers_acitivity[answer]}</h5>
-                                <div class="stats__activities--col" style="height: ${answers_acitivity[answer] / response.users_amount * 100}%"></div>
-                                <time class="stats__activities--month">${answer}</time>
-                            </div>`;
-
-                        stats__activities.insertAdjacentHTML(`beforeend`,
-                            create_activity__request
-                        );
-                    }
-                } else {
-                    console.log(`Ошибка создания ${responseRequest.status}: ${responseRequest.statusText}`);
-                }
-            });
+            // Создание события наведения мыши для опроса
+            survey_stats(id, survey_links[id][1]);
         }
 
         // Устанавливаем стили для опросов на первой странице, и делаем функционал для корректной пагинации
@@ -273,6 +283,25 @@ function create_survey__end_continue(func: VoidFunction, create_survey_page: boo
             create_survey_page__continue.classList.add("create_survey_page__continue--end");
         }, 700);
 
+        // Удаление прошлого кр кода
+        let last_qr_img: HTMLElement = document.querySelector(`#create_survey_page__share--qr img`);
+        if (last_qr_img) {
+            create_survey_page__share__qr.removeChild(last_qr_img);
+            create_survey_page__share__qr.removeChild(document.querySelector(`#create_survey_page__share--qr canvas`));
+        }
+
+        /* Создания qr кода на сайт */
+        // @ts-ignore
+        new QRCode(create_survey_page__share__qr, {
+            text: document.URL + `survey--${create_survey_id}`,
+            width: 100,
+            height: 105,
+            colorDark: '#0084FF',
+            colorLight: '#fff',
+            // @ts-ignore
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
         if (create_survey_page) {
             /* Сохранение имени и описания вопросов */
             let all_questions: Question = save_questions();
@@ -307,35 +336,15 @@ function create_survey__end_continue(func: VoidFunction, create_survey_page: boo
                 }
                 existing_surveys_links[create_survey_id] = [survey_edit_link, survey_name, survey_link];
 
-                // Удаление прошлого кр кода
-                let last_qr_img: HTMLElement = document.querySelector(`#create_survey_page__share--qr img`);
-                if (last_qr_img) {
-                    create_survey_page__share__qr.removeChild(last_qr_img);
-                    create_survey_page__share__qr.removeChild(document.querySelector(`#create_survey_page__share--qr canvas`));
-                }
-
-                /* Создания qr кода на сайт */
-                // @ts-ignore
-                new QRCode(create_survey_page__share__qr, {
-                    text: document.URL + `survey--${create_survey_id}`,
-                    width: 100,
-                    height: 105,
-                    colorDark: '#0084FF',
-                    colorLight: '#fff',
-                    // @ts-ignore
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-
                 // Создание блоков-ссылок на опросы в "Создать опрос" и "Доступные опросы"
                 create_survey(survey_edit_link, create_survey_id, survey_name, survey_link);
 
-                document.getElementById(`available_survey--${create_survey_id}`).addEventListener("mouseover", function (): void {
-                    console.log("Мышь над элементом!")
-                });
+                // Создание события наведения мыши для опроса
+                survey_stats(create_survey_id, survey_name);
 
                 // Открываем элемент, если он входит в первые 4 элемента
                 let available_surveys_selectors: NodeListOf<HTMLElement> = document.querySelectorAll(".available_survey");
-                for (let index = 0; index < 4; index++) {
+                for (let index = 0; index < 3; index++) {
                     if (available_surveys_selectors[index]) {
                         available_surveys_selectors[index].classList.remove("opacity-0");
                         unhide(available_surveys_selectors[index]);
