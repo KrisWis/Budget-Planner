@@ -132,3 +132,22 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 /* НАСТРАИВАЕМ АДАПТИВНУЮ ВЁРСТКУ, СОЗДАЁМ СТРАНИЦУ КОРЗИНЫ - https://www.youtube.com/watch?v=7t9_nmg_Yzg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=9 */
 
 
+// Адаптивные стили можно писать и для конкретного элемента:
+// &__items {
+//     display: grid;
+//     grid-template-columns: repeat(4, 1fr);
+//     grid-template-rows: repeat(2, 1fr);
+//     grid-column-gap: 11px;
+
+//     @media (max-width: 1400px) {
+//       grid-template-columns: repeat(3, 1fr);
+//     }
+//   }
+
+// Чтобы проскроллить в самый вверх:
+window.scrollTo(0, 0);
+
+
+/* ДЕЛАЕМ ФУНКЦИОНАЛ СОРТИРОВКИ И ФИЛЬТРАЦИИ ПИЦЦ - https://www.youtube.com/watch?v=X_a-ba9hxwA&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=10 */
+
+
