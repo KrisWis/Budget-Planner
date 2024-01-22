@@ -81,7 +81,6 @@ class Database:
                             activity TEXT,
                             passed_users TEXT);
                             ''')
-        #await self.execute("DROP TABLE surveys")
         print('Таблица опросов создана!')
 
 db = Database()

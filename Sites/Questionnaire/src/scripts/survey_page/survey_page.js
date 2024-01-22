@@ -17,6 +17,7 @@ const survey_user_id = getCookie("user_id");
             if (survey_passed_users.includes(survey_user_id)) {
                 alert("Вы уже проходили этот опрос!");
                 window.location.href = "/";
+                return;
             }
         }
     }
@@ -141,12 +142,15 @@ async function get_results() {
             answers_percents = eval('(' + response.answers_percents + ')');
         }
         let preset_answers = document.querySelectorAll(".survey__preset_answer--text");
+        // Делаем итерацию для проверки правильности
         for (let answer of preset_answers) {
-            if (answers_percents[answer.textContent]) {
-                answers_percents[answer.textContent] += 1;
-            }
-            else {
-                answers_percents[answer.textContent] = 1;
+            if (document.getElementById(answer.htmlFor).checked) {
+                if (answers_percents[answer.textContent]) {
+                    answers_percents[answer.textContent] += 1;
+                }
+                else {
+                    answers_percents[answer.textContent] = 1;
+                }
             }
         }
         let open_answers = document.querySelectorAll(".survey__open_answer--input");

@@ -344,7 +344,8 @@ function create_survey__end_continue(func: VoidFunction, create_survey_page: boo
 
                 // Открываем элемент, если он входит в первые 4 элемента
                 let available_surveys_selectors: NodeListOf<HTMLElement> = document.querySelectorAll(".available_survey");
-                for (let index = 0; index < 3; index++) {
+                for (let index = 0; index < 4; index++) {
+
                     if (available_surveys_selectors[index]) {
                         available_surveys_selectors[index].classList.remove("opacity-0");
                         unhide(available_surveys_selectors[index]);

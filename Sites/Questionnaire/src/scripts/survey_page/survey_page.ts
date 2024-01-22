@@ -27,6 +27,7 @@ const survey_user_id: string = getCookie("user_id");
             if (survey_passed_users.includes(survey_user_id)) {
                 alert("Вы уже проходили этот опрос!");
                 window.location.href = "/";
+                return;
             }
         }
     } else {
@@ -192,13 +193,17 @@ async function get_results(): Promise<void> {
             answers_percents = eval('(' + response.answers_percents + ')');
         }
 
-        let preset_answers: NodeListOf<HTMLElement> = document.querySelectorAll(".survey__preset_answer--text");
+        let preset_answers: NodeListOf<HTMLLabelElement> = document.querySelectorAll(".survey__preset_answer--text");
 
+        // Делаем итерацию для проверки правильности
         for (let answer of preset_answers) {
-            if (answers_percents[answer.textContent]) {
-                answers_percents[answer.textContent] += 1;
-            } else {
-                answers_percents[answer.textContent] = 1;
+
+            if ((document.getElementById(answer.htmlFor) as HTMLInputElement).checked) {
+                if (answers_percents[answer.textContent]) {
+                    answers_percents[answer.textContent] += 1;
+                } else {
+                    answers_percents[answer.textContent] = 1;
+                }
             }
         }
 

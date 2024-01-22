@@ -117,7 +117,7 @@ function create_survey(edit_survey_link: string, survey_id: string, survey_name:
             <h3 class="available_survey--caption">${survey_name}</h3>
         </a>`;
 
-    available_surveys.insertAdjacentHTML(`afterbegin`,
+    available_surveys.insertAdjacentHTML(`beforeend`,
         create_link__request
     );
 }

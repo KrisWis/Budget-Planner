@@ -262,7 +262,7 @@ function create_survey__end_continue(func, create_survey_page) {
                 survey_stats(create_survey_id, survey_name);
                 // Открываем элемент, если он входит в первые 4 элемента
                 let available_surveys_selectors = document.querySelectorAll(".available_survey");
-                for (let index = 0; index < 3; index++) {
+                for (let index = 0; index < 4; index++) {
                     if (available_surveys_selectors[index]) {
                         available_surveys_selectors[index].classList.remove("opacity-0");
                         unhide(available_surveys_selectors[index]);

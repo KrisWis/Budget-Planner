@@ -99,7 +99,7 @@ function create_survey(edit_survey_link, survey_id, survey_name, survey_link) {
         `<a href="${survey_link}" class="available_survey hidden opacity-0" id="available_survey--${survey_id}">
             <h3 class="available_survey--caption">${survey_name}</h3>
         </a>`;
-    available_surveys.insertAdjacentHTML(`afterbegin`, create_link__request);
+    available_surveys.insertAdjacentHTML(`beforeend`, create_link__request);
 }
 // Функция для выполнения действий после создания опроса
 function after_creating_survey() {

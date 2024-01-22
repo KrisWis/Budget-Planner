@@ -117,6 +117,9 @@
   position: relative;
   transition: 0.3s all linear;
 }
+.panels .first_panels .create_survey_panel .created_surveys .survey:hover {
+  border: 2px solid #C9C9C9;
+}
 .panels .first_panels .create_survey_panel .created_surveys .survey .survey__edit {
   align-self: flex-start;
   color: #929292;
@@ -284,7 +287,8 @@
   padding-top: 5%;
 }
 .panels .stats .stats_panel .stats__activities {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
   gap: 1%;
   height: 300px;
 }
