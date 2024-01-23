@@ -151,3 +151,19 @@ window.scrollTo(0, 0);
 /* ДЕЛАЕМ ФУНКЦИОНАЛ СОРТИРОВКИ И ФИЛЬТРАЦИИ ПИЦЦ - https://www.youtube.com/watch?v=X_a-ba9hxwA&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=10 */
 
 
+// У mockApi и у многих других бекендов есть свои встроенные сортировки и фильтрации с помощью переданных параметров в URL, типа этого:
+fetch(`https://65932afdbb12970719906e63.mockapi.io/items?${CategoryIndex > 0 ? `category=${CategoryIndex}` : ''}&sortBy=${SortFilter}&order=${SortFilter === "title" ? "asc" : "desc"}`).then(res => {
+
+    return res.json();
+
+}).then(arr => {
+
+    setPizzas(arr);
+    setPizzasIsLoading(false);
+
+})
+
+
+/* РАЗРАБАТЫВАЕМ ПАГИНАЦИЮ И ПОИСК ПИЦЦ - https://www.youtube.com/watch?v=VHQxz5Cdrc8&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=11 */
+
+

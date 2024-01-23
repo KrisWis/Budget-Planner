@@ -1,16 +1,21 @@
 import React from 'react';
 
-function Sort() {
+function Sort(props) {
     const [isVisible, setOpen] = React.useState(false);
     const [sortFilter, setSortFilter] = React.useState("популярности");
     const [activeSortFilter, setActiveSortFilter] = React.useState(0);
 
-    const sortFilters = ["популярности", "цене", "алфавиту"];
+    const sortFilters = [
+        { name: "популярности", sort: "rating" },
+        { name: "цене", sort: "price" },
+        { name: "алфавиту", sort: "title" },
+    ]
 
-    function sortFiltersOnClick(sortFilter, index) {
+    function sortFiltersOnClick(sortFilter, index, sortProperty) {
         setSortFilter(sortFilter);
         setOpen(false);
         setActiveSortFilter(index);
+        props.SelectSortFilter(sortProperty);
     }
 
     return (
@@ -35,7 +40,7 @@ function Sort() {
                 <div className="sort__popup">
                     <ul>
                         {sortFilters.map((sortFilter, index) => (
-                            <li key={index} className={activeSortFilter === index ? 'active' : ''} onClick={() => sortFiltersOnClick(sortFilter, index)}>{sortFilter}</li>
+                            <li key={index} className={activeSortFilter === index ? 'active' : ''} onClick={() => sortFiltersOnClick(sortFilter["name"], index, sortFilter["sort"])}>{sortFilter["name"]}</li>
                         ))}
                     </ul>
                 </div>
