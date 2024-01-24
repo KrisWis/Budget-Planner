@@ -223,3 +223,9 @@ React.useEffect(() => {
 /* ЧТО ТАКОЕ КОНТЕКСТ В REACT (USECONTEXT) И PROPS DRILLING - https://www.youtube.com/watch?v=dR96e1fq6Mg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=12 */
 
 
+// useContext() следит за изменением контекста и если он измениться, то перерендерит компонент, который его использует (компоненты, обёрнутые в Context.Provider).
+
+
+/* ИЗУЧАЕМ БИБЛИОТЕКУ REDUX TOOLKIT - https://www.youtube.com/watch?v=-pF8SDS-uSc&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=13 */
+
+
