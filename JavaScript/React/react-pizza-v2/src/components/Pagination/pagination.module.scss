@@ -1,0 +1,25 @@
+.root {
+    li {
+        padding: 10px;
+        border-radius: 30px;
+        border: 1px solid orange;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: .3s all linear;
+
+        &:hover {
+            background-color: orange;
+        }
+    }
+
+    :global {
+        .selected {
+            background-color: orange;
+        }
+    }
+}

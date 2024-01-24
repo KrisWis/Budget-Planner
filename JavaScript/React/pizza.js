@@ -167,3 +167,59 @@ fetch(`https://65932afdbb12970719906e63.mockapi.io/items?${CategoryIndex > 0 ? `
 /* РАЗРАБАТЫВАЕМ ПАГИНАЦИЮ И ПОИСК ПИЦЦ - https://www.youtube.com/watch?v=VHQxz5Cdrc8&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=11 */
 
 
+// Встроенный поиск с помощью filter() используется, когда предметов на странице немного, а когда много - лучше использовать запрос на бек. Как тут:
+React.useEffect(() => {
+    setPizzasIsLoading(true);
+
+    fetch(`https://65932afdbb12970719906e63.mockapi.io/items?${CategoryIndex > 0 ? `category=${CategoryIndex}` : ''}&sortBy=${SortFilter}&order=${SortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`).then(res => {
+
+        return res.json();
+
+    }).then(arr => {
+
+        setPizzas(arr);
+        setPizzasIsLoading(false);
+
+    })
+
+    window.scrollTo(0, 0);
+
+}, [CategoryIndex, SortFilter, searchValue]);
+
+// В CSS Modules, если класс имеет в себе какой то другой класс, который надо стилизовать, то нужно использовать флаг :global.
+// .root {
+//     :global {
+//         .previous {
+//             background-color: red;
+//         }
+//     }
+// }
+
+// Для создания пагинации есть модуль React Paginate - https://www.npmjs.com/package/react-paginate.
+// И для создания пагинации его надо скачать с помощью npm, импортировать, а затем создать компонент ReactPaginate.
+import ReactPaginate from 'react-paginate';
+<ReactPaginate
+    className={styles.root}
+    breakLabel="..."
+    nextLabel=">"
+    onPageChange={(e) => onChangePage(e.selected + 1)} // При смене страницы, увеличиваем текущую страницу на 1 (это функция, переданная пропсом из родителя)
+    pageRangeDisplayed={4} // Сколько item`ов отображается
+    pageCount={3}
+    previousLabel="<"
+    renderOnZeroPageCount={null}
+/>
+
+React.useEffect(() => {
+    // Пример запроса на бек, с указанием страницы и лимита. Но т.к мы используем MockAPI, то он плохо работает со множеством параметров, поэтому некоторые не работают.
+    // Но на нормальном беке такого быть не должно.
+    fetch(`https://65932afdbb12970719906e63.mockapi.io/items?page=${CurrentPage}&limit=4&${CategoryIndex > 0 ? `category=${CategoryIndex}` : ''}&sortBy=${SortFilter}&order=${SortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`).then(res => {
+
+        return res.json();
+    })
+
+}, [CategoryIndex, SortFilter, searchValue, CurrentPage]);
+
+
+/* ЧТО ТАКОЕ КОНТЕКСТ В REACT (USECONTEXT) И PROPS DRILLING - https://www.youtube.com/watch?v=dR96e1fq6Mg&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=12 */
+
+
