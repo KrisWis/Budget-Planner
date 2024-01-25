@@ -10,6 +10,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.1.0",
     "async": "^3.2.4",
     "axios": "^1.6.3",
     "bcrypt": "^5.1.1",
@@ -19,6 +20,7 @@
     "jquery": "^3.7.0",
     "metasync": "^0.3.32",
     "react-paginate": "^8.2.0",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
     "recorder-js": "^1.0.7",
     "sass": "^1.69.7",

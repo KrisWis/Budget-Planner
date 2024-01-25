@@ -6,10 +6,15 @@ import {
 import "./index.css";
 import App from './App';
 
+import { store } from './app/store';
+import { Provider } from 'react-redux';
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>
 );

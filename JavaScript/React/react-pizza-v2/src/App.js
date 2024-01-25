@@ -10,7 +10,12 @@ import { Route, Routes } from 'react-router-dom';
 
 import AppContext from './context/context';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 function App() {
+
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
 
   const [searchValue, setSearchValue] = React.useState("");
 

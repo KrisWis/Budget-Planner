@@ -229,3 +229,117 @@ React.useEffect(() => {
 /* ИЗУЧАЕМ БИБЛИОТЕКУ REDUX TOOLKIT - https://www.youtube.com/watch?v=-pF8SDS-uSc&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=13 */
 
 
+// Стейт менеджеры - это некая база данных для фронтенда. Обычно большие сайты на контексте не делают. Стейт менеджеры - это некое хранилище.
+// Для маленьких приложений контекст впринципе подходит.
+
+/* При использовании useContext, компонент начинает следить за всеми изменениями контекста, и если он их обнаружит, то сделает ререндер компонента.
+Но если все компоненты следят за изменением контекста, а измениться значение, которое используется только в одном компоненте,
+то перерисуются всё равно все компоненты, т.к контекст изменился. Стейт менеджеры же эту проблему решают. */
+
+// Redux использует специальный хук useSelector(), который следит за конкретным объектом в хранилище, а не за всем контекстом.
+
+// Redux - для больших приложений, Context - для маленьких.
+
+// Redux хранит информацию где то в себе и овер дохера информации в провайдер передовать не нужно.
+
+/* React, Redux Toolkit и React Redux - это всё разные библиотеки. React отвечает просто за создание компонентов, Redux Toolkit за глобальное хранилище, 
+а React Redux их как бы объединяет. Redux Toolkit не завязана на React, её можно использовать везде. */
+
+// Данный код нужно написать в папке redux в файле store.js
+import { configureStore } from '@reduxjs/toolkit'; // Импортируем специальный объект хранилища configureStore из Redux Toolkit
+
+export const store = configureStore({ // Создаём экзепляр этого объекта
+    reducer: {},
+})
+
+// Далее в файле index.js импортируем наш файл хранилища и провайдер из React Redux, чтобы как раз связать React и Redux Toolkit.
+import { store } from './app/store';
+import { Provider } from 'react-redux';
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <Provider store={store}> - Оборачиваем весь наш код в провайдер и в качестве store указываем хранилище Redux, чтобы весь код мог к нему обращаться.
+        <React.StrictMode>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </React.StrictMode>
+    </Provider>
+);
+
+// Slices - то некие отдельные несвязанные куски с логикой в Redux, которую обрабатывает хранилище. Это некие склады, которые хранят свою логику.
+
+// Создаём папку slices, в которой будут храниться все файлы слайсов и создаём файл filterSlice.js с таким содержимым:
+import { createSlice } from '@reduxjs/toolkit'; // Импортируем объект создания слайса
+
+const initialState = { // Объявляем объект, который будет храниться в нашем хранилище. Объект может быть вообще любым.
+    value: 0,
+}
+
+export const filterSlice = createSlice({ // Делаем слайс, который будет обрабатывать наш initialState
+    name: 'filter', // Имя слайса
+    initialState: initialState, // То что будет в нём храниться
+    reducers: { // Функции, которые будут изменять хранилище ( в себя принимают объект initialState)
+        increment: (state) => {
+            state.value += 1
+        },
+        decrement: (state) => {
+            state.value -= 1
+        },
+        // Тут он принимает ещё action, но это просто значение для этой функции, с самим Redux это не связано.
+        // А так, все функции тут по умолчанию первым параметром принимают наш стейт, чтобы его изменять.
+        incrementByAmount: (state, action) => {
+            state.value += action.payload
+        },
+    },
+})
+
+// Объявляем все действия нашего слайса. Actions хранит в себе все функции слайса. Вытаксиваем все функции, чтобы эскпортировать их.
+export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+// Редюсер как бы обрабатывает весь наш слайс. Он меняет хранилище и взаимодействует с ним.
+export default counterSlice.reducer // Экспортируем редюсер, чтобы потом указать его в store.js:
+
+import counterReducer from './slices/FilterSlice';
+export const store2 = configureStore({
+    reducer: { // Тут будет объектов редюсеров, т.е тех кто, следит за изменениями этого хранилища и влияет на них.
+        counter: counterReducer // Вот тут объявляем редюсер, чтобы хранилище знало об этом слайсе
+    },
+})
+
+// А затем в App.js импортируем необходимые хуки:
+import { useSelector, useDispatch } from 'react-redux';
+
+// И используем их:
+export function Counter() {
+    // useSelector() это типа useContext() но он берёт не всё хранилище, а конкретное значение.
+    // Он по умолчанию получает стейт, который хранит все слайсы, и мы обращаемся к нашему по его имени (filter) и берём нужное нам свойство.
+    const count = useSelector((state) => state.filter.value)
+    const dispatch = useDispatch() // useDispatch() нужен для вызова функций слайса
+
+    return (
+        <div>
+            <div>
+                <button
+                    aria-label="Increment value"
+                    // Мы не можем просто вызвать функции слайса, они должны быть обёрнуты в dispatch().
+                    // Потому что сами эти функции являются объектами, а dispatch этот объект принимает и возвращает уже функцию.
+                    onClick={() => dispatch(increment())}
+                >
+                    Increment
+                </button>
+                <span>{count}</span>
+                <button
+                    aria-label="Decrement value"
+                    onClick={() => dispatch(decrement())}
+                >
+                    Decrement
+                </button>
+            </div>
+        </div>
+    )
+}
+
+
+/* ИЗУЧАЕМ ХУКИ USESELECTOR, USEDISPATCH, СОЗДАЁМ СВОЙ SLICE В REDUX TOOLKIT - https://www.youtube.com/watch?v=h1Q2V2Ek0EQ&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=14 */
+
+
