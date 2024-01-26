@@ -1,20 +1,23 @@
 import React from 'react';
 import { categories } from '../pages/Home';
 
-function Categories(props) {
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryIndex } from '../redux/slices/FilterSlice';
 
-    const [activeIndex, setActiveIndex] = React.useState(0);
+function Categories() {
+
+    const categoryIndex = useSelector((state) => state.filter.categoryIndex).payload;
+    const dispatch = useDispatch();
 
     const CategoryOnClick = (index) => {
-        setActiveIndex(index);
-        props.SelectCategory(index);
+        dispatch(setCategoryIndex(index));
     }
 
     return (
         <div className="categories">
             <ul>
                 {categories.map((category, index) => (
-                    <li key={index} onClick={() => CategoryOnClick(index)} className={activeIndex === index ? 'active' : ''}>{category}</li>
+                    <li key={index} onClick={() => CategoryOnClick(index)} className={categoryIndex === index ? 'active' : ''}>{category}</li>
                 ))}
             </ul>
         </div>

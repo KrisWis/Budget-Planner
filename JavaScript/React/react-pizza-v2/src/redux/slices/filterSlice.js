@@ -1,30 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    value: 0,
+    categoryIndex: 0,
+    sortFilter: { name: "популярности", sort: "rating" },
+    searchValue: ""
 }
 
-export const filterSlice = createSlice({
-    name: 'filter',
+export const filtersSlice = createSlice({
+    name: 'filters',
     initialState,
     reducers: {
-        increment: (state) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
-            state.value += 1
+
+        setCategoryIndex: (state, index) => {
+            state.categoryIndex = index.payload;
         },
-        decrement: (state) => {
-            state.value -= 1
+
+        setSearchValue: (state, value) => {
+            state.searchValue = value.payload;
         },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
-        },
+
+        setSortFiltering: (state, filter) => {
+            state.sortFilter = filter.payload;
+        }
     },
 })
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { setCategoryIndex, setSearchValue, setSortFiltering } = filtersSlice.actions;
 
-export default counterSlice.reducer
+export default filtersSlice.reducer;

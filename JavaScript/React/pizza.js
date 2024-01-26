@@ -343,3 +343,117 @@ export function Counter() {
 /* ИЗУЧАЕМ ХУКИ USESELECTOR, USEDISPATCH, СОЗДАЁМ СВОЙ SLICE В REDUX TOOLKIT - https://www.youtube.com/watch?v=h1Q2V2Ek0EQ&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=14 */
 
 
+// У меня получился такой слайс для категорий:
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState3 = {
+    categoryIndex: 0,
+}
+
+export const categoriesSlice = createSlice({
+    name: 'categories',
+    initialState3,
+    reducers: {
+        setCategoryIndex: (state, index) => {
+            state.categoryIndex = index;
+        }
+    },
+})
+
+export const { setCategoryIndex } = categoriesSlice.actions
+
+// export default categoriesSlice.reducer
+
+// И потом в компоненте категорий я его использовал:
+import React from 'react';
+import { categories } from '../pages/Home';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryIndex } from '../redux/slices/CategoriesSlice';
+
+function Categories() {
+
+    const categoryIndex = useSelector((state) => state.categories.categoryIndex).payload; // Чтобы получить само значение нужно взять свойство payload.
+    const dispatch = useDispatch();
+
+    const CategoryOnClick = (index) => {
+        dispatch(setCategoryIndex(index));
+    }
+
+    return (
+        <div className="categories">
+            <ul>
+                {categories.map((category, index) => (
+                    <li key={index} onClick={() => CategoryOnClick(index)} className={categoryIndex === index ? 'active' : ''}>{category}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+//export default Categories;
+
+// А в App.js используем так:
+const categoryIndex = useSelector((state) => state.categories.categoryIndex).payload;
+
+// state который получает useSelector - это весь объект reducers. И также, тут надо указывать имя слайса в reducers, а не в свойстве name.
+const categoryIndex2 = useSelector((state) => state.filters.categoryIndex);
+
+// Лучше делать не несколько слайсов под разные логики, а один, но который объединяет эти логики. Типа для сортировки и категорий можно создать один слайс фильтр.
+// Теперь передаём только один редюсер:
+import { configureStore } from '@reduxjs/toolkit';
+import filter from './slices/FilterSlice';
+
+export const store3 = configureStore({
+    reducer: {
+        filter
+    },
+})
+
+// И один слайс - filterSlice.js:
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState5 = {
+    categoryIndex: 0,
+    sortFilter: { name: "популярности", sort: "rating" },
+    searchValue: ""
+}
+
+export const filtersSlice = createSlice({
+    name: 'filters',
+    initialState5,
+    reducers: {
+
+        setCategoryIndex: (state, index) => {
+            state.categoryIndex = index.payload;
+        },
+
+        setSearchValue: (state, value) => {
+            state.searchValue = value.payload;
+        },
+
+        setSortFiltering: (state, filter) => {
+            state.sortFilter = filter.payload;
+        }
+    },
+})
+
+// export const { setCategoryIndex, setSearchValue, setSortFiltering } = filtersSlice.actions;
+
+// export default filtersSlice.reducer;
+
+// Вот так вод передаём объект в стейтменджер:
+dispatch(setSortFiltering({ name: sortFilter, sort: sortProperty }));
+
+// Вместо того, чтобы писать всё это:
+const categoryIndex3 = useSelector((state) => state.filter.categoryIndex3);
+const SortFilter = useSelector((state) => state.filter.sortFilter);
+const searchValue = useSelector((state) => state.filter.searchValue);
+
+// Можно просто написать так:
+const { categoryIndex4, SortFilter4, searchValue4 } = useSelector((state) => state.filter);
+
+
+/* ОПТИМИЗИРУЕМ ПОИСК С ПОМОЩЬЮ DEBOUNCE, ПАГИНАЦИЯ ЧЕРЕЗ REDUX TOOLKIT - https://www.youtube.com/watch?v=YAsKVCNqdy4&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=15 */
+
+
