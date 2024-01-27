@@ -457,3 +457,36 @@ const { categoryIndex4, SortFilter4, searchValue4 } = useSelector((state) => sta
 /* ОПТИМИЗИРУЕМ ПОИСК С ПОМОЩЬЮ DEBOUNCE, ПАГИНАЦИЯ ЧЕРЕЗ REDUX TOOLKIT - https://www.youtube.com/watch?v=YAsKVCNqdy4&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=15 */
 
 
+// Пример запроса с помощью axios:
+axios.get(`https://65932afdbb12970719906e63.mockapi.io/items?page=${CurrentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${SortFilter}&order=${SortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`).then(res => {
+
+    if (res.data !== "Not found") {
+        setPizzas(res.data);
+    }
+
+    setPizzasIsLoading(false);
+
+})
+
+// В React обращаться к JSX элементам нужно через useRef, но через querySelector и тому подобные.
+
+// lodash это js библиотека со множеством методов.
+// debounce работает так, что принимает функцию и время. И функция жта срабатывает только если с момента её последнего запуска прошло указанное время.
+// Т.е если спамить функцией, то она срабатывать не будет.
+
+// npm install lodash.debounce - импортируем только функцию debounce.
+
+// Пример оптимизированного поиска, используя debounce:
+const searchDebounce = React.useCallback(debounce((e) => {
+    dispatch(setSearchValue(e.target.value));
+}, 1000), [])
+
+const onChangeInput = (e) => {
+    setSearch(e.target.value);
+    searchDebounce(e);
+}
+
+
+/* СОХРАНЯЕМ ПАРАМЕТРЫ ФИЛЬТРАЦИИ В URL - https://www.youtube.com/watch?v=e-sm4OOXHBc&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=16 */
+
+
