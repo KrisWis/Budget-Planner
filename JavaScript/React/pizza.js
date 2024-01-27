@@ -490,3 +490,55 @@ const onChangeInput = (e) => {
 /* СОХРАНЯЕМ ПАРАМЕТРЫ ФИЛЬТРАЦИИ В URL - https://www.youtube.com/watch?v=e-sm4OOXHBc&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=16 */
 
 
+// Сначала нужно сделать npm install qs и импортировать.
+import qs from 'qs';
+
+// С помощью данной конструкции можно создать Url, который будет включать в себя все переданные параметры.
+const queryString = qs.stringify({
+    SortFilter,
+    categoryIndex,
+    currentPage
+})
+
+// Потом импортируем хук useNavigate() и используем его:
+import { useNavigate } from 'react-router-dom';
+const navigate = useNavigate(); // Обязательно чисто внутри компонента, не в колбеке.
+// Передаём нашу строку с параметрами и оно вошьётся в текущий URL страницы.
+navigate(`?${queryString}`)
+
+// Чтобы скипнуть первый рендеринг у useEffect() нужно использовать useRef():
+const firstUpdate = React.useRef(true);
+
+React.useEffect(() => {
+
+    if (firstUpdate.current) {
+        firstUpdate.current = false;
+    } else {
+        // Действия после первого рендеринга
+    }
+
+}, [categoryIndex, sortFilter, searchValue, currentPage]);
+
+// Так, мы можем получать параметры из нашего URL и обновлять данные в редаксе:
+React.useEffect(() => {
+
+    if (window.location.search) {
+
+        const params = qs.parse(window.location.search.substring(1));
+
+        dispatch(setFilters({
+            categoryIndex: Number(params.categoryIndex),
+            currentPage: Number(params.currentPage),
+            sortFilter: params.sortFilter,
+            searchValue: params.searchValue
+        }));
+
+    }
+}, [])
+
+// При React.strictMode рендер useEffect`а вызывается два раза, типа для обнаружения багов.
+
+
+/* СОЗДАЁМ REDUX-ЛОГИКУ ДЛЯ КОРЗИНЫ, СКРЫТИЕ/ПОКАЗ POPUP СОРТИРОВКИ - https://www.youtube.com/watch?v=RhOvu20t0Go&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=17 */
+
+

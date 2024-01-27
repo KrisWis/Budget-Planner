@@ -10,7 +10,11 @@ import { Pagination } from '../components/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 
 import axios from 'axios';
-import { setCurrentPage } from '../redux/slices/FilterSlice';
+import { setCurrentPage, setFilters } from '../redux/slices/FilterSlice';
+
+import { useNavigate } from 'react-router-dom';
+
+import qs from 'qs';
 
 
 export const categories = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
@@ -19,28 +23,68 @@ export const Home = () => {
     const [pizzas, setPizzas] = React.useState([]);
     const [pizzasIsLoading, setPizzasIsLoading] = React.useState(true);
 
-    const { categoryIndex, SortFilter, searchValue, currentPage } = useSelector((state) => state.filter);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const isMounted = React.useRef(false);
+    const isSearch = React.useRef(false);
 
     React.useEffect(() => {
-        setPizzasIsLoading(true);
 
-        axios
-            .get(
-                `https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${SortFilter}&order=${SortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`
-            ).then(res => {
+        if (window.location.search) {
 
-                if (res.data !== "Not found") {
-                    setPizzas(res.data);
-                }
+            const params = qs.parse(window.location.search.substring(1));
 
-                setPizzasIsLoading(false);
+            dispatch(setFilters({
+                categoryIndex: Number(params.categoryIndex),
+                currentPage: Number(params.currentPage),
+                sortFilter: params.sortFilter,
+                searchValue: params.searchValue
+            }));
 
-            })
+            isSearch.current = true;
+        }
+    }, [])
 
-        window.scrollTo(0, 0);
+    const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state) => state.filter);
 
-    }, [categoryIndex, SortFilter, searchValue, currentPage]);
+    React.useEffect(() => {
+
+        if (!isSearch.current) {
+
+            setPizzasIsLoading(true);
+
+            axios
+                .get(
+                    `https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`
+                ).then(res => {
+
+                    if (res.data !== "Not found") {
+                        setPizzas(res.data);
+                    }
+
+                    setPizzasIsLoading(false);
+
+                })
+
+            window.scrollTo(0, 0);
+            if (isMounted.current) {
+
+                const queryString = qs.stringify({
+                    sortFilter,
+                    categoryIndex,
+                    currentPage,
+                    searchValue
+                });
+
+                navigate(`?${queryString}`);
+            }
+            isMounted.current = true;
+        }
+
+        isSearch.current = false;
+
+    }, [categoryIndex, sortFilter, searchValue, currentPage]);
 
     const onChangePage = (number) => {
         dispatch(setCurrentPage(number));

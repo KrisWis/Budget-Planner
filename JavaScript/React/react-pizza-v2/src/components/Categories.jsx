@@ -6,7 +6,7 @@ import { setCategoryIndex } from '../redux/slices/FilterSlice';
 
 function Categories() {
 
-    const categoryIndex = useSelector((state) => state.filter.categoryIndex).payload;
+    const categoryIndex = useSelector((state) => state.filter.categoryIndex);
     const dispatch = useDispatch();
 
     const CategoryOnClick = (index) => {
