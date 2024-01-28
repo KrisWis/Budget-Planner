@@ -542,3 +542,33 @@ React.useEffect(() => {
 /* СОЗДАЁМ REDUX-ЛОГИКУ ДЛЯ КОРЗИНЫ, СКРЫТИЕ/ПОКАЗ POPUP СОРТИРОВКИ - https://www.youtube.com/watch?v=RhOvu20t0Go&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=17 */
 
 
+// Чтобы навесить обработчик на весь body можно использовать обычный document.body.addEventListener().
+React.useEffect(() => {
+    const bodyClickFunc = (event) => {
+        if (!event.path.includes(sortRef.current)) {
+            setOpen(false);
+        }
+    }
+    document.body.addEventListener("click", bodyClickFunc);
+
+    // Чтобы лисенеры не плодились, их надо удалять при удалении компонента.
+    return () => {
+        document.body.removeEventListener("click", bodyClickFunc);
+    }
+}, [])
+
+// Нахождение элемента с тем же id:
+const findItem = state.items.find(obj => obj.id === item_id);
+
+// Считаем сумму всех count:
+const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+
+// Перед тем как вернуть код, мы можем вернуть какой нибудь другой компонент при условии:
+if (!totalPrice) {
+    return <CartEmpty />
+}
+
+
+/* АСИНХРОННЫЕ ЭКШЕНЫ В RTK (CREATEASYNCTHUNK), ОТЛАВЛИВАЕМ ОШИБКИ - https://www.youtube.com/watch?v=azf3uk4zOew&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=18 */
+
+

@@ -22,8 +22,25 @@ function Sort() {
         dispatch(setSortFiltering({ name: sortFilter, sort: sortProperty }));
     }
 
+    const sortRef = React.useRef();
+    const sortSpanRef = React.useRef();
+
+    React.useEffect(() => {
+        const bodyClickFunc = (event) => {
+
+            if (event.target !== sortRef.current && event.target !== sortSpanRef.current) {
+                setOpen(false);
+            }
+        }
+        document.body.addEventListener("click", bodyClickFunc);
+
+        return () => {
+            document.body.removeEventListener("click", bodyClickFunc);
+        }
+    }, [])
+
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label" onClick={() => setOpen(prev => !prev)}>
                 <svg
                     width="10"
@@ -38,7 +55,7 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>{sortFilter}</span>
+                <span ref={sortSpanRef}>{sortFilter}</span>
             </div>
             {isVisible &&
                 <div className="sort__popup">
