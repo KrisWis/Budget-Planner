@@ -9,19 +9,17 @@ import { Pagination } from '../components/Pagination';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import axios from 'axios';
 import { setCurrentPage, setFilters } from '../redux/slices/FilterSlice';
 
 import { useNavigate } from 'react-router-dom';
 
 import qs from 'qs';
+import { fetchPizzas } from '../redux/slices/pizzasSlice';
 
 
 export const categories = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
 
 export const Home = () => {
-    const [pizzas, setPizzas] = React.useState([]);
-    const [pizzasIsLoading, setPizzasIsLoading] = React.useState(true);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -44,47 +42,37 @@ export const Home = () => {
 
             isSearch.current = true;
         }
-    }, [])
+    }, [dispatch])
 
     const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state) => state.filter);
+    const { pizzas, status } = useSelector((state) => state.pizzas);
 
     React.useEffect(() => {
 
-        if (!isSearch.current) {
+        (async () => {
+            if (!isSearch.current) {
 
-            setPizzasIsLoading(true);
+                dispatch(fetchPizzas({ currentPage, categoryIndex, sortFilter, searchValue }));
 
-            axios
-                .get(
-                    `https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`
-                ).then(res => {
+                window.scrollTo(0, 0);
+                if (isMounted.current) {
 
-                    if (res.data !== "Not found") {
-                        setPizzas(res.data);
-                    }
+                    const queryString = qs.stringify({
+                        sortFilter,
+                        categoryIndex,
+                        currentPage,
+                        searchValue
+                    });
 
-                    setPizzasIsLoading(false);
-
-                })
-
-            window.scrollTo(0, 0);
-            if (isMounted.current) {
-
-                const queryString = qs.stringify({
-                    sortFilter,
-                    categoryIndex,
-                    currentPage,
-                    searchValue
-                });
-
-                navigate(`?${queryString}`);
+                    navigate(`?${queryString}`);
+                }
+                isMounted.current = true;
             }
-            isMounted.current = true;
-        }
 
-        isSearch.current = false;
+            isSearch.current = false;
+        })();
 
-    }, [categoryIndex, sortFilter, searchValue, currentPage]);
+    }, [categoryIndex, sortFilter, searchValue, currentPage, navigate, dispatch]);
 
     const onChangePage = (number) => {
         dispatch(setCurrentPage(number));
@@ -99,14 +87,15 @@ export const Home = () => {
             <h2 className="content__title">{categories[categoryIndex]} пиццы</h2>
             <div className="content__items">
                 {
-                    pizzasIsLoading
-                        ? [...new Array(6)].map((_, index) => <PizzaBlockSkeleton key={index} />)
-                        : pizzas.map((pizza) => (
-                            <PizzaBlock
-                                key={pizza["id"]}
-                                {...pizza}
-                            />
-                        ))
+                    status === 'error' ? <div>Ошибка</div> :
+                        status === 'loading'
+                            ? [...new Array(6)].map((_, index) => <PizzaBlockSkeleton key={index} />)
+                            : pizzas.map((pizza) => (
+                                <PizzaBlock
+                                    key={pizza["id"]}
+                                    {...pizza}
+                                />
+                            ))
                 }
             </div>
             <Pagination currentPage={currentPage} onChangePage={onChangePage} />

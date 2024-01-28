@@ -572,3 +572,80 @@ if (!totalPrice) {
 /* АСИНХРОННЫЕ ЭКШЕНЫ В RTK (CREATEASYNCTHUNK), ОТЛАВЛИВАЕМ ОШИБКИ - https://www.youtube.com/watch?v=azf3uk4zOew&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=18 */
 
 
+// async/await нужен для того, чтобы асинхронный код превратить в синхронный.
+
+/* Бизнес-логика - это вся работа с данными, их получение, изменение и тд.
+Бизнес-логику, а то есть fetch и тд лучше писать в отдельном файле, и может сохранять в редаксе. */
+
+// side effects - это плохая практика при работе с редаксом. Т.е когда в его код попадают всякие алерты, скроллы и тд, этого быть не должно.
+
+// В слайсе импортируем createAsyncThunk для создания асинхронного экшена (ну т.е какого то действия):
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchPizzas = createAsyncThunk(
+    // Путь может быть любым, это просто чтобы он был уникальным и понятным для программиста
+    'pizzas/fetchPizzasStatus', // Тут указываем как бы наш путь (вначале идёт имя слайса, а далее название функции)
+    // И выполняем какие то асинхронные действия:
+    async ({ currentPage, categoryIndex, sortFilter, searchValue }) => {
+        const { data } = await axios.get(`https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`)
+
+        return data;
+    }
+)
+
+// А в слайсе потом надо будет передать extraReducers для обработки нашего Thunk.
+export const pizzaSlice = createSlice({
+    name: 'pizzas',
+    initialState,
+    reducers: {
+        setItems: (state, action) => {
+            state.items = action.payload;
+        }
+    },
+    // reducers нужны просто для того, чтобы менять стейт, а extraReducers для чего то другого.
+    extraReducers: (builder) => { // builder нужен для создания каких то действий при состояниях запроса
+
+        // Делаем действия при состоянии отправки, успеха и ошибки.
+        // К примеру, fetchPizzas.pending будет получать ссылку fetchPizzas и прикручивать туда pending. Т.е будет 'pizzas/fetchPizzasStatus/pending'
+        builder.addCase(fetchPizzas.pending, (state) => {
+            state.status = 'loading'; // Да, мы в редакс ещё перенесли состояние загрузки.
+            state.pizzas = [];
+        });
+
+        builder.addCase(fetchPizzas.fulfilled, (state, action) => {
+            state.pizzas = action.payload; // В action.payload вернёться сам ответ
+            state.status = 'success';
+        });
+
+        builder.addCase(fetchPizzas.rejected, (state) => {
+            state.status = 'error';
+            state.pizzas = [];
+        });
+    },
+})
+
+// Вызывается этот метод также с помощью dispatch
+dispatch(fetchPizzas({ currentPage, categoryIndex, sortFilter, searchValue }));
+
+// Пример двойной условной проверки:
+<div className="content__items">
+    {
+        status === 'error' ? <div>Ошибка</div> :
+            status === 'loading'
+                ? [...new Array(6)].map((_, index) => <PizzaBlockSkeleton key={index} />)
+                : pizzas.map((pizza) => (
+                    <PizzaBlock
+                        key={pizza["id"]}
+                        {...pizza}
+                    />
+                ))
+    }
+</div>
+
+// Если нужно сделать запрос на бек и параллельно что то поменять в редаксе, то createAsyncThunk хорошо подходит.
+// Если же просто запрос надо сделать, то можно сделать это и просто fetch`ем.
+
+
+/* ЧТО ТАКОЕ THUNKAPI В RTK? СОЗДАЁМ СЕЛЕКТОРЫ - https://www.youtube.com/watch?v=4mCR72ug1SE&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=19 */
+
+
