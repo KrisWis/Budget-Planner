@@ -7,9 +7,11 @@ import CartItem from '../components/CartItem';
 import { clearCart } from '../redux/slices/CartSlice';
 import CartEmpty from '../components/CartEmpty';
 
+import { cartSelector } from '../redux/slices/CartSlice';
+
 function Cart() {
     const dispatch = useDispatch();
-    const { items, totalPrice } = useSelector((state) => state.cart);
+    const { items, totalPrice } = useSelector(cartSelector);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
     if (!totalPrice) {

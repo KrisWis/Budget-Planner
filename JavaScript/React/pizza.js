@@ -649,3 +649,45 @@ dispatch(fetchPizzas({ currentPage, categoryIndex, sortFilter, searchValue }));
 /* ЧТО ТАКОЕ THUNKAPI В RTK? СОЗДАЁМ СЕЛЕКТОРЫ - https://www.youtube.com/watch?v=4mCR72ug1SE&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=19 */
 
 
+export const fetchPizzas2 = createAsyncThunk(
+    'pizzas/fetchPizzasStatus',
+    // ThunkApi это такой объект, который автоматически передаётся вторым аргументом в функцию createAsyncThunk() и имеет множество методов
+    async ({ currentPage, categoryIndex, sortFilter, searchValue }, THUNKAPI) => {
+
+        const { data } = await axios.get(`https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`)
+
+        // Например, мы можем вызвать у него функцию dispatch(), чтобы вызвать какой то Redux метод из другого редюсера, слайса.
+        THUNKAPI.dispatch(setPizzas({ pizzas }));
+        // Или с помощью функции getState() мы можем получить текущий стейт (все слайсы, с их initialState).
+        THUNKAPI.getState();
+
+        // Также, ThunkApi имеет в себе специальный объект signal типа AbortController, который нужен для остановки HTTP запроса (например, с помощью abort()).
+        THUNKAPI.signal.abort();
+
+        if (data.length == 0) {
+            // Также, есть метод rejectWithValue, который вернёт ошибку с переданным текстом (состояние запроса станет rejected). Он расширяет немного сам ответ.
+            return THUNKAPI.rejectWithValue('Пицц нет')
+        }
+
+        // Метод fulfillWithValue делает статус fulfilled и переданное значение возвращает в качестве ответа. Он расширяет немного сам ответ.
+        return THUNKAPI.fulfillWithValue(data);
+    }
+)
+// Проще говоря, ThunkApi это такой объект для работы внутри асинхронного экшена, даёт некоторые доп.функции.
+
+/* Селекторы в редакс это обычные стрелочные функции, объявленные внутри файла слайса и они нужны просто чтобы повысить многоиспользованность 
+и не писать одно и тоже много раз. Название функции должно содержать слово 'select'. */
+export const cartSelector = (state) => state.cart;
+
+// И потом импортируем эту функции и используем также, в useSelector().
+const { items, totalPrice } = useSelector(cartSelector);
+
+// Если селектор должен принимать какие то данные, то можно сделать так:
+export const selectCartItemById = (id) => (state) => state.cart.items.find(obj => obj.id === id);
+
+// Селекторы нужно создавать только если он будет использоваться несколько раз, если один - то смысла особо нет.
+
+
+/* РАЗБИРАЕМСЯ ПОДРОБНЕЙ С РОУТЕРОМ (USEPARAMS, USELOCATION, OUTLET) - https://www.youtube.com/watch?v=06bh14iY3dA&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=20 */
+
+
