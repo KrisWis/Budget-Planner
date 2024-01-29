@@ -691,3 +691,74 @@ export const selectCartItemById = (id) => (state) => state.cart.items.find(obj =
 /* РАЗБИРАЕМСЯ ПОДРОБНЕЙ С РОУТЕРОМ (USEPARAMS, USELOCATION, OUTLET) - https://www.youtube.com/watch?v=06bh14iY3dA&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=20 */
 
 
+// Хуки роутера, которые просто дают какие то данные, они также перерисовывают компонент.
+// useLocation() нужен для того, чтобы получить данные о ссылке страницы и тд. В pathname храниться сама ссылка.
+import { useLocation } from 'react-router-dom';
+const location = useLocation().pathname;
+
+// В файле создаём путь с параметром:
+const pizza_URL = `/pizza/${id}`;
+
+// Чтобы сделать путь с параметрами надо сделать так:
+<Route path="/pizza/:id" element={<FullPizza />} /> // Это динамические параметры
+
+// Со множеством параметров:
+// <Route path="/pizza/:my_id/:my_second_idee" element={<FullPizza />} />
+
+// Потом с помощью useParams() этот id можно достать
+const params = useParams();
+const id = params.id;
+
+// Пример условного рендеринга при загрузке данных с бека:
+if (!pizza) {
+    return 'Загрузка..'
+}
+
+return (
+    <div>{pizza.title}</div>
+)
+
+// Бывают случаи, когда у нас на всех страницах, есть какие то статичные компоненты, которые везде одинаковы и тогда стоит создать отдельный компонент для этого:
+import Header from '../components/Header'
+
+import React from 'react';
+import { Outlet } from 'react-router-dom'; // Outlet это типа childen, но для роутов
+
+function MainLayout() {
+
+    // Вместо <Outlet /> будут все роуты, которые есть в App.js
+    return (
+        <div className="wrapper">
+            <Header />
+            <div className="content">
+                <Outlet />
+            </div>
+        </div>
+    );
+}
+// export default MainLayout;
+
+// И после этого надо изменить App.js:
+function App() {
+
+    // Оборачиваем все роуты в родительский роут, в котором указываем наш статичный MainLayout, который будет одинаков на всех страницах.
+    // И т.к его родительский путь равен "/", то он прикручивается ко всем дочерним путям.
+    // Все эти роуты и отобразаться в <Outlet />
+    return (
+        <Routes>
+            <Route path='/' element={<MainLayout />}>
+                <Route path="" element={<Home />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="pizza/:id" element={<FullPizza />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        </Routes>
+    );
+}
+
+// export default App;
+
+
+/* ЧТО ТАКОЕ TYPESCRIPT И ЗАЧЕМ ОН НУЖЕН - https://www.youtube.com/watch?v=9MUudEhpj2A&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=21 */
+
+

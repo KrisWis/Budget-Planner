@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
 import { useSelector } from 'react-redux';
 
@@ -7,6 +7,7 @@ function Header() {
 
     const { items, totalPrice } = useSelector(state => state.cart);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+    const location = useLocation().pathname;
 
     return (
         <div className="header">
@@ -19,7 +20,7 @@ function Header() {
                     </div>
                 </Link>
                 <Search />
-                <Link to="/cart">
+                {location === '/' && <Link to="/cart">
                     <div className="header__cart">
                         <a href="/cart.html" className="button button--cart">
                             <span>{totalPrice} ₽</span>
@@ -56,7 +57,7 @@ function Header() {
                             <span>{totalCount}</span>
                         </a>
                     </div>
-                </Link>
+                </Link>}
             </div>
         </div>
     );

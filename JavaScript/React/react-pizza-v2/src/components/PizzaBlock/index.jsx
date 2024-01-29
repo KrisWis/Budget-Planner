@@ -1,6 +1,7 @@
 import React from 'react';
 import { addToCart } from '../../redux/slices/CartSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
@@ -26,10 +27,12 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
         setPizzaCount((prev) => prev + 1);
     }
 
+    const pizza_URL = `/pizza/${id}`;
+
     return (
         <div className='pizza-block-wrapper'>
 
-            <div className="pizza-block">
+            <Link to={pizza_URL} className="pizza-block">
                 <img
                     className="pizza-block__image"
                     src={imageUrl}
@@ -67,7 +70,7 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
                         {pizzaCount > 0 && <i>{pizzaCount}</i>}
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 }

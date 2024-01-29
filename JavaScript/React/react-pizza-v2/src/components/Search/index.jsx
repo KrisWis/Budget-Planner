@@ -9,10 +9,10 @@ export const Search = () => {
     const dispatch = useDispatch();
     const [search, setSearch] = React.useState("");
 
-    const searchDebounce = React.useCallback(debounce((e) => {
+    const searchDebounce = React.useCallback(() => debounce((e) => {
         dispatch(setSearchValue(e.target.value));
         setSearch(e.target.value);
-    }, 1000), [])
+    }, 1000), [dispatch])
 
     const onChangeInput = (e) => {
         setSearch(e.target.value);
