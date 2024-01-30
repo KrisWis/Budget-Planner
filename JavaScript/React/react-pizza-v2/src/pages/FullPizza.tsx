@@ -1,11 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { PizzaInterface } from '../App';
 
-const FullPizza = () => {
+const FullPizza: React.FC = () => {
     const params = useParams();
     const id = params.id;
-    const [pizza, setPizza] = React.useState();
+    const [pizza, setPizza] = React.useState<PizzaInterface>();
 
     React.useEffect(() => {
         async function fetch() {

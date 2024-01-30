@@ -9,7 +9,8 @@ import App from './App';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root: HTMLElement = document.getElementById("root")!;
+ReactDOM.createRoot(root).render(
   <Provider store={store}>
     <BrowserRouter>
       <App />

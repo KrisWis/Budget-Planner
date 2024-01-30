@@ -9,7 +9,18 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
 
-function App() {
+export interface PizzaInterface {
+  id: string,
+  imageUrl: string,
+  title: string,
+  types: number[],
+  sizes: number[],
+  price: number,
+  category: number,
+  rating: number
+}
+
+function App(): React.JSX.Element {
 
   return (
     <Routes>

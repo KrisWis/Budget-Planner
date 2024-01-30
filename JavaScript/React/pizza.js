@@ -768,3 +768,44 @@ function App() {
 /* ИСПОЛЬЗУЕМ TYPESCRIPT + REACTJS (практика) - https://www.youtube.com/watch?v=9rA2bXWDLjw&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=22 */
 
 
+// Чтобы установить TypeScript в существующий проект нужно написать "npm install @types/react @types/react-dom".
+
+// Если мы уверены, что элемент существует:
+// const root: HTMLElement = document.getElementById("root")!;
+
+// Чтобы сделать файлы в React с TypeScript и писать в них JSX, то нужно сделать расширение .tsx. Без него JSX разметку писать не получиться.
+
+// Функции компонентов обычно возвращают объект React.JSX.Element.
+// function App(): React.JSX.Element {
+
+//     return (
+//       <Routes>
+//         <Route path='/' element={<MainLayout />}>
+//           <Route path="" element={<Home />} />
+//           <Route path="cart" element={<Cart />} />
+//           <Route path="pizza/:id" element={<FullPizza />} />
+//           <Route path="*" element={<NotFound />} />
+//         </Route>
+//       </Routes>
+//     );
+//   }
+
+// Обязательно нужно создать файл tsconfig.json при переносе React проекта на TypeScript.
+// И там в "compilerOptions" должна быть строчка "jsx": "react".
+
+// Все компоненты лучше типизировать как FC (т.е, Functional Component).
+// const FullPizza: React.FC = () => {};
+
+// never - это тип, когда непонятно что.
+
+// Чтобы корректно сделать useState() надо передать тип, который будет там храниться в качестве Generic.
+//const [pizza, setPizza] = React.useState<PizzaInterface>();
+
+// Если сделать проверку, что объект равен undefined и сделать return, а после этого писать этот объект, то он теперь не будет undefined.
+
+// useEffect не типизируется.
+
+
+/* ТИПИЗИРУЕМ ПРОПСЫ (PROPS) И ХУК USEREF (TYPESCRIPT) - https://www.youtube.com/watch?v=7QdQc-KwWKE&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=23 */
+
+
