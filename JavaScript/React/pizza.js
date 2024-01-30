@@ -762,3 +762,9 @@ function App() {
 /* ЧТО ТАКОЕ TYPESCRIPT И ЗАЧЕМ ОН НУЖЕН - https://www.youtube.com/watch?v=9MUudEhpj2A&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=21 */
 
 
+
+
+
+/* ИСПОЛЬЗУЕМ TYPESCRIPT + REACTJS (практика) - https://www.youtube.com/watch?v=9rA2bXWDLjw&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=22 */
+
+
