@@ -9,7 +9,7 @@ export const Search = () => {
     const dispatch = useDispatch();
     const [search, setSearch] = React.useState("");
 
-    const searchDebounce = React.useCallback(() => debounce((e) => {
+    const searchDebounce = React.useCallback((e) => debounce(() => {
         dispatch(setSearchValue(e.target.value));
         setSearch(e.target.value);
     }, 1000), [dispatch])
@@ -23,3 +23,8 @@ export const Search = () => {
         <input className={styles.root} placeholder="Поиск пиццы.." value={search} onChange={(e) => onChangeInput(e)} />
     )
 }
+
+
+/* ТИПИЗАЦИЯ ONCLICK, ONCHANGE И EVENT (TYPESCRIPT) - https://www.youtube.com/watch?v=WbrxEPgS83c&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=24 */
+
+

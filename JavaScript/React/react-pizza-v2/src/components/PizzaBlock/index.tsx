@@ -2,9 +2,9 @@ import React from 'react';
 import { addToCart } from '../../redux/slices/CartSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { PizzaBlockInterface } from '../../@types/assets';
 
-
-function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
+const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl, sizes, types }) => {
     const [pizzaCount, setPizzaCount] = React.useState(0);
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSize] = React.useState(sizes[0]);

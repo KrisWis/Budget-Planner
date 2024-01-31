@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { FetchPizzasInterface } from '../../@types/assets';
 
-const initialState = {
+const initialState: FetchPizzasInterface = {
     categoryIndex: 0,
     currentPage: 1,
     sortFilter: { name: "популярности", sort: "rating" },

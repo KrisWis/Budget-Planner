@@ -15,13 +15,14 @@ import { useNavigate } from 'react-router-dom';
 
 import qs from 'qs';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
-
+import { FetchPizzasInterface, PizzasInterface } from '../@types/assets';
+import { AppDispatch } from '../redux/store';
 
 export const categories = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
 
 export const Home = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     const isMounted = React.useRef(false);
@@ -44,8 +45,8 @@ export const Home = () => {
         }
     }, [dispatch])
 
-    const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state) => state.filter);
-    const { pizzas, status } = useSelector((state) => state.pizzas);
+    const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state: { filter: FetchPizzasInterface }) => state.filter);
+    const { pizzas, status } = useSelector((state: PizzasInterface) => state.pizzas);
 
     React.useEffect(() => {
 

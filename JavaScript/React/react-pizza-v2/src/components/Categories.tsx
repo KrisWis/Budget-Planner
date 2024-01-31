@@ -3,10 +3,11 @@ import { categories } from '../pages/Home';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryIndex } from '../redux/slices/FilterSlice';
+import { FetchPizzasInterface } from '../@types/assets';
 
 function Categories() {
 
-    const categoryIndex = useSelector((state) => state.filter.categoryIndex);
+    const categoryIndex = useSelector((state: { filter: FetchPizzasInterface }) => state.filter.categoryIndex);
     const dispatch = useDispatch();
 
     const CategoryOnClick = (index) => {

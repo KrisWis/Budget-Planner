@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortFiltering } from '../redux/slices/FilterSlice';
+import { SortFilterInterface } from '../@types/assets';
 
-const sortFilters = [
+const sortFilters: SortFilterInterface[] = [
     { name: "популярности", sort: "rating" },
     { name: "цене", sort: "price" },
     { name: "алфавиту", sort: "title" },
@@ -11,7 +12,7 @@ const sortFilters = [
 
 function Sort() {
     const [isVisible, setOpen] = React.useState(false);
-    const sortFilter = useSelector((state) => state.filter.sortFilter.name);
+    const sortFilter = useSelector((state: { filter: { sortFilter: SortFilterInterface } }) => state.filter.sortFilter.name);
     const [activeSortFilter, setActiveSortFilter] = React.useState(0);
 
     const dispatch = useDispatch();
@@ -22,8 +23,8 @@ function Sort() {
         dispatch(setSortFiltering({ name: sortFilter, sort: sortProperty }));
     }
 
-    const sortRef = React.useRef();
-    const sortSpanRef = React.useRef();
+    const sortRef = React.useRef<HTMLDivElement>();
+    const sortSpanRef = React.useRef<HTMLSpanElement>();
 
     React.useEffect(() => {
         const bodyClickFunc = (event) => {

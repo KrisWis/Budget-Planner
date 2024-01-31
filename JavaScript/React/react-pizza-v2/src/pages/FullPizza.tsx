@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { PizzaInterface } from '../App';
+import { PizzaInterface } from '../@types/assets';
 
 const FullPizza: React.FC = () => {
     const params = useParams();

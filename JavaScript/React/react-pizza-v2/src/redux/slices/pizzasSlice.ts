@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { FetchPizzasInterface, PizzasInterface, PizzaInterface } from '../../@types/assets';
 
-export const fetchPizzas = createAsyncThunk(
+
+export const fetchPizzas = createAsyncThunk<string, FetchPizzasInterface>(
     'pizzas/fetchPizzasStatus',
     async ({ currentPage, categoryIndex, sortFilter, searchValue }) => {
 
@@ -11,7 +13,7 @@ export const fetchPizzas = createAsyncThunk(
     }
 )
 
-const initialState = {
+const initialState: PizzasInterface = {
     pizzas: [],
     status: 'loading'
 }
@@ -33,7 +35,7 @@ export const pizzaSlice = createSlice({
         });
 
         builder.addCase(fetchPizzas.fulfilled, (state, action) => {
-            state.pizzas = action.payload;
+            state.pizzas = ((action.payload as unknown) as PizzaInterface[]);
             state.status = 'success';
         });
 

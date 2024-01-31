@@ -809,3 +809,43 @@ function App() {
 /* ТИПИЗИРУЕМ ПРОПСЫ (PROPS) И ХУК USEREF (TYPESCRIPT) - https://www.youtube.com/watch?v=7QdQc-KwWKE&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=23 */
 
 
+// Чтобы типизировать пропсы, можно сделать так:
+// function CartItem({ id, imageUrl, title, activeType, activeSize, price, count }: CartItemInterface) {}
+
+// Пример того, как типизировать useRef():
+// const sortSpanRef = React.useRef<HTMLSpanElement>();
+
+// Чтобы TS корректно принимал png и svg файлы, которые мы импортируем, как объекты, надо создать папку @types, в которой будут все наши кастомные типы.
+// В ней создать файл с расширением .d.ts(например, assets.d.ts) и написать следующий код:
+
+// Этим кодом мы говорим TS, чтобы он нормально воспринимал svg и png файлы:
+// declare module "*.svg" {
+//     const content: any;
+//     export default content;
+// }
+
+// declare module "*.png" {
+//     const content: any;
+//     export default content;
+// }
+
+// И подключаем их в tsconfig.json:
+// "include": [
+//     "src",
+//     "src/@types"
+// ]
+
+// Пример типизации в слайсе:
+// state.pizzas = ((action.payload as unknown) as PizzaInterface[]);
+
+// В store.ts надо взять тип диспатча:
+// export type AppDispatch = typeof store.dispatch;
+
+// И диспатч создавать теперь так:
+// const dispatch = useDispatch<AppDispatch>();
+
+// Чтобы корректно импортировать .scss файлы, надо в папке @types создать файл typings.d.ts и написать следующий код:
+// declare module '*.scss';
+
+// Лучше делать компоненты стрелочными функциями и типизировать следующим образом:
+// const CartItem: React.FC<CartItemInterface> = ({ id, imageUrl, title, activeType, activeSize, price, count }) => {}
