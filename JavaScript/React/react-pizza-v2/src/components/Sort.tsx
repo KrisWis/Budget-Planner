@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortFiltering } from '../redux/slices/FilterSlice';
 import { SortFilterInterface } from '../@types/assets';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const sortFilters: SortFilterInterface[] = [
     { name: "популярности", sort: "rating" },
@@ -10,24 +11,24 @@ const sortFilters: SortFilterInterface[] = [
     { name: "алфавиту", sort: "title" },
 ]
 
-function Sort() {
-    const [isVisible, setOpen] = React.useState(false);
-    const sortFilter = useSelector((state: { filter: { sortFilter: SortFilterInterface } }) => state.filter.sortFilter.name);
-    const [activeSortFilter, setActiveSortFilter] = React.useState(0);
+const Sort: React.FC = (): React.JSX.Element => {
+    const [isVisible, setOpen] = React.useState<boolean>(false);
+    const sortFilter: string = useSelector((state: { filter: { sortFilter: SortFilterInterface } }) => state.filter.sortFilter.name);
+    const [activeSortFilter, setActiveSortFilter] = React.useState<number>(0);
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-    function sortFiltersOnClick(sortFilter, index, sortProperty) {
+    const sortFiltersOnClick: (sortFilterName: string, index: number, sortProperty: string) => void = (sortFilterName, index, sortProperty) => {
         setOpen(false);
         setActiveSortFilter(index);
-        dispatch(setSortFiltering({ name: sortFilter, sort: sortProperty }));
+        dispatch(setSortFiltering({ name: sortFilterName, sort: sortProperty }));
     }
 
     const sortRef = React.useRef<HTMLDivElement>();
     const sortSpanRef = React.useRef<HTMLSpanElement>();
 
     React.useEffect(() => {
-        const bodyClickFunc = (event) => {
+        const bodyClickFunc = (event: MouseEvent) => {
 
             if (event.target !== sortRef.current && event.target !== sortSpanRef.current) {
                 setOpen(false);

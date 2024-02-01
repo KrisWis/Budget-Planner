@@ -849,3 +849,63 @@ function App() {
 
 // Лучше делать компоненты стрелочными функциями и типизировать следующим образом:
 // const CartItem: React.FC<CartItemInterface> = ({ id, imageUrl, title, activeType, activeSize, price, count }) => {}
+
+
+/* ТИПИЗАЦИЯ ONCLICK, ONCHANGE И EVENT (TYPESCRIPT) - https://www.youtube.com/watch?v=WbrxEPgS83c&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=24 */
+
+
+// Типизация танка:
+// export const fetchPizzas = createAsyncThunk(
+//     'pizzas/fetchPizzasStatus',
+//     async ({ currentPage, categoryIndex, sortFilter, searchValue }: FetchPizzasInterface) => {
+
+//         const res: AxiosResponse = await axios.get(`https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`);
+
+//         const data: PizzaInterface[] = res.data;
+
+//         return data;
+//     }
+// )
+
+// Чтобы диспатч корректно работал:
+import { ThunkDispatch } from "@reduxjs/toolkit";
+// const dispatch = useDispatch < ThunkDispatch < any, any, any>> ();
+
+// Пример правильной типизации функций:
+// export interface PaginationInterface {
+//     currentPage: number,
+//     onChangePage: (e: number) => void
+// }
+//onPageChange={(e: OnPageChangePagination) => onChangePage(e.selected + 1)}
+
+// Подобная штука вызывает функцию, только если она существует:
+getCategories?.();
+
+// event, для события клика будет типом MouseEvent:
+// const bodyClickFunc = (event: MouseEvent) => {}
+
+// Думаю, лучше типизировать функции таким способом:
+// const onChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
+//     setSearch((e.target as HTMLInputElement).value);
+//     searchDebounce(e);
+// }
+
+// Пример, как типизировать событие, которое является событием клика на SVG элемент, навешенном в React (а не с помощью addEventListener):
+// const onclickSVG = (e: React.MouseEvent<SVGSVGElement>): void => {
+//     setSearch((e.target as HTMLInputElement).value);
+//     searchDebounce(e);
+// }
+
+// При onChange - ChangeEvent<>, при onClick - MouseEvent<>.
+
+// Знак "&" означает, что мы к нашему типу прибавляем ещё кое какие данные.
+// type PopupClick = {
+//     event: MouseEvent & {
+//         path: Node[]
+//     }
+// }
+
+
+/* TYPESCRIPT + REDUX TOOLKIT - https://www.youtube.com/watch?v=cFkSoZVzngo&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=25 */
+
+

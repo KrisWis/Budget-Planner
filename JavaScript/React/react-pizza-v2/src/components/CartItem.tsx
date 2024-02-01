@@ -2,12 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { increaseCount, decreaseCount, removeFromCart } from '../redux/slices/CartSlice';
 import { CartItemInterface } from '../@types/assets';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
-const CartItem: React.FC<CartItemInterface> = ({ id, imageUrl, title, activeType, activeSize, price, count }) => {
 
-    const dispatch = useDispatch();
+const CartItem: React.FC<CartItemInterface> = ({ id, imageUrl, title, activeType, activeSize, price, count }): React.JSX.Element => {
 
-    const onClickMinus = () => {
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+    const onClickMinus: React.MouseEventHandler<HTMLDivElement> = (): void => {
         if (count > 0) {
             dispatch(decreaseCount(id))
         }

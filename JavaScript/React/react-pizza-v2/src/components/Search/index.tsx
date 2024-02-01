@@ -4,27 +4,27 @@ import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/FilterSlice';
 
 import debounce from 'lodash.debounce';
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { ChangeEvent } from 'react';
+
 
 export const Search = () => {
-    const dispatch = useDispatch();
-    const [search, setSearch] = React.useState("");
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const [search, setSearch] = React.useState<string>("");
 
-    const searchDebounce = React.useCallback((e) => debounce(() => {
-        dispatch(setSearchValue(e.target.value));
-        setSearch(e.target.value);
+    const searchDebounce = React.useCallback((e: ChangeEvent<HTMLInputElement>): void => debounce(() => {
+
+        dispatch(setSearchValue((e.target as HTMLInputElement).value));
+        setSearch((e.target as HTMLInputElement).value);
+
     }, 1000), [dispatch])
 
-    const onChangeInput = (e) => {
-        setSearch(e.target.value);
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
+        setSearch((e.target as HTMLInputElement).value);
         searchDebounce(e);
     }
 
     return (
-        <input className={styles.root} placeholder="Поиск пиццы.." value={search} onChange={(e) => onChangeInput(e)} />
+        <input className={styles.root} placeholder="Поиск пиццы.." value={search} onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeInput(e)} />
     )
 }
-
-
-/* ТИПИЗАЦИЯ ONCLICK, ONCHANGE И EVENT (TYPESCRIPT) - https://www.youtube.com/watch?v=WbrxEPgS83c&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=24 */
-
-

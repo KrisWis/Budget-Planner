@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { PizzaInterface } from '../@types/assets';
 
-const FullPizza: React.FC = () => {
+const FullPizza: React.FC = (): React.JSX.Element | string => {
     const params = useParams();
     const id = params.id;
     const [pizza, setPizza] = React.useState<PizzaInterface>();

@@ -5,12 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryIndex } from '../redux/slices/FilterSlice';
 import { FetchPizzasInterface } from '../@types/assets';
 
-function Categories() {
+import { ThunkDispatch } from "@reduxjs/toolkit";
+
+const Categories: React.FC = (): React.JSX.Element => {
 
     const categoryIndex = useSelector((state: { filter: FetchPizzasInterface }) => state.filter.categoryIndex);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-    const CategoryOnClick = (index) => {
+    const CategoryOnClick: (index: number) => void = (index) => {
         dispatch(setCategoryIndex(index));
     }
 

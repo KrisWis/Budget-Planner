@@ -8,9 +8,11 @@ import { clearCart } from '../redux/slices/CartSlice';
 import CartEmpty from '../components/CartEmpty';
 
 import { cartSelector } from '../redux/slices/CartSlice';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
-function Cart() {
-    const dispatch = useDispatch();
+
+const Cart: React.FC = (): React.JSX.Element => {
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const { items, totalPrice } = useSelector(cartSelector);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
@@ -36,7 +38,7 @@ function Cart() {
                             <path d="M11.6666 9.16667V14.1667" stroke="#B6B6B6" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
 
-                        <span onClick={() => dispatch(clearCart())}>Очистить корзину</span>
+                        <span onClick={() => dispatch(clearCart(null))}>Очистить корзину</span>
                     </div>
                 </div>
                 <div className="content__items">

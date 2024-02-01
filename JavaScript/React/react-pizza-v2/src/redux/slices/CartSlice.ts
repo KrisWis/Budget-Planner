@@ -1,18 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { Slice, createSlice } from '@reduxjs/toolkit'
+import { CartInterface, CartItemInterface, CartSlicePayloadAction, StringPayloadAction } from '../../@types/assets';
 
-const cart = {
+const cart: CartInterface = {
     totalPrice: 0,
     items: []
 }
 
-export const cartSlice = createSlice({
+export const cartSlice: Slice = createSlice({
     name: 'cart',
     initialState: cart,
     reducers: {
 
-        addToCart: (state, action) => {
-            const item_id = action.payload.id;
-            const findItem = state.items.find(obj => obj.id === item_id);
+        addToCart: (state: CartInterface, action: CartSlicePayloadAction): void => {
+            const item_id: string = action.payload.id;
+            const findItem: CartItemInterface = state.items.find(obj => obj.id === item_id);
 
             if (findItem) {
 
@@ -27,22 +28,22 @@ export const cartSlice = createSlice({
             state.totalPrice += action.payload.price;
         },
 
-        removeFromCart: (state, action) => {
+        removeFromCart: (state: CartInterface, action: StringPayloadAction): void => {
             state.items = state.items.filter((obj) => obj.id !== action.payload);
         },
 
-        clearCart: (state) => {
+        clearCart: (state: CartInterface): void => {
             state.items = [];
             state.totalPrice = 0;
         },
 
-        increaseCount: (state, action) => {
+        increaseCount: (state: CartInterface, action: StringPayloadAction): void => {
             const findItem = state.items.find(obj => obj.id === action.payload);
             findItem.count++;
             state.totalPrice += findItem.price;
         },
 
-        decreaseCount: (state, action) => {
+        decreaseCount: (state: CartInterface, action: StringPayloadAction): void => {
             const findItem = state.items.find(obj => obj.id === action.payload);
             findItem.count--;
             state.totalPrice -= findItem.price;
@@ -50,7 +51,7 @@ export const cartSlice = createSlice({
     },
 })
 
-export const cartSelector = (state) => state.cart;
+export const cartSelector = (state: { cart: CartInterface }): CartInterface => state.cart;
 
 export const { addToCart, removeFromCart, clearCart, increaseCount, decreaseCount } = cartSlice.actions;
 

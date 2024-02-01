@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Store, configureStore } from '@reduxjs/toolkit';
 import filter from './slices/FilterSlice';
 import cart from './slices/CartSlice';
 import pizzas from './slices/pizzasSlice';
 
-export const store = configureStore({
+export const store: Store = configureStore({
     reducer: {
         filter,
         cart,

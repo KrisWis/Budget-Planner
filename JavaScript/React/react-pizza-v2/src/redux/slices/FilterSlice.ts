@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { FetchPizzasInterface } from '../../@types/assets';
+import { Slice, createSlice } from '@reduxjs/toolkit'
+import { NumberPayloadAction, FetchPizzasInterface, FiltersPayloadAction, StringPayloadAction, SortFilterPayloadAction } from '../../@types/assets';
 
 const initialState: FetchPizzasInterface = {
     categoryIndex: 0,
@@ -8,28 +8,28 @@ const initialState: FetchPizzasInterface = {
     searchValue: ""
 }
 
-export const filtersSlice = createSlice({
+export const filtersSlice: Slice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
 
-        setCategoryIndex: (state, index) => {
-            state.categoryIndex = index.payload;
+        setCategoryIndex: (state: FetchPizzasInterface, action: NumberPayloadAction): void => {
+            state.categoryIndex = action.payload;
         },
 
-        setSearchValue: (state, value) => {
-            state.searchValue = value.payload;
+        setSearchValue: (state: FetchPizzasInterface, action: StringPayloadAction): void => {
+            state.searchValue = action.payload;
         },
 
-        setSortFiltering: (state, filter) => {
-            state.sortFilter = filter.payload;
+        setSortFiltering: (state: FetchPizzasInterface, action: SortFilterPayloadAction): void => {
+            state.sortFilter = action.payload;
         },
 
-        setCurrentPage: (state, page) => {
-            state.currentPage = page.payload;
+        setCurrentPage: (state: FetchPizzasInterface, action: NumberPayloadAction): void => {
+            state.currentPage = action.payload;
         },
 
-        setFilters: (state, action) => {
+        setFilters: (state: FetchPizzasInterface, action: FiltersPayloadAction): void => {
             state.categoryIndex = action.payload.categoryIndex;
             state.searchValue = action.payload.searchValue;
             state.sortFilter = action.payload.sortFilter;

@@ -3,7 +3,7 @@ import List from './List'; // Импортируем компонент List
 
 function App() { // Обозначаем функцию приложения
 
-  const [visibleList, setVisibleList] = React.useState(true);
+  const [visibleList, setVisibleList] = React.useState < boolean > (true);
 
   const toggleVisibleList = () => {
     setVisibleList((visible) => !visible);

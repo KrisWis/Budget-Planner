@@ -4,7 +4,7 @@ import { Search } from './Search';
 import { useSelector } from 'react-redux';
 import { CartInterface } from '../@types/assets';
 
-function Header() {
+const Header: React.FC = (): React.JSX.Element => {
 
     const { items, totalPrice } = useSelector((state: { cart: CartInterface }) => state.cart);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);

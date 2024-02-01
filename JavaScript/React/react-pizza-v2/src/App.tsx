@@ -9,7 +9,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MainLayout from './components/MainLayout';
 
-function App(): React.JSX.Element {
+const App: React.FC = (): React.JSX.Element => {
 
   return (
     <Routes>

@@ -43,7 +43,7 @@ import React from "react";
 
 const List = () => {
 
-    const [numbers, setNumbers] = React.useState([1, 2, 3]);
+    const [numbers, setNumbers] = React.useState < Array < number > ([1, 2, 3]);
 
     // Создаём функцию, которая добавляет в массив цифру.
     const AddNumber = () => {

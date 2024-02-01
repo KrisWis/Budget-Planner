@@ -23,15 +23,19 @@ export interface CartItemInterface {
     id: string,
     imageUrl: string,
     title: string,
-    activeType: number,
+    activeType: string,
     activeSize: number,
     price: number,
     count: number
 }
 
+export interface OnPageChangePagination {
+    selected: number
+}
+
 export interface PaginationInterface {
     currentPage: number,
-    onChangePage: Function
+    onChangePage: (e: number) => void
 }
 
 export interface PizzaBlockInterface {
@@ -56,13 +60,41 @@ export interface FetchPizzasInterface {
 }
 
 export interface PizzasInterface {
-    pizzas: {
-        pizzas: PizzaInterface[],
-        status: string
-    }
+    pizzas: PizzaInterface[],
+    status: string
 }
 
 export interface CartInterface {
     items: CartItemInterface[],
     totalPrice: number
+}
+
+export interface PizzaSlicePayloadAction {
+    payload: PizzaInterface[];
+    type: string;
+}
+
+export interface NumberPayloadAction {
+    payload: number;
+    type: string;
+}
+
+export interface StringPayloadAction {
+    payload: string;
+    type: string;
+}
+
+export interface SortFilterPayloadAction {
+    payload: SortFilterInterface;
+    type: string;
+}
+
+export interface FiltersPayloadAction {
+    payload: FetchPizzasInterface;
+    type: string;
+}
+
+export interface CartSlicePayloadAction {
+    payload: CartItemInterface;
+    type: string;
 }

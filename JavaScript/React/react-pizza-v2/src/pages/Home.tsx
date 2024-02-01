@@ -4,29 +4,26 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/index';
 import PizzaBlockSkeleton from '../components/PizzaBlock/Skeleton';
-
 import { Pagination } from '../components/Pagination';
-
 import { useSelector, useDispatch } from 'react-redux';
-
 import { setCurrentPage, setFilters } from '../redux/slices/FilterSlice';
-
 import { useNavigate } from 'react-router-dom';
-
 import qs from 'qs';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import { FetchPizzasInterface, PizzasInterface } from '../@types/assets';
-import { AppDispatch } from '../redux/store';
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
-export const categories = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
 
-export const Home = () => {
+export const categories: string[] = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
 
-    const dispatch = useDispatch<AppDispatch>();
+
+export const Home: React.FC = (): React.JSX.Element => {
+
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const navigate = useNavigate();
 
-    const isMounted = React.useRef(false);
-    const isSearch = React.useRef(false);
+    const isMounted = React.useRef<boolean>(false);
+    const isSearch = React.useRef<boolean>(false);
 
     React.useEffect(() => {
 
@@ -46,7 +43,7 @@ export const Home = () => {
     }, [dispatch])
 
     const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state: { filter: FetchPizzasInterface }) => state.filter);
-    const { pizzas, status } = useSelector((state: PizzasInterface) => state.pizzas);
+    const { pizzas, status } = useSelector((state: { pizzas: PizzasInterface }) => state.pizzas);
 
     React.useEffect(() => {
 
@@ -75,7 +72,7 @@ export const Home = () => {
 
     }, [categoryIndex, sortFilter, searchValue, currentPage, navigate, dispatch]);
 
-    const onChangePage = (number) => {
+    const onChangePage: (number: number) => void = (number) => {
         dispatch(setCurrentPage(number));
     }
 

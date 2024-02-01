@@ -2,19 +2,22 @@ import React from 'react';
 import { addToCart } from '../../redux/slices/CartSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { PizzaBlockInterface } from '../../@types/assets';
+import { CartItemInterface, PizzaBlockInterface } from '../../@types/assets';
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { MouseEventHandler } from 'react';
 
-const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl, sizes, types }) => {
-    const [pizzaCount, setPizzaCount] = React.useState(0);
-    const [activeType, setActiveType] = React.useState(0);
-    const [activeSize, setActiveSize] = React.useState(sizes[0]);
 
-    const typeNames = ["тонкое", "традиционное"];
+const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl, sizes, types }): React.JSX.Element => {
+    const [pizzaCount, setPizzaCount] = React.useState<number>(0);
+    const [activeType, setActiveType] = React.useState<number>(0);
+    const [activeSize, setActiveSize] = React.useState<number>(sizes[0]);
 
-    const dispatch = useDispatch();
+    const typeNames: string[] = ["тонкое", "традиционное"];
 
-    const addToReduxCart = () => {
-        let item = {
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+    const addToReduxCart: MouseEventHandler<HTMLDivElement> = (): void => {
+        let item: CartItemInterface = {
             id,
             title,
             price,
@@ -24,10 +27,10 @@ const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl,
             count: pizzaCount + 1
         };
         dispatch(addToCart(item));
-        setPizzaCount((prev) => prev + 1);
+        setPizzaCount((prev: number) => prev + 1);
     }
 
-    const pizza_URL = `/pizza/${id}`;
+    const pizza_URL: string = `/pizza/${id}`;
 
     return (
         <div className='pizza-block-wrapper'>

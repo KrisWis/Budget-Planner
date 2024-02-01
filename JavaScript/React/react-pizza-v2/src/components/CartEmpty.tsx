@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CartEmpty() {
+const CartEmpty: React.FC = (): React.JSX.Element => {
 
     return (
         <div className="cart__empty">
