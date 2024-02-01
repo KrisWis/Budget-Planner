@@ -48,8 +48,8 @@ export interface PizzaBlockInterface {
 }
 
 export interface SortFilterInterface {
-    name: string,
-    sort: string
+    name: 'популярности' | 'цене' | 'алфавиту',
+    sort: 'rating' | 'price' | 'title'
 }
 
 export interface FetchPizzasInterface {
@@ -58,43 +58,12 @@ export interface FetchPizzasInterface {
     sortFilter: SortFilter | string,
     searchValue: string
 }
-
 export interface PizzasInterface {
     pizzas: PizzaInterface[],
-    status: string
+    status: Status
 }
 
 export interface CartInterface {
     items: CartItemInterface[],
     totalPrice: number
-}
-
-export interface PizzaSlicePayloadAction {
-    payload: PizzaInterface[];
-    type: string;
-}
-
-export interface NumberPayloadAction {
-    payload: number;
-    type: string;
-}
-
-export interface StringPayloadAction {
-    payload: string;
-    type: string;
-}
-
-export interface SortFilterPayloadAction {
-    payload: SortFilterInterface;
-    type: string;
-}
-
-export interface FiltersPayloadAction {
-    payload: FetchPizzasInterface;
-    type: string;
-}
-
-export interface CartSlicePayloadAction {
-    payload: CartItemInterface;
-    type: string;
 }

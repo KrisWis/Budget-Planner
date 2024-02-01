@@ -1,15 +1,14 @@
 import React from 'react';
 import styles from './search.module.scss';
-import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/FilterSlice';
 
 import debounce from 'lodash.debounce';
-import { ThunkDispatch } from "@reduxjs/toolkit";
 import { ChangeEvent } from 'react';
+import { useAppDispatch } from '../../redux/store';
 
 
 export const Search = () => {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const dispatch = useAppDispatch();
     const [search, setSearch] = React.useState<string>("");
 
     const searchDebounce = React.useCallback((e: ChangeEvent<HTMLInputElement>): void => debounce(() => {

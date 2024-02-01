@@ -2,11 +2,11 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
 import { useSelector } from 'react-redux';
-import { CartInterface } from '../@types/assets';
+import { RootState } from '../redux/store';
 
 const Header: React.FC = (): React.JSX.Element => {
 
-    const { items, totalPrice } = useSelector((state: { cart: CartInterface }) => state.cart);
+    const { items, totalPrice } = useSelector((state: RootState) => state.cart);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
     const location = useLocation().pathname;
 
@@ -23,7 +23,7 @@ const Header: React.FC = (): React.JSX.Element => {
                 <Search />
                 {location === '/' && <Link to="/cart">
                     <div className="header__cart">
-                        <a href="/cart.html" className="button button--cart">
+                        <div className="button button--cart">
                             <span>{totalPrice} ₽</span>
                             <div className="button__delimiter"></div>
                             <svg
@@ -56,7 +56,7 @@ const Header: React.FC = (): React.JSX.Element => {
                                 />
                             </svg>
                             <span>{totalCount}</span>
-                        </a>
+                        </div>
                     </div>
                 </Link>}
             </div>

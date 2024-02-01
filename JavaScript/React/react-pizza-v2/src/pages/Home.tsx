@@ -5,13 +5,12 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock/index';
 import PizzaBlockSkeleton from '../components/PizzaBlock/Skeleton';
 import { Pagination } from '../components/Pagination';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setCurrentPage, setFilters } from '../redux/slices/FilterSlice';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
-import { FetchPizzasInterface, PizzasInterface } from '../@types/assets';
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState, useAppDispatch } from '../redux/store';
 
 
 export const categories: string[] = ["Все", "Мясные", "Вегетарианские", "Гриль", "Острые", "Закрытые"];
@@ -19,7 +18,7 @@ export const categories: string[] = ["Все", "Мясные", "Вегетари
 
 export const Home: React.FC = (): React.JSX.Element => {
 
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const isMounted = React.useRef<boolean>(false);
@@ -42,8 +41,8 @@ export const Home: React.FC = (): React.JSX.Element => {
         }
     }, [dispatch])
 
-    const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state: { filter: FetchPizzasInterface }) => state.filter);
-    const { pizzas, status } = useSelector((state: { pizzas: PizzasInterface }) => state.pizzas);
+    const { categoryIndex, sortFilter, searchValue, currentPage } = useSelector((state: RootState) => state.filter);
+    const { pizzas, status } = useSelector((state: RootState) => state.pizzas);
 
     React.useEffect(() => {
 

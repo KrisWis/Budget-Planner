@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import CartItem from '../components/CartItem';
 
@@ -8,11 +8,11 @@ import { clearCart } from '../redux/slices/CartSlice';
 import CartEmpty from '../components/CartEmpty';
 
 import { cartSelector } from '../redux/slices/CartSlice';
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { useAppDispatch } from '../redux/store';
 
 
 const Cart: React.FC = (): React.JSX.Element => {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const dispatch = useAppDispatch();
     const { items, totalPrice } = useSelector(cartSelector);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 

@@ -1,5 +1,6 @@
-import { Slice, createSlice } from '@reduxjs/toolkit'
-import { CartInterface, CartItemInterface, CartSlicePayloadAction, StringPayloadAction } from '../../@types/assets';
+import { PayloadAction, Slice, createSlice } from '@reduxjs/toolkit'
+import { CartInterface, CartItemInterface } from '../../@types/assets';
+import { RootState } from '../store';
 
 const cart: CartInterface = {
     totalPrice: 0,
@@ -11,7 +12,7 @@ export const cartSlice: Slice = createSlice({
     initialState: cart,
     reducers: {
 
-        addToCart: (state: CartInterface, action: CartSlicePayloadAction): void => {
+        addToCart: (state: CartInterface, action: PayloadAction<CartItemInterface>): void => {
             const item_id: string = action.payload.id;
             const findItem: CartItemInterface = state.items.find(obj => obj.id === item_id);
 
@@ -28,7 +29,7 @@ export const cartSlice: Slice = createSlice({
             state.totalPrice += action.payload.price;
         },
 
-        removeFromCart: (state: CartInterface, action: StringPayloadAction): void => {
+        removeFromCart: (state: CartInterface, action: PayloadAction<string>): void => {
             state.items = state.items.filter((obj) => obj.id !== action.payload);
         },
 
@@ -37,13 +38,13 @@ export const cartSlice: Slice = createSlice({
             state.totalPrice = 0;
         },
 
-        increaseCount: (state: CartInterface, action: StringPayloadAction): void => {
+        increaseCount: (state: CartInterface, action: PayloadAction<string>): void => {
             const findItem = state.items.find(obj => obj.id === action.payload);
             findItem.count++;
             state.totalPrice += findItem.price;
         },
 
-        decreaseCount: (state: CartInterface, action: StringPayloadAction): void => {
+        decreaseCount: (state: CartInterface, action: PayloadAction<string>): void => {
             const findItem = state.items.find(obj => obj.id === action.payload);
             findItem.count--;
             state.totalPrice -= findItem.price;
@@ -51,7 +52,7 @@ export const cartSlice: Slice = createSlice({
     },
 })
 
-export const cartSelector = (state: { cart: CartInterface }): CartInterface => state.cart;
+export const cartSelector = (state: RootState): CartInterface => state.cart;
 
 export const { addToCart, removeFromCart, clearCart, increaseCount, decreaseCount } = cartSlice.actions;
 

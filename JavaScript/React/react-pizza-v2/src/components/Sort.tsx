@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setSortFiltering } from '../redux/slices/FilterSlice';
 import { SortFilterInterface } from '../@types/assets';
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState, useAppDispatch } from '../redux/store';
 
 const sortFilters: SortFilterInterface[] = [
     { name: "популярности", sort: "rating" },
@@ -13,10 +13,10 @@ const sortFilters: SortFilterInterface[] = [
 
 const Sort: React.FC = (): React.JSX.Element => {
     const [isVisible, setOpen] = React.useState<boolean>(false);
-    const sortFilter: string = useSelector((state: { filter: { sortFilter: SortFilterInterface } }) => state.filter.sortFilter.name);
+    const sortFilter: string = useSelector((state: RootState) => state.filter.sortFilter.name);
     const [activeSortFilter, setActiveSortFilter] = React.useState<number>(0);
 
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const dispatch = useAppDispatch();
 
     const sortFiltersOnClick: (sortFilterName: string, index: number, sortProperty: string) => void = (sortFilterName, index, sortProperty) => {
         setOpen(false);

@@ -909,3 +909,63 @@ getCategories?.();
 /* TYPESCRIPT + REDUX TOOLKIT - https://www.youtube.com/watch?v=cFkSoZVzngo&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=25 */
 
 
+// Мутация - это изменение свойства в объекте. Неизменяемый объект - это объект, который у которого нельзя изменить свойства.
+// Импортируем объект produce
+import produce from 'immer';
+// Создаём обычный изменяемый объект
+const state = { numbers: [1, 2, 3] }
+// Создаём новый объект, не изменяя прошлый и этот newState будет уже неизменяемым.
+// Мы передаём наш старый объект, как образец и draft становиться равным ему. В newState передаётся уже значение draft.
+const newState = produce(state, draft => { // Т.е тут, draft - это лишь черновой вариант нашего объекта
+    draft.numbers.push(4, 5, 6);
+})
+
+// Глобальный стейт, который объявляется в store.ts и нужен для типизации стейта при использовании useSelector:
+// export type RootState = ReturnType<typeof store.getState>; - вытаскиваем тип, который возвращает функция getState().
+
+// Использование:
+//const categoryIndex = useSelector((state: RootState) => state.filter.categoryIndex);
+
+// Пример того, как надо типизировать action правильно:
+// builder.addCase(fetchPizzas.fulfilled, (state: PizzasInterface, action: PayloadAction<PizzaInterface[]>) => {}
+
+// Чтобы сделать так, чтобы ключ в объекте был строкой, а значение всегда цифрой:
+// ype TestType = Record<string, number>
+
+// 1 параметр - возвращаемое значение, 2 - параметры.
+//export const fetchPizzas: AsyncThunk<PizzaInterface[], FetchPizzasInterface, any> = createAsyncThunk()
+
+// Как правильно типизировать axios запрос:
+// const { data }: AxiosResponse<PizzaInterface[]> = await axios.get(`https://65932afdbb12970719906e63.mockapi.io/items?page=${currentPage}&limit=4&${categoryIndex > 0 ? `category=${categoryIndex}` : ''}&sortBy=${sortFilter}&order=${sortFilter === "title" ? "asc" : "desc"}${searchValue ? `&search=${searchValue}` : ''}`);
+
+// enum нужен тогда, когда надо хранить какие то значения, чтобы в случае изменения не изменять их по всему коду. Пример:
+// enum Status {
+// Ключи обычно пишуться капсом:
+//     LOADING = 'loading',
+//     COMPLETED = 'completed',
+//     ERROR = 'error'
+// }
+
+// И теперь можем использовать этот enum, как тип:
+// export interface PizzasInterface {
+//     pizzas: PizzaInterface[],
+//     status: Status
+// }
+
+// И вот так его использовать. Если значение LOADING измениться на 'pending', то это не придётся изменять по всему коду, а только в enum.
+// const initialState: PizzasInterface = {
+//     pizzas: [],
+//     status: Status.LOADING
+// }
+
+// В store.js надо создать свой диспатч:
+// export type AppDispatch = typeof store.dispatch;
+// export const useAppDispatch = () => useDispatch<AppDispatch | any>();
+
+// И вот так используем:
+const dispatch = useAppDispatch();
+
+
+/* ОПТИМИЗИРУЕМ ПЕРЕРИСОВКУ КОМПОНЕНТОВ С ПОМОЩЬЮ USECALLBACK И REACT.MEMO - https://www.youtube.com/watch?v=KvoWbHHBv88&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=26 */
+
+
