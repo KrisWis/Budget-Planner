@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import styles from './pagination.module.scss';
-import { OnPageChangePagination, PaginationInterface } from '../../@types/assets';
+import { OnPageChangePagination } from '../../@types/assets';
+import { useSelector } from 'react-redux';
+import { setCurrentPage } from '../../redux/slices/FilterSlice';
+import { RootState, useAppDispatch } from '../../redux/store';
 
-export const Pagination: React.FC<PaginationInterface> = ({ currentPage, onChangePage }): React.JSX.Element => {
+export const Pagination: React.FC = (): React.JSX.Element => {
+    const dispatch = useAppDispatch();
+
+    const currentPage = useSelector((state: RootState) => state.filter.currentPage);
+
+    const onChangePage: (number: number) => void = (number) => {
+        dispatch(setCurrentPage(number));
+    }
+
     return (
         <ReactPaginate
             className={styles.root}

@@ -969,3 +969,28 @@ const dispatch = useAppDispatch();
 /* ОПТИМИЗИРУЕМ ПЕРЕРИСОВКУ КОМПОНЕНТОВ С ПОМОЩЬЮ USECALLBACK И REACT.MEMO - https://www.youtube.com/watch?v=KvoWbHHBv88&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=26 */
 
 
+/* clsx нужен для того, чтобы передавать строчку, а потом объект, в котором ключами будут строки, а значениями - true или false. 
+И в зависимости от значения, ключ будет прикручиваться к исходной строчке. */
+import clsx from 'clsx';
+<button disabled={count === 1} className={clsx("button button--outline button--circle cart__item-count-minus", { 'disabled': count === 1 })} onClick={onClickMinus}></button>
+
+// Пример правильного вызова debounce:
+// debounce(() => {
+//     dispatch(setSearchValue((e.target as HTMLInputElement).value));
+//     setSearch((e.target as HTMLInputElement).value);
+// }, 550)();
+
+// Ёбанный useNavigate() всегда вызывает ререндер всего приложения.
+
+// Логику лучше разносить по компонентам, т.к если один компонент в родительском будет зависеть от его логики и перирисовываться, то будут перерисовываться остальные.
+
+// С деструктуризацией работать осторожно, а то он ненароком может начать за всем стейтом следить.
+const currentPage = useSelector((state) => state.filter.currentPage);
+
+// Для минимазации повторных ререндеров - надо использовать React.memo. Он создан для этого.
+// Всю эту оптимизацию надо настраивать только если это правда имеет смысл и без них приложение тормозит.
+
+
+/* СОХРАНЯЕМ ПИЦЦЫ В LOCALSTORAGE, ГРАМОТНО СТРУКТУРИРУЕМ ПАПКИ ПРОЕКТА - https://www.youtube.com/watch?v=hWvNWhA5J0M&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=27 */
+
+

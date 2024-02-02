@@ -3,11 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { CartItemInterface } from '../@types/assets';
 
 const Header: React.FC = (): React.JSX.Element => {
 
     const { items, totalPrice } = useSelector((state: RootState) => state.cart);
-    const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+    const totalCount = items.reduce((sum: number, item: CartItemInterface) => sum + item.count, 0);
     const location = useLocation().pathname;
 
     return (

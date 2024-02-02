@@ -1,5 +1,5 @@
 import React from 'react';
-import { categories } from '../pages/Home';
+import { categories } from '../components/ContentItems';
 
 import { useSelector } from 'react-redux';
 import { setCategoryIndex } from '../redux/slices/FilterSlice';
