@@ -1,13 +1,17 @@
 import React from 'react';
-import { addToCart } from '../../redux/slices/CartSlice';
+import { addToCart, increaseCount } from '../../redux/slices/cart/slice';
+import { selectCartItemById } from '../../redux/slices/cart/selectors';
 import { Link } from 'react-router-dom';
-import { CartItemInterface, PizzaBlockInterface } from '../../@types/assets';
+import { PizzaBlockInterface } from '../../@types/assets';
+import { CartItemInterface } from '../../redux/slices/cart/types';
 import { MouseEventHandler } from 'react';
 import { useAppDispatch } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
 
 const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl, sizes, types }): React.JSX.Element => {
-    const [pizzaCount, setPizzaCount] = React.useState<number>(0);
+
+    const pizzaCount = useSelector(selectCartItemById(id)).count;
     const [activeType, setActiveType] = React.useState<number>(0);
     const [activeSize, setActiveSize] = React.useState<number>(sizes[0]);
 
@@ -26,7 +30,7 @@ const PizzaBlock: React.FC<PizzaBlockInterface> = ({ id, title, price, imageUrl,
             count: pizzaCount + 1
         };
         dispatch(addToCart(item));
-        setPizzaCount((prev: number) => prev + 1);
+        dispatch(increaseCount(id));
     }
 
     const pizza_URL: string = `/pizza/${id}`;

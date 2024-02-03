@@ -3,13 +3,22 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { CartItemInterface } from '../@types/assets';
+import { CartItemInterface } from '../redux/slices/cart/types';
 
 const Header: React.FC = (): React.JSX.Element => {
 
     const { items, totalPrice } = useSelector((state: RootState) => state.cart);
-    const totalCount = items.reduce((sum: number, item: CartItemInterface) => sum + item.count, 0);
-    const location = useLocation().pathname;
+    const totalCount: number = items.reduce((sum: number, item: CartItemInterface) => sum + item.count, 0);
+    const location: string = useLocation().pathname;
+    const isMounted = React.useRef<boolean>(false);
+
+    React.useEffect(() => {
+        if (isMounted.current) {
+            localStorage.setItem('cart', JSON.stringify(items));
+            localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        }
+        isMounted.current = true;
+    }, [items, totalPrice]);
 
     return (
         <div className="header">

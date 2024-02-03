@@ -19,16 +19,6 @@ export interface PizzaInterface {
     rating: number
 }
 
-export interface CartItemInterface {
-    id: string,
-    imageUrl: string,
-    title: string,
-    activeType: string,
-    activeSize: number,
-    price: number,
-    count: number
-}
-
 export interface OnPageChangePagination {
     selected: number
 }
@@ -61,9 +51,4 @@ export interface FetchPizzasInterface {
 export interface PizzasInterface {
     pizzas: PizzaInterface[],
     status: Status
-}
-
-export interface CartInterface {
-    items: CartItemInterface[],
-    totalPrice: number
 }

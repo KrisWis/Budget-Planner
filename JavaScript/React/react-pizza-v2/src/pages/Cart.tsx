@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 
 import CartItem from '../components/CartItem';
 
-import { clearCart } from '../redux/slices/CartSlice';
+import { clearCart } from '../redux/slices/cart/slice';
 import CartEmpty from '../components/CartEmpty';
 
-import { cartSelector } from '../redux/slices/CartSlice';
+import { cartSelector } from '../redux/slices/cart/selectors';
 import { useAppDispatch } from '../redux/store';
 
 

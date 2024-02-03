@@ -384,3 +384,8 @@ let callback = function (entries, observer) {
 }
 
 // Часто, когда нужно получить все объекты с бека, то нужно в качестве limit указать -1.
+
+
+/* FEATURE-SLICED DESIGN - ЛУЧШАЯ FRONTEND АРХИТЕКТУРА - https://www.youtube.com/watch?v=O4SDx-aZY5U&t=206s */
+
+

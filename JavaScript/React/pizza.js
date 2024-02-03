@@ -994,3 +994,29 @@ const currentPage = useSelector((state) => state.filter.currentPage);
 /* СОХРАНЯЕМ ПИЦЦЫ В LOCALSTORAGE, ГРАМОТНО СТРУКТУРИРУЕМ ПАПКИ ПРОЕКТА - https://www.youtube.com/watch?v=hWvNWhA5J0M&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=27 */
 
 
+// В localStorage нельзя хранить прямой js, только json.
+// Пример добавления в localStorage значения:
+// useRef нужен для того, чтобы локалсторедж не очищался при первом рендере, когда items пусты.
+const isMounted = React.useRef < boolean > (false);
+React.useEffect(() => {
+    if (isMounted.current) {
+        localStorage.setItem('cart', JSON.stringify(items));
+        localStorage.setItem('totalCount', JSON.stringify(totalPrice));
+    }
+    isMounted.current = true;
+}, [items, totalPrice]);
+
+// А потом, в слайсе можем сразу брать значения из localStorage
+const cart = {
+    totalPrice: JSON.parse(localStorage.getItem("totalPrice")),
+    items: JSON.parse(localStorage.getItem("cart"))
+}
+
+// В папке utils храняться все вспомогательные файлы. Всякие вычисления и тд.
+
+// Правильно, в папке slices должны храниться папки слайсов, в которых будет selectors.ts, slice.ts, types.ts.
+
+
+/* ОПТИМИЗИРУЕМ СБОРКУ JS-ФАЙЛА. CODE SPLITTING, TREE SHAKING, REEXPORT - https://www.youtube.com/watch?v=uEcss7s6vBc&list=PL0FGkDGJQjJG9eI85xM1_iLIf6BcEdaNl&index=28 */
+
+

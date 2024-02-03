@@ -1,6 +1,6 @@
 import React from 'react';
-import { increaseCount, decreaseCount, removeFromCart } from '../redux/slices/CartSlice';
-import { CartItemInterface } from '../@types/assets';
+import { increaseCount, decreaseCount, removeFromCart } from '../redux/slices/cart/slice';
+import { CartItemInterface } from '../redux/slices/cart/types';
 import { useAppDispatch } from '../redux/store';
 import clsx from 'clsx';
 
