@@ -1,0 +1,9 @@
+.budget_items {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    gap: 3%;
+
+    @media (max-width: 1000px) {
+        grid-template-columns: 1fr;
+    }
+}
