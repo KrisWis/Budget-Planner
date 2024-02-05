@@ -1,4 +1,4 @@
-import { BudgetItems } from "./BudgetItems"
+import { BudgetItems } from './BudgetItems';
 import styles from './styles.module.scss';
 
 export const Header: React.FC = (): React.JSX.Element => {

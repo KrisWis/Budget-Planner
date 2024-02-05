@@ -1,0 +1,35 @@
+.content_block {
+    width: 100%;
+    border: 1px solid rgb(230, 230, 230);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 1.5%;
+
+    .price_and_delete {
+        display: flex;
+        width: 5%;
+        gap: 50%;
+        align-items: center;
+        margin-right: 50px;
+
+        .price {
+            background-color: lightblue;
+            border-radius: 15px;
+            padding: 8%;
+            width: 25px;
+            height: 25px;
+        }
+
+        .delete {
+            border-radius: 15px;
+            background-color: black;
+            color: #fff;
+            padding: 0 10%;
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+    }
+}
