@@ -1,4 +1,6 @@
-interface ButtonProps {
-    className: string,
+
+export interface ButtonProps {
+    className?: string,
+    onClick?: () => void,
     title: string
 }

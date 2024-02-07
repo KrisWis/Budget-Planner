@@ -7,4 +7,11 @@
     padding: 0 5%;
     font-weight: 700;
     border-radius: 10px;
+    position: relative;
+
+    .edit {
+        width: 15%;
+        position: absolute;
+        left: 27%;
+    }
 }

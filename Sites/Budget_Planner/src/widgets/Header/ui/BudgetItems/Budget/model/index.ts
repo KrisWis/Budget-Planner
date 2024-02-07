@@ -1,0 +1,3 @@
+interface BudgetProps {
+    budget: number
+}
