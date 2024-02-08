@@ -1,3 +1,4 @@
-interface AddExpense_Search_Props {
-    title: string
+export interface AddExpense_Search_Props {
+    title: string,
+    referrence?: any
 }
