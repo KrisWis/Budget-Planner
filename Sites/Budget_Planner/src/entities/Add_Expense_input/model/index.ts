@@ -1,4 +1,5 @@
 export interface AddExpense_Search_Props {
     title: string,
-    referrence?: any
+    referrence?: any,
+    error?: boolean
 }

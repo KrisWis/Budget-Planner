@@ -2,7 +2,7 @@ import { PayloadAction, Slice, createSlice } from '@reduxjs/toolkit';
 import { BudgetState } from './types';
 
 const initialState: BudgetState = {
-    budget: 0,
+    budget: JSON.parse(localStorage.getItem('budget') || '0'),
     remaining: 0,
     spentSoFar: 0
 }
@@ -18,6 +18,7 @@ export const BudgetSlice: Slice = createSlice({
 
         setBudget: (state: BudgetState, action: PayloadAction<number>): void => {
             state.budget = action.payload;
+            localStorage.setItem('budget', JSON.stringify(state.budget));
             state.remaining = state.budget - state.spentSoFar;
         },
 
