@@ -1,10 +1,12 @@
 import { Button } from '../../../../../../entities';
 import styles from './styles.module.scss';
 import React from 'react';
+import { setBudget } from '../../../../../../entities/Budget/model/slice';
+import { useAppDispatch } from '../../../../../../app/AppStore';
 
 export const Budget: React.FC<BudgetProps> = ({ budget }): React.JSX.Element => {
 
-    const [Budget, setBudget] = React.useState<number>(budget);
+    const dispatch = useAppDispatch();
 
     const [EditVisible, setEditVisible] = React.useState(false);
 
@@ -14,7 +16,7 @@ export const Budget: React.FC<BudgetProps> = ({ budget }): React.JSX.Element => 
         if (event) {
             event.preventDefault();
             if (event.keyCode === 13 || !event.key) {
-                setBudget(Number(EditInput.current!.value));
+                dispatch(setBudget(Number(EditInput.current!.value)));
                 setEditVisible(false);
                 EditInput.current!.removeEventListener("keyup", CloseEdit);
             }
@@ -32,8 +34,8 @@ export const Budget: React.FC<BudgetProps> = ({ budget }): React.JSX.Element => 
     }
     return (
         <div className={styles.budget}>
-            <p>Budget: ${EditVisible ? '' : Budget}</p>
-            <input ref={EditInput} type='number' className={EditVisible ? styles.edit : "hidden"} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setBudget(Number(e.target.value))} value={Budget} />
+            <p>Budget: ${EditVisible ? '' : budget}</p>
+            <input ref={EditInput} type='number' className={EditVisible ? styles.edit : "hidden"} onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(setBudget(Number(e.target.value)))} value={budget} />
             <Button onClick={!EditVisible ? showEdit : CloseEdit} title="Edit" />
         </div>
     )

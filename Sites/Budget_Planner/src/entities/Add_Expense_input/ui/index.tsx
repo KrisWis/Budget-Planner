@@ -8,6 +8,7 @@ export const AddExpense_search: React.FC<AddExpense_Search_Props> = ({ referrenc
 
             <h3>{title}</h3>
             <input ref={referrence} className={styles.input} />
+            <p className={`${styles.error}`}>В поле должно быть число!</p>
 
         </div>
     )

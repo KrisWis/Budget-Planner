@@ -13,6 +13,10 @@ export const Add_Expense: React.FC = (): React.JSX.Element => {
     const priceInputRef = React.useRef<HTMLInputElement>();
 
     const SaveOnClick = (): void => {
+        if (isNaN(Number(priceInputRef.current!.value))) {
+
+            return;
+        }
         dispatch(addExpense({ caption: titleInputRef.current!.value, price: priceInputRef.current!.value }));
         titleInputRef.current!.value = '';
         priceInputRef.current!.value = '';
