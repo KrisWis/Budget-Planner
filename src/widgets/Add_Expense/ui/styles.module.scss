@@ -1,0 +1,23 @@
+.caption {
+    font-family: 'Protest Riot', sans-serif;
+    font-size: 45px;
+    margin-top: 5%;
+}
+
+.forms {
+    display: grid;
+    width: 70%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5%;
+    height: 150px;
+}
+
+.save {
+    height: 5%;
+    margin-top: 2%;
+    width: 5%;
+
+    @media (max-width: 1000px) {
+        width: 15%;
+    }
+}

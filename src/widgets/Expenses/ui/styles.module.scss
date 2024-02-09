@@ -1,0 +1,16 @@
+.caption {
+    font-family: 'Protest Riot', sans-serif;
+    font-size: 45px;
+}
+
+.expenses_blocks {
+    margin-top: 3%;
+
+    :first-child {
+        border-radius: 10px 10px 0 0;
+    }
+
+    :last-child {
+        border-radius: 0 0 10px 10px;
+    }
+}
