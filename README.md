@@ -11,5 +11,4 @@
 Или вы можете просто зайти на [сайт](https://kriswis.github.io/Budget_planner/), загруженный на Github Pages.
 
 # Макет вёрстки
-![2024-02-05_16-27-46](https://github.com/KrisWis/Budget_planner/assets/94256853/4f0825ca-b85c-490f-8e5f-e1b69d8fa33f)
-****
+![2024-02-05_16-27-46](https://github.com/KrisWis/Budget-Planner/assets/94256853/a125840d-eff5-4b16-ae28-9c259b6575e0)
