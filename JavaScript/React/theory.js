@@ -460,3 +460,5 @@ export const RootReducer = combineReducers({news: newsReducer, [newsApi.reducerP
 // Вместо, к примеру src/aboba можно писать просто @ у всех путей.
 
 // FSD ещё в бете и оно зависит от субъективщины, для каждого человека оно своё, но концепция +- одинаковая.
+
+
