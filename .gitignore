@@ -3,3 +3,4 @@ Sites\Kopiberi\.env
 package.json
 package-lock.json
 .htmlhintrc
+node_modules
