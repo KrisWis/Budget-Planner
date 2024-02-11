@@ -24,6 +24,7 @@
     "react-paginate": "^8.2.0",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
+    "react-scripts": "^5.0.1",
     "recorder-js": "^1.0.7",
     "sass": "^1.69.7",
     "styled-components": "^6.1.7",
